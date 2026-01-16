@@ -15,6 +15,22 @@ Summer semester 2026
 
 # 
 
+<<<<<<< HEAD
 ## Crucial References
 
 [R for Data Science (2e)](https://r4ds.hadley.nz/)
+=======
+## References
+
+[R for Data Science (2e)](https://r4ds.hadley.nz/)
+
+<https://jofrhwld.github.io/AandS500_2023/>
+
+<https://jofrhwld.github.io/2023_Lin611/>
+
+<https://jofrhwld.github.io/teaching/courses/2017_lsa/>
+
+<https://alvinntnu.github.io/NTNU_ENC2036_LECTURES/>
+
+[querychat](https://posit-dev.github.io/querychat/r/index.html)
+>>>>>>> 3325b91 (update)
