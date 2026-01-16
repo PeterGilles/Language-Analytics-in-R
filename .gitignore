@@ -1,2 +1,16 @@
+<<<<<<< HEAD
 
+# macOS
 .DS_Store
+
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Project-specific (optional, you asked to ignore these)
+.Rprofile
+*.Rproj
+
+>>>>>>> 2d1f26b (init)
