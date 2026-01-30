@@ -13,13 +13,7 @@ Summer semester 2026
 
 ## Course plan
 
-# 
 
-<<<<<<< HEAD
-## Crucial References
-
-[R for Data Science (2e)](https://r4ds.hadley.nz/)
-=======
 ## References
 
 [R for Data Science (2e)](https://r4ds.hadley.nz/)
@@ -33,4 +27,3 @@ Summer semester 2026
 <https://alvinntnu.github.io/NTNU_ENC2036_LECTURES/>
 
 [querychat](https://posit-dev.github.io/querychat/r/index.html)
->>>>>>> 3325b91 (update)
