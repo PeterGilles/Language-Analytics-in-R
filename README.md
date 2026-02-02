@@ -1,5 +1,6 @@
 # Language Analytics in R
 
-Course Material for my R class in the Doctoral School
+Language Analytics and Visualisation with R for Linguistics and Digital Humanities
+
 
 [Course Plan.html](Course Plan.html)
