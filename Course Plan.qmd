@@ -3,6 +3,7 @@ title: "Course Plan"
 author: "Peter Gilles"
 format: html
 editor: visual
+bibliography: references.bib
 ---
 
 # Language Analytics in R
@@ -13,8 +14,11 @@ Summer semester 2026
 
 ## Course plan
 
-
 ## References
+
+[@schneider2024]
+
+[@winter2020]
 
 [R for Data Science (2e)](https://r4ds.hadley.nz/)
 
