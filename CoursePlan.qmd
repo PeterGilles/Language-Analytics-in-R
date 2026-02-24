@@ -4,6 +4,9 @@ author: "Peter Gilles"
 format: html
 editor: visual
 bibliography: references.bib
+project:
+  type: website
+  output-dir: docs
 ---
 
 # Language Analytics in R
