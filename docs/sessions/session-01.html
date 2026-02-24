@@ -206,8 +206,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#running-code-in-a-.qmd-file" id="toc-running-code-in-a-.qmd-file" class="nav-link" data-scroll-target="#running-code-in-a-.qmd-file">Running code in a .qmd file</a></li>
   </ul></li>
   <li><a href="#hands-on-exercises-toy-language-data" id="toc-hands-on-exercises-toy-language-data" class="nav-link" data-scroll-target="#hands-on-exercises-toy-language-data">Hands-on exercises (toy language data)</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   </ul>
 </nav>
     </div>
@@ -760,38 +758,6 @@ docs   the cat sat on mat dog ran in sun a
 <p><strong>(b) quanteda:</strong> Build a corpus with <code>corpus(your_tibble, text_field = "text")</code>. Call <code>summary(corp)</code> and <code>ntoken(corp)</code>. How many tokens are in the corpus? Optional: build a document-term matrix with <code>tokens(corp, remove_punct = TRUE) |&gt; dfm()</code> and print it.</p>
 <p><strong>(c)</strong> In one sentence: what is the main difference between the tidytext output (tibble of tokens or counts) and the quanteda <code>dfm</code> (document-term matrix)?</p></li>
 </ol>
-</section>
-<section id="summary" class="level1">
-<h1>Summary</h1>
-<ul>
-<li><strong>Run R</strong> in the console and in Quarto chunks; use <strong>Cmd+Enter</strong> and <strong>Render</strong>.</li>
-<li><strong>Assign</strong> with <code>&lt;-</code>; use <strong>snake_case</strong> and <strong>comments</strong> for clarity.</li>
-<li><strong>Call functions</strong> with <code>name(arg = value)</code>; use <strong>Tab</strong> and Help.</li>
-<li><strong>Style:</strong> spaces, pipe at end of line, sectioning comments; use <strong>styler</strong> and <strong>Cmd+Shift+R</strong>.</li>
-<li><strong>Quarto:</strong> combine text and code; re-render for reproducible reports.</li>
-<li><strong>Data import:</strong> use <code>read_csv()</code> for CSV tables; use <code>glimpse()</code>, <code>names()</code>, and <code>$</code> to inspect; keep data in a <code>data/</code> folder and use relative paths. Use <strong>tidytext</strong> (tibble + <code>unnest_tokens()</code>) for one-token-per-row workflows and <strong>quanteda</strong> (<code>corpus()</code>, <code>tokens()</code>, <code>dfm()</code>) for corpus objects and document-term matrices.</li>
-<li><strong>dplyr</strong> and the pipe will be used throughout the course for linguistic and corpus data; we go deeper in Session 2.</li>
-</ul>
-</section>
-<section id="further-reading" class="level1">
-<h1>Further reading</h1>
-<p><strong>R and workflow</strong></p>
-<ul>
-<li><a href="https://r4ds.hadley.nz/workflow-basics.html">R4DS — Workflow: basics (Ch 2)</a></li>
-<li><a href="https://r4ds.hadley.nz/data-transform.html">R4DS — Data transformation (Ch 3)</a></li>
-<li><a href="https://r4ds.hadley.nz/workflow-style.html">R4DS — Workflow: code style (Ch 4)</a></li>
-<li><a href="https://style.tidyverse.org/">tidyverse style guide</a></li>
-<li><a href="https://quarto.org/docs/guide/">Quarto documentation</a></li>
-</ul>
-<p><strong>R for linguists and language data</strong></p>
-<ul>
-<li><a href="https://eleanorchodroff.com/r-for-linguists/">R for Linguists</a> — basics, variables, vectors, datasets, dplyr, ggplot2, strings and tidyr (with linguistic examples and datasets).</li>
-<li><a href="https://jofrhwld.github.io/AandS500_2023/">A&amp;S500 / Lin517 — Quantitative Investigations</a> (J. Fruehwald) — Quarto, strings, text, sentiment, quanteda.</li>
-<li><a href="https://jofrhwld.github.io/2023_Lin611/">Lin611 — Quantitative Methods in Linguistics</a> (J. Fruehwald) — tidyverse, Winter (2019) textbook, OSF data, vowel normalization, modelling.</li>
-<li><a href="https://alvinntnu.github.io/NTNU_ENC2036_LECTURES/">NTNU ENC2036 — Corpus Linguistics</a> — corpus methods, R packages (tidytext, quanteda, stringr, etc.).</li>
-<li><a href="https://jofrhwld.github.io/teaching/courses/2017_lsa/">LSA 2017 — Linguistic data in R</a> — further linguistics-oriented R materials.</li>
-<li><a href="https://appliedstatisticsforlinguists.org/">Applied statistics for linguists</a> — Winter, statistics and R for linguists (including proofs/chapters).</li>
-</ul>
 
 
 </section>

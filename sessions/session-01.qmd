@@ -457,32 +457,3 @@ Example chunk options:
     **(b) quanteda:** Build a corpus with `corpus(your_tibble, text_field = "text")`. Call `summary(corp)` and `ntoken(corp)`. How many tokens are in the corpus? Optional: build a document-term matrix with `tokens(corp, remove_punct = TRUE) |> dfm()` and print it.
 
     **(c)** In one sentence: what is the main difference between the tidytext output (tibble of tokens or counts) and the quanteda `dfm` (document-term matrix)?
-
-# Summary
-
--   **Run R** in the console and in Quarto chunks; use **Cmd+Enter** and **Render**.
--   **Assign** with `<-`; use **snake_case** and **comments** for clarity.
--   **Call functions** with `name(arg = value)`; use **Tab** and Help.
--   **Style:** spaces, pipe at end of line, sectioning comments; use **styler** and **Cmd+Shift+R**.
--   **Quarto:** combine text and code; re-render for reproducible reports.
--   **Data import:** use `read_csv()` for CSV tables; use `glimpse()`, `names()`, and `$` to inspect; keep data in a `data/` folder and use relative paths. Use **tidytext** (tibble + `unnest_tokens()`) for one-token-per-row workflows and **quanteda** (`corpus()`, `tokens()`, `dfm()`) for corpus objects and document-term matrices.
--   **dplyr** and the pipe will be used throughout the course for linguistic and corpus data; we go deeper in Session 2.
-
-# Further reading {#further-reading}
-
-**R and workflow**
-
--   [R4DS — Workflow: basics (Ch 2)](https://r4ds.hadley.nz/workflow-basics.html)
--   [R4DS — Data transformation (Ch 3)](https://r4ds.hadley.nz/data-transform.html)
--   [R4DS — Workflow: code style (Ch 4)](https://r4ds.hadley.nz/workflow-style.html)
--   [tidyverse style guide](https://style.tidyverse.org/)
--   [Quarto documentation](https://quarto.org/docs/guide/)
-
-**R for linguists and language data**
-
--   [R for Linguists](https://eleanorchodroff.com/r-for-linguists/) — basics, variables, vectors, datasets, dplyr, ggplot2, strings and tidyr (with linguistic examples and datasets).
--   [A&S500 / Lin517 — Quantitative Investigations](https://jofrhwld.github.io/AandS500_2023/) (J. Fruehwald) — Quarto, strings, text, sentiment, quanteda.
--   [Lin611 — Quantitative Methods in Linguistics](https://jofrhwld.github.io/2023_Lin611/) (J. Fruehwald) — tidyverse, Winter (2019) textbook, OSF data, vowel normalization, modelling.
--   [NTNU ENC2036 — Corpus Linguistics](https://alvinntnu.github.io/NTNU_ENC2036_LECTURES/) — corpus methods, R packages (tidytext, quanteda, stringr, etc.).
--   [LSA 2017 — Linguistic data in R](https://jofrhwld.github.io/teaching/courses/2017_lsa/) — further linguistics-oriented R materials.
--   [Applied statistics for linguists](https://appliedstatisticsforlinguists.org/) — Winter, statistics and R for linguists (including proofs/chapters).
