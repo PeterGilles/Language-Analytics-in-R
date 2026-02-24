@@ -1,5 +1,5 @@
 ---
-title: "Course Plan"
+title: "Syllabus"
 author: "Peter Gilles"
 format: html
 editor: visual
@@ -15,7 +15,7 @@ Seminar in the Doctoral School HSS at the University of Luxembourg
 
 Summer semester 2026
 
-## Course plan
+## Syllabus
 
 ## References
 
