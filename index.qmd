@@ -28,7 +28,7 @@ Six sessions
 1.  Introduction:
     1.  Examples from own research
     2.  First steps in Rstudio, packages and basic constructs (workflow, variables, scripting in Rmarkdown; writing good code)
-    3.  work with text data and corpora (data import etc.)
+    3.  Work with text data and corpora (data import etc.)
     4.  Hands-on exercises on toy data
 2.  Data wrangling
     1.  tidyverse
