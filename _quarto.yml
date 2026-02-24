@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+  
+website:
+  title: "Language Analytics in R"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: sessions/session-01.qmd
+        text: Session 1
+      - href: sessions/session-02.qmd
+        text: Session 2
+      - href: sessions/session-03.qmd
+        text: Session 3
+      - href: sessions/session-04.qmd
+        text: Session 4        
+      - href: sessions/session-05.qmd
+        text: Session 5
+      - href: sessions/session-06.qmd
+        text: Session 6        
+format:
+  html:
+    toc: true
+    number-sections: false

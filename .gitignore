@@ -10,3 +10,6 @@
 # Project-specific (you asked to ignore these)
 .Rprofile
 *.Rproj
+
+/.quarto/
+**/*.quarto_ipynb
