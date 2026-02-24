@@ -11,13 +11,22 @@ project:
 
 # Language Analytics in R
 
-Seminar in the Doctoral School HSS at the University of Luxembourg
-
-Summer semester 2026
+Seminar in the Doctoral School HSS at the University of Luxembourg \| Summer semester 2026
 
 ## Syllabus
 
-## References
+1.  Introduction: First steps and basic constructs
+
+2\.
+
+3\.
+
+4\.
+
+5.  Work on own projects
+6.  Work on projects
+
+## Resources and recommended reading
 
 [@schneider2024]
 
