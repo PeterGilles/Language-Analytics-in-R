@@ -1,0 +1,488 @@
+---
+title: "Session 1 — Introduction: R workflow and first steps"
+subtitle: "Language Analytics in R"
+author: "Peter Gilles"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: false
+editor: visual
+---
+
+## Learning objectives
+
+By the end of this session you will:
+
+-   Use RStudio and run R code in the console and in a Quarto document.
+-   Create and inspect objects with the assignment operator (`<-`).
+-   Write clear names and comments, and apply basic code style.
+-   Call functions with correct syntax and use the pipe (`|>`).
+-   Run and render a minimal Quarto (.qmd) script.
+-   **Load and inspect text/language data** (e.g. CSV) and understand basics of data import for corpora.
+-   **Use tidytext and quanteda** to turn short example text into tokens and a corpus, and run minimal counts.
+
+This course focuses on **linguistic and language data in R**. Examples and exercises use words, frequencies, and simple text data so you can quickly apply the same ideas to your own corpora and experiments.
+
+The material draws on [R for Data Science (2e)](https://r4ds.hadley.nz/) (chapters 2–4), [R for Linguists](https://eleanorchodroff.com/r-for-linguists/), and other linguistics-oriented R resources (see [Further reading](#further-reading)).
+
+# RStudio and running R code
+
+## The RStudio interface
+
+-   **Console**: type R code and see results.
+-   **Editor**: write and save scripts (e.g. `.qmd` or `.R`).
+-   **Environment**: view objects you have created (datasets, variables).
+-   **Files / Plots / Help**: navigate files, view plots, read help.
+
+Run code from the editor with **Cmd+Enter** (Mac) or **Ctrl+Enter** (Windows/Linux).
+
+## Coding basics {#sec-basics}
+
+You can use R as a calculator (e.g. for reaction times, accuracy, or counts):
+
+```{r}
+#| label: calc-basics
+
+1 / 200 * 30
+(59 + 73 + 2) / 3
+sin(pi / 2)
+```
+
+Create objects with **assignment**:
+
+```{r}
+#| label: assignment
+
+# e.g. store a value like VOT (ms) or word length
+vot_ms <- 25
+word_length <- nchar("linguistics")
+```
+
+The value is stored but not printed. Type the object name to inspect it:
+
+```{r}
+vot_ms
+word_length
+```
+
+Combine values into a **vector** with `c()` — like a column of observations (e.g. reaction times, word lengths, or a list of words):
+
+```{r}
+# numeric vector: e.g. reaction times in ms
+rt_ms <- c(320, 415, 380, 290, 410)
+
+# character vector: e.g. word forms or conditions
+words <- c("cat", "dog", "mouse")
+```
+
+Every assignment has the form:
+
+``` text
+object_name <- value
+```
+
+Read it as: *“object name gets value”*.
+
+**Tip:** In RStudio use **Alt + -** (minus) to insert `<-` with spaces.
+
+# Comments and names
+
+## Comments
+
+R ignores everything after `#` on a line. Use comments to explain *why* you did something (e.g. why you chose a threshold or excluded a condition), not just *what* the code does.
+
+```{r}
+#| label: comments
+
+# word list for lexical decision practice
+words <- c("cat", "dog", "mouse")
+
+# mean reaction time (ms)
+mean(rt_ms)
+```
+
+## What’s in a name? {#sec-names}
+
+-   Names must **start with a letter** and contain only letters, numbers, `_`, and `.`.
+-   Use **snake_case**: lowercase words separated by `_` (e.g. `word_list`, `response_time`).
+
+```{r}
+#| label: naming
+
+response_time_ms <- 320
+word_list <- c("the", "cat", "sat")
+# Avoid: responseTimeMs, Word.List
+```
+
+R is case-sensitive and does not fix typos: `word_list` and `Word_list` are different objects.
+
+**Tip:** Type a prefix and press **Tab** for autocomplete; use **↑** or **Cmd+↑** to recall previous commands.
+
+# Calling functions
+
+Functions are called like this:
+
+``` text
+function_name(argument1 = value1, argument2 = value2, ...)
+```
+
+Example: `seq()` creates sequences (e.g. for item IDs or conditions):
+
+```{r}
+#| label: seq-call
+
+seq(from = 1, to = 10)
+seq(1, 5, by = 0.5)
+```
+
+You can omit argument names for the first arguments. Use **Tab** after typing a function name to see arguments and help.
+
+**Strings** (text) need **matched quotation marks** — essential when working with words and corpora:
+
+```{r}
+word <- "hello"
+# Compare strings (e.g. for accuracy coding)
+"linguistics" == "linguistics"
+"linguistics" == "lingiustics"
+```
+
+If you see a `+` in the console, R is waiting for more input (often a missing `"` or `)`). Press **Escape** to cancel.
+
+# Code style {#sec-style}
+
+Good style makes code easier to read for you and others. We follow the [tidyverse style guide](https://style.tidyverse.org/).
+
+## Names (reminder)
+
+-   Use lowercase, numbers, and `_`.
+-   Prefer **long, descriptive names** (e.g. `participant_response_time` over `prt`).
+
+## Spaces
+
+-   Put spaces around `+`, `-`, `==`, `<`, etc. (except `^`).
+-   Put spaces around `<-`.
+-   Put a space after every comma.
+
+```{r}
+#| label: style-spaces
+
+# Strive for: spaces around operators and after comma
+n_char <- nchar("word")
+mean(rt_ms, na.rm = TRUE)
+# Avoid: n_char<-nchar("word") or mean(rt_ms,na.rm=TRUE)
+```
+
+## Pipes
+
+The pipe `|>` passes the result on the left into the function on the right. Read it as *“then”*.
+
+-   Put a space before `|>` and put `|>` at the **end** of the line.
+-   Indent the next line by two spaces.
+
+We’ll use the pipe with **language data** in the next section.
+
+## Sectioning comments
+
+Break long scripts into sections:
+
+``` r
+# Load data --------------------------------------
+
+# Plot data --------------------------------------
+```
+
+In RStudio: **Cmd+Shift+R** (Mac) or **Ctrl+Shift+R** (Windows/Linux) inserts a section header.
+
+**Tip:** Install the **styler** package and use the command palette (**Cmd+Shift+P**) to format code automatically.
+
+# Working with text data and corpora (data import)
+
+For language analytics we usually work with **tables** (e.g. CSV or Excel) or **text files**. Here we cover reading tabular data with **readr**, then **tidytext** and **quanteda** for turning text into a format you can analyze. Later sessions will go deeper (frequency lists, sentiment, document classification, etc.).
+
+## Packages
+
+Install a package once with `install.packages("package_name")`. Load it every time you start R or open a document with `library(package_name)`:
+
+```{r}
+#| label: packages
+#| message: false
+
+# Core packages for data import and manipulation
+library(tidyverse)
+```
+
+## Reading a CSV file
+
+Use `read_csv()` from the **readr** package (included in tidyverse) to read comma-separated files — e.g. experiment results, word lists, or corpus metadata:
+
+```{r}
+#| label: read-csv
+
+# Example: create a small toy CSV in memory (simulating a saved file)
+toy_csv <- "word,freq,pos
+the,100,det
+cat,5,noun
+sat,3,verb
+the,100,det"
+
+# read_csv() can take a string or a file path
+word_freq <- read_csv(toy_csv, show_col_types = FALSE)
+word_freq
+```
+
+In practice you will use a **file path** to your data, e.g. `read_csv("data/lexical_decision.csv")`. Put your data files in a project folder (e.g. `data/`) and use relative paths so your project stays portable.
+
+## Inspecting the dataset
+
+-   **Print** the data frame: type its name.
+-   **View()**: opens a spreadsheet-like viewer in RStudio.
+-   **glimpse()**: compact view of columns and types (very useful for many variables).
+
+```{r}
+#| label: inspect-data
+
+glimpse(word_freq)
+nrow(word_freq)
+ncol(word_freq)
+names(word_freq)
+```
+
+## Accessing columns
+
+Use `$` to get one column as a vector (e.g. for computing over word frequencies or reaction times):
+
+```{r}
+word_freq$word
+word_freq$freq
+mean(word_freq$freq)
+```
+
+## Reading text with tidytext {#reading-text-with-tidytext}
+
+The **tidytext** package treats text as a **tidy** data frame: one row per token (e.g. word). You start from a table with one row per document (or line) and a text column, then **tokenize** with `unnest_tokens()`.
+
+**Install once:** `install.packages("tidytext")`. Then load it with `library(tidytext)` (and `library(tidyverse)` for tibbles and the pipe).
+
+**Example:** build a small “corpus” as a tibble with document IDs and text, then split into words:
+
+```{r}
+#| label: tidytext-example
+#| message: false
+
+library(tidytext)
+
+# Toy corpus: one row per document
+toy_corpus_tidy <- tibble(
+  doc_id = c("doc1", "doc2", "doc3"),
+  text = c(
+    "The cat sat on the mat.",
+    "The dog ran in the sun.",
+    "A cat and a dog."
+  )
+)
+
+# Tokenize: one row per word (punctuation removed, lowercased by default)
+toy_tokens <- toy_corpus_tidy |>
+  unnest_tokens(output = word, input = text)
+
+toy_tokens
+```
+
+You can then count words, filter stopwords, or join with lexicons (e.g. sentiment). Word counts:
+
+```{r}
+toy_tokens |>
+  count(word, sort = TRUE)
+```
+
+For real projects you might read documents with `read_csv()` or `read_lines()` into a tibble with a `text` column, then use `unnest_tokens()` the same way.
+
+## Reading text with quanteda {#reading-text-with-quanteda}
+
+The **quanteda** package works with a **corpus** object: a collection of documents with metadata. You can build a corpus from a character vector (one string per document) or from a data frame with a text column.
+
+**Install once:** `install.packages("quanteda")`. Then load with `library(quanteda)`.
+
+**Example:** use the same toy sentences; create a corpus and inspect it:
+
+```{r}
+#| label: quanteda-example
+#| message: false
+
+library(quanteda)
+
+# Option A: corpus from a data frame (need docid and text column)
+toy_df <- tibble(
+  doc_id = c("doc1", "doc2", "doc3"),
+  text = c(
+    "The cat sat on the mat.",
+    "The dog ran in the sun.",
+    "A cat and a dog."
+  )
+)
+corp <- corpus(toy_df, text_field = "text")
+
+# Option B: corpus from a named character vector
+# texts <- c(doc1 = "The cat sat on the mat.", doc2 = "The dog ran.", ...)
+# corp <- corpus(texts)
+
+# Basic inspection
+summary(corp)
+ndoc(corp)
+ntoken(corp)
+```
+
+To get a **document-term matrix** (documents × terms) for frequency analysis or modelling:
+
+```{r}
+# Tokenize and build document-term matrix
+dtm <- corp |>
+  tokens(remove_punct = TRUE) |>
+  dfm()
+dtm
+```
+
+Later you can use `readtext::readtext()` to read files from disk into a data frame, then pass that to `corpus(..., text_field = "text")`.
+
+**When to use which?**
+
+-   **tidytext**: you prefer working in tibbles and dplyr (one row per token); good for word counts, sentiment, and tidy-style workflows.
+-   **quanteda**: you need a corpus object, document-term matrices, or built-in NLP (e.g. keywords, collocations, classification); good for corpus linguistics and text mining.
+-   **readr/read_csv**: for tabular data (responses, word lists, metadata); combine with tidytext or quanteda when your “text” lives in a column.
+
+# First taste of data transformation (with language data) {#first-taste-of-data-transformation-with-language-data}
+
+We use **dplyr** (part of the tidyverse) to filter, select, and summarize data. Key ideas:
+
+-   First argument is always a **data frame**.
+-   You refer to **column names** without quotes.
+-   The result is a **new data frame** (the original is unchanged).
+
+Use the pipe to chain steps. Example: take a small **word/frequency** table, filter by frequency, then sort:
+
+```{r}
+#| label: first-pipe
+#| message: false
+
+# Build a tiny “corpus-like” table: word, frequency, condition
+word_data <- tibble(
+  word = c("the", "cat", "sat", "on", "mat", "dog", "ran"),
+  freq = c(100, 5, 3, 50, 2, 8, 4),
+  pos = c("det", "noun", "verb", "prep", "noun", "noun", "verb")
+)
+
+# Then: filter, arrange, show
+word_data |>
+  filter(freq >= 4) |>
+  arrange(desc(freq)) |>
+  select(word, freq, pos)
+```
+
+Read this as: *“Take `word_data`, then keep rows where `freq` is at least 4, then sort by `freq` descending, then show columns `word`, `freq`, `pos`.”*
+
+Main verbs you will see again in Session 2:
+
+-   `filter()` — keep rows that satisfy a condition (e.g. certain words or participants).
+-   `select()` — keep or drop columns.
+-   `mutate()` — add or change columns (e.g. log frequency, word length).
+-   `arrange()` — sort rows.
+-   `summarize()` — compute summaries (often with `group_by()`).
+
+# Scripting in Quarto
+
+## Why Quarto?
+
+-   Combine **text, code, and output** in one document — ideal for reporting on corpus or experiment results.
+-   **Reproducible**: re-run and re-render to update tables and figures.
+-   Output to HTML, PDF, or other formats.
+
+## Running code in a .qmd file
+
+-   **Code chunks** are enclosed in ```` ```{r} ```` and ```` ``` ````.
+-   Run one chunk: **Cmd+Enter** (Mac) or **Ctrl+Enter** (Windows/Linux).
+-   Render the whole document: **Cmd+Shift+K** (or **Ctrl+Shift+K**) or click *Render*.
+
+Example chunk options:
+
+``` r
+#| label: my-chunk
+#| echo: true
+#| eval: true
+```
+
+-   `label`: unique name for the chunk.
+-   `echo`: whether to show the code in the output.
+-   `eval`: whether to run the code.
+
+# Hands-on exercises (toy language data)
+
+1.  **Typo.** Why does this fail? (Look very carefully at the object name.)
+
+    ``` r
+    my_variable <- 10
+    my_varıable   # error (hint: different character than 'i')
+    ```
+
+2.  **Vectors and strings.** In a new code chunk:
+
+    -   Create a character vector `test_words` with at least three words (e.g. `c("word1", "word2", "word3")`).
+    -   Use `length(test_words)` and `nchar(test_words)` and interpret the result.
+
+3.  **Comparisons.** Run these and say what they return (TRUE/FALSE) and why:
+
+    ``` r
+    "dog" == "dog"
+    "dog" != "cat"
+    nchar("linguistics") > 5
+    ```
+
+4.  **Data import and inspection.** Create a short CSV string with columns `word` and `count` (e.g. three rows). Read it with `read_csv()`, then use `glimpse()` and `$` to inspect the `count` column and compute `mean(count)`.
+
+5.  **Pipe and filter.** Using the `word_data` table from the [First taste](#first-taste-of-data-transformation-with-language-data) section (re-run that chunk if needed), write a pipe that:
+
+    -   keeps only rows where `pos` is `"noun"`,
+    -   then arranges by `freq` ascending.
+
+6.  **Style.** Restyle this into a clear, multi-line pipe (spaces, line breaks, indentation):
+
+    ``` r
+    word_data|>filter(freq>3)|>arrange(freq)|>select(word,freq)
+    ```
+
+7.  **tidytext and quanteda (hands-on).** Use the same toy texts as in the [tidytext](#reading-text-with-tidytext) and [quanteda](#reading-text-with-quanteda) sections (or two short sentences of your own in a tibble with columns `doc_id` and `text`).
+
+    **(a) tidytext:** Tokenize the text with `unnest_tokens(output = word, input = text)`. Then, using the pipe, count words with `count(word, sort = TRUE)` and show the result. How many times does *the* appear?
+
+    **(b) quanteda:** Build a corpus with `corpus(your_tibble, text_field = "text")`. Call `summary(corp)` and `ntoken(corp)`. How many tokens are in the corpus? Optional: build a document-term matrix with `tokens(corp, remove_punct = TRUE) |> dfm()` and print it.
+
+    **(c)** In one sentence: what is the main difference between the tidytext output (tibble of tokens or counts) and the quanteda `dfm` (document-term matrix)?
+
+# Summary
+
+-   **Run R** in the console and in Quarto chunks; use **Cmd+Enter** and **Render**.
+-   **Assign** with `<-`; use **snake_case** and **comments** for clarity.
+-   **Call functions** with `name(arg = value)`; use **Tab** and Help.
+-   **Style:** spaces, pipe at end of line, sectioning comments; use **styler** and **Cmd+Shift+R**.
+-   **Quarto:** combine text and code; re-render for reproducible reports.
+-   **Data import:** use `read_csv()` for CSV tables; use `glimpse()`, `names()`, and `$` to inspect; keep data in a `data/` folder and use relative paths. Use **tidytext** (tibble + `unnest_tokens()`) for one-token-per-row workflows and **quanteda** (`corpus()`, `tokens()`, `dfm()`) for corpus objects and document-term matrices.
+-   **dplyr** and the pipe will be used throughout the course for linguistic and corpus data; we go deeper in Session 2.
+
+# Further reading {#further-reading}
+
+**R and workflow**
+
+-   [R4DS — Workflow: basics (Ch 2)](https://r4ds.hadley.nz/workflow-basics.html)
+-   [R4DS — Data transformation (Ch 3)](https://r4ds.hadley.nz/data-transform.html)
+-   [R4DS — Workflow: code style (Ch 4)](https://r4ds.hadley.nz/workflow-style.html)
+-   [tidyverse style guide](https://style.tidyverse.org/)
+-   [Quarto documentation](https://quarto.org/docs/guide/)
+
+**R for linguists and language data**
+
+-   [R for Linguists](https://eleanorchodroff.com/r-for-linguists/) — basics, variables, vectors, datasets, dplyr, ggplot2, strings and tidyr (with linguistic examples and datasets).
+-   [A&S500 / Lin517 — Quantitative Investigations](https://jofrhwld.github.io/AandS500_2023/) (J. Fruehwald) — Quarto, strings, text, sentiment, quanteda.
+-   [Lin611 — Quantitative Methods in Linguistics](https://jofrhwld.github.io/2023_Lin611/) (J. Fruehwald) — tidyverse, Winter (2019) textbook, OSF data, vowel normalization, modelling.
+-   [NTNU ENC2036 — Corpus Linguistics](https://alvinntnu.github.io/NTNU_ENC2036_LECTURES/) — corpus methods, R packages (tidytext, quanteda, stringr, etc.).
+-   [LSA 2017 — Linguistic data in R](https://jofrhwld.github.io/teaching/courses/2017_lsa/) — further linguistics-oriented R materials.
+-   [Applied statistics for linguists](https://appliedstatisticsforlinguists.org/) — Winter, statistics and R for linguists (including proofs/chapters).

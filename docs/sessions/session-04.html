@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Peter Gilles">
 
-<title>Syllabus – Language Analytics in R</title>
+<title>session-01 – Language Analytics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,47 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -100,9 +79,9 @@ div.csl-indent {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Language Analytics in R</span>
     </a>
   </div>
@@ -113,31 +92,31 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./sessions/session-01.html"> 
+    <a class="nav-link" href="../sessions/session-01.html"> 
 <span class="menu-text">Session 1</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./sessions/session-02.html"> 
+    <a class="nav-link" href="../sessions/session-02.html"> 
 <span class="menu-text">Session 2</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./sessions/session-03.html"> 
+    <a class="nav-link" href="../sessions/session-03.html"> 
 <span class="menu-text">Session 3</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./sessions/session-04.html"> 
+    <a class="nav-link active" href="../sessions/session-04.html" aria-current="page"> 
 <span class="menu-text">Session 4</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./sessions/session-05.html"> 
+    <a class="nav-link" href="../sessions/session-05.html"> 
 <span class="menu-text">Session 5</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./sessions/session-06.html"> 
+    <a class="nav-link" href="../sessions/session-06.html"> 
 <span class="menu-text">Session 6</span></a>
   </li>  
 </ul>
@@ -151,39 +130,21 @@ div.csl-indent {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#language-analytics-in-r" id="toc-language-analytics-in-r" class="nav-link active" data-scroll-target="#language-analytics-in-r">Language Analytics in R</a>
-  <ul class="collapse">
-  <li><a href="#syllabus" id="toc-syllabus" class="nav-link" data-scroll-target="#syllabus">Syllabus</a></li>
-  <li><a href="#resources-and-recommended-reading" id="toc-resources-and-recommended-reading" class="nav-link" data-scroll-target="#resources-and-recommended-reading">Resources and recommended reading</a></li>
-  <li><a href="#r-cheatsheets" id="toc-r-cheatsheets" class="nav-link" data-scroll-target="#r-cheatsheets">R cheatsheets</a></li>
-  <li><a href="#ai-tools" id="toc-ai-tools" class="nav-link" data-scroll-target="#ai-tools">AI tools</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Syllabus</h1>
+<h1 class="title">session-01</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Peter Gilles </p>
-          </div>
-  </div>
     
   
     
@@ -194,73 +155,10 @@ div.csl-indent {
 </header>
 
 
-<section id="language-analytics-in-r" class="level1">
-<h1>Language Analytics in R</h1>
-<p>Seminar in the Doctoral School HSS at the University of Luxembourg | Summer semester 2026</p>
-<p>Initial steps:</p>
-<ul>
-<li><p>install R</p></li>
-<li><p>install RStudio</p></li>
-<li><p>install these packages in RStudio: tidyverse, languageR, tidytext, quanteda</p></li>
-</ul>
-<section id="syllabus" class="level2">
-<h2 class="anchored" data-anchor-id="syllabus">Syllabus</h2>
-<p>Six sessions</p>
-<ol type="1">
-<li>Introduction:
-<ol type="1">
-<li>Examples from own research</li>
-<li>First steps in Rstudio, packages and basic constructs (workflow, variables, scripting in Rmarkdown; writing good code)</li>
-<li>work with text data and corpora (data import etc.)</li>
-<li>little hands-on exercises on toy data</li>
-</ol></li>
-<li>Data wrangling
-<ol type="1">
-<li>tidyverse</li>
-</ol></li>
-<li>Statistics</li>
-<li>Visualisation with ggplot2</li>
-<li>Work on own projects</li>
-<li>Work on own projects</li>
-</ol>
-</section>
-<section id="resources-and-recommended-reading" class="level2">
-<h2 class="anchored" data-anchor-id="resources-and-recommended-reading">Resources and recommended reading</h2>
-<p><span class="citation" data-cites="levshina2015">(<a href="#ref-levshina2015" role="doc-biblioref">Levshina 2015</a>)</span></p>
-<p><span class="citation" data-cites="schneider2024">(<a href="#ref-schneider2024" role="doc-biblioref">Schneider 2024</a>)</span></p>
-<p><span class="citation" data-cites="winter2020">(<a href="#ref-winter2020" role="doc-biblioref">Winter 2020</a>)</span> (<a href="https://appliedstatisticsforlinguists.org/bwinter_stats_proofs.pdf" class="uri">https://appliedstatisticsforlinguists.org/bwinter_stats_proofs.pdf</a>)</p>
-<p><a href="https://r4ds.hadley.nz/">R for Data Science (2e)</a></p>
-<p><a href="https://eleanorchodroff.com/r-for-linguists/" class="uri">https://eleanorchodroff.com/r-for-linguists/</a></p>
-<p><a href="https://jofrhwld.github.io/AandS500_2023/" class="uri">https://jofrhwld.github.io/AandS500_2023/</a></p>
-<p><a href="https://jofrhwld.github.io/2023_Lin611/" class="uri">https://jofrhwld.github.io/2023_Lin611/</a></p>
-<p><a href="https://jofrhwld.github.io/teaching/courses/2017_lsa/" class="uri">https://jofrhwld.github.io/teaching/courses/2017_lsa/</a></p>
-<p><a href="https://alvinntnu.github.io/NTNU_ENC2036_LECTURES/" class="uri">https://alvinntnu.github.io/NTNU_ENC2036_LECTURES/</a></p>
-</section>
-<section id="r-cheatsheets" class="level2">
-<h2 class="anchored" data-anchor-id="r-cheatsheets">R cheatsheets</h2>
-<p><a href="https://posit.co/resources/cheatsheets/" class="uri">https://posit.co/resources/cheatsheets/</a></p>
-<p><a href="https://cran.r-project.org/doc/contrib/Short-refcard.pdf" class="uri">https://cran.r-project.org/doc/contrib/Short-refcard.pdf</a></p>
-</section>
-<section id="ai-tools" class="level2">
-<h2 class="anchored" data-anchor-id="ai-tools">AI tools</h2>
-<p><a href="https://posit-dev.github.io/querychat/r/index.html">querychat</a></p>
 
 
 
-</section>
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-levshina2015" class="csl-entry" role="listitem">
-Levshina, Natalia. 2015. <em>How to Do Linguistics with R: Data Exploration and Statistical Analysis</em>. Amsterdam: John Benjamins Publishing Company. <a href="https://doi.org/10.1075/z.195;">https://doi.org/10.1075/z.195;</a>
-</div>
-<div id="ref-schneider2024" class="csl-entry" role="listitem">
-Schneider, Gerold. 2024. <em>Text analytics for corpus linguistics and digital humanities: simple R scripts and tools</em>. Language, data science and digital humanities. London: Bloomsbury.
-</div>
-<div id="ref-winter2020" class="csl-entry" role="listitem">
-Winter, Bodo. 2020. <em>Statistics for Linguists: An Introduction Using r</em>. London: Routledge. <a href="https://www.taylorfrancis.com/books/9781315165547">https://www.taylorfrancis.com/books/9781315165547</a>.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

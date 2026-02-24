@@ -4,20 +4,160 @@
     "href": "index.html",
     "title": "Syllabus",
     "section": "",
-    "text": "Seminar in the Doctoral School HSS at the University of Luxembourg | Summer semester 2026\n\n\n\nIntroduction: First steps and basic constructs\n\n2.\n3.\n4.\n\nWork on own projects\nWork on projects\n\n\n\n\n(Levshina 2015)\n(Schneider 2024)\n(Winter 2020)\nR for Data Science (2e)\nhttps://jofrhwld.github.io/AandS500_2023/\nhttps://jofrhwld.github.io/2023_Lin611/\nhttps://jofrhwld.github.io/teaching/courses/2017_lsa/\nhttps://alvinntnu.github.io/NTNU_ENC2036_LECTURES/\nquerychat"
+    "text": "Seminar in the Doctoral School HSS at the University of Luxembourg | Summer semester 2026\nInitial steps:\n\ninstall R\ninstall RStudio\ninstall these packages in RStudio: tidyverse, languageR, tidytext, quanteda\n\n\n\nSix sessions\n\nIntroduction:\n\nExamples from own research\nFirst steps in Rstudio, packages and basic constructs (workflow, variables, scripting in Rmarkdown; writing good code)\nwork with text data and corpora (data import etc.)\nlittle hands-on exercises on toy data\n\nData wrangling\n\ntidyverse\n\nStatistics\nVisualisation with ggplot2\nWork on own projects\nWork on own projects\n\n\n\n\n(Levshina 2015)\n(Schneider 2024)\n(Winter 2020) (https://appliedstatisticsforlinguists.org/bwinter_stats_proofs.pdf)\nR for Data Science (2e)\nhttps://eleanorchodroff.com/r-for-linguists/\nhttps://jofrhwld.github.io/AandS500_2023/\nhttps://jofrhwld.github.io/2023_Lin611/\nhttps://jofrhwld.github.io/teaching/courses/2017_lsa/\nhttps://alvinntnu.github.io/NTNU_ENC2036_LECTURES/\n\n\n\nhttps://posit.co/resources/cheatsheets/\nhttps://cran.r-project.org/doc/contrib/Short-refcard.pdf\n\n\n\nquerychat"
   },
   {
     "objectID": "index.html#syllabus",
     "href": "index.html#syllabus",
     "title": "Syllabus",
     "section": "",
-    "text": "Introduction: First steps and basic constructs\n\n2.\n3.\n4.\n\nWork on own projects\nWork on projects"
+    "text": "Six sessions\n\nIntroduction:\n\nExamples from own research\nFirst steps in Rstudio, packages and basic constructs (workflow, variables, scripting in Rmarkdown; writing good code)\nwork with text data and corpora (data import etc.)\nlittle hands-on exercises on toy data\n\nData wrangling\n\ntidyverse\n\nStatistics\nVisualisation with ggplot2\nWork on own projects\nWork on own projects"
   },
   {
     "objectID": "index.html#resources-and-recommended-reading",
     "href": "index.html#resources-and-recommended-reading",
     "title": "Syllabus",
     "section": "",
-    "text": "(Levshina 2015)\n(Schneider 2024)\n(Winter 2020)\nR for Data Science (2e)\nhttps://jofrhwld.github.io/AandS500_2023/\nhttps://jofrhwld.github.io/2023_Lin611/\nhttps://jofrhwld.github.io/teaching/courses/2017_lsa/\nhttps://alvinntnu.github.io/NTNU_ENC2036_LECTURES/\nquerychat"
+    "text": "(Levshina 2015)\n(Schneider 2024)\n(Winter 2020) (https://appliedstatisticsforlinguists.org/bwinter_stats_proofs.pdf)\nR for Data Science (2e)\nhttps://eleanorchodroff.com/r-for-linguists/\nhttps://jofrhwld.github.io/AandS500_2023/\nhttps://jofrhwld.github.io/2023_Lin611/\nhttps://jofrhwld.github.io/teaching/courses/2017_lsa/\nhttps://alvinntnu.github.io/NTNU_ENC2036_LECTURES/"
+  },
+  {
+    "objectID": "sessions/session-01.html",
+    "href": "sessions/session-01.html",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "",
+    "text": "By the end of this session you will:\n\nUse RStudio and run R code in the console and in a Quarto document.\nCreate and inspect objects with the assignment operator (&lt;-).\nWrite clear names and comments, and apply basic code style.\nCall functions with correct syntax and use the pipe (|&gt;).\nRun and render a minimal Quarto (.qmd) script.\nLoad and inspect text/language data (e.g. CSV) and understand basics of data import for corpora.\nUse tidytext and quanteda to turn short example text into tokens and a corpus, and run minimal counts.\n\nThis course focuses on linguistic and language data in R. Examples and exercises use words, frequencies, and simple text data so you can quickly apply the same ideas to your own corpora and experiments.\nThe material draws on R for Data Science (2e) (chapters 2–4), R for Linguists, and other linguistics-oriented R resources (see Further reading)."
+  },
+  {
+    "objectID": "sessions/session-01.html#learning-objectives",
+    "href": "sessions/session-01.html#learning-objectives",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "",
+    "text": "By the end of this session you will:\n\nUse RStudio and run R code in the console and in a Quarto document.\nCreate and inspect objects with the assignment operator (&lt;-).\nWrite clear names and comments, and apply basic code style.\nCall functions with correct syntax and use the pipe (|&gt;).\nRun and render a minimal Quarto (.qmd) script.\nLoad and inspect text/language data (e.g. CSV) and understand basics of data import for corpora.\nUse tidytext and quanteda to turn short example text into tokens and a corpus, and run minimal counts.\n\nThis course focuses on linguistic and language data in R. Examples and exercises use words, frequencies, and simple text data so you can quickly apply the same ideas to your own corpora and experiments.\nThe material draws on R for Data Science (2e) (chapters 2–4), R for Linguists, and other linguistics-oriented R resources (see Further reading)."
+  },
+  {
+    "objectID": "sessions/session-01.html#the-rstudio-interface",
+    "href": "sessions/session-01.html#the-rstudio-interface",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "The RStudio interface",
+    "text": "The RStudio interface\n\nConsole: type R code and see results.\nEditor: write and save scripts (e.g. .qmd or .R).\nEnvironment: view objects you have created (datasets, variables).\nFiles / Plots / Help: navigate files, view plots, read help.\n\nRun code from the editor with Cmd+Enter (Mac) or Ctrl+Enter (Windows/Linux)."
+  },
+  {
+    "objectID": "sessions/session-01.html#sec-basics",
+    "href": "sessions/session-01.html#sec-basics",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Coding basics",
+    "text": "Coding basics\nYou can use R as a calculator (e.g. for reaction times, accuracy, or counts):\n\n1 / 200 * 30\n\n[1] 0.15\n\n(59 + 73 + 2) / 3\n\n[1] 44.66667\n\nsin(pi / 2)\n\n[1] 1\n\n\nCreate objects with assignment:\n\n# e.g. store a value like VOT (ms) or word length\nvot_ms &lt;- 25\nword_length &lt;- nchar(\"linguistics\")\n\nThe value is stored but not printed. Type the object name to inspect it:\n\nvot_ms\n\n[1] 25\n\nword_length\n\n[1] 11\n\n\nCombine values into a vector with c() — like a column of observations (e.g. reaction times, word lengths, or a list of words):\n\n# numeric vector: e.g. reaction times in ms\nrt_ms &lt;- c(320, 415, 380, 290, 410)\n\n# character vector: e.g. word forms or conditions\nwords &lt;- c(\"cat\", \"dog\", \"mouse\")\n\nEvery assignment has the form:\nobject_name &lt;- value\nRead it as: “object name gets value”.\nTip: In RStudio use Alt + - (minus) to insert &lt;- with spaces."
+  },
+  {
+    "objectID": "sessions/session-01.html#comments",
+    "href": "sessions/session-01.html#comments",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Comments",
+    "text": "Comments\nR ignores everything after # on a line. Use comments to explain why you did something (e.g. why you chose a threshold or excluded a condition), not just what the code does.\n\n# word list for lexical decision practice\nwords &lt;- c(\"cat\", \"dog\", \"mouse\")\n\n# mean reaction time (ms)\nmean(rt_ms)\n\n[1] 363"
+  },
+  {
+    "objectID": "sessions/session-01.html#sec-names",
+    "href": "sessions/session-01.html#sec-names",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "What’s in a name?",
+    "text": "What’s in a name?\n\nNames must start with a letter and contain only letters, numbers, _, and ..\nUse snake_case: lowercase words separated by _ (e.g. word_list, response_time).\n\n\nresponse_time_ms &lt;- 320\nword_list &lt;- c(\"the\", \"cat\", \"sat\")\n# Avoid: responseTimeMs, Word.List\n\nR is case-sensitive and does not fix typos: word_list and Word_list are different objects.\nTip: Type a prefix and press Tab for autocomplete; use ↑ or Cmd+↑ to recall previous commands."
+  },
+  {
+    "objectID": "sessions/session-01.html#names-reminder",
+    "href": "sessions/session-01.html#names-reminder",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Names (reminder)",
+    "text": "Names (reminder)\n\nUse lowercase, numbers, and _.\nPrefer long, descriptive names (e.g. participant_response_time over prt)."
+  },
+  {
+    "objectID": "sessions/session-01.html#spaces",
+    "href": "sessions/session-01.html#spaces",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Spaces",
+    "text": "Spaces\n\nPut spaces around +, -, ==, &lt;, etc. (except ^).\nPut spaces around &lt;-.\nPut a space after every comma.\n\n\n# Strive for: spaces around operators and after comma\nn_char &lt;- nchar(\"word\")\nmean(rt_ms, na.rm = TRUE)\n\n[1] 363\n\n# Avoid: n_char&lt;-nchar(\"word\") or mean(rt_ms,na.rm=TRUE)"
+  },
+  {
+    "objectID": "sessions/session-01.html#pipes",
+    "href": "sessions/session-01.html#pipes",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Pipes",
+    "text": "Pipes\nThe pipe |&gt; passes the result on the left into the function on the right. Read it as “then”.\n\nPut a space before |&gt; and put |&gt; at the end of the line.\nIndent the next line by two spaces.\n\nWe’ll use the pipe with language data in the next section."
+  },
+  {
+    "objectID": "sessions/session-01.html#sectioning-comments",
+    "href": "sessions/session-01.html#sectioning-comments",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Sectioning comments",
+    "text": "Sectioning comments\nBreak long scripts into sections:\n# Load data --------------------------------------\n\n# Plot data --------------------------------------\nIn RStudio: Cmd+Shift+R (Mac) or Ctrl+Shift+R (Windows/Linux) inserts a section header.\nTip: Install the styler package and use the command palette (Cmd+Shift+P) to format code automatically."
+  },
+  {
+    "objectID": "sessions/session-01.html#packages",
+    "href": "sessions/session-01.html#packages",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Packages",
+    "text": "Packages\nInstall a package once with install.packages(\"package_name\"). Load it every time you start R or open a document with library(package_name):\n\n# Core packages for data import and manipulation\nlibrary(tidyverse)\n\nWarning: package 'ggplot2' was built under R version 4.5.2\n\n\nWarning: package 'tibble' was built under R version 4.5.2\n\n\nWarning: package 'tidyr' was built under R version 4.5.2\n\n\nWarning: package 'readr' was built under R version 4.5.2\n\n\nWarning: package 'purrr' was built under R version 4.5.2"
+  },
+  {
+    "objectID": "sessions/session-01.html#reading-a-csv-file",
+    "href": "sessions/session-01.html#reading-a-csv-file",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Reading a CSV file",
+    "text": "Reading a CSV file\nUse read_csv() from the readr package (included in tidyverse) to read comma-separated files — e.g. experiment results, word lists, or corpus metadata:\n\n# Example: create a small toy CSV in memory (simulating a saved file)\ntoy_csv &lt;- \"word,freq,pos\nthe,100,det\ncat,5,noun\nsat,3,verb\nthe,100,det\"\n\n# read_csv() can take a string or a file path\nword_freq &lt;- read_csv(toy_csv, show_col_types = FALSE)\nword_freq\n\n# A tibble: 4 × 3\n  word   freq pos  \n  &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;\n1 the     100 det  \n2 cat       5 noun \n3 sat       3 verb \n4 the     100 det  \n\n\nIn practice you will use a file path to your data, e.g. read_csv(\"data/lexical_decision.csv\"). Put your data files in a project folder (e.g. data/) and use relative paths so your project stays portable."
+  },
+  {
+    "objectID": "sessions/session-01.html#inspecting-the-dataset",
+    "href": "sessions/session-01.html#inspecting-the-dataset",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Inspecting the dataset",
+    "text": "Inspecting the dataset\n\nPrint the data frame: type its name.\nView(): opens a spreadsheet-like viewer in RStudio.\nglimpse(): compact view of columns and types (very useful for many variables).\n\n\nglimpse(word_freq)\n\nRows: 4\nColumns: 3\n$ word &lt;chr&gt; \"the\", \"cat\", \"sat\", \"the\"\n$ freq &lt;dbl&gt; 100, 5, 3, 100\n$ pos  &lt;chr&gt; \"det\", \"noun\", \"verb\", \"det\"\n\nnrow(word_freq)\n\n[1] 4\n\nncol(word_freq)\n\n[1] 3\n\nnames(word_freq)\n\n[1] \"word\" \"freq\" \"pos\""
+  },
+  {
+    "objectID": "sessions/session-01.html#accessing-columns",
+    "href": "sessions/session-01.html#accessing-columns",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Accessing columns",
+    "text": "Accessing columns\nUse $ to get one column as a vector (e.g. for computing over word frequencies or reaction times):\n\nword_freq$word\n\n[1] \"the\" \"cat\" \"sat\" \"the\"\n\nword_freq$freq\n\n[1] 100   5   3 100\n\nmean(word_freq$freq)\n\n[1] 52"
+  },
+  {
+    "objectID": "sessions/session-01.html#reading-text-with-tidytext",
+    "href": "sessions/session-01.html#reading-text-with-tidytext",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Reading text with tidytext",
+    "text": "Reading text with tidytext\nThe tidytext package treats text as a tidy data frame: one row per token (e.g. word). You start from a table with one row per document (or line) and a text column, then tokenize with unnest_tokens().\nInstall once: install.packages(\"tidytext\"). Then load it with library(tidytext) (and library(tidyverse) for tibbles and the pipe).\nExample: build a small “corpus” as a tibble with document IDs and text, then split into words:\n\nlibrary(tidytext)\n\n# Toy corpus: one row per document\ntoy_corpus_tidy &lt;- tibble(\n  doc_id = c(\"doc1\", \"doc2\", \"doc3\"),\n  text = c(\n    \"The cat sat on the mat.\",\n    \"The dog ran in the sun.\",\n    \"A cat and a dog.\"\n  )\n)\n\n# Tokenize: one row per word (punctuation removed, lowercased by default)\ntoy_tokens &lt;- toy_corpus_tidy |&gt;\n  unnest_tokens(output = word, input = text)\n\ntoy_tokens\n\n# A tibble: 17 × 2\n   doc_id word \n   &lt;chr&gt;  &lt;chr&gt;\n 1 doc1   the  \n 2 doc1   cat  \n 3 doc1   sat  \n 4 doc1   on   \n 5 doc1   the  \n 6 doc1   mat  \n 7 doc2   the  \n 8 doc2   dog  \n 9 doc2   ran  \n10 doc2   in   \n11 doc2   the  \n12 doc2   sun  \n13 doc3   a    \n14 doc3   cat  \n15 doc3   and  \n16 doc3   a    \n17 doc3   dog  \n\n\nYou can then count words, filter stopwords, or join with lexicons (e.g. sentiment). Word counts:\n\ntoy_tokens |&gt;\n  count(word, sort = TRUE)\n\n# A tibble: 11 × 2\n   word      n\n   &lt;chr&gt; &lt;int&gt;\n 1 the       4\n 2 a         2\n 3 cat       2\n 4 dog       2\n 5 and       1\n 6 in        1\n 7 mat       1\n 8 on        1\n 9 ran       1\n10 sat       1\n11 sun       1\n\n\nFor real projects you might read documents with read_csv() or read_lines() into a tibble with a text column, then use unnest_tokens() the same way."
+  },
+  {
+    "objectID": "sessions/session-01.html#reading-text-with-quanteda",
+    "href": "sessions/session-01.html#reading-text-with-quanteda",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Reading text with quanteda",
+    "text": "Reading text with quanteda\nThe quanteda package works with a corpus object: a collection of documents with metadata. You can build a corpus from a character vector (one string per document) or from a data frame with a text column.\nInstall once: install.packages(\"quanteda\"). Then load with library(quanteda).\nExample: use the same toy sentences; create a corpus and inspect it:\n\nlibrary(quanteda)\n\n# Option A: corpus from a data frame (need docid and text column)\ntoy_df &lt;- tibble(\n  doc_id = c(\"doc1\", \"doc2\", \"doc3\"),\n  text = c(\n    \"The cat sat on the mat.\",\n    \"The dog ran in the sun.\",\n    \"A cat and a dog.\"\n  )\n)\ncorp &lt;- corpus(toy_df, text_field = \"text\")\n\n# Option B: corpus from a named character vector\n# texts &lt;- c(doc1 = \"The cat sat on the mat.\", doc2 = \"The dog ran.\", ...)\n# corp &lt;- corpus(texts)\n\n# Basic inspection\nsummary(corp)\n\nCorpus consisting of 3 documents, showing 3 documents:\n\n Text Types Tokens Sentences\n doc1     7      7         1\n doc2     7      7         1\n doc3     6      6         1\n\nndoc(corp)\n\n[1] 3\n\nntoken(corp)\n\ndoc1 doc2 doc3 \n   7    7    6 \n\n\nTo get a document-term matrix (documents × terms) for frequency analysis or modelling:\n\n# Tokenize and build document-term matrix\ndtm &lt;- corp |&gt;\n  tokens(remove_punct = TRUE) |&gt;\n  dfm()\ndtm\n\nDocument-feature matrix of: 3 documents, 11 features (57.58% sparse) and 0 docvars.\n      features\ndocs   the cat sat on mat dog ran in sun a\n  doc1   2   1   1  1   1   0   0  0   0 0\n  doc2   2   0   0  0   0   1   1  1   1 0\n  doc3   0   1   0  0   0   1   0  0   0 2\n[ reached max_nfeat ... 1 more feature ]\n\n\nLater you can use readtext::readtext() to read files from disk into a data frame, then pass that to corpus(..., text_field = \"text\").\nWhen to use which?\n\ntidytext: you prefer working in tibbles and dplyr (one row per token); good for word counts, sentiment, and tidy-style workflows.\nquanteda: you need a corpus object, document-term matrices, or built-in NLP (e.g. keywords, collocations, classification); good for corpus linguistics and text mining.\nreadr/read_csv: for tabular data (responses, word lists, metadata); combine with tidytext or quanteda when your “text” lives in a column."
+  },
+  {
+    "objectID": "sessions/session-01.html#why-quarto",
+    "href": "sessions/session-01.html#why-quarto",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Why Quarto?",
+    "text": "Why Quarto?\n\nCombine text, code, and output in one document — ideal for reporting on corpus or experiment results.\nReproducible: re-run and re-render to update tables and figures.\nOutput to HTML, PDF, or other formats."
+  },
+  {
+    "objectID": "sessions/session-01.html#running-code-in-a-.qmd-file",
+    "href": "sessions/session-01.html#running-code-in-a-.qmd-file",
+    "title": "Session 1 — Introduction: R workflow and first steps",
+    "section": "Running code in a .qmd file",
+    "text": "Running code in a .qmd file\n\nCode chunks are enclosed in ```{r} and ```.\nRun one chunk: Cmd+Enter (Mac) or Ctrl+Enter (Windows/Linux).\nRender the whole document: Cmd+Shift+K (or Ctrl+Shift+K) or click Render.\n\nExample chunk options:\n#| label: my-chunk\n#| echo: true\n#| eval: true\n\nlabel: unique name for the chunk.\necho: whether to show the code in the output.\neval: whether to run the code."
+  },
+  {
+    "objectID": "index.html#r-cheatsheets",
+    "href": "index.html#r-cheatsheets",
+    "title": "Syllabus",
+    "section": "",
+    "text": "https://posit.co/resources/cheatsheets/\nhttps://cran.r-project.org/doc/contrib/Short-refcard.pdf"
+  },
+  {
+    "objectID": "index.html#ai-tools",
+    "href": "index.html#ai-tools",
+    "title": "Syllabus",
+    "section": "",
+    "text": "querychat"
   }
 ]

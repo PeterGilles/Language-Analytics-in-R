@@ -13,10 +13,25 @@ project:
 
 Seminar in the Doctoral School HSS at the University of Luxembourg \| Summer semester 2026
 
+Initial steps:
+
+-   install R
+
+-   install RStudio
+
+-   install these packages in RStudio: tidyverse, languageR, tidytext, quanteda
+
 ## Syllabus
 
-1.  Introduction: First steps and basic constructs
+Six sessions
+
+1.  Introduction:
+    1.  Examples from own research
+    2.  First steps in Rstudio, packages and basic constructs (workflow, variables, scripting in Rmarkdown; writing good code)
+    3.  work with text data and corpora (data import etc.)
+    4.  Hands-on exercises on toy data
 2.  Data wrangling
+    1.  tidyverse
 3.  Statistics
 4.  Visualisation with ggplot2
 5.  Work on own projects
@@ -28,9 +43,11 @@ Seminar in the Doctoral School HSS at the University of Luxembourg \| Summer sem
 
 [@schneider2024]
 
-[@winter2020]
+[@winter2020] (<https://appliedstatisticsforlinguists.org/bwinter_stats_proofs.pdf>)
 
 [R for Data Science (2e)](https://r4ds.hadley.nz/)
+
+<https://eleanorchodroff.com/r-for-linguists/>
 
 <https://jofrhwld.github.io/AandS500_2023/>
 
@@ -39,5 +56,13 @@ Seminar in the Doctoral School HSS at the University of Luxembourg \| Summer sem
 <https://jofrhwld.github.io/teaching/courses/2017_lsa/>
 
 <https://alvinntnu.github.io/NTNU_ENC2036_LECTURES/>
+
+## R cheatsheets
+
+<https://posit.co/resources/cheatsheets/>
+
+<https://cran.r-project.org/doc/contrib/Short-refcard.pdf>
+
+## AI tools
 
 [querychat](https://posit-dev.github.io/querychat/r/index.html)

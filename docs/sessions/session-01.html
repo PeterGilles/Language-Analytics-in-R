@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Peter Gilles">
+
+<title>Session 1 — Introduction: R workflow and first steps – Language Analytics in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Language Analytics in R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../sessions/session-01.html" aria-current="page"> 
+<span class="menu-text">Session 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sessions/session-02.html"> 
+<span class="menu-text">Session 2</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sessions/session-03.html"> 
+<span class="menu-text">Session 3</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sessions/session-04.html"> 
+<span class="menu-text">Session 4</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sessions/session-05.html"> 
+<span class="menu-text">Session 5</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sessions/session-06.html"> 
+<span class="menu-text">Session 6</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#rstudio-and-running-r-code" id="toc-rstudio-and-running-r-code" class="nav-link" data-scroll-target="#rstudio-and-running-r-code">RStudio and running R code</a>
+  <ul class="collapse">
+  <li><a href="#the-rstudio-interface" id="toc-the-rstudio-interface" class="nav-link" data-scroll-target="#the-rstudio-interface">The RStudio interface</a></li>
+  <li><a href="#sec-basics" id="toc-sec-basics" class="nav-link" data-scroll-target="#sec-basics">Coding basics</a></li>
+  </ul></li>
+  <li><a href="#comments-and-names" id="toc-comments-and-names" class="nav-link" data-scroll-target="#comments-and-names">Comments and names</a>
+  <ul class="collapse">
+  <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">Comments</a></li>
+  <li><a href="#sec-names" id="toc-sec-names" class="nav-link" data-scroll-target="#sec-names">What’s in a name?</a></li>
+  </ul></li>
+  <li><a href="#calling-functions" id="toc-calling-functions" class="nav-link" data-scroll-target="#calling-functions">Calling functions</a></li>
+  <li><a href="#sec-style" id="toc-sec-style" class="nav-link" data-scroll-target="#sec-style">Code style</a>
+  <ul class="collapse">
+  <li><a href="#names-reminder" id="toc-names-reminder" class="nav-link" data-scroll-target="#names-reminder">Names (reminder)</a></li>
+  <li><a href="#spaces" id="toc-spaces" class="nav-link" data-scroll-target="#spaces">Spaces</a></li>
+  <li><a href="#pipes" id="toc-pipes" class="nav-link" data-scroll-target="#pipes">Pipes</a></li>
+  <li><a href="#sectioning-comments" id="toc-sectioning-comments" class="nav-link" data-scroll-target="#sectioning-comments">Sectioning comments</a></li>
+  </ul></li>
+  <li><a href="#working-with-text-data-and-corpora-data-import" id="toc-working-with-text-data-and-corpora-data-import" class="nav-link" data-scroll-target="#working-with-text-data-and-corpora-data-import">Working with text data and corpora (data import)</a>
+  <ul class="collapse">
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#reading-a-csv-file" id="toc-reading-a-csv-file" class="nav-link" data-scroll-target="#reading-a-csv-file">Reading a CSV file</a></li>
+  <li><a href="#inspecting-the-dataset" id="toc-inspecting-the-dataset" class="nav-link" data-scroll-target="#inspecting-the-dataset">Inspecting the dataset</a></li>
+  <li><a href="#accessing-columns" id="toc-accessing-columns" class="nav-link" data-scroll-target="#accessing-columns">Accessing columns</a></li>
+  <li><a href="#reading-text-with-tidytext" id="toc-reading-text-with-tidytext" class="nav-link" data-scroll-target="#reading-text-with-tidytext">Reading text with tidytext</a></li>
+  <li><a href="#reading-text-with-quanteda" id="toc-reading-text-with-quanteda" class="nav-link" data-scroll-target="#reading-text-with-quanteda">Reading text with quanteda</a></li>
+  </ul></li>
+  <li><a href="#first-taste-of-data-transformation-with-language-data" id="toc-first-taste-of-data-transformation-with-language-data" class="nav-link" data-scroll-target="#first-taste-of-data-transformation-with-language-data">First taste of data transformation (with language data)</a></li>
+  <li><a href="#scripting-in-quarto" id="toc-scripting-in-quarto" class="nav-link" data-scroll-target="#scripting-in-quarto">Scripting in Quarto</a>
+  <ul class="collapse">
+  <li><a href="#why-quarto" id="toc-why-quarto" class="nav-link" data-scroll-target="#why-quarto">Why Quarto?</a></li>
+  <li><a href="#running-code-in-a-.qmd-file" id="toc-running-code-in-a-.qmd-file" class="nav-link" data-scroll-target="#running-code-in-a-.qmd-file">Running code in a .qmd file</a></li>
+  </ul></li>
+  <li><a href="#hands-on-exercises-toy-language-data" id="toc-hands-on-exercises-toy-language-data" class="nav-link" data-scroll-target="#hands-on-exercises-toy-language-data">Hands-on exercises (toy language data)</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Session 1 — Introduction: R workflow and first steps</h1>
+<p class="subtitle lead">Language Analytics in R</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Peter Gilles </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>By the end of this session you will:</p>
+<ul>
+<li>Use RStudio and run R code in the console and in a Quarto document.</li>
+<li>Create and inspect objects with the assignment operator (<code>&lt;-</code>).</li>
+<li>Write clear names and comments, and apply basic code style.</li>
+<li>Call functions with correct syntax and use the pipe (<code>|&gt;</code>).</li>
+<li>Run and render a minimal Quarto (.qmd) script.</li>
+<li><strong>Load and inspect text/language data</strong> (e.g.&nbsp;CSV) and understand basics of data import for corpora.</li>
+<li><strong>Use tidytext and quanteda</strong> to turn short example text into tokens and a corpus, and run minimal counts.</li>
+</ul>
+<p>This course focuses on <strong>linguistic and language data in R</strong>. Examples and exercises use words, frequencies, and simple text data so you can quickly apply the same ideas to your own corpora and experiments.</p>
+<p>The material draws on <a href="https://r4ds.hadley.nz/">R for Data Science (2e)</a> (chapters 2–4), <a href="https://eleanorchodroff.com/r-for-linguists/">R for Linguists</a>, and other linguistics-oriented R resources (see <a href="#further-reading">Further reading</a>).</p>
+</section>
+<section id="rstudio-and-running-r-code" class="level1">
+<h1>RStudio and running R code</h1>
+<section id="the-rstudio-interface" class="level2">
+<h2 class="anchored" data-anchor-id="the-rstudio-interface">The RStudio interface</h2>
+<ul>
+<li><strong>Console</strong>: type R code and see results.</li>
+<li><strong>Editor</strong>: write and save scripts (e.g.&nbsp;<code>.qmd</code> or <code>.R</code>).</li>
+<li><strong>Environment</strong>: view objects you have created (datasets, variables).</li>
+<li><strong>Files / Plots / Help</strong>: navigate files, view plots, read help.</li>
+</ul>
+<p>Run code from the editor with <strong>Cmd+Enter</strong> (Mac) or <strong>Ctrl+Enter</strong> (Windows/Linux).</p>
+</section>
+<section id="sec-basics" class="level2">
+<h2 class="anchored" data-anchor-id="sec-basics">Coding basics</h2>
+<p>You can use R as a calculator (e.g.&nbsp;for reaction times, accuracy, or counts):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="dv">200</span> <span class="sc">*</span> <span class="dv">30</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.15</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">59</span> <span class="sc">+</span> <span class="dv">73</span> <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">/</span> <span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44.66667</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(pi <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>Create objects with <strong>assignment</strong>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g. store a value like VOT (ms) or word length</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>vot_ms <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>word_length <span class="ot">&lt;-</span> <span class="fu">nchar</span>(<span class="st">"linguistics"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The value is stored but not printed. Type the object name to inspect it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>vot_ms</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>word_length</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11</code></pre>
+</div>
+</div>
+<p>Combine values into a <strong>vector</strong> with <code>c()</code> — like a column of observations (e.g.&nbsp;reaction times, word lengths, or a list of words):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># numeric vector: e.g. reaction times in ms</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>rt_ms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">320</span>, <span class="dv">415</span>, <span class="dv">380</span>, <span class="dv">290</span>, <span class="dv">410</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># character vector: e.g. word forms or conditions</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>words <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"mouse"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Every assignment has the form:</p>
+<pre class="text"><code>object_name &lt;- value</code></pre>
+<p>Read it as: <em>“object name gets value”</em>.</p>
+<p><strong>Tip:</strong> In RStudio use <strong>Alt + -</strong> (minus) to insert <code>&lt;-</code> with spaces.</p>
+</section>
+</section>
+<section id="comments-and-names" class="level1">
+<h1>Comments and names</h1>
+<section id="comments" class="level2">
+<h2 class="anchored" data-anchor-id="comments">Comments</h2>
+<p>R ignores everything after <code>#</code> on a line. Use comments to explain <em>why</em> you did something (e.g.&nbsp;why you chose a threshold or excluded a condition), not just <em>what</em> the code does.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># word list for lexical decision practice</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>words <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"mouse"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mean reaction time (ms)</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rt_ms)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 363</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-names" class="level2">
+<h2 class="anchored" data-anchor-id="sec-names">What’s in a name?</h2>
+<ul>
+<li>Names must <strong>start with a letter</strong> and contain only letters, numbers, <code>_</code>, and <code>.</code>.</li>
+<li>Use <strong>snake_case</strong>: lowercase words separated by <code>_</code> (e.g.&nbsp;<code>word_list</code>, <code>response_time</code>).</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>response_time_ms <span class="ot">&lt;-</span> <span class="dv">320</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>word_list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"the"</span>, <span class="st">"cat"</span>, <span class="st">"sat"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Avoid: responseTimeMs, Word.List</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>R is case-sensitive and does not fix typos: <code>word_list</code> and <code>Word_list</code> are different objects.</p>
+<p><strong>Tip:</strong> Type a prefix and press <strong>Tab</strong> for autocomplete; use <strong>↑</strong> or <strong>Cmd+↑</strong> to recall previous commands.</p>
+</section>
+</section>
+<section id="calling-functions" class="level1">
+<h1>Calling functions</h1>
+<p>Functions are called like this:</p>
+<pre class="text"><code>function_name(argument1 = value1, argument2 = value2, ...)</code></pre>
+<p>Example: <code>seq()</code> creates sequences (e.g.&nbsp;for item IDs or conditions):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</code></pre>
+</div>
+</div>
+<p>You can omit argument names for the first arguments. Use <strong>Tab</strong> after typing a function name to see arguments and help.</p>
+<p><strong>Strings</strong> (text) need <strong>matched quotation marks</strong> — essential when working with words and corpora:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>word <span class="ot">&lt;-</span> <span class="st">"hello"</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare strings (e.g. for accuracy coding)</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="st">"linguistics"</span> <span class="sc">==</span> <span class="st">"linguistics"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="st">"linguistics"</span> <span class="sc">==</span> <span class="st">"lingiustics"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>If you see a <code>+</code> in the console, R is waiting for more input (often a missing <code>"</code> or <code>)</code>). Press <strong>Escape</strong> to cancel.</p>
+</section>
+<section id="sec-style" class="level1">
+<h1>Code style</h1>
+<p>Good style makes code easier to read for you and others. We follow the <a href="https://style.tidyverse.org/">tidyverse style guide</a>.</p>
+<section id="names-reminder" class="level2">
+<h2 class="anchored" data-anchor-id="names-reminder">Names (reminder)</h2>
+<ul>
+<li>Use lowercase, numbers, and <code>_</code>.</li>
+<li>Prefer <strong>long, descriptive names</strong> (e.g.&nbsp;<code>participant_response_time</code> over <code>prt</code>).</li>
+</ul>
+</section>
+<section id="spaces" class="level2">
+<h2 class="anchored" data-anchor-id="spaces">Spaces</h2>
+<ul>
+<li>Put spaces around <code>+</code>, <code>-</code>, <code>==</code>, <code>&lt;</code>, etc. (except <code>^</code>).</li>
+<li>Put spaces around <code>&lt;-</code>.</li>
+<li>Put a space after every comma.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Strive for: spaces around operators and after comma</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>n_char <span class="ot">&lt;-</span> <span class="fu">nchar</span>(<span class="st">"word"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rt_ms, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 363</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Avoid: n_char&lt;-nchar("word") or mean(rt_ms,na.rm=TRUE)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="pipes" class="level2">
+<h2 class="anchored" data-anchor-id="pipes">Pipes</h2>
+<p>The pipe <code>|&gt;</code> passes the result on the left into the function on the right. Read it as <em>“then”</em>.</p>
+<ul>
+<li>Put a space before <code>|&gt;</code> and put <code>|&gt;</code> at the <strong>end</strong> of the line.</li>
+<li>Indent the next line by two spaces.</li>
+</ul>
+<p>We’ll use the pipe with <strong>language data</strong> in the next section.</p>
+</section>
+<section id="sectioning-comments" class="level2">
+<h2 class="anchored" data-anchor-id="sectioning-comments">Sectioning comments</h2>
+<p>Break long scripts into sections:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data --------------------------------------</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot data --------------------------------------</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In RStudio: <strong>Cmd+Shift+R</strong> (Mac) or <strong>Ctrl+Shift+R</strong> (Windows/Linux) inserts a section header.</p>
+<p><strong>Tip:</strong> Install the <strong>styler</strong> package and use the command palette (<strong>Cmd+Shift+P</strong>) to format code automatically.</p>
+</section>
+</section>
+<section id="working-with-text-data-and-corpora-data-import" class="level1">
+<h1>Working with text data and corpora (data import)</h1>
+<p>For language analytics we usually work with <strong>tables</strong> (e.g.&nbsp;CSV or Excel) or <strong>text files</strong>. Here we cover reading tabular data with <strong>readr</strong>, then <strong>tidytext</strong> and <strong>quanteda</strong> for turning text into a format you can analyze. Later sessions will go deeper (frequency lists, sentiment, document classification, etc.).</p>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<p>Install a package once with <code>install.packages("package_name")</code>. Load it every time you start R or open a document with <code>library(package_name)</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Core packages for data import and manipulation</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.5.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tibble' was built under R version 4.5.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.5.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.5.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'purrr' was built under R version 4.5.2</code></pre>
+</div>
+</div>
+</section>
+<section id="reading-a-csv-file" class="level2">
+<h2 class="anchored" data-anchor-id="reading-a-csv-file">Reading a CSV file</h2>
+<p>Use <code>read_csv()</code> from the <strong>readr</strong> package (included in tidyverse) to read comma-separated files — e.g.&nbsp;experiment results, word lists, or corpus metadata:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: create a small toy CSV in memory (simulating a saved file)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>toy_csv <span class="ot">&lt;-</span> <span class="st">"word,freq,pos</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="st">the,100,det</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="st">cat,5,noun</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="st">sat,3,verb</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="st">the,100,det"</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co"># read_csv() can take a string or a file path</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>word_freq <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(toy_csv, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>word_freq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  word   freq pos  
+  &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
+1 the     100 det  
+2 cat       5 noun 
+3 sat       3 verb 
+4 the     100 det  </code></pre>
+</div>
+</div>
+<p>In practice you will use a <strong>file path</strong> to your data, e.g.&nbsp;<code>read_csv("data/lexical_decision.csv")</code>. Put your data files in a project folder (e.g.&nbsp;<code>data/</code>) and use relative paths so your project stays portable.</p>
+</section>
+<section id="inspecting-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="inspecting-the-dataset">Inspecting the dataset</h2>
+<ul>
+<li><strong>Print</strong> the data frame: type its name.</li>
+<li><strong>View()</strong>: opens a spreadsheet-like viewer in RStudio.</li>
+<li><strong>glimpse()</strong>: compact view of columns and types (very useful for many variables).</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(word_freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 4
+Columns: 3
+$ word &lt;chr&gt; "the", "cat", "sat", "the"
+$ freq &lt;dbl&gt; 100, 5, 3, 100
+$ pos  &lt;chr&gt; "det", "noun", "verb", "det"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(word_freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(word_freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(word_freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "word" "freq" "pos" </code></pre>
+</div>
+</div>
+</section>
+<section id="accessing-columns" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-columns">Accessing columns</h2>
+<p>Use <code>$</code> to get one column as a vector (e.g.&nbsp;for computing over word frequencies or reaction times):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>word_freq<span class="sc">$</span>word</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "the" "cat" "sat" "the"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>word_freq<span class="sc">$</span>freq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100   5   3 100</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(word_freq<span class="sc">$</span>freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 52</code></pre>
+</div>
+</div>
+</section>
+<section id="reading-text-with-tidytext" class="level2">
+<h2 class="anchored" data-anchor-id="reading-text-with-tidytext">Reading text with tidytext</h2>
+<p>The <strong>tidytext</strong> package treats text as a <strong>tidy</strong> data frame: one row per token (e.g.&nbsp;word). You start from a table with one row per document (or line) and a text column, then <strong>tokenize</strong> with <code>unnest_tokens()</code>.</p>
+<p><strong>Install once:</strong> <code>install.packages("tidytext")</code>. Then load it with <code>library(tidytext)</code> (and <code>library(tidyverse)</code> for tibbles and the pipe).</p>
+<p><strong>Example:</strong> build a small “corpus” as a tibble with document IDs and text, then split into words:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Toy corpus: one row per document</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>toy_corpus_tidy <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">doc_id =</span> <span class="fu">c</span>(<span class="st">"doc1"</span>, <span class="st">"doc2"</span>, <span class="st">"doc3"</span>),</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="fu">c</span>(</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The cat sat on the mat."</span>,</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The dog ran in the sun."</span>,</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A cat and a dog."</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenize: one row per word (punctuation removed, lowercased by default)</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>toy_tokens <span class="ot">&lt;-</span> toy_corpus_tidy <span class="sc">|&gt;</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> text)</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>toy_tokens</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 17 × 2
+   doc_id word 
+   &lt;chr&gt;  &lt;chr&gt;
+ 1 doc1   the  
+ 2 doc1   cat  
+ 3 doc1   sat  
+ 4 doc1   on   
+ 5 doc1   the  
+ 6 doc1   mat  
+ 7 doc2   the  
+ 8 doc2   dog  
+ 9 doc2   ran  
+10 doc2   in   
+11 doc2   the  
+12 doc2   sun  
+13 doc3   a    
+14 doc3   cat  
+15 doc3   and  
+16 doc3   a    
+17 doc3   dog  </code></pre>
+</div>
+</div>
+<p>You can then count words, filter stopwords, or join with lexicons (e.g.&nbsp;sentiment). Word counts:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>toy_tokens <span class="sc">|&gt;</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 2
+   word      n
+   &lt;chr&gt; &lt;int&gt;
+ 1 the       4
+ 2 a         2
+ 3 cat       2
+ 4 dog       2
+ 5 and       1
+ 6 in        1
+ 7 mat       1
+ 8 on        1
+ 9 ran       1
+10 sat       1
+11 sun       1</code></pre>
+</div>
+</div>
+<p>For real projects you might read documents with <code>read_csv()</code> or <code>read_lines()</code> into a tibble with a <code>text</code> column, then use <code>unnest_tokens()</code> the same way.</p>
+</section>
+<section id="reading-text-with-quanteda" class="level2">
+<h2 class="anchored" data-anchor-id="reading-text-with-quanteda">Reading text with quanteda</h2>
+<p>The <strong>quanteda</strong> package works with a <strong>corpus</strong> object: a collection of documents with metadata. You can build a corpus from a character vector (one string per document) or from a data frame with a text column.</p>
+<p><strong>Install once:</strong> <code>install.packages("quanteda")</code>. Then load with <code>library(quanteda)</code>.</p>
+<p><strong>Example:</strong> use the same toy sentences; create a corpus and inspect it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Option A: corpus from a data frame (need docid and text column)</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>toy_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">doc_id =</span> <span class="fu">c</span>(<span class="st">"doc1"</span>, <span class="st">"doc2"</span>, <span class="st">"doc3"</span>),</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="fu">c</span>(</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The cat sat on the mat."</span>,</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The dog ran in the sun."</span>,</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A cat and a dog."</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>corp <span class="ot">&lt;-</span> <span class="fu">corpus</span>(toy_df, <span class="at">text_field =</span> <span class="st">"text"</span>)</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Option B: corpus from a named character vector</span></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="co"># texts &lt;- c(doc1 = "The cat sat on the mat.", doc2 = "The dog ran.", ...)</span></span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a><span class="co"># corp &lt;- corpus(texts)</span></span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic inspection</span></span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(corp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Corpus consisting of 3 documents, showing 3 documents:
+
+ Text Types Tokens Sentences
+ doc1     7      7         1
+ doc2     7      7         1
+ doc3     6      6         1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndoc</span>(corp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ntoken</span>(corp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>doc1 doc2 doc3 
+   7    7    6 </code></pre>
+</div>
+</div>
+<p>To get a <strong>document-term matrix</strong> (documents × terms) for frequency analysis or modelling:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenize and build document-term matrix</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>dtm <span class="ot">&lt;-</span> corp <span class="sc">|&gt;</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens</span>(<span class="at">remove_punct =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm</span>()</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>dtm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Document-feature matrix of: 3 documents, 11 features (57.58% sparse) and 0 docvars.
+      features
+docs   the cat sat on mat dog ran in sun a
+  doc1   2   1   1  1   1   0   0  0   0 0
+  doc2   2   0   0  0   0   1   1  1   1 0
+  doc3   0   1   0  0   0   1   0  0   0 2
+[ reached max_nfeat ... 1 more feature ]</code></pre>
+</div>
+</div>
+<p>Later you can use <code>readtext::readtext()</code> to read files from disk into a data frame, then pass that to <code>corpus(..., text_field = "text")</code>.</p>
+<p><strong>When to use which?</strong></p>
+<ul>
+<li><strong>tidytext</strong>: you prefer working in tibbles and dplyr (one row per token); good for word counts, sentiment, and tidy-style workflows.</li>
+<li><strong>quanteda</strong>: you need a corpus object, document-term matrices, or built-in NLP (e.g.&nbsp;keywords, collocations, classification); good for corpus linguistics and text mining.</li>
+<li><strong>readr/read_csv</strong>: for tabular data (responses, word lists, metadata); combine with tidytext or quanteda when your “text” lives in a column.</li>
+</ul>
+</section>
+</section>
+<section id="first-taste-of-data-transformation-with-language-data" class="level1">
+<h1>First taste of data transformation (with language data)</h1>
+<p>We use <strong>dplyr</strong> (part of the tidyverse) to filter, select, and summarize data. Key ideas:</p>
+<ul>
+<li>First argument is always a <strong>data frame</strong>.</li>
+<li>You refer to <strong>column names</strong> without quotes.</li>
+<li>The result is a <strong>new data frame</strong> (the original is unchanged).</li>
+</ul>
+<p>Use the pipe to chain steps. Example: take a small <strong>word/frequency</strong> table, filter by frequency, then sort:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a tiny “corpus-like” table: word, frequency, condition</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>word_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">word =</span> <span class="fu">c</span>(<span class="st">"the"</span>, <span class="st">"cat"</span>, <span class="st">"sat"</span>, <span class="st">"on"</span>, <span class="st">"mat"</span>, <span class="st">"dog"</span>, <span class="st">"ran"</span>),</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">50</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">4</span>),</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pos =</span> <span class="fu">c</span>(<span class="st">"det"</span>, <span class="st">"noun"</span>, <span class="st">"verb"</span>, <span class="st">"prep"</span>, <span class="st">"noun"</span>, <span class="st">"noun"</span>, <span class="st">"verb"</span>)</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Then: filter, arrange, show</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>word_data <span class="sc">|&gt;</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(freq <span class="sc">&gt;=</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(freq)) <span class="sc">|&gt;</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(word, freq, pos)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  word   freq pos  
+  &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
+1 the     100 det  
+2 on       50 prep 
+3 dog       8 noun 
+4 cat       5 noun 
+5 ran       4 verb </code></pre>
+</div>
+</div>
+<p>Read this as: <em>“Take <code>word_data</code>, then keep rows where <code>freq</code> is at least 4, then sort by <code>freq</code> descending, then show columns <code>word</code>, <code>freq</code>, <code>pos</code>.”</em></p>
+<p>Main verbs you will see again in Session 2:</p>
+<ul>
+<li><code>filter()</code> — keep rows that satisfy a condition (e.g.&nbsp;certain words or participants).</li>
+<li><code>select()</code> — keep or drop columns.</li>
+<li><code>mutate()</code> — add or change columns (e.g.&nbsp;log frequency, word length).</li>
+<li><code>arrange()</code> — sort rows.</li>
+<li><code>summarize()</code> — compute summaries (often with <code>group_by()</code>).</li>
+</ul>
+</section>
+<section id="scripting-in-quarto" class="level1">
+<h1>Scripting in Quarto</h1>
+<section id="why-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="why-quarto">Why Quarto?</h2>
+<ul>
+<li>Combine <strong>text, code, and output</strong> in one document — ideal for reporting on corpus or experiment results.</li>
+<li><strong>Reproducible</strong>: re-run and re-render to update tables and figures.</li>
+<li>Output to HTML, PDF, or other formats.</li>
+</ul>
+</section>
+<section id="running-code-in-a-.qmd-file" class="level2">
+<h2 class="anchored" data-anchor-id="running-code-in-a-.qmd-file">Running code in a .qmd file</h2>
+<ul>
+<li><strong>Code chunks</strong> are enclosed in <code>```{r}</code> and <code>```</code>.</li>
+<li>Run one chunk: <strong>Cmd+Enter</strong> (Mac) or <strong>Ctrl+Enter</strong> (Windows/Linux).</li>
+<li>Render the whole document: <strong>Cmd+Shift+K</strong> (or <strong>Ctrl+Shift+K</strong>) or click <em>Render</em>.</li>
+</ul>
+<p>Example chunk options:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: my-chunk</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>label</code>: unique name for the chunk.</li>
+<li><code>echo</code>: whether to show the code in the output.</li>
+<li><code>eval</code>: whether to run the code.</li>
+</ul>
+</section>
+</section>
+<section id="hands-on-exercises-toy-language-data" class="level1">
+<h1>Hands-on exercises (toy language data)</h1>
+<ol type="1">
+<li><p><strong>Typo.</strong> Why does this fail? (Look very carefully at the object name.)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>my_variable <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>my_varıable   <span class="co"># error (hint: different character than 'i')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Vectors and strings.</strong> In a new code chunk:</p>
+<ul>
+<li>Create a character vector <code>test_words</code> with at least three words (e.g.&nbsp;<code>c("word1", "word2", "word3")</code>).</li>
+<li>Use <code>length(test_words)</code> and <code>nchar(test_words)</code> and interpret the result.</li>
+</ul></li>
+<li><p><strong>Comparisons.</strong> Run these and say what they return (TRUE/FALSE) and why:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="st">"dog"</span> <span class="sc">==</span> <span class="st">"dog"</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="st">"dog"</span> <span class="sc">!=</span> <span class="st">"cat"</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nchar</span>(<span class="st">"linguistics"</span>) <span class="sc">&gt;</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Data import and inspection.</strong> Create a short CSV string with columns <code>word</code> and <code>count</code> (e.g.&nbsp;three rows). Read it with <code>read_csv()</code>, then use <code>glimpse()</code> and <code>$</code> to inspect the <code>count</code> column and compute <code>mean(count)</code>.</p></li>
+<li><p><strong>Pipe and filter.</strong> Using the <code>word_data</code> table from the <a href="#first-taste-of-data-transformation-with-language-data">First taste</a> section (re-run that chunk if needed), write a pipe that:</p>
+<ul>
+<li>keeps only rows where <code>pos</code> is <code>"noun"</code>,</li>
+<li>then arranges by <code>freq</code> ascending.</li>
+</ul></li>
+<li><p><strong>Style.</strong> Restyle this into a clear, multi-line pipe (spaces, line breaks, indentation):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>word_data<span class="sc">|&gt;</span><span class="fu">filter</span>(freq<span class="sc">&gt;</span><span class="dv">3</span>)<span class="sc">|&gt;</span><span class="fu">arrange</span>(freq)<span class="sc">|&gt;</span><span class="fu">select</span>(word,freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>tidytext and quanteda (hands-on).</strong> Use the same toy texts as in the <a href="#reading-text-with-tidytext">tidytext</a> and <a href="#reading-text-with-quanteda">quanteda</a> sections (or two short sentences of your own in a tibble with columns <code>doc_id</code> and <code>text</code>).</p>
+<p><strong>(a) tidytext:</strong> Tokenize the text with <code>unnest_tokens(output = word, input = text)</code>. Then, using the pipe, count words with <code>count(word, sort = TRUE)</code> and show the result. How many times does <em>the</em> appear?</p>
+<p><strong>(b) quanteda:</strong> Build a corpus with <code>corpus(your_tibble, text_field = "text")</code>. Call <code>summary(corp)</code> and <code>ntoken(corp)</code>. How many tokens are in the corpus? Optional: build a document-term matrix with <code>tokens(corp, remove_punct = TRUE) |&gt; dfm()</code> and print it.</p>
+<p><strong>(c)</strong> In one sentence: what is the main difference between the tidytext output (tibble of tokens or counts) and the quanteda <code>dfm</code> (document-term matrix)?</p></li>
+</ol>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<ul>
+<li><strong>Run R</strong> in the console and in Quarto chunks; use <strong>Cmd+Enter</strong> and <strong>Render</strong>.</li>
+<li><strong>Assign</strong> with <code>&lt;-</code>; use <strong>snake_case</strong> and <strong>comments</strong> for clarity.</li>
+<li><strong>Call functions</strong> with <code>name(arg = value)</code>; use <strong>Tab</strong> and Help.</li>
+<li><strong>Style:</strong> spaces, pipe at end of line, sectioning comments; use <strong>styler</strong> and <strong>Cmd+Shift+R</strong>.</li>
+<li><strong>Quarto:</strong> combine text and code; re-render for reproducible reports.</li>
+<li><strong>Data import:</strong> use <code>read_csv()</code> for CSV tables; use <code>glimpse()</code>, <code>names()</code>, and <code>$</code> to inspect; keep data in a <code>data/</code> folder and use relative paths. Use <strong>tidytext</strong> (tibble + <code>unnest_tokens()</code>) for one-token-per-row workflows and <strong>quanteda</strong> (<code>corpus()</code>, <code>tokens()</code>, <code>dfm()</code>) for corpus objects and document-term matrices.</li>
+<li><strong>dplyr</strong> and the pipe will be used throughout the course for linguistic and corpus data; we go deeper in Session 2.</li>
+</ul>
+</section>
+<section id="further-reading" class="level1">
+<h1>Further reading</h1>
+<p><strong>R and workflow</strong></p>
+<ul>
+<li><a href="https://r4ds.hadley.nz/workflow-basics.html">R4DS — Workflow: basics (Ch 2)</a></li>
+<li><a href="https://r4ds.hadley.nz/data-transform.html">R4DS — Data transformation (Ch 3)</a></li>
+<li><a href="https://r4ds.hadley.nz/workflow-style.html">R4DS — Workflow: code style (Ch 4)</a></li>
+<li><a href="https://style.tidyverse.org/">tidyverse style guide</a></li>
+<li><a href="https://quarto.org/docs/guide/">Quarto documentation</a></li>
+</ul>
+<p><strong>R for linguists and language data</strong></p>
+<ul>
+<li><a href="https://eleanorchodroff.com/r-for-linguists/">R for Linguists</a> — basics, variables, vectors, datasets, dplyr, ggplot2, strings and tidyr (with linguistic examples and datasets).</li>
+<li><a href="https://jofrhwld.github.io/AandS500_2023/">A&amp;S500 / Lin517 — Quantitative Investigations</a> (J. Fruehwald) — Quarto, strings, text, sentiment, quanteda.</li>
+<li><a href="https://jofrhwld.github.io/2023_Lin611/">Lin611 — Quantitative Methods in Linguistics</a> (J. Fruehwald) — tidyverse, Winter (2019) textbook, OSF data, vowel normalization, modelling.</li>
+<li><a href="https://alvinntnu.github.io/NTNU_ENC2036_LECTURES/">NTNU ENC2036 — Corpus Linguistics</a> — corpus methods, R packages (tidytext, quanteda, stringr, etc.).</li>
+<li><a href="https://jofrhwld.github.io/teaching/courses/2017_lsa/">LSA 2017 — Linguistic data in R</a> — further linguistics-oriented R materials.</li>
+<li><a href="https://appliedstatisticsforlinguists.org/">Applied statistics for linguists</a> — Winter, statistics and R for linguists (including proofs/chapters).</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
