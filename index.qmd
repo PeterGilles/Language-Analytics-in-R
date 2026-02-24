@@ -16,17 +16,15 @@ Seminar in the Doctoral School HSS at the University of Luxembourg \| Summer sem
 ## Syllabus
 
 1.  Introduction: First steps and basic constructs
-
-2\.
-
-3\.
-
-4\.
-
+2.  Data wrangling
+3.  Statistics
+4.  Visualisation with ggplot2
 5.  Work on own projects
-6.  Work on projects
+6.  Work on own projects
 
 ## Resources and recommended reading
+
+[@levshina2015]
 
 [@schneider2024]
 
