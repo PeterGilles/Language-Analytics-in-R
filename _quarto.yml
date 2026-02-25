@@ -23,4 +23,4 @@ website:
 format:
   html:
     toc: true
-    number-sections: false
+    number-sections: true

@@ -6,11 +6,31 @@ format:
   html:
     toc: true
     toc-depth: 2
+    number-sections: true
     code-fold: false
+  revealjs:
+    output-file: session-01-slides.html
+    slide-level: 2
+    smaller: true
+    incremental: true
+    transition: slide
+    scrollable: true
+    include-in-header:
+      - text: |
+          <style>
+          /* Scrollable slides: constrain height so overflow can scroll (see SO 76962902) */
+          .reveal .slide.scrollable {
+            height: 100% !important;
+            max-height: 100vh !important;
+            overflow-y: auto !important;
+            overflow-x: hidden;
+            box-sizing: border-box;
+          }
+          </style>
 editor: visual
 ---
 
-## Learning objectives
+## Learning objectives {.scrollable}
 
 By the end of this session you will:
 
@@ -28,7 +48,7 @@ The material draws on [R for Data Science (2e)](https://r4ds.hadley.nz/) (chapte
 
 # RStudio and running R code
 
-## The RStudio interface
+## The RStudio interface {.scrollable}
 
 -   **Console**: type R code and see results.
 -   **Editor**: write and save scripts (e.g. `.qmd` or `.R`).
@@ -37,7 +57,31 @@ The material draws on [R for Data Science (2e)](https://r4ds.hadley.nz/) (chapte
 
 Run code from the editor with **Cmd+Enter** (Mac) or **Ctrl+Enter** (Windows/Linux).
 
-## Coding basics {#sec-basics}
+## Getting help
+
+Prefix a command with `?`, e.g. `?mean` to call the help page for this command. Or use the `Help` pane in RStudio.
+
+```{r}
+?mean
+```
+
+There are numerous R [cheatsheets](https://posit.co/resources/cheatsheets/) that summarise command usages in a structured way.
+
+## Packages {.scrollable}
+
+Install a package once with `install.packages("package_name")` or use the `packages` tab in RStudio. Load it every time you start R or open a document with `library(package_name)`:
+
+```{r}
+#| label: packages
+#| message: false
+
+# Core packages for data import and manipulation
+library(tidyverse)
+```
+
+##  {.scrollable}
+
+## Coding basics {#sec-basics .scrollable}
 
 You can use R as a calculator (e.g. for reaction times, accuracy, or counts):
 
@@ -54,26 +98,11 @@ Create objects with **assignment**:
 ```{r}
 #| label: assignment
 
+calc <- (59 + 73 + 2) / 3
+
 # e.g. store a value like VOT (ms) or word length
 vot_ms <- 25
 word_length <- nchar("linguistics")
-```
-
-The value is stored but not printed. Type the object name to inspect it:
-
-```{r}
-vot_ms
-word_length
-```
-
-Combine values into a **vector** with `c()` — like a column of observations (e.g. reaction times, word lengths, or a list of words):
-
-```{r}
-# numeric vector: e.g. reaction times in ms
-rt_ms <- c(320, 415, 380, 290, 410)
-
-# character vector: e.g. word forms or conditions
-words <- c("cat", "dog", "mouse")
 ```
 
 Every assignment has the form:
@@ -86,9 +115,85 @@ Read it as: *“object name gets value”*.
 
 **Tip:** In RStudio use **Alt + -** (minus) to insert `<-` with spaces.
 
+The value is stored but not printed. Type the object name to inspect it:
+
+```{r}
+vot_ms
+word_length
+```
+
+Combine values into a **vector** with `c()` — like a column of observations (e.g. reaction times, word lengths, or a list of words):
+
+```{r}
+#| label: vectors-c
+# numeric vector: e.g. reaction times in ms
+rt_ms <- c(320, 415, 380, 290, 410)
+
+# character vector: e.g. word forms or conditions
+words <- c("cat", "dog", "mouse")
+
+# a rose is a rose — last expression is printed in the report
+stein <- c("a", "rose", "is", "a", "rose", "is", "a", "rose")
+print(stein)
+```
+
+Instead of referencing every token in a vector individually, we can convert them to **factor**s.
+
+```{r}
+stein.fac <- as.factor(c("a", "rose", "is", "a", "rose", "is", "a", "rose"))
+print(stein.fac)
+```
+
+# Tibbles and data frames {.scrollable}
+
+Vectors and factors hold a single column of values. For **tabular data** (rows and columns), R uses **data frames**. A **tibble** is a modern, tidyverse-style data frame: it prints nicely, doesn’t convert strings to factors by default, and works well with the pipe and dplyr.
+
+## Creating a tibble
+
+Use **`tibble()`** to build a table from named vectors (each vector becomes a column). Columns can be referred to by name in later code.
+
+```{r}
+#| label: tibble-intro
+
+library(tibble)
+
+# Example: a small table (e.g. word, frequency, part of speech)
+lex <- tibble(
+  word = c("the", "cat", "sat", "on", "mat"),
+  freq = c(100, 5, 3, 50, 2),
+  pos  = c("det", "noun", "verb", "prep", "noun")
+)
+lex
+```
+
+With **`data.frame()`** you get a classic R data frame; tibbles are usually preferred in the tidyverse because of their print format and consistent behaviour.
+
+## Inspecting structure
+
+-   **Print:** typing the name shows the first rows and column types (tibbles don’t flood the console).
+-   **`glimpse()`** (dplyr): one row per column, with type and a few values.
+-   **`nrow()`, `ncol()`, `names()`**: number of rows, number of columns, column names.
+
+```{r}
+#| label: tibble-inspect
+
+glimpse(lex)
+nrow(lex)
+names(lex)
+```
+
+## Accessing columns
+
+Use **`$`** to get one column as a vector: `lex$word`, `lex$freq`. You can use that in expressions (e.g. `mean(lex$freq)`) or pass it to functions. Later you’ll use dplyr verbs (`filter`, `select`, `mutate`) to work with whole tables without pulling columns out by hand.
+
+```{r}
+lex$word
+mean(lex$freq)
+```
+
 # Comments and names
 
-## Comments
+## Comments {.scrollable}
 
 R ignores everything after `#` on a line. Use comments to explain *why* you did something (e.g. why you chose a threshold or excluded a condition), not just *what* the code does.
 
@@ -102,7 +207,7 @@ words <- c("cat", "dog", "mouse")
 mean(rt_ms)
 ```
 
-## What’s in a name? {#sec-names}
+## Naming conventions {#sec-names .scrollable}
 
 -   Names must **start with a letter** and contain only letters, numbers, `_`, and `.`.
 -   Use **snake_case**: lowercase words separated by `_` (e.g. `word_list`, `response_time`).
@@ -141,8 +246,10 @@ You can omit argument names for the first arguments. Use **Tab** after typing a 
 **Strings** (text) need **matched quotation marks** — essential when working with words and corpora:
 
 ```{r}
+# quotation marks around strings
 word <- "hello"
-# Compare strings (e.g. for accuracy coding)
+
+# Compare strings with == (e.g. for accuracy coding)
 "linguistics" == "linguistics"
 "linguistics" == "lingiustics"
 ```
@@ -153,12 +260,12 @@ If you see a `+` in the console, R is waiting for more input (often a missing `"
 
 Good style makes code easier to read for you and others. We follow the [tidyverse style guide](https://style.tidyverse.org/).
 
-## Names (reminder)
+## Names (reminder) {.scrollable}
 
 -   Use lowercase, numbers, and `_`.
 -   Prefer **long, descriptive names** (e.g. `participant_response_time` over `prt`).
 
-## Spaces
+## Spaces {.scrollable}
 
 -   Put spaces around `+`, `-`, `==`, `<`, etc. (except `^`).
 -   Put spaces around `<-`.
@@ -173,16 +280,21 @@ mean(rt_ms, na.rm = TRUE)
 # Avoid: n_char<-nchar("word") or mean(rt_ms,na.rm=TRUE)
 ```
 
-## Pipes
+## Pipes {.scrollable}
 
-The pipe `|>` passes the result on the left into the function on the right. Read it as *“then”*.
+The pipe `|>` (alternatively `%>%` when using package `magrittr`) passes the result on the left into the function on the right. Read it as *“then”*.
 
 -   Put a space before `|>` and put `|>` at the **end** of the line.
 -   Indent the next line by two spaces.
 
+```{r}
+c("Méindeg", "Dënschdeg", "Mëttwoch") |>
+  nchar()
+```
+
 We’ll use the pipe with **language data** in the next section.
 
-## Sectioning comments
+## Sectioning comments {.scrollable}
 
 Break long scripts into sections:
 
@@ -196,139 +308,176 @@ In RStudio: **Cmd+Shift+R** (Mac) or **Ctrl+Shift+R** (Windows/Linux) inserts a 
 
 **Tip:** Install the **styler** package and use the command palette (**Cmd+Shift+P**) to format code automatically.
 
+# Scripting in Quarto
+
+## Why Quarto? {.scrollable}
+
+-   Combine **text, code, and output** in one document — ideal for reporting on corpus or experiment results.
+-   **Reproducible**: re-run and re-render to update tables and figures.
+-   Output to HTML, PDF, or other formats.
+
+## Running code in a .qmd file {.scrollable}
+
+-   Create an empty Quarto file in RStudio: File \> New File \> Quarto Document ...
+-   **Code chunks** are enclosed in ```` ```{r} ```` and ```` ``` ````.
+-   Run one chunk: **Cmd+Enter** (Mac) or **Ctrl+Enter** (Windows/Linux).
+-   Render the whole document: **Cmd+Shift+K** (or **Ctrl+Shift+K**) or click *Render*.
+
+Example chunk options:
+
+``` r
+#| label: my-chunk
+#| echo: true
+#| eval: true
+```
+
+-   `label`: unique name for the chunk.
+-   `echo`: whether to show the code in the output.
+-   `eval`: whether to run the code.
+
 # Working with text data and corpora (data import)
 
 For language analytics we usually work with **tables** (e.g. CSV or Excel) or **text files**. Here we cover reading tabular data with **readr**, then **tidytext** and **quanteda** for turning text into a format you can analyze. Later sessions will go deeper (frequency lists, sentiment, document classification, etc.).
 
-## Packages
+## Reading a CSV file {.scrollable}
 
-Install a package once with `install.packages("package_name")`. Load it every time you start R or open a document with `library(package_name)`:
-
-```{r}
-#| label: packages
-#| message: false
-
-# Core packages for data import and manipulation
-library(tidyverse)
-```
-
-## Reading a CSV file
-
-Use `read_csv()` from the **readr** package (included in tidyverse) to read comma-separated files — e.g. experiment results, word lists, or corpus metadata:
+Use `read_csv()` from the **readr** package (included in tidyverse) to read comma-separated files. Example: population by commune (Luxembourg), file `rnrpp-population-commune.csv` (same folder as this document, or adjust the path if needed).
 
 ```{r}
 #| label: read-csv
+#| echo: false
 
-# Example: create a small toy CSV in memory (simulating a saved file)
-toy_csv <- "word,freq,pos
-the,100,det
-cat,5,noun
-sat,3,verb
-the,100,det"
-
-# read_csv() can take a string or a file path
-word_freq <- read_csv(toy_csv, show_col_types = FALSE)
-word_freq
+# Path: same folder as this .qmd, or "sessions/rnrpp-population-commune.csv" from project root
+pop_path <- "rnrpp-population-commune.csv"
+pop <- read_csv(pop_path, show_col_types = FALSE)
+pop
 ```
 
-In practice you will use a **file path** to your data, e.g. `read_csv("data/lexical_decision.csv")`. Put your data files in a project folder (e.g. `data/`) and use relative paths so your project stays portable.
-
-## Inspecting the dataset
+## Inspecting the dataset {.scrollable}
 
 -   **Print** the data frame: type its name.
--   **View()**: opens a spreadsheet-like viewer in RStudio.
--   **glimpse()**: compact view of columns and types (very useful for many variables).
+-   **View(pop)**: opens a spreadsheet-like viewer in RStudio.
+-   **glimpse()**: compact view of columns and types.
 
 ```{r}
 #| label: inspect-data
 
-glimpse(word_freq)
-nrow(word_freq)
-ncol(word_freq)
-names(word_freq)
+glimpse(pop)
+nrow(pop)
+ncol(pop)
+names(pop)
+head(pop, 5)
 ```
 
-## Accessing columns
+## Accessing columns {.scrollable}
 
-Use `$` to get one column as a vector (e.g. for computing over word frequencies or reaction times):
+Use `$` to get one column as a vector (e.g. to compute totals or means):
 
 ```{r}
-word_freq$word
-word_freq$freq
-mean(word_freq$freq)
+#| label: access-columns
+
+pop$COMMUNE_NOM
+pop$FEMMES_MAJEURES
+# Mean population per commune (total = sum of the four count columns)
+mean(pop$FEMMES_MINEURES + pop$HOMMES_MINEURS + pop$FEMMES_MAJEURES + pop$HOMMES_MAJEURS)
 ```
 
-## Reading text with tidytext {#reading-text-with-tidytext}
+## Aggregating the data {.scrollable}
 
-The **tidytext** package treats text as a **tidy** data frame: one row per token (e.g. word). You start from a table with one row per document (or line) and a text column, then **tokenize** with `unnest_tokens()`.
+With **dplyr** you can **aggregate** by groups (e.g. totals, means). Example: add a total population per commune, then show the top 10 communes by total population; or summarize across all rows (e.g. national totals by category).
 
-**Install once:** `install.packages("tidytext")`. Then load it with `library(tidytext)` (and `library(tidyverse)` for tibbles and the pipe).
+```{r}
+#| label: aggregate-pop
 
-**Example:** build a small “corpus” as a tibble with document IDs and text, then split into words:
+# Total population per commune (using the pipe)
+pop |>
+  mutate(
+    total = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS
+  ) |>
+  arrange(desc(total)) |>
+  select(COMMUNE_NOM, total) |>
+  head(10)
+```
+
+```{r}
+#| label: aggregate-summarize
+
+# One-row summary: national totals by category (sum across all communes)
+pop |>
+  summarise(
+    femmes_mineures = sum(FEMMES_MINEURES),
+    hommes_mineurs  = sum(HOMMES_MINEURS),
+    femmes_majeures = sum(FEMMES_MAJEURES),
+    hommes_majeurs  = sum(HOMMES_MAJEURS),
+    total          = sum(FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS)
+  )
+```
+
+So: **load** with `read_csv()`, **inspect** with `glimpse()`, `names()`, `head()`, **access** columns with `$`, and **aggregate** with `mutate()`, `summarise()`, `arrange()`, and `select()` (and later `group_by()` for group-wise summaries).
+
+## Reading text with tidytext {#reading-text-with-tidytext .scrollable}
+
+The **tidytext** package treats text as **tidy data**: [one token per row](https://www.tidytextmining.com/tidytext.html). You start from a table with one row per document (or line) and a text column, then **tokenize** with `unnest_tokens()`.
+
+**Install once:** `install.packages("tidytext")` and `install.packages("gutenbergr")`. Load with `library(tidytext)` and `library(gutenbergr)` (and `library(tidyverse)` for tibbles and the pipe).
+
+**Example:** download a book from the [Project Gutenberg](https://www.gutenberg.org/) corpus using **gutenbergr**, then turn it into a one-word-per-row tibble. The first run requires an internet connection.
 
 ```{r}
 #| label: tidytext-example
 #| message: false
 
 library(tidytext)
+library(gutenbergr)
 
-# Toy corpus: one row per document
-toy_corpus_tidy <- tibble(
-  doc_id = c("doc1", "doc2", "doc3"),
-  text = c(
-    "The cat sat on the mat.",
-    "The dog ran in the sun.",
-    "A cat and a dog."
-  )
-)
+# Download one book by Gutenberg ID (35 = The Time Machine, H.G. Wells)
+# See https://docs.ropensci.org/gutenbergr/articles/text-mining.html
+gutenberg_books <- gutenberg_download(c(35), meta_fields = "title")
+head(gutenberg_books)
 
-# Tokenize: one row per word (punctuation removed, lowercased by default)
-toy_tokens <- toy_corpus_tidy |>
+# One row per line; tokenize to one row per word (punctuation removed, lowercased)
+tidy_tokens <- gutenberg_books |>
   unnest_tokens(output = word, input = text)
 
-toy_tokens
+# First rows of tokenized text
+head(tidy_tokens, 12)
 ```
 
-You can then count words, filter stopwords, or join with lexicons (e.g. sentiment). Word counts:
+Remove **stop words** (very common words like “the”, “of”) with `anti_join(stop_words)` from tidytext, then count words:
 
 ```{r}
-toy_tokens |>
-  count(word, sort = TRUE)
+#| message: false
+
+# Remove stop words, then count
+tidy_tokens |>
+  anti_join(stop_words, by = "word") |>
+  count(word, sort = TRUE) |>
+  head(15)
 ```
 
-For real projects you might read documents with `read_csv()` or `read_lines()` into a tibble with a `text` column, then use `unnest_tokens()` the same way.
+This follows the [Text Mining with R](https://www.tidytextmining.com/tidytext.html) workflow: tidy format → tokenize → filter → count. You can join with sentiment lexicons (e.g. `get_sentiments()`) or use **gutenbergr** to download more works and compare word frequencies across texts.
 
-## Reading text with quanteda {#reading-text-with-quanteda}
+## Reading text with quanteda {#reading-text-with-quanteda .scrollable}
 
-The **quanteda** package works with a **corpus** object: a collection of documents with metadata. You can build a corpus from a character vector (one string per document) or from a data frame with a text column.
+The **quanteda** package works with a **corpus** object: a collection of documents with metadata. You can build a corpus from a data frame with a text column (e.g. the same Gutenberg tibble) or from a character vector.
 
-**Install once:** `install.packages("quanteda")`. Then load with `library(quanteda)`.
+**Install once:** `install.packages("quanteda")`. Load with `library(quanteda)`.
 
-**Example:** use the same toy sentences; create a corpus and inspect it:
+**Example:** use the same Gutenberg data we downloaded for tidytext. Here each **line** of the book is treated as one document (you could instead collapse by chapter or use one document per book):
 
 ```{r}
 #| label: quanteda-example
 #| message: false
 
 library(quanteda)
+library(quanteda.textstats)
 
-# Option A: corpus from a data frame (need docid and text column)
-toy_df <- tibble(
-  doc_id = c("doc1", "doc2", "doc3"),
-  text = c(
-    "The cat sat on the mat.",
-    "The dog ran in the sun.",
-    "A cat and a dog."
-  )
-)
-corp <- corpus(toy_df, text_field = "text")
+# Use the gutenberg_books tibble from the tidytext chunk (run that chunk first)
+# It has columns gutenberg_id, text, title
+corp <- corpus(gutenberg_books, text_field = "text")
 
-# Option B: corpus from a named character vector
-# texts <- c(doc1 = "The cat sat on the mat.", doc2 = "The dog ran.", ...)
-# corp <- corpus(texts)
-
-# Basic inspection
-summary(corp)
+# Basic inspection: one row per document (line)
+summary(corp, n = 5)
 ndoc(corp)
 ntoken(corp)
 ```
@@ -336,20 +485,203 @@ ntoken(corp)
 To get a **document-term matrix** (documents × terms) for frequency analysis or modelling:
 
 ```{r}
-# Tokenize and build document-term matrix
-dtm <- corp |>
+#| label: quanteda-dfm
+
+# Tokenize and build document-term matrix (remove punctuation)
+doc_term_matrix <- corp |>
   tokens(remove_punct = TRUE) |>
   dfm()
-dtm
+
+# Dimensions and top terms
+dim(doc_term_matrix)
+textstat_frequency(doc_term_matrix) |>
+  head(10)
 ```
 
-Later you can use `readtext::readtext()` to read files from disk into a data frame, then pass that to `corpus(..., text_field = "text")`.
+So: **tidytext** gives you a long tibble (one row per token); **quanteda** gives you a corpus and a matrix (documents × terms). For more on Gutenberg + quanteda you can combine `gutenberg_download()` with `corpus(..., text_field = "text")` or use `readtext::readtext()` for files on disk.
 
 **When to use which?**
 
 -   **tidytext**: you prefer working in tibbles and dplyr (one row per token); good for word counts, sentiment, and tidy-style workflows.
 -   **quanteda**: you need a corpus object, document-term matrices, or built-in NLP (e.g. keywords, collocations, classification); good for corpus linguistics and text mining.
 -   **readr/read_csv**: for tabular data (responses, word lists, metadata); combine with tidytext or quanteda when your “text” lives in a column.
+
+# Import LOD dictionary data (XML)
+
+## Getting the file {.scrollable}
+
+The LOD linguistic dataset is published as **open data** by the Luxembourg government (Zenter fir d'Lëtzebuerger Sprooch) under **CC0 (**[LOD – Linguistesch Daten (resource)](https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b). Download the zip, extract it, and place the XML file (`new_lod-art.xml`, \~74 MB) in a folder in your project (e.g. `data/`). Below we read it from that folder and inspect its structure.
+
+**Install once:** `install.packages("xml2")`. Then load with `library(xml2)`.
+
+## Reading the XML file {.scrollable}
+
+Read the XML from the file path. The file is large, so the first parse may take a few seconds.
+
+```{r}
+#| label: lod-read-xml
+#| message: false
+
+library(xml2)
+
+# Path to the XML file (e.g. in data/; adjust if your file is elsewhere)
+lod_xml_path <- if (file.exists("data/new_lod-art.xml")) "data/new_lod-art.xml" else "new_lod-art.xml"
+
+# Read XML from the folder
+lod_xml <- read_xml(lod_xml_path)
+
+# Root element
+xml_name(lod_xml)
+xml_children(lod_xml) |> length()   # number of top-level children (entries)
+```
+
+## Structure of the LOD XML {.scrollable}
+
+The document has a single root element `<lod>`, which contains many **`<entry>`** elements. Each entry represents one **headword** (lemma) and its dictionary information. The hierarchy is:
+
+**1. Entry level (`<entry id="...">`)**
+
+-   **`<lemma>`** — the headword (e.g. "A").
+-   **`<ipa>`** — IPA pronunciation (e.g. "aː").
+-   **`<microStructure>`** — grammatical and semantic information.
+
+**2. Inside `<microStructure>`**
+
+-   **`<partOfSpeech gen="...">`** — part of speech (e.g. SUBST, with optional gender).
+-   **`<inflection type="...">`** — inflectional forms (e.g. plural), with `<form nRuleForm="...">` for each form.
+-   **`<grammaticalUnit>`** — groups one or more **meanings**.
+
+**3. Meaning level (`<meaning id="..." video="...">`)**
+
+-   **`<number>`** — sense number.
+-   **`<targetLanguage lang="de|fr|en|pt|nl">`** — translations:
+    -   **`<translation>`** — equivalent in the target language.
+    -   **`<semanticClarifier>`** — short clarification (e.g. “Sehorgan” for “Auge”).
+-   **`<examples count="...">`** — example sentences:
+    -   **`<example>`** (optional `id`):
+        -   **`<text>`** — Luxembourgish example: `<word>` elements for each token, `<inflectedHeadword>` for the headword form used; optional `<attribute>` (e.g. EGS = example).
+        -   **`<gloss>`** (optional) — gloss/paraphrase, again with `<word>` elements.
+
+So each **entry** → **microStructure** → **grammaticalUnit** → one or more **meaning** → translations in several languages and **examples** (with optional glosses).
+
+## How XPath works
+
+**XPath** is a language for selecting nodes in an XML (or HTML) tree. In R you use it with **xml2** via `xml_find_first()` (one node) and `xml_find_all()` (all matching nodes). The expression is a path that describes where to go in the tree.
+
+| XPath | Meaning | Example |
+|------------------------|------------------------|------------------------|
+| `nodename` | Direct child with that name | `lemma` → children of the current node named `lemma` |
+| `/nodename` | Child from the **root** | `/lod` → root element; `/lod/entry` → every `entry` directly under `lod` |
+| `//nodename` | **Any** descendant (any depth) | `//entry` → every `entry` in the document |
+| `.//nodename` | Any descendant **from the current node** | Inside an entry, `.//lemma` finds `lemma` anywhere under that entry |
+| `*` | Any element (wildcard) | `./*` → all direct children of the current node |
+| `[@attr='value']` | Filter by attribute | `targetLanguage[@lang='de']` → `targetLanguage` whose `lang` is `de` |
+| `path1/path2` | Then: path2 under path1 | `.//meaning/examples/example` → `example` under `examples` under `meaning` |
+
+**Examples on the LOD:**
+
+-   `//entry` — every entry in the document (from root).
+-   `//entry/lemma` — every `lemma` that is a direct child of an `entry`.
+-   `.//lemma` — the lemma of the **current** entry (when you’re already on one entry).
+-   `.//meaning/targetLanguage[@lang='en']/translation` — English translations under the current entry.
+-   `.//meaning/examples/example` — all example nodes under the current entry.
+
+The **dot** (`.`) is the current node; **`.//`** means “starting from here, any descendant”. Without the dot, `//` starts from the document root.
+
+## Inspecting one entry in R {.scrollable}
+
+To see the structure of a single entry and extract a few fields:
+
+```{r}
+#| label: lod-structure
+
+# First entry
+first_entry <- xml_find_first(lod_xml, "//entry")
+
+# Lemma and IPA
+xml_find_first(first_entry, ".//lemma") |> xml_text()
+xml_find_first(first_entry, ".//ipa")    |> xml_text()
+
+# Part of speech
+xml_find_first(first_entry, ".//partOfSpeech") |> xml_text()
+xml_find_first(first_entry, ".//partOfSpeech") |> xml_attr("gen")
+
+# First meaning: translations (e.g. German, English)
+xml_find_all(first_entry, ".//meaning/targetLanguage[@lang='de']/translation") |> xml_text()
+xml_find_all(first_entry, ".//meaning/targetLanguage[@lang='en']/translation") |> xml_text()
+
+# Number of examples in the first meaning
+xml_find_first(first_entry, ".//meaning/examples") |> xml_attr("count")
+```
+
+## Exploring the examples section {.scrollable}
+
+Each **meaning** can contain an **`<examples>`** block with one or more **`<example>`** nodes. Each `<example>` has at least one **`<text>`** element whose children are **`<word>`** and **`<inflectedHeadword>`** (and optionally **`<attribute>`**), in order — that is the Luxembourgish example sentence. Below we **collect** several example sentences from **random entries** and put them into a **tibble** so you can work with them like any table (filter, count, join, etc.).
+
+**Helper:** turn one `<example>` node into the sentence string (first `<text>` only):
+
+```{r}
+#| label: lod-get-sentence
+
+# Sentence text from one <example>: first <text>, then concatenate child elements (word, inflectedHeadword, etc.)
+get_sentence <- function(ex) {
+  text_node <- xml_find_first(ex, ".//text")
+  if (inherits(text_node, "xml_missing")) return(NA_character_)
+  tokens <- xml_find_all(text_node, "./*")
+  paste(xml_text(tokens), collapse = " ")
+}
+```
+
+**Collect examples and build a tibble:** sample a number of entries, take up to two examples per entry, then combine lemma and sentence into a data frame.
+
+```{r}
+#| label: lod-examples-tibble
+#| message: false
+
+library(tibble)
+
+all_entries <- xml_find_all(lod_xml, "//entry")
+set.seed(123)
+n_entries  <- 30
+sampled    <- sample(length(all_entries), min(n_entries, length(all_entries)))
+rows       <- list()
+
+for (i in seq_along(sampled)) {
+  entry  <- all_entries[[sampled[i]]]
+  lemma  <- xml_find_first(entry, ".//lemma") |> xml_text()
+  exs    <- xml_find_all(entry, ".//meaning/examples/example")
+  # Take at most 2 examples per entry
+  exs    <- exs[1:min(2, length(exs))]
+  for (ex in exs) {
+    sent <- get_sentence(ex)
+    if (!is.na(sent) && nchar(sent) > 0)
+      rows[[length(rows) + 1]] <- list(lemma = lemma, sentence = sent)
+  }
+}
+
+# One row per example sentence
+lod_examples <- tibble(
+  lemma    = vapply(rows, function(r) r$lemma,    character(1)),
+  sentence = vapply(rows, function(r) r$sentence, character(1))
+)
+
+lod_examples
+```
+
+You can now use **dplyr** or **tidyr** on `lod_examples` (e.g. count sentences per lemma, filter by length, or join with other data). The same idea scales to all entries if you loop over every entry and every example and bind the rows.
+
+## Summary of the LOD XML structure {.scrollable}
+
+| Level | Element | Role |
+|------------------------|------------------------|------------------------|
+| Root | `lod` | Container for all entries. |
+| Entry | `entry` (id) | One headword: lemma, ipa, microStructure. |
+| Micro | `microStructure` | partOfSpeech, inflection(s), grammaticalUnit(s). |
+| Unit | `grammaticalUnit` | Groups one or more meanings. |
+| Meaning | `meaning` (id, video) | Sense: number, targetLanguage (translation, semanticClarifier), examples. |
+| Example | `example` | text (word, inflectedHeadword, optional attribute), optional gloss. |
+
+This structure lets you extract lemmas, translations, parts of speech, inflections, and example sentences (with glosses) for lexical and corpus-oriented analyses in R.
 
 # First taste of data transformation (with language data) {#first-taste-of-data-transformation-with-language-data}
 
@@ -389,33 +721,7 @@ Main verbs you will see again in Session 2:
 -   `arrange()` — sort rows.
 -   `summarize()` — compute summaries (often with `group_by()`).
 
-# Scripting in Quarto
-
-## Why Quarto?
-
--   Combine **text, code, and output** in one document — ideal for reporting on corpus or experiment results.
--   **Reproducible**: re-run and re-render to update tables and figures.
--   Output to HTML, PDF, or other formats.
-
-## Running code in a .qmd file
-
--   **Code chunks** are enclosed in ```` ```{r} ```` and ```` ``` ````.
--   Run one chunk: **Cmd+Enter** (Mac) or **Ctrl+Enter** (Windows/Linux).
--   Render the whole document: **Cmd+Shift+K** (or **Ctrl+Shift+K**) or click *Render*.
-
-Example chunk options:
-
-``` r
-#| label: my-chunk
-#| echo: true
-#| eval: true
-```
-
--   `label`: unique name for the chunk.
--   `echo`: whether to show the code in the output.
--   `eval`: whether to run the code.
-
-# Hands-on exercises (toy language data)
+# Hands-on exercises
 
 1.  **Typo.** Why does this fail? (Look very carefully at the object name.)
 
@@ -450,10 +756,12 @@ Example chunk options:
     word_data|>filter(freq>3)|>arrange(freq)|>select(word,freq)
     ```
 
-7.  **tidytext and quanteda (hands-on).** Use the same toy texts as in the [tidytext](#reading-text-with-tidytext) and [quanteda](#reading-text-with-quanteda) sections (or two short sentences of your own in a tibble with columns `doc_id` and `text`).
+7.  **tidytext and quanteda with Gutenberg (hands-on).** Use the same book downloaded in the [tidytext](#reading-text-with-tidytext) section (`gutenberg_books`) or download another (e.g. `gutenberg_download(1342)` for *Pride and Prejudice*; see [gutenbergr text mining](https://docs.ropensci.org/gutenbergr/articles/text-mining.html)).
 
-    **(a) tidytext:** Tokenize the text with `unnest_tokens(output = word, input = text)`. Then, using the pipe, count words with `count(word, sort = TRUE)` and show the result. How many times does *the* appear?
+    **(a) tidytext:** Start from `gutenberg_books`. Tokenize with `unnest_tokens(output = word, input = text)`, then `anti_join(stop_words, by = "word")`, then `count(word, sort = TRUE)`. What are the **top 5** words? How many tokens are there in total (use `sum(n)` on the count table)?
 
-    **(b) quanteda:** Build a corpus with `corpus(your_tibble, text_field = "text")`. Call `summary(corp)` and `ntoken(corp)`. How many tokens are in the corpus? Optional: build a document-term matrix with `tokens(corp, remove_punct = TRUE) |> dfm()` and print it.
+    **(b) quanteda:** Build a corpus with `corpus(gutenberg_books, text_field = "text")`. Call `sum(ntoken(corp))` to get total tokens (this counts all tokens; in (a) you had totals *after* removing stop words, so the numbers differ). Build a document-term matrix with `tokens(corp, remove_punct = TRUE) |> dfm()`, then use `textstat_freq(your_dfm)` to list the most frequent terms. Compare the top 5 with tidytext’s top 5 (quanteda’s dfm doesn’t remove stop words by default, so you’ll see “the”, “and”, etc. unless you add a step to remove them).
 
-    **(c)** In one sentence: what is the main difference between the tidytext output (tibble of tokens or counts) and the quanteda `dfm` (document-term matrix)?
+    **(c)** In one sentence: what is the main difference between tidytext’s one-token-per-row (or word-count) tibble and quanteda’s document-term matrix (`dfm`)?
+
+# 

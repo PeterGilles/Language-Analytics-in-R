@@ -19,7 +19,7 @@ Initial steps:
 
 -   install RStudio
 
--   install these packages in RStudio: tidyverse, languageR, tidytext, quanteda
+-   install these packages in RStudio: tidyverse, languageR, tidytext, quanteda, quanteda.textmodels, quanteda.textplots, quanteda.textstats, quanteda.tidy, gutenbergr
 
 ## Syllabus
 
@@ -46,6 +46,8 @@ Six sessions
 [@winter2020] (<https://appliedstatisticsforlinguists.org/bwinter_stats_proofs.pdf>)
 
 [R for Data Science (2e)](https://r4ds.hadley.nz/)
+
+<https://www.tidytextmining.com/>
 
 <https://eleanorchodroff.com/r-for-linguists/>
 

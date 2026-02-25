@@ -171,43 +171,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
-  <li><a href="#rstudio-and-running-r-code" id="toc-rstudio-and-running-r-code" class="nav-link" data-scroll-target="#rstudio-and-running-r-code">RStudio and running R code</a>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</a></li>
+  <li><a href="#rstudio-and-running-r-code" id="toc-rstudio-and-running-r-code" class="nav-link" data-scroll-target="#rstudio-and-running-r-code"><span class="header-section-number">1</span> RStudio and running R code</a>
   <ul class="collapse">
-  <li><a href="#the-rstudio-interface" id="toc-the-rstudio-interface" class="nav-link" data-scroll-target="#the-rstudio-interface">The RStudio interface</a></li>
-  <li><a href="#sec-basics" id="toc-sec-basics" class="nav-link" data-scroll-target="#sec-basics">Coding basics</a></li>
+  <li><a href="#the-rstudio-interface" id="toc-the-rstudio-interface" class="nav-link" data-scroll-target="#the-rstudio-interface"><span class="header-section-number">1.1</span> The RStudio interface</a></li>
+  <li><a href="#sec-basics" id="toc-sec-basics" class="nav-link" data-scroll-target="#sec-basics"><span class="header-section-number">1.2</span> Coding basics</a></li>
   </ul></li>
-  <li><a href="#comments-and-names" id="toc-comments-and-names" class="nav-link" data-scroll-target="#comments-and-names">Comments and names</a>
+  <li><a href="#comments-and-names" id="toc-comments-and-names" class="nav-link" data-scroll-target="#comments-and-names"><span class="header-section-number">2</span> Comments and names</a>
   <ul class="collapse">
-  <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">Comments</a></li>
-  <li><a href="#sec-names" id="toc-sec-names" class="nav-link" data-scroll-target="#sec-names">What’s in a name?</a></li>
+  <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments"><span class="header-section-number">2.1</span> Comments</a></li>
+  <li><a href="#sec-names" id="toc-sec-names" class="nav-link" data-scroll-target="#sec-names"><span class="header-section-number">2.2</span> What’s in a name?</a></li>
   </ul></li>
-  <li><a href="#calling-functions" id="toc-calling-functions" class="nav-link" data-scroll-target="#calling-functions">Calling functions</a></li>
-  <li><a href="#sec-style" id="toc-sec-style" class="nav-link" data-scroll-target="#sec-style">Code style</a>
+  <li><a href="#calling-functions" id="toc-calling-functions" class="nav-link" data-scroll-target="#calling-functions"><span class="header-section-number">3</span> Calling functions</a></li>
+  <li><a href="#sec-style" id="toc-sec-style" class="nav-link" data-scroll-target="#sec-style"><span class="header-section-number">4</span> Code style</a>
   <ul class="collapse">
-  <li><a href="#names-reminder" id="toc-names-reminder" class="nav-link" data-scroll-target="#names-reminder">Names (reminder)</a></li>
-  <li><a href="#spaces" id="toc-spaces" class="nav-link" data-scroll-target="#spaces">Spaces</a></li>
-  <li><a href="#pipes" id="toc-pipes" class="nav-link" data-scroll-target="#pipes">Pipes</a></li>
-  <li><a href="#sectioning-comments" id="toc-sectioning-comments" class="nav-link" data-scroll-target="#sectioning-comments">Sectioning comments</a></li>
+  <li><a href="#names-reminder" id="toc-names-reminder" class="nav-link" data-scroll-target="#names-reminder"><span class="header-section-number">4.1</span> Names (reminder)</a></li>
+  <li><a href="#spaces" id="toc-spaces" class="nav-link" data-scroll-target="#spaces"><span class="header-section-number">4.2</span> Spaces</a></li>
+  <li><a href="#pipes" id="toc-pipes" class="nav-link" data-scroll-target="#pipes"><span class="header-section-number">4.3</span> Pipes</a></li>
+  <li><a href="#sectioning-comments" id="toc-sectioning-comments" class="nav-link" data-scroll-target="#sectioning-comments"><span class="header-section-number">4.4</span> Sectioning comments</a></li>
   </ul></li>
-  <li><a href="#working-with-text-data-and-corpora-data-import" id="toc-working-with-text-data-and-corpora-data-import" class="nav-link" data-scroll-target="#working-with-text-data-and-corpora-data-import">Working with text data and corpora (data import)</a>
+  <li><a href="#scripting-in-quarto" id="toc-scripting-in-quarto" class="nav-link" data-scroll-target="#scripting-in-quarto"><span class="header-section-number">5</span> Scripting in Quarto</a>
   <ul class="collapse">
-  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
-  <li><a href="#reading-a-csv-file" id="toc-reading-a-csv-file" class="nav-link" data-scroll-target="#reading-a-csv-file">Reading a CSV file</a></li>
-  <li><a href="#inspecting-the-dataset" id="toc-inspecting-the-dataset" class="nav-link" data-scroll-target="#inspecting-the-dataset">Inspecting the dataset</a></li>
-  <li><a href="#accessing-columns" id="toc-accessing-columns" class="nav-link" data-scroll-target="#accessing-columns">Accessing columns</a></li>
-  <li><a href="#reading-text-with-tidytext" id="toc-reading-text-with-tidytext" class="nav-link" data-scroll-target="#reading-text-with-tidytext">Reading text with tidytext</a></li>
-  <li><a href="#reading-text-with-quanteda" id="toc-reading-text-with-quanteda" class="nav-link" data-scroll-target="#reading-text-with-quanteda">Reading text with quanteda</a></li>
+  <li><a href="#why-quarto" id="toc-why-quarto" class="nav-link" data-scroll-target="#why-quarto"><span class="header-section-number">5.1</span> Why Quarto?</a></li>
+  <li><a href="#running-code-in-a-.qmd-file" id="toc-running-code-in-a-.qmd-file" class="nav-link" data-scroll-target="#running-code-in-a-.qmd-file"><span class="header-section-number">5.2</span> Running code in a .qmd file</a></li>
   </ul></li>
-  <li><a href="#first-taste-of-data-transformation-with-language-data" id="toc-first-taste-of-data-transformation-with-language-data" class="nav-link" data-scroll-target="#first-taste-of-data-transformation-with-language-data">First taste of data transformation (with language data)</a></li>
-  <li><a href="#scripting-in-quarto" id="toc-scripting-in-quarto" class="nav-link" data-scroll-target="#scripting-in-quarto">Scripting in Quarto</a>
+  <li><a href="#working-with-text-data-and-corpora-data-import" id="toc-working-with-text-data-and-corpora-data-import" class="nav-link" data-scroll-target="#working-with-text-data-and-corpora-data-import"><span class="header-section-number">6</span> Working with text data and corpora (data import)</a>
   <ul class="collapse">
-  <li><a href="#why-quarto" id="toc-why-quarto" class="nav-link" data-scroll-target="#why-quarto">Why Quarto?</a></li>
-  <li><a href="#running-code-in-a-.qmd-file" id="toc-running-code-in-a-.qmd-file" class="nav-link" data-scroll-target="#running-code-in-a-.qmd-file">Running code in a .qmd file</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">6.1</span> Packages</a></li>
+  <li><a href="#reading-a-csv-file" id="toc-reading-a-csv-file" class="nav-link" data-scroll-target="#reading-a-csv-file"><span class="header-section-number">6.2</span> Reading a CSV file</a></li>
+  <li><a href="#inspecting-the-dataset" id="toc-inspecting-the-dataset" class="nav-link" data-scroll-target="#inspecting-the-dataset"><span class="header-section-number">6.3</span> Inspecting the dataset</a></li>
+  <li><a href="#accessing-columns" id="toc-accessing-columns" class="nav-link" data-scroll-target="#accessing-columns"><span class="header-section-number">6.4</span> Accessing columns</a></li>
+  <li><a href="#aggregating-the-data" id="toc-aggregating-the-data" class="nav-link" data-scroll-target="#aggregating-the-data"><span class="header-section-number">6.5</span> Aggregating the data</a></li>
+  <li><a href="#reading-text-with-tidytext" id="toc-reading-text-with-tidytext" class="nav-link" data-scroll-target="#reading-text-with-tidytext"><span class="header-section-number">6.6</span> Reading text with tidytext</a></li>
+  <li><a href="#reading-text-with-quanteda" id="toc-reading-text-with-quanteda" class="nav-link" data-scroll-target="#reading-text-with-quanteda"><span class="header-section-number">6.7</span> Reading text with quanteda</a></li>
   </ul></li>
-  <li><a href="#hands-on-exercises-toy-language-data" id="toc-hands-on-exercises-toy-language-data" class="nav-link" data-scroll-target="#hands-on-exercises-toy-language-data">Hands-on exercises (toy language data)</a></li>
+  <li><a href="#import-lod-dictionary-data-xml" id="toc-import-lod-dictionary-data-xml" class="nav-link" data-scroll-target="#import-lod-dictionary-data-xml"><span class="header-section-number">7</span> Import LOD dictionary data (XML)</a>
+  <ul class="collapse">
+  <li><a href="#getting-the-file" id="toc-getting-the-file" class="nav-link" data-scroll-target="#getting-the-file"><span class="header-section-number">7.1</span> Getting the file</a></li>
+  <li><a href="#reading-the-xml-file" id="toc-reading-the-xml-file" class="nav-link" data-scroll-target="#reading-the-xml-file"><span class="header-section-number">7.2</span> Reading the XML file</a></li>
+  <li><a href="#structure-of-the-lod-xml" id="toc-structure-of-the-lod-xml" class="nav-link" data-scroll-target="#structure-of-the-lod-xml"><span class="header-section-number">7.3</span> Structure of the LOD XML</a></li>
+  <li><a href="#how-xpath-works" id="toc-how-xpath-works" class="nav-link" data-scroll-target="#how-xpath-works"><span class="header-section-number">7.4</span> How XPath works</a></li>
+  <li><a href="#inspecting-one-entry-in-r" id="toc-inspecting-one-entry-in-r" class="nav-link" data-scroll-target="#inspecting-one-entry-in-r"><span class="header-section-number">7.5</span> Inspecting one entry in R</a></li>
+  <li><a href="#exploring-the-examples-section" id="toc-exploring-the-examples-section" class="nav-link" data-scroll-target="#exploring-the-examples-section"><span class="header-section-number">7.6</span> Exploring the examples section</a></li>
+  <li><a href="#summary-of-the-lod-xml-structure" id="toc-summary-of-the-lod-xml-structure" class="nav-link" data-scroll-target="#summary-of-the-lod-xml-structure"><span class="header-section-number">7.7</span> Summary of the LOD XML structure</a></li>
+  </ul></li>
+  <li><a href="#first-taste-of-data-transformation-with-language-data" id="toc-first-taste-of-data-transformation-with-language-data" class="nav-link" data-scroll-target="#first-taste-of-data-transformation-with-language-data"><span class="header-section-number">8</span> First taste of data transformation (with language data)</a></li>
+  <li><a href="#hands-on-exercises" id="toc-hands-on-exercises" class="nav-link" data-scroll-target="#hands-on-exercises"><span class="header-section-number">9</span> Hands-on exercises</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">10</span> </a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="session-01-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -238,8 +250,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="learning-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<section id="learning-objectives" class="level2 scrollable" data-number="0.1">
+<h2 class="scrollable anchored" data-number="0.1" data-anchor-id="learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</h2>
 <p>By the end of this session you will:</p>
 <ul>
 <li>Use RStudio and run R code in the console and in a Quarto document.</li>
@@ -253,10 +265,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This course focuses on <strong>linguistic and language data in R</strong>. Examples and exercises use words, frequencies, and simple text data so you can quickly apply the same ideas to your own corpora and experiments.</p>
 <p>The material draws on <a href="https://r4ds.hadley.nz/">R for Data Science (2e)</a> (chapters 2–4), <a href="https://eleanorchodroff.com/r-for-linguists/">R for Linguists</a>, and other linguistics-oriented R resources (see <a href="#further-reading">Further reading</a>).</p>
 </section>
-<section id="rstudio-and-running-r-code" class="level1">
-<h1>RStudio and running R code</h1>
-<section id="the-rstudio-interface" class="level2">
-<h2 class="anchored" data-anchor-id="the-rstudio-interface">The RStudio interface</h2>
+<section id="rstudio-and-running-r-code" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> RStudio and running R code</h1>
+<section id="the-rstudio-interface" class="level2 scrollable" data-number="1.1">
+<h2 class="scrollable anchored" data-number="1.1" data-anchor-id="the-rstudio-interface"><span class="header-section-number">1.1</span> The RStudio interface</h2>
 <ul>
 <li><strong>Console</strong>: type R code and see results.</li>
 <li><strong>Editor</strong>: write and save scripts (e.g.&nbsp;<code>.qmd</code> or <code>.R</code>).</li>
@@ -264,9 +276,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Files / Plots / Help</strong>: navigate files, view plots, read help.</li>
 </ul>
 <p>Run code from the editor with <strong>Cmd+Enter</strong> (Mac) or <strong>Ctrl+Enter</strong> (Windows/Linux).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Seeing chunk output in RStudio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you run a chunk (Cmd+Enter), output can appear in two places:</p>
+<ul>
+<li><strong>Inline (below the chunk):</strong> Enable <strong>Tools → Global Options → R Markdown</strong> → check <strong>“Show output inline for all R Markdown documents”</strong>. Then run the chunk again; the result appears under the code in the editor.</li>
+<li><strong>Console:</strong> If inline is off, or in addition, look at the <strong>Console</strong> pane (bottom of RStudio) after running the chunk — all printed results appear there.</li>
+</ul>
+</div>
+</div>
 </section>
-<section id="sec-basics" class="level2">
-<h2 class="anchored" data-anchor-id="sec-basics">Coding basics</h2>
+<section id="sec-basics" class="level2 scrollable" data-number="1.2">
+<h2 class="scrollable anchored" data-number="1.2" data-anchor-id="sec-basics"><span class="header-section-number">1.2</span> Coding basics</h2>
 <p>You can use R as a calculator (e.g.&nbsp;for reaction times, accuracy, or counts):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="dv">200</span> <span class="sc">*</span> <span class="dv">30</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -288,73 +317,80 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>vot_ms <span class="ot">&lt;-</span> <span class="dv">25</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>word_length <span class="ot">&lt;-</span> <span class="fu">nchar</span>(<span class="st">"linguistics"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Every assignment has the form:</p>
+<pre class="text"><code>object_name &lt;- value</code></pre>
+<p>Read it as: <em>“object name gets value”</em>.</p>
+<p><strong>Tip:</strong> In RStudio use <strong>Alt + -</strong> (minus) to insert <code>&lt;-</code> with spaces.</p>
 <p>The value is stored but not printed. Type the object name to inspect it:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>vot_ms</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>vot_ms</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 25</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>word_length</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>word_length</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11</code></pre>
 </div>
 </div>
 <p>Combine values into a <strong>vector</strong> with <code>c()</code> — like a column of observations (e.g.&nbsp;reaction times, word lengths, or a list of words):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># numeric vector: e.g. reaction times in ms</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>rt_ms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">320</span>, <span class="dv">415</span>, <span class="dv">380</span>, <span class="dv">290</span>, <span class="dv">410</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># character vector: e.g. word forms or conditions</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>words <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"mouse"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># numeric vector: e.g. reaction times in ms</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>rt_ms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">320</span>, <span class="dv">415</span>, <span class="dv">380</span>, <span class="dv">290</span>, <span class="dv">410</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># character vector: e.g. word forms or conditions</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>words <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"mouse"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># a rose is a rose — last expression is printed in the report</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>stein <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"rose"</span>, <span class="st">"is"</span>, <span class="st">"a"</span>, <span class="st">"rose"</span>, <span class="st">"is"</span>, <span class="st">"a"</span>, <span class="st">"rose"</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(stein)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"    "rose" "is"   "a"    "rose" "is"   "a"    "rose"</code></pre>
 </div>
-<p>Every assignment has the form:</p>
-<pre class="text"><code>object_name &lt;- value</code></pre>
-<p>Read it as: <em>“object name gets value”</em>.</p>
-<p><strong>Tip:</strong> In RStudio use <strong>Alt + -</strong> (minus) to insert <code>&lt;-</code> with spaces.</p>
+</div>
 </section>
 </section>
-<section id="comments-and-names" class="level1">
-<h1>Comments and names</h1>
-<section id="comments" class="level2">
-<h2 class="anchored" data-anchor-id="comments">Comments</h2>
+<section id="comments-and-names" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Comments and names</h1>
+<section id="comments" class="level2 scrollable" data-number="2.1">
+<h2 class="scrollable anchored" data-number="2.1" data-anchor-id="comments"><span class="header-section-number">2.1</span> Comments</h2>
 <p>R ignores everything after <code>#</code> on a line. Use comments to explain <em>why</em> you did something (e.g.&nbsp;why you chose a threshold or excluded a condition), not just <em>what</em> the code does.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># word list for lexical decision practice</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>words <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"mouse"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mean reaction time (ms)</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rt_ms)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># word list for lexical decision practice</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>words <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"mouse"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mean reaction time (ms)</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rt_ms)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 363</code></pre>
 </div>
 </div>
 </section>
-<section id="sec-names" class="level2">
-<h2 class="anchored" data-anchor-id="sec-names">What’s in a name?</h2>
+<section id="sec-names" class="level2 scrollable" data-number="2.2">
+<h2 class="scrollable anchored" data-number="2.2" data-anchor-id="sec-names"><span class="header-section-number">2.2</span> What’s in a name?</h2>
 <ul>
 <li>Names must <strong>start with a letter</strong> and contain only letters, numbers, <code>_</code>, and <code>.</code>.</li>
 <li>Use <strong>snake_case</strong>: lowercase words separated by <code>_</code> (e.g.&nbsp;<code>word_list</code>, <code>response_time</code>).</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>response_time_ms <span class="ot">&lt;-</span> <span class="dv">320</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>word_list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"the"</span>, <span class="st">"cat"</span>, <span class="st">"sat"</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Avoid: responseTimeMs, Word.List</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>response_time_ms <span class="ot">&lt;-</span> <span class="dv">320</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>word_list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"the"</span>, <span class="st">"cat"</span>, <span class="st">"sat"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Avoid: responseTimeMs, Word.List</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>R is case-sensitive and does not fix typos: <code>word_list</code> and <code>Word_list</code> are different objects.</p>
 <p><strong>Tip:</strong> Type a prefix and press <strong>Tab</strong> for autocomplete; use <strong>↑</strong> or <strong>Cmd+↑</strong> to recall previous commands.</p>
 </section>
 </section>
-<section id="calling-functions" class="level1">
-<h1>Calling functions</h1>
+<section id="calling-functions" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Calling functions</h1>
 <p>Functions are called like this:</p>
 <pre class="text"><code>function_name(argument1 = value1, argument2 = value2, ...)</code></pre>
 <p>Example: <code>seq()</code> creates sequences (e.g.&nbsp;for item IDs or conditions):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</code></pre>
 </div>
@@ -362,74 +398,109 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You can omit argument names for the first arguments. Use <strong>Tab</strong> after typing a function name to see arguments and help.</p>
 <p><strong>Strings</strong> (text) need <strong>matched quotation marks</strong> — essential when working with words and corpora:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>word <span class="ot">&lt;-</span> <span class="st">"hello"</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare strings (e.g. for accuracy coding)</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="st">"linguistics"</span> <span class="sc">==</span> <span class="st">"linguistics"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>word <span class="ot">&lt;-</span> <span class="st">"hello"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare strings (e.g. for accuracy coding)</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="st">"linguistics"</span> <span class="sc">==</span> <span class="st">"linguistics"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="st">"linguistics"</span> <span class="sc">==</span> <span class="st">"lingiustics"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="st">"linguistics"</span> <span class="sc">==</span> <span class="st">"lingiustics"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
 </div>
 <p>If you see a <code>+</code> in the console, R is waiting for more input (often a missing <code>"</code> or <code>)</code>). Press <strong>Escape</strong> to cancel.</p>
 </section>
-<section id="sec-style" class="level1">
-<h1>Code style</h1>
+<section id="sec-style" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Code style</h1>
 <p>Good style makes code easier to read for you and others. We follow the <a href="https://style.tidyverse.org/">tidyverse style guide</a>.</p>
-<section id="names-reminder" class="level2">
-<h2 class="anchored" data-anchor-id="names-reminder">Names (reminder)</h2>
+<section id="names-reminder" class="level2 scrollable" data-number="4.1">
+<h2 class="scrollable anchored" data-number="4.1" data-anchor-id="names-reminder"><span class="header-section-number">4.1</span> Names (reminder)</h2>
 <ul>
 <li>Use lowercase, numbers, and <code>_</code>.</li>
 <li>Prefer <strong>long, descriptive names</strong> (e.g.&nbsp;<code>participant_response_time</code> over <code>prt</code>).</li>
 </ul>
 </section>
-<section id="spaces" class="level2">
-<h2 class="anchored" data-anchor-id="spaces">Spaces</h2>
+<section id="spaces" class="level2 scrollable" data-number="4.2">
+<h2 class="scrollable anchored" data-number="4.2" data-anchor-id="spaces"><span class="header-section-number">4.2</span> Spaces</h2>
 <ul>
 <li>Put spaces around <code>+</code>, <code>-</code>, <code>==</code>, <code>&lt;</code>, etc. (except <code>^</code>).</li>
 <li>Put spaces around <code>&lt;-</code>.</li>
 <li>Put a space after every comma.</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Strive for: spaces around operators and after comma</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>n_char <span class="ot">&lt;-</span> <span class="fu">nchar</span>(<span class="st">"word"</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rt_ms, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Strive for: spaces around operators and after comma</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>n_char <span class="ot">&lt;-</span> <span class="fu">nchar</span>(<span class="st">"word"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rt_ms, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 363</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Avoid: n_char&lt;-nchar("word") or mean(rt_ms,na.rm=TRUE)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Avoid: n_char&lt;-nchar("word") or mean(rt_ms,na.rm=TRUE)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="pipes" class="level2">
-<h2 class="anchored" data-anchor-id="pipes">Pipes</h2>
-<p>The pipe <code>|&gt;</code> passes the result on the left into the function on the right. Read it as <em>“then”</em>.</p>
+<section id="pipes" class="level2 scrollable" data-number="4.3">
+<h2 class="scrollable anchored" data-number="4.3" data-anchor-id="pipes"><span class="header-section-number">4.3</span> Pipes</h2>
+<p>The pipe <code>|&gt;</code> (alternatively <code>%&gt;%</code> when using package <code>magrittr</code>) passes the result on the left into the function on the right. Read it as <em>“then”</em>.</p>
 <ul>
 <li>Put a space before <code>|&gt;</code> and put <code>|&gt;</code> at the <strong>end</strong> of the line.</li>
 <li>Indent the next line by two spaces.</li>
 </ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"Méindeg"</span>, <span class="st">"Dënschdeg"</span>, <span class="st">"Mëttwoch"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nchar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7 9 8</code></pre>
+</div>
+</div>
 <p>We’ll use the pipe with <strong>language data</strong> in the next section.</p>
 </section>
-<section id="sectioning-comments" class="level2">
-<h2 class="anchored" data-anchor-id="sectioning-comments">Sectioning comments</h2>
+<section id="sectioning-comments" class="level2 scrollable" data-number="4.4">
+<h2 class="scrollable anchored" data-number="4.4" data-anchor-id="sectioning-comments"><span class="header-section-number">4.4</span> Sectioning comments</h2>
 <p>Break long scripts into sections:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data --------------------------------------</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot data --------------------------------------</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data --------------------------------------</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot data --------------------------------------</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In RStudio: <strong>Cmd+Shift+R</strong> (Mac) or <strong>Ctrl+Shift+R</strong> (Windows/Linux) inserts a section header.</p>
 <p><strong>Tip:</strong> Install the <strong>styler</strong> package and use the command palette (<strong>Cmd+Shift+P</strong>) to format code automatically.</p>
 </section>
 </section>
-<section id="working-with-text-data-and-corpora-data-import" class="level1">
-<h1>Working with text data and corpora (data import)</h1>
+<section id="scripting-in-quarto" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Scripting in Quarto</h1>
+<section id="why-quarto" class="level2 scrollable" data-number="5.1">
+<h2 class="scrollable anchored" data-number="5.1" data-anchor-id="why-quarto"><span class="header-section-number">5.1</span> Why Quarto?</h2>
+<ul>
+<li>Combine <strong>text, code, and output</strong> in one document — ideal for reporting on corpus or experiment results.</li>
+<li><strong>Reproducible</strong>: re-run and re-render to update tables and figures.</li>
+<li>Output to HTML, PDF, or other formats.</li>
+</ul>
+</section>
+<section id="running-code-in-a-.qmd-file" class="level2 scrollable" data-number="5.2">
+<h2 class="scrollable anchored" data-number="5.2" data-anchor-id="running-code-in-a-.qmd-file"><span class="header-section-number">5.2</span> Running code in a .qmd file</h2>
+<ul>
+<li><strong>Code chunks</strong> are enclosed in <code>```{r}</code> and <code>```</code>.</li>
+<li>Run one chunk: <strong>Cmd+Enter</strong> (Mac) or <strong>Ctrl+Enter</strong> (Windows/Linux).</li>
+<li>Render the whole document: <strong>Cmd+Shift+K</strong> (or <strong>Ctrl+Shift+K</strong>) or click <em>Render</em>.</li>
+</ul>
+<p>Example chunk options:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: my-chunk</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>label</code>: unique name for the chunk.</li>
+<li><code>echo</code>: whether to show the code in the output.</li>
+<li><code>eval</code>: whether to run the code.</li>
+</ul>
+</section>
+</section>
+<section id="working-with-text-data-and-corpora-data-import" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Working with text data and corpora (data import)</h1>
 <p>For language analytics we usually work with <strong>tables</strong> (e.g.&nbsp;CSV or Excel) or <strong>text files</strong>. Here we cover reading tabular data with <strong>readr</strong>, then <strong>tidytext</strong> and <strong>quanteda</strong> for turning text into a format you can analyze. Later sessions will go deeper (frequency lists, sentiment, document classification, etc.).</p>
-<section id="packages" class="level2">
-<h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<section id="packages" class="level2 scrollable" data-number="6.1">
+<h2 class="scrollable anchored" data-number="6.1" data-anchor-id="packages"><span class="header-section-number">6.1</span> Packages</h2>
 <p>Install a package once with <code>install.packages("package_name")</code>. Load it every time you start R or open a document with <code>library(package_name)</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Core packages for data import and manipulation</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Core packages for data import and manipulation</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'ggplot2' was built under R version 4.5.2</code></pre>
 </div>
@@ -447,210 +518,1135 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="reading-a-csv-file" class="level2">
-<h2 class="anchored" data-anchor-id="reading-a-csv-file">Reading a CSV file</h2>
-<p>Use <code>read_csv()</code> from the <strong>readr</strong> package (included in tidyverse) to read comma-separated files — e.g.&nbsp;experiment results, word lists, or corpus metadata:</p>
+<section id="reading-a-csv-file" class="level2 scrollable" data-number="6.2">
+<h2 class="scrollable anchored" data-number="6.2" data-anchor-id="reading-a-csv-file"><span class="header-section-number">6.2</span> Reading a CSV file</h2>
+<p>Use <code>read_csv()</code> from the <strong>readr</strong> package (included in tidyverse) to read comma-separated files. Example: population by commune (Luxembourg), file <code>rnrpp-population-commune.csv</code> (same folder as this document, or adjust the path if needed).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: create a small toy CSV in memory (simulating a saved file)</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>toy_csv <span class="ot">&lt;-</span> <span class="st">"word,freq,pos</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="st">the,100,det</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="st">cat,5,noun</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="st">sat,3,verb</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="st">the,100,det"</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co"># read_csv() can take a string or a file path</span></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>word_freq <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(toy_csv, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>word_freq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 3
-  word   freq pos  
-  &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;
-1 the     100 det  
-2 cat       5 noun 
-3 sat       3 verb 
-4 the     100 det  </code></pre>
+<pre><code># A tibble: 102 × 6
+   COMMUNE_CODE COMMUNE_NOM FEMMES_MINEURES HOMMES_MINEURS FEMMES_MAJEURES
+   &lt;chr&gt;        &lt;chr&gt;                 &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;
+ 1 1101         Beaufort                312            306            1250
+ 2 1102         Bech                    104            134             557
+ 3 0802         Beckerich               271            287            1178
+ 4 1103         Berdorf                 216            244             906
+ 5 0401         Bertrange               839            953            3899
+ 6 0301         Bettembourg            1091           1167            4821
+ 7 0702         Bettendorf              269            293            1203
+ 8 1201         Betzdorf                394            487            1663
+ 9 0502         Bissen                  337            314            1462
+10 1202         Biwer                   194            194             727
+# ℹ 92 more rows
+# ℹ 1 more variable: HOMMES_MAJEURS &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>In practice you will use a <strong>file path</strong> to your data, e.g.&nbsp;<code>read_csv("data/lexical_decision.csv")</code>. Put your data files in a project folder (e.g.&nbsp;<code>data/</code>) and use relative paths so your project stays portable.</p>
 </section>
-<section id="inspecting-the-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="inspecting-the-dataset">Inspecting the dataset</h2>
+<section id="inspecting-the-dataset" class="level2 scrollable" data-number="6.3">
+<h2 class="scrollable anchored" data-number="6.3" data-anchor-id="inspecting-the-dataset"><span class="header-section-number">6.3</span> Inspecting the dataset</h2>
 <ul>
 <li><strong>Print</strong> the data frame: type its name.</li>
-<li><strong>View()</strong>: opens a spreadsheet-like viewer in RStudio.</li>
-<li><strong>glimpse()</strong>: compact view of columns and types (very useful for many variables).</li>
+<li><strong>View(pop)</strong>: opens a spreadsheet-like viewer in RStudio.</li>
+<li><strong>glimpse()</strong>: compact view of columns and types.</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(word_freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 4
-Columns: 3
-$ word &lt;chr&gt; "the", "cat", "sat", "the"
-$ freq &lt;dbl&gt; 100, 5, 3, 100
-$ pos  &lt;chr&gt; "det", "noun", "verb", "det"</code></pre>
+<pre><code>Rows: 102
+Columns: 6
+$ COMMUNE_CODE    &lt;chr&gt; "1101", "1102", "0802", "1103", "0401", "0301", "0702"…
+$ COMMUNE_NOM     &lt;chr&gt; "Beaufort", "Bech", "Beckerich", "Berdorf", "Bertrange…
+$ FEMMES_MINEURES &lt;dbl&gt; 312, 104, 271, 216, 839, 1091, 269, 394, 337, 194, 160…
+$ HOMMES_MINEURS  &lt;dbl&gt; 306, 134, 287, 244, 953, 1167, 293, 487, 314, 194, 174…
+$ FEMMES_MAJEURES &lt;dbl&gt; 1250, 557, 1178, 906, 3899, 4821, 1203, 1663, 1462, 72…
+$ HOMMES_MAJEURS  &lt;dbl&gt; 1234, 575, 1177, 927, 3798, 4573, 1286, 1587, 1450, 79…</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(word_freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
+<pre><code>[1] 102</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(word_freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3</code></pre>
+<pre><code>[1] 6</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(word_freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "word" "freq" "pos" </code></pre>
+<pre><code>[1] "COMMUNE_CODE"    "COMMUNE_NOM"     "FEMMES_MINEURES" "HOMMES_MINEURS" 
+[5] "FEMMES_MAJEURES" "HOMMES_MAJEURS" </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pop, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 6
+  COMMUNE_CODE COMMUNE_NOM FEMMES_MINEURES HOMMES_MINEURS FEMMES_MAJEURES
+  &lt;chr&gt;        &lt;chr&gt;                 &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;
+1 1101         Beaufort                312            306            1250
+2 1102         Bech                    104            134             557
+3 0802         Beckerich               271            287            1178
+4 1103         Berdorf                 216            244             906
+5 0401         Bertrange               839            953            3899
+# ℹ 1 more variable: HOMMES_MAJEURS &lt;dbl&gt;</code></pre>
 </div>
 </div>
 </section>
-<section id="accessing-columns" class="level2">
-<h2 class="anchored" data-anchor-id="accessing-columns">Accessing columns</h2>
-<p>Use <code>$</code> to get one column as a vector (e.g.&nbsp;for computing over word frequencies or reaction times):</p>
+<section id="accessing-columns" class="level2 scrollable" data-number="6.4">
+<h2 class="scrollable anchored" data-number="6.4" data-anchor-id="accessing-columns"><span class="header-section-number">6.4</span> Accessing columns</h2>
+<p>Use <code>$</code> to get one column as a vector (e.g.&nbsp;to compute totals or means):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>word_freq<span class="sc">$</span>word</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>pop<span class="sc">$</span>COMMUNE_NOM</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "the" "cat" "sat" "the"</code></pre>
+<pre><code>  [1] "Beaufort"                "Bech"                   
+  [3] "Beckerich"               "Berdorf"                
+  [5] "Bertrange"               "Bettembourg"            
+  [7] "Bettendorf"              "Betzdorf"               
+  [9] "Bissen"                  "Biwer"                  
+ [11] "Boulaide"                "Bourscheid"             
+ [13] "Bous"                    "Bous-Waldbredimus"      
+ [15] "Clervaux"                "Colmar-Berg"            
+ [17] "Consdorf"                "Contern"                
+ [19] "Dalheim"                 "Diekirch"               
+ [21] "Differdange"             "Dippach"                
+ [23] "Dudelange"               "Echternach"             
+ [25] "Ell"                     "Erpeldange-sur-S\xfbre" 
+ [27] "Esch-sur-Alzette"        "Esch-sur-S\xfbre"       
+ [29] "Ettelbruck"              "Feulen"                 
+ [31] "Fischbach"               "Flaxweiler"             
+ [33] "Frisange"                "Garnich"                
+ [35] "Goesdorf"                "Grevenmacher"           
+ [37] "Groussbus-Wal"           "Habscht"                
+ [39] "Heffingen"               "Helperknapp"            
+ [41] "Hesperange"              "Junglinster"            
+ [43] "K\xe4erjeng"             "Kayl"                   
+ [45] "Kehlen"                  "Kiischpelt"             
+ [47] "Koerich"                 "Kopstal"                
+ [49] "Lac de la Haute-S\xfbre" "Larochette"             
+ [51] "Lenningen"               "Leudelange"             
+ [53] "Lintgen"                 "Lorentzweiler"          
+ [55] "Luxembourg"              "Mamer"                  
+ [57] "Manternach"              "Mersch"                 
+ [59] "Mertert"                 "Mertzig"                
+ [61] "Mondercange"             "Mondorf-les-Bains"      
+ [63] "Niederanven"             "Nommern"                
+ [65] "P\xe9tange"              "Parc Hosingen"          
+ [67] "Pr\xe9izerdaul"          "Putscheid"              
+ [69] "Rambrouch"               "Reckange-sur-Mess"      
+ [71] "Redange/Attert"          "Reisdorf"               
+ [73] "Remich"                  "Roeser"                 
+ [75] "Rosport-Mompach"         "Rumelange"              
+ [77] "Saeul"                   "Sandweiler"             
+ [79] "Sanem"                   "Schengen"               
+ [81] "Schieren"                "Schifflange"            
+ [83] "Schuttrange"             "Stadtbredimus"          
+ [85] "Steinfort"               "Steinsel"               
+ [87] "Strassen"                "Tandel"                 
+ [89] "Troisvierges"            "Useldange"              
+ [91] "Vall\xe9e de l'Ernz"     "Vianden"                
+ [93] "Vichten"                 "Waldbillig"             
+ [95] "Waldbredimus"            "Walferdange"            
+ [97] "Weiler-la-Tour"          "Weiswampach"            
+ [99] "Wiltz"                   "Wincrange"              
+[101] "Winseler"                "Wormeldange"            </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>word_freq<span class="sc">$</span>freq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>pop<span class="sc">$</span>FEMMES_MAJEURES</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 100   5   3 100</code></pre>
+<pre><code>  [1]  1250   557  1178   906  3899  4821  1203  1663  1462   727   635   687
+ [13]     0  1300  2546  1013   827  2000   951  3111 12393  1973  9274  2567
+ [25]   678  1117 15436  1330  4186   965   519   880  2040   960   662  2210
+ [37]   938  2114   623  2052  7066  3690  4791  4116  2969   524  1093  1908
+ [49]   874   911   889  1133  1399  1952 56612  4620   942  4330  2332   961
+ [61]  3034  2431  2992   604  8540  1686   744   462  1969  1214  1348   557
+ [73]  1765  2923  1521  2299   422  1572  8019  2135   896  4827  1763   831
+ [85]  2541  2580  4504   925  1429   849  1162   923   573   782     2  3864
+ [97]  1012  1042  3269  1942   623  1337</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(word_freq<span class="sc">$</span>freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean population per commune (total = sum of the four count columns)</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pop<span class="sc">$</span>FEMMES_MINEURES <span class="sc">+</span> pop<span class="sc">$</span>HOMMES_MINEURS <span class="sc">+</span> pop<span class="sc">$</span>FEMMES_MAJEURES <span class="sc">+</span> pop<span class="sc">$</span>HOMMES_MAJEURS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 52</code></pre>
+<pre><code>[1] 6774.01</code></pre>
 </div>
 </div>
 </section>
-<section id="reading-text-with-tidytext" class="level2">
-<h2 class="anchored" data-anchor-id="reading-text-with-tidytext">Reading text with tidytext</h2>
-<p>The <strong>tidytext</strong> package treats text as a <strong>tidy</strong> data frame: one row per token (e.g.&nbsp;word). You start from a table with one row per document (or line) and a text column, then <strong>tokenize</strong> with <code>unnest_tokens()</code>.</p>
-<p><strong>Install once:</strong> <code>install.packages("tidytext")</code>. Then load it with <code>library(tidytext)</code> (and <code>library(tidyverse)</code> for tibbles and the pipe).</p>
-<p><strong>Example:</strong> build a small “corpus” as a tibble with document IDs and text, then split into words:</p>
+<section id="aggregating-the-data" class="level2 scrollable" data-number="6.5">
+<h2 class="scrollable anchored" data-number="6.5" data-anchor-id="aggregating-the-data"><span class="header-section-number">6.5</span> Aggregating the data</h2>
+<p>With <strong>dplyr</strong> you can <strong>aggregate</strong> by groups (e.g.&nbsp;totals, means). Example: add a total population per commune, then show the top 10 communes by total population; or summarize across all rows (e.g.&nbsp;national totals by category).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Toy corpus: one row per document</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>toy_corpus_tidy <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">doc_id =</span> <span class="fu">c</span>(<span class="st">"doc1"</span>, <span class="st">"doc2"</span>, <span class="st">"doc3"</span>),</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="fu">c</span>(</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The cat sat on the mat."</span>,</span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The dog ran in the sun."</span>,</span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A cat and a dog."</span></span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenize: one row per word (punctuation removed, lowercased by default)</span></span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>toy_tokens <span class="ot">&lt;-</span> toy_corpus_tidy <span class="sc">|&gt;</span></span>
-<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> text)</span>
-<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>toy_tokens</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Total population per commune (using the pipe)</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>pop <span class="sc">|&gt;</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> FEMMES_MINEURES <span class="sc">+</span> HOMMES_MINEURS <span class="sc">+</span> FEMMES_MAJEURES <span class="sc">+</span> HOMMES_MAJEURS</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total)) <span class="sc">|&gt;</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(COMMUNE_NOM, total) <span class="sc">|&gt;</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 17 × 2
-   doc_id word 
-   &lt;chr&gt;  &lt;chr&gt;
- 1 doc1   the  
- 2 doc1   cat  
- 3 doc1   sat  
- 4 doc1   on   
- 5 doc1   the  
- 6 doc1   mat  
- 7 doc2   the  
- 8 doc2   dog  
- 9 doc2   ran  
-10 doc2   in   
-11 doc2   the  
-12 doc2   sun  
-13 doc3   a    
-14 doc3   cat  
-15 doc3   and  
-16 doc3   a    
-17 doc3   dog  </code></pre>
+<pre><code># A tibble: 10 × 2
+   COMMUNE_NOM         total
+   &lt;chr&gt;               &lt;dbl&gt;
+ 1 "Luxembourg"       137663
+ 2 "Esch-sur-Alzette"  38269
+ 3 "Differdange"       31420
+ 4 "Dudelange"         22377
+ 5 "P\xe9tange"        21290
+ 6 "Sanem"             19609
+ 7 "Hesperange"        17260
+ 8 "Schifflange"       11678
+ 9 "Bettembourg"       11652
+10 "Mamer"             11582</code></pre>
 </div>
 </div>
-<p>You can then count words, filter stopwords, or join with lexicons (e.g.&nbsp;sentiment). Word counts:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>toy_tokens <span class="sc">|&gt;</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-row summary: national totals by category (sum across all communes)</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>pop <span class="sc">|&gt;</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">femmes_mineures =</span> <span class="fu">sum</span>(FEMMES_MINEURES),</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">hommes_mineurs  =</span> <span class="fu">sum</span>(HOMMES_MINEURS),</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">femmes_majeures =</span> <span class="fu">sum</span>(FEMMES_MAJEURES),</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">hommes_majeurs  =</span> <span class="fu">sum</span>(HOMMES_MAJEURS),</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">total          =</span> <span class="fu">sum</span>(FEMMES_MINEURES <span class="sc">+</span> HOMMES_MINEURS <span class="sc">+</span> FEMMES_MAJEURES <span class="sc">+</span> HOMMES_MAJEURS)</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 11 × 2
-   word      n
-   &lt;chr&gt; &lt;int&gt;
- 1 the       4
- 2 a         2
- 3 cat       2
- 4 dog       2
- 5 and       1
- 6 in        1
- 7 mat       1
- 8 on        1
- 9 ran       1
-10 sat       1
-11 sun       1</code></pre>
+<pre><code># A tibble: 1 × 5
+  femmes_mineures hommes_mineurs femmes_majeures hommes_majeurs  total
+            &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;
+1           63118          66173          280678         280980 690949</code></pre>
 </div>
 </div>
-<p>For real projects you might read documents with <code>read_csv()</code> or <code>read_lines()</code> into a tibble with a <code>text</code> column, then use <code>unnest_tokens()</code> the same way.</p>
+<p>So: <strong>load</strong> with <code>read_csv()</code>, <strong>inspect</strong> with <code>glimpse()</code>, <code>names()</code>, <code>head()</code>, <strong>access</strong> columns with <code>$</code>, and <strong>aggregate</strong> with <code>mutate()</code>, <code>summarise()</code>, <code>arrange()</code>, and <code>select()</code> (and later <code>group_by()</code> for group-wise summaries).</p>
 </section>
-<section id="reading-text-with-quanteda" class="level2">
-<h2 class="anchored" data-anchor-id="reading-text-with-quanteda">Reading text with quanteda</h2>
-<p>The <strong>quanteda</strong> package works with a <strong>corpus</strong> object: a collection of documents with metadata. You can build a corpus from a character vector (one string per document) or from a data frame with a text column.</p>
-<p><strong>Install once:</strong> <code>install.packages("quanteda")</code>. Then load with <code>library(quanteda)</code>.</p>
-<p><strong>Example:</strong> use the same toy sentences; create a corpus and inspect it:</p>
+<section id="reading-text-with-tidytext" class="level2 scrollable" data-number="6.6">
+<h2 class="scrollable anchored" data-number="6.6" data-anchor-id="reading-text-with-tidytext"><span class="header-section-number">6.6</span> Reading text with tidytext</h2>
+<p>The <strong>tidytext</strong> package treats text as <strong>tidy data</strong>: <a href="https://www.tidytextmining.com/tidytext.html">one token per row</a>. You start from a table with one row per document (or line) and a text column, then <strong>tokenize</strong> with <code>unnest_tokens()</code>.</p>
+<p><strong>Install once:</strong> <code>install.packages("tidytext")</code> and <code>install.packages("gutenbergr")</code>. Load with <code>library(tidytext)</code> and <code>library(gutenbergr)</code> (and <code>library(tidyverse)</code> for tibbles and the pipe).</p>
+<p><strong>Example:</strong> download a book from the <a href="https://www.gutenberg.org/">Project Gutenberg</a> corpus using <strong>gutenbergr</strong>, then turn it into a one-word-per-row tibble. The first run requires an internet connection.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Option A: corpus from a data frame (need docid and text column)</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>toy_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">doc_id =</span> <span class="fu">c</span>(<span class="st">"doc1"</span>, <span class="st">"doc2"</span>, <span class="st">"doc3"</span>),</span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="fu">c</span>(</span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The cat sat on the mat."</span>,</span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The dog ran in the sun."</span>,</span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A cat and a dog."</span></span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>corp <span class="ot">&lt;-</span> <span class="fu">corpus</span>(toy_df, <span class="at">text_field =</span> <span class="st">"text"</span>)</span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Option B: corpus from a named character vector</span></span>
-<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="co"># texts &lt;- c(doc1 = "The cat sat on the mat.", doc2 = "The dog ran.", ...)</span></span>
-<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a><span class="co"># corp &lt;- corpus(texts)</span></span>
-<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic inspection</span></span>
-<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(corp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'gutenbergr' was built under R version 4.5.2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download one book by Gutenberg ID (35 = The Time Machine, H.G. Wells)</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="co"># See https://docs.ropensci.org/gutenbergr/articles/text-mining.html</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>gutenberg_books <span class="ot">&lt;-</span> <span class="fu">gutenberg_download</span>(<span class="fu">c</span>(<span class="dv">35</span>), <span class="at">meta_fields =</span> <span class="st">"title"</span>)</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gutenberg_books)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Corpus consisting of 3 documents, showing 3 documents:
+<pre><code># A tibble: 6 × 3
+  gutenberg_id text               title           
+         &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;           
+1           35 "The Time Machine" The Time Machine
+2           35 ""                 The Time Machine
+3           35 "An Invention"     The Time Machine
+4           35 ""                 The Time Machine
+5           35 "by H. G. Wells"   The Time Machine
+6           35 ""                 The Time Machine</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One row per line; tokenize to one row per word (punctuation removed, lowercased)</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>tidy_tokens <span class="ot">&lt;-</span> gutenberg_books <span class="sc">|&gt;</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> text)</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="co"># First rows of tokenized text</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tidy_tokens, <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 3
+   gutenberg_id title            word        
+          &lt;int&gt; &lt;chr&gt;            &lt;chr&gt;       
+ 1           35 The Time Machine the         
+ 2           35 The Time Machine time        
+ 3           35 The Time Machine machine     
+ 4           35 The Time Machine an          
+ 5           35 The Time Machine invention   
+ 6           35 The Time Machine by          
+ 7           35 The Time Machine h           
+ 8           35 The Time Machine g           
+ 9           35 The Time Machine wells       
+10           35 The Time Machine contents    
+11           35 The Time Machine i           
+12           35 The Time Machine introduction</code></pre>
+</div>
+</div>
+<p>Remove <strong>stop words</strong> (very common words like “the”, “of”) with <code>anti_join(stop_words)</code> from tidytext, then count words:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove stop words, then count</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>tidy_tokens <span class="sc">|&gt;</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 15 × 2
+   word          n
+   &lt;chr&gt;     &lt;int&gt;
+ 1 time        207
+ 2 machine      88
+ 3 white        61
+ 4 traveller    57
+ 5 hand         49
+ 6 morlocks     48
+ 7 people       46
+ 8 weena        46
+ 9 found        44
+10 light        43
+11 night        37
+12 world        37
+13 round        36
+14 eyes         35
+15 mind         35</code></pre>
+</div>
+</div>
+<p>This follows the <a href="https://www.tidytextmining.com/tidytext.html">Text Mining with R</a> workflow: tidy format → tokenize → filter → count. You can join with sentiment lexicons (e.g.&nbsp;<code>get_sentiments()</code>) or use <strong>gutenbergr</strong> to download more works and compare word frequencies across texts.</p>
+</section>
+<section id="reading-text-with-quanteda" class="level2 scrollable" data-number="6.7">
+<h2 class="scrollable anchored" data-number="6.7" data-anchor-id="reading-text-with-quanteda"><span class="header-section-number">6.7</span> Reading text with quanteda</h2>
+<p>The <strong>quanteda</strong> package works with a <strong>corpus</strong> object: a collection of documents with metadata. You can build a corpus from a data frame with a text column (e.g.&nbsp;the same Gutenberg tibble) or from a character vector.</p>
+<p><strong>Install once:</strong> <code>install.packages("quanteda")</code>. Load with <code>library(quanteda)</code>.</p>
+<p><strong>Example:</strong> use the same Gutenberg data we downloaded for tidytext. Here each <strong>line</strong> of the book is treated as one document (you could instead collapse by chapter or use one document per book):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textstats)</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the gutenberg_books tibble from the tidytext chunk (run that chunk first)</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="co"># It has columns gutenberg_id, text, title</span></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>corp <span class="ot">&lt;-</span> <span class="fu">corpus</span>(gutenberg_books, <span class="at">text_field =</span> <span class="st">"text"</span>)</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic inspection: one row per document (line)</span></span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(corp, <span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Corpus consisting of 3174 documents, showing 5 documents:
 
- Text Types Tokens Sentences
- doc1     7      7         1
- doc2     7      7         1
- doc3     6      6         1</code></pre>
+  Text Types Tokens Sentences gutenberg_id            title
+ text1     3      3         1           35 The Time Machine
+ text2     0      0         0           35 The Time Machine
+ text3     2      2         1           35 The Time Machine
+ text4     0      0         0           35 The Time Machine
+ text5     5      6         2           35 The Time Machine</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndoc</span>(corp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndoc</span>(corp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3</code></pre>
+<pre><code>[1] 3174</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ntoken</span>(corp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ntoken</span>(corp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>doc1 doc2 doc3 
-   7    7    6 </code></pre>
+<pre><code>   text1    text2    text3    text4    text5    text6    text7    text8 
+       3        0        2        0        6        0        0        1 
+   text9   text10   text11   text12   text13   text14   text15   text16 
+       0        2        3        5        3        5        5        4 
+  text17   text18   text19   text20   text21   text22   text23   text24 
+       2        3        4        6        4        7        4        5 
+  text25   text26   text27   text28   text29   text30   text31   text32 
+       4        1        0        0        0        0        2        1 
+  text33   text34   text35   text36   text37   text38   text39   text40 
+       0        0       16       13       14       13       12       14 
+  text41   text42   text43   text44   text45   text46   text47   text48 
+      12       10       14       11       15        0       15       13 
+  text49   text50   text51   text52   text53   text54   text55   text56 
+      12        0       17        9        0       14       18       15 
+  text57   text58   text59   text60   text61   text62   text63   text64 
+      13        7        0       11        0       17        4        0 
+  text65   text66   text67   text68   text69   text70   text71   text72 
+      19        4        0       15        3        0        9        0 
+  text73   text74   text75   text76   text77   text78   text79   text80 
+      17        3        0       15       12       12       16       13 
+  text81   text82   text83   text84   text85   text86   text87   text88 
+      18       12       11        9       11        0       16       15 
+  text89   text90   text91   text92   text93   text94   text95   text96 
+       0       15       12       14       15       14       12       13 
+  text97   text98   text99  text100  text101  text102  text103  text104 
+      16        6        0       11        0       16       13       13 
+ text105  text106  text107  text108  text109  text110  text111  text112 
+      13        9       14       10       12       16       13       11 
+ text113  text114  text115  text116  text117  text118  text119  text120 
+      11        5        0       17       13       19        9        0 
+ text121  text122  text123  text124  text125  text126  text127  text128 
+      17       15       16       15       10       11        3        0 
+ text129  text130  text131  text132  text133  text134  text135  text136 
+      13       14       15       14       15       15       13       13 
+ text137  text138  text139  text140  text141  text142  text143  text144 
+      14        0       20       17       14       14        0       15 
+ text145  text146  text147  text148  text149  text150  text151  text152 
+      15       16       13        0       16        0       12       14 
+ text153  text154  text155  text156  text157  text158  text159  text160 
+       0       17        0       10        0       16        4        0 
+ text161  text162  text163  text164  text165  text166  text167  text168 
+      18       14       12       10       14       13        0       15 
+ text169  text170  text171  text172  text173  text174  text175  text176 
+      14        4        0       17       15       14       16       16 
+ text177  text178  text179  text180  text181  text182  text183  text184 
+      16       15       14       13       13        0       14        0 
+ text185  text186  text187  text188  text189  text190  text191  text192 
+      10        0        9        0       10        0       18        5 
+ text193  text194  text195  text196  text197  text198  text199  text200 
+       0       18       12       11        0       13        0       14 
+ text201  text202  text203  text204  text205  text206  text207  text208 
+       5        0        6        0       13        0       13       13 
+ text209  text210  text211  text212  text213  text214  text215  text216 
+       9        0       15       11        0       17        5        0 
+ text217  text218  text219  text220  text221  text222  text223  text224 
+      14        9        0       19       14        5        0       16 
+ text225  text226  text227  text228  text229  text230  text231  text232 
+       3        0       13        0       19        0       17        0 
+ text233  text234  text235  text236  text237  text238  text239  text240 
+      13        0       15        7        0       15       14       14 
+ text241  text242  text243  text244  text245  text246  text247  text248 
+       3        0       14        0       15       16       12        3 
+ text249  text250  text251  text252  text253  text254  text255  text256 
+       0        0        0        0        2        2        0        0 
+ text257  text258  text259  text260  text261  text262  text263  text264 
+      13       12       12       14       11       12       18       17 
+ text265  text266  text267  text268  text269  text270  text271  text272 
+      16       14       12       14       16       12       13       11 
+ text273  text274  text275  text276  text277  text278  text279  text280 
+      12       14       12       12        0       17        4        0 
+ text281  text282  text283  text284  text285  text286  text287  text288 
+      15       14       17       13       13       18       10        0 
+ text289  text290  text291  text292  text293  text294  text295  text296 
+      15        9        0       18       17       13       12       13 
+ text297  text298  text299  text300  text301  text302  text303  text304 
+      17       16       14       16        3        0       12       15 
+ text305  text306  text307  text308  text309  text310  text311  text312 
+      18       14       17       11       14       16       16       13 
+ text313  text314  text315  text316  text317  text318  text319  text320 
+      15       14        0       14        0       11       16       15 
+ text321  text322  text323  text324  text325  text326  text327  text328 
+      17        4        0       20       12        5        0       16 
+ text329  text330  text331  text332  text333  text334  text335  text336 
+      15       15       19       12       16        5        0       16 
+ text337  text338  text339  text340  text341  text342  text343  text344 
+       2        0       16        0       13       14        0        9 
+ text345  text346  text347  text348  text349  text350  text351  text352 
+       0       16       15        7        0       18       14       14 
+ text353  text354  text355  text356  text357  text358  text359  text360 
+       0       14        8        0       19       13        7        0 
+ text361  text362  text363  text364  text365  text366  text367  text368 
+      17       15       14       14       14       15       14       12 
+ text369  text370  text371  text372  text373  text374  text375  text376 
+      16       15        8        0       17       10        0       16 
+ text377  text378  text379  text380  text381  text382  text383  text384 
+      13        0       15       16       13       15       15       12 
+ text385  text386  text387  text388  text389  text390  text391  text392 
+      14       15       12       11       17        3        0       18 
+ text393  text394  text395  text396  text397  text398  text399  text400 
+      12        0       16       17        4        0       10        0 
+ text401  text402  text403  text404  text405  text406  text407  text408 
+      14        5        0        0        0        0        2        4 
+ text409  text410  text411  text412  text413  text414  text415  text416 
+       0        0       14       16       16       12       13       13 
+ text417  text418  text419  text420  text421  text422  text423  text424 
+      12       11       15       15       16       13       11       14 
+ text425  text426  text427  text428  text429  text430  text431  text432 
+      12       15       13       10       13       13       18       11 
+ text433  text434  text435  text436  text437  text438  text439  text440 
+      14        2        0       14       12       12       14       17 
+ text441  text442  text443  text444  text445  text446  text447  text448 
+      16        3        0       13        0       15       17        7 
+ text449  text450  text451  text452  text453  text454  text455  text456 
+       0       17       12        0       12       14       13       16 
+ text457  text458  text459  text460  text461  text462  text463  text464 
+      13       11       12       12       15       13       15       22 
+ text465  text466  text467  text468  text469  text470  text471  text472 
+      15       17       11        0       16       15       12       17 
+ text473  text474  text475  text476  text477  text478  text479  text480 
+      12       16       16       16        7        0       17       15 
+ text481  text482  text483  text484  text485  text486  text487  text488 
+      18       14       20       17       15       17       18       13 
+ text489  text490  text491  text492  text493  text494  text495  text496 
+      14       17       18       16        0       16       17       15 
+ text497  text498  text499  text500  text501  text502  text503  text504 
+       0       15       13       18       14       17       15       14 
+ text505  text506  text507  text508  text509  text510  text511  text512 
+      16        9        0       17       18       13       13        0 
+ text513  text514  text515  text516  text517  text518  text519  text520 
+      13       12       15       16       10       15       14       14 
+ text521  text522  text523  text524  text525  text526  text527  text528 
+      16       12       13       15       16       12       15       15 
+ text529  text530  text531  text532  text533  text534  text535  text536 
+      10       12       11       12        9        0       17       14 
+ text537  text538  text539  text540  text541  text542  text543  text544 
+      14        0       14       20       13        0        8        0 
+ text545  text546  text547  text548  text549  text550  text551  text552 
+      19       16        4        0       16        0       18        0 
+ text553  text554  text555  text556  text557  text558  text559  text560 
+      18       13       15       15       14       17       13       12 
+ text561  text562  text563  text564  text565  text566  text567  text568 
+      14       12       11       11       15       17       20       13 
+ text569  text570  text571  text572  text573  text574  text575  text576 
+      16        3        0       18       15        0       13        0 
+ text577  text578  text579  text580  text581  text582  text583  text584 
+      17       20       16       18       16       16       15       17 
+ text585  text586  text587  text588  text589  text590  text591  text592 
+       7        0       20       16       16       14       13       12 
+ text593  text594  text595  text596  text597  text598  text599  text600 
+      12       14       14       16       13       12       15       14 
+ text601  text602  text603  text604  text605  text606  text607  text608 
+       2        0        0        0        0        2        2        0 
+ text609  text610  text611  text612  text613  text614  text615  text616 
+       0       14       13       17       16       16       14       17 
+ text617  text618  text619  text620  text621  text622  text623  text624 
+      14       14       17       16       14       16       15       14 
+ text625  text626  text627  text628  text629  text630  text631  text632 
+      16       13       18       15        2        0       16       17 
+ text633  text634  text635  text636  text637  text638  text639  text640 
+      14       16       17       14       14       13       16       15 
+ text641  text642  text643  text644  text645  text646  text647  text648 
+       6        0       12       12       13       15       16       13 
+ text649  text650  text651  text652  text653  text654  text655  text656 
+      14       14       16       15       13       12       15       14 
+ text657  text658  text659  text660  text661  text662  text663  text664 
+      15       12       14       12       17       15        9        0 
+ text665  text666  text667  text668  text669  text670  text671  text672 
+      15       14       16       17       14       12       12       14 
+ text673  text674  text675  text676  text677  text678  text679  text680 
+      15       15       14        8        0       13       13       15 
+ text681  text682  text683  text684  text685  text686  text687  text688 
+      17       15       12       13       10       11       11       14 
+ text689  text690  text691  text692  text693  text694  text695  text696 
+      14       11       19       15       12       14        2        0 
+ text697  text698  text699  text700  text701  text702  text703  text704 
+      13       17       16       11       13       14       12        7 
+ text705  text706  text707  text708  text709  text710  text711  text712 
+      12       10       15       12       18       13       11       13 
+ text713  text714  text715  text716  text717  text718  text719  text720 
+      17       14       13        9        0       18       16       13 
+ text721  text722  text723  text724  text725  text726  text727  text728 
+      14       19       12       12       14       16       20        8 
+ text729  text730  text731  text732  text733  text734  text735  text736 
+       0       17       13       10       11        0       15       16 
+ text737  text738  text739  text740  text741  text742  text743  text744 
+      14       14       13       17       14       16       12       14 
+ text745  text746  text747  text748  text749  text750  text751  text752 
+      17       16       16       12        0       15       14       13 
+ text753  text754  text755  text756  text757  text758  text759  text760 
+      14       12       11       11       10        2        0       11 
+ text761  text762  text763  text764  text765  text766  text767  text768 
+      13       15       15       14       12       16       11       14 
+ text769  text770  text771  text772  text773  text774  text775  text776 
+      12       16       16       18       15       14       16        6 
+ text777  text778  text779  text780  text781  text782  text783  text784 
+       0       14       12       17       18        7        0       14 
+ text785  text786  text787  text788  text789  text790  text791  text792 
+      14       13       12       15       10       17       14        0 
+ text793  text794  text795  text796  text797  text798  text799  text800 
+      14       12       12       15        5        0        0        0 
+ text801  text802  text803  text804  text805  text806  text807  text808 
+       0        2        4        0        0       15       15       15 
+ text809  text810  text811  text812  text813  text814  text815  text816 
+      15       12        0       13       14       17       19       16 
+ text817  text818  text819  text820  text821  text822  text823  text824 
+      13       15       13       10       14       14       14       17 
+ text825  text826  text827  text828  text829  text830  text831  text832 
+      15       14       17        5        0       15       12       16 
+ text833  text834  text835  text836  text837  text838  text839  text840 
+      15       14       17       13       14        0       15       15 
+ text841  text842  text843  text844  text845  text846  text847  text848 
+      14       16       11       13        2        0       15       14 
+ text849  text850  text851  text852  text853  text854  text855  text856 
+      16       12       15       13       12       15       12       14 
+ text857  text858  text859  text860  text861  text862  text863  text864 
+      14        7        0       17       14       14       16       11 
+ text865  text866  text867  text868  text869  text870  text871  text872 
+      14       14       10       11       15       15       14       13 
+ text873  text874  text875  text876  text877  text878  text879  text880 
+       9        6        0       13       12       13       13       14 
+ text881  text882  text883  text884  text885  text886  text887  text888 
+      14       12       15       19       12        0       15       12 
+ text889  text890  text891  text892  text893  text894  text895  text896 
+      14       11       17        9       12       12        5        0 
+ text897  text898  text899  text900  text901  text902  text903  text904 
+      12       15       12       15       16       14       11       15 
+ text905  text906  text907  text908  text909  text910  text911  text912 
+      16       13        3        0       13       13       13       15 
+ text913  text914  text915  text916  text917  text918  text919  text920 
+      15       17        4        0       14       11       14       16 
+ text921  text922  text923  text924  text925  text926  text927  text928 
+      12       14       16       14       15        9        0       17 
+ text929  text930  text931  text932  text933  text934  text935  text936 
+      15       15       13       11       16       12       16       15 
+ text937  text938  text939  text940  text941  text942  text943  text944 
+       2        0       15       16       14       14       16       10 
+ text945  text946  text947  text948  text949  text950  text951  text952 
+      14        9       13       14       12       13       14       14 
+ text953  text954  text955  text956  text957  text958  text959  text960 
+      17       15       14       14       15        8        0        0 
+ text961  text962  text963  text964  text965  text966  text967  text968 
+       0        0        2        4        0        0       15       14 
+ text969  text970  text971  text972  text973  text974  text975  text976 
+      13       15       12       18       13       13       14       16 
+ text977  text978  text979  text980  text981  text982  text983  text984 
+      14        3        0       15       17       11       14       15 
+ text985  text986  text987  text988  text989  text990  text991  text992 
+      15       17       15       16       13        0       13       13 
+ text993  text994  text995  text996  text997  text998  text999 text1000 
+      17       14       11        8       11       13       15       14 
+text1001 text1002 text1003 text1004 text1005 text1006 text1007 text1008 
+      12        4        0       16       16       12       12       12 
+text1009 text1010 text1011 text1012 text1013 text1014 text1015 text1016 
+       9        0       10        0       15       15       14       15 
+text1017 text1018 text1019 text1020 text1021 text1022 text1023 text1024 
+      14       18       12       14       15       11       12        2 
+text1025 text1026 text1027 text1028 text1029 text1030 text1031 text1032 
+       0       15       13       16       11       12       12       13 
+text1033 text1034 text1035 text1036 text1037 text1038 text1039 text1040 
+      12       12       12       18       16        9        0       15 
+text1041 text1042 text1043 text1044 text1045 text1046 text1047 text1048 
+      15       13       12       13       14       14        0       16 
+text1049 text1050 text1051 text1052 text1053 text1054 text1055 text1056 
+      13       12       18       17       15       13       15       15 
+text1057 text1058 text1059 text1060 text1061 text1062 text1063 text1064 
+      12       14       14       15       13        4        0       15 
+text1065 text1066 text1067 text1068 text1069 text1070 text1071 text1072 
+      15       15       12        0       16       14       13       17 
+text1073 text1074 text1075 text1076 text1077 text1078 text1079 text1080 
+      12       12       11       13       12       10       10        0 
+text1081 text1082 text1083 text1084 text1085 text1086 text1087 text1088 
+      14       13       15       10       11       13       15       12 
+text1089 text1090 text1091 text1092 text1093 text1094 text1095 text1096 
+      14       13       12       16       14       16       12       13 
+text1097 text1098 text1099 text1100 text1101 text1102 text1103 text1104 
+      13        8        0       17       15       16       10       11 
+text1105 text1106 text1107 text1108 text1109 text1110 text1111 text1112 
+      15       14       11        6        0       15       13       15 
+text1113 text1114 text1115 text1116 text1117 text1118 text1119 text1120 
+      13       14       14       12       10        0       12       15 
+text1121 text1122 text1123 text1124 text1125 text1126 text1127 text1128 
+      11       13       14       13       14       10       10       14 
+text1129 text1130 text1131 text1132 text1133 text1134 text1135 text1136 
+      13       12       12       10        0       14       12       13 
+text1137 text1138 text1139 text1140 text1141 text1142 text1143 text1144 
+      14       12       12        0       12       14       12       13 
+text1145 text1146 text1147 text1148 text1149 text1150 text1151 text1152 
+      13       13       14       15       13       15       15       14 
+text1153 text1154 text1155 text1156 text1157 text1158 text1159 text1160 
+      15       14       11       11       13       15        9        0 
+text1161 text1162 text1163 text1164 text1165 text1166 text1167 text1168 
+      13       17       16       14       15       10        0       15 
+text1169 text1170 text1171 text1172 text1173 text1174 text1175 text1176 
+      11       12       12       11       13        6        0        0 
+text1177 text1178 text1179 text1180 text1181 text1182 text1183 text1184 
+       0        0        2        3        0        0       16       16 
+text1185 text1186 text1187 text1188 text1189 text1190 text1191 text1192 
+      14       16       10        0       16       12       15       13 
+text1193 text1194 text1195 text1196 text1197 text1198 text1199 text1200 
+      17       17       11        0       16       15       12        0 
+text1201 text1202 text1203 text1204 text1205 text1206 text1207 text1208 
+      16       16       15       15       13       16       17       19 
+text1209 text1210 text1211 text1212 text1213 text1214 text1215 text1216 
+      17       14       14       13       14       17       18       14 
+text1217 text1218 text1219 text1220 text1221 text1222 text1223 text1224 
+      13        2        0       16       17       16       15       14 
+text1225 text1226 text1227 text1228 text1229 text1230 text1231 text1232 
+      15       12        0       13       15       12       11       15 
+text1233 text1234 text1235 text1236 text1237 text1238 text1239 text1240 
+      13       14       11       19        4        0       16       14 
+text1241 text1242 text1243 text1244 text1245 text1246 text1247 text1248 
+      18       14       13       16       17       15       15        9 
+text1249 text1250 text1251 text1252 text1253 text1254 text1255 text1256 
+       0       15       16       11       12       16       16       14 
+text1257 text1258 text1259 text1260 text1261 text1262 text1263 text1264 
+      15       15       13       13       12        2        0       16 
+text1265 text1266 text1267 text1268 text1269 text1270 text1271 text1272 
+      13       13       16       16       14       15       14       15 
+text1273 text1274 text1275 text1276 text1277 text1278 text1279 text1280 
+      12       15       12       14       17       15        6        0 
+text1281 text1282 text1283 text1284 text1285 text1286 text1287 text1288 
+      17       14       15       15       14       14       14       18 
+text1289 text1290 text1291 text1292 text1293 text1294 text1295 text1296 
+      15       19       16        4        0       16       14       15 
+text1297 text1298 text1299 text1300 text1301 text1302 text1303 text1304 
+      15       14       15       12       14       16       14       16 
+text1305 text1306 text1307 text1308 text1309 text1310 text1311 text1312 
+      15       14       13       15       15       15       12       14 
+text1313 text1314 text1315 text1316 text1317 text1318 text1319 text1320 
+      18       14       16       11       15       16       16       14 
+text1321 text1322 text1323 text1324 text1325 text1326 text1327 text1328 
+       3        0       13       11       18       16       14       13 
+text1329 text1330 text1331 text1332 text1333 text1334 text1335 text1336 
+      12       15       12       17       17       17       16       15 
+text1337 text1338 text1339 text1340 text1341 text1342 text1343 text1344 
+      17        0       18       13       15       15       13       12 
+text1345 text1346 text1347 text1348 text1349 text1350 text1351 text1352 
+      16       17       18       17       12        3        0       15 
+text1353 text1354 text1355 text1356 text1357 text1358 text1359 text1360 
+      19       14       13       19       13       15       16       15 
+text1361 text1362 text1363 text1364 text1365 text1366 text1367 text1368 
+      15       15       15       15       13        0       15       17 
+text1369 text1370 text1371 text1372 text1373 text1374 text1375 text1376 
+      15       16       16       16       13       11        9       16 
+text1377 text1378 text1379 text1380 text1381 text1382 text1383 text1384 
+      11       13       13       14       15       15       16        0 
+text1385 text1386 text1387 text1388 text1389 text1390 text1391 text1392 
+       0        0        0        2        1        0        0       15 
+text1393 text1394 text1395 text1396 text1397 text1398 text1399 text1400 
+      15       10       11       12       15       14       12       19 
+text1401 text1402 text1403 text1404 text1405 text1406 text1407 text1408 
+      16       14       15       15       16       14       16       16 
+text1409 text1410 text1411 text1412 text1413 text1414 text1415 text1416 
+      16        8        0       16       14       16       11       10 
+text1417 text1418 text1419 text1420 text1421 text1422 text1423 text1424 
+      14       13        9        0       15       14       14       16 
+text1425 text1426 text1427 text1428 text1429 text1430 text1431 text1432 
+      13       11       11       14       15       13       13       16 
+text1433 text1434 text1435 text1436 text1437 text1438 text1439 text1440 
+      17       12       16       15       14       13       11        0 
+text1441 text1442 text1443 text1444 text1445 text1446 text1447 text1448 
+      16       12       13       15       12       17       14        6 
+text1449 text1450 text1451 text1452 text1453 text1454 text1455 text1456 
+       0       13       12       16       12       13       13       13 
+text1457 text1458 text1459 text1460 text1461 text1462 text1463 text1464 
+      13       12       15       15       14        9        0       18 
+text1465 text1466 text1467 text1468 text1469 text1470 text1471 text1472 
+      16       15       17       12       12       16       15       10 
+text1473 text1474 text1475 text1476 text1477 text1478 text1479 text1480 
+       0       20       14       12       14       15       13       11 
+text1481 text1482 text1483 text1484 text1485 text1486 text1487 text1488 
+      16       16       16       16       16       13        0       16 
+text1489 text1490 text1491 text1492 text1493 text1494 text1495 text1496 
+      15       13       14       13       16       12       10       15 
+text1497 text1498 text1499 text1500 text1501 text1502 text1503 text1504 
+      19       15       13       14        0       17       15       17 
+text1505 text1506 text1507 text1508 text1509 text1510 text1511 text1512 
+      13       18       14       12       15       14       14       16 
+text1513 text1514 text1515 text1516 text1517 text1518 text1519 text1520 
+      15       18       16       11       14       15        0       18 
+text1521 text1522 text1523 text1524 text1525 text1526 text1527 text1528 
+      15       15       15       14       14       14       12       15 
+text1529 text1530 text1531 text1532 text1533 text1534 text1535 text1536 
+      16       14       14       11        2        0       15       13 
+text1537 text1538 text1539 text1540 text1541 text1542 text1543 text1544 
+      17       17       14       13       15       14       17       13 
+text1545 text1546 text1547 text1548 text1549 text1550 text1551 text1552 
+      13       19       15        9        0       15       14       15 
+text1553 text1554 text1555 text1556 text1557 text1558 text1559 text1560 
+      15       17       13       14       15       13       12       10 
+text1561 text1562 text1563 text1564 text1565 text1566 text1567 text1568 
+       0       17       13       16       18       14       16       15 
+text1569 text1570 text1571 text1572 text1573 text1574 text1575 text1576 
+      10       17       13       14       14       13       14        6 
+text1577 text1578 text1579 text1580 text1581 text1582 text1583 text1584 
+       0       16       17       17       14       12       14       13 
+text1585 text1586 text1587 text1588 text1589 text1590 text1591 text1592 
+      14       15        2        0       15       15       12       15 
+text1593 text1594 text1595 text1596 text1597 text1598 text1599 text1600 
+      13       13       13       16       11        5        0       15 
+text1601 text1602 text1603 text1604 text1605 text1606 text1607 text1608 
+      13       12       14       14       15       14       14       16 
+text1609 text1610 text1611 text1612 text1613 text1614 text1615 text1616 
+      13       14       14        3        0       19       13       19 
+text1617 text1618 text1619 text1620 text1621 text1622 text1623 text1624 
+      16       14       16       17       14       16       18       14 
+text1625 text1626 text1627 text1628 text1629 text1630 text1631 text1632 
+      16       16       14       15       16        4        0       18 
+text1633 text1634 text1635 text1636 text1637 text1638 text1639 text1640 
+      13       17       12       14       12       15        2        0 
+text1641 text1642 text1643 text1644 text1645 text1646 text1647 text1648 
+      14       14       13       12       14       17       16       14 
+text1649 text1650 text1651 text1652 text1653 text1654 text1655 text1656 
+      13       13       11        0       13       14       15       14 
+text1657 text1658 text1659 text1660 text1661 text1662 text1663 text1664 
+      14       16       17       15       12       17       15       14 
+text1665 text1666 text1667 text1668 text1669 text1670 text1671 text1672 
+      12        9        0       15       10       13       12       12 
+text1673 text1674 text1675 text1676 text1677 text1678 text1679 text1680 
+      16       11       14       11       12       10        5        0 
+text1681 text1682 text1683 text1684 text1685 text1686 text1687 text1688 
+      15       13       12        9       16       12       15       15 
+text1689 text1690 text1691 text1692 text1693 text1694 text1695 text1696 
+      15       16        2        0       16       12       10       14 
+text1697 text1698 text1699 text1700 text1701 text1702 text1703 text1704 
+      13       12        9       11       14       11       12       14 
+text1705 text1706 text1707 text1708 text1709 text1710 text1711 text1712 
+      11       13       15       13        2        0       15       11 
+text1713 text1714 text1715 text1716 text1717 text1718 text1719 text1720 
+      12       13       14       13       12       10       13       10 
+text1721 text1722 text1723 text1724 text1725 text1726 text1727 text1728 
+      11       16       11       11       15       17       14       13 
+text1729 text1730 text1731 text1732 text1733 text1734 text1735 text1736 
+      16       13       15       12        3        0       14       15 
+text1737 text1738 text1739 text1740 text1741 text1742 text1743 text1744 
+      14       12       13       16       16       12       16       10 
+text1745 text1746 text1747 text1748 text1749 text1750 text1751 text1752 
+      15       12       14       12       15       16       10       15 
+text1753 text1754 text1755 text1756 text1757 text1758 text1759 text1760 
+       7        0       13       20       15       17       12       12 
+text1761 text1762 text1763 text1764 text1765 text1766 text1767 text1768 
+      13       15       17       15       13       13       11        0 
+text1769 text1770 text1771 text1772 text1773 text1774 text1775 text1776 
+       0        0        0        2        2        0        0       18 
+text1777 text1778 text1779 text1780 text1781 text1782 text1783 text1784 
+      14       11       11       13       11       14        2        0 
+text1785 text1786 text1787 text1788 text1789 text1790 text1791 text1792 
+      16       14       13       12       11       12       16       14 
+text1793 text1794 text1795 text1796 text1797 text1798 text1799 text1800 
+      12       15       15       13       12       15       15       14 
+text1801 text1802 text1803 text1804 text1805 text1806 text1807 text1808 
+      12        0       14       12       10       11       14       15 
+text1809 text1810 text1811 text1812 text1813 text1814 text1815 text1816 
+      16       16       11       17       16       15       14       12 
+text1817 text1818 text1819 text1820 text1821 text1822 text1823 text1824 
+      11       15       13       14        6        0       17       14 
+text1825 text1826 text1827 text1828 text1829 text1830 text1831 text1832 
+      17       14       16       16       17       14       16       16 
+text1833 text1834 text1835 text1836 text1837 text1838 text1839 text1840 
+      15        5        0       15       11       15       12       15 
+text1841 text1842 text1843 text1844 text1845 text1846 text1847 text1848 
+      13       16       14       13       15       15       13       12 
+text1849 text1850 text1851 text1852 text1853 text1854 text1855 text1856 
+      13        2        0       18       14       15       18       15 
+text1857 text1858 text1859 text1860 text1861 text1862 text1863 text1864 
+      13       19       14       13       15        0       18       15 
+text1865 text1866 text1867 text1868 text1869 text1870 text1871 text1872 
+      12       14       15       13       14       16       18       15 
+text1873 text1874 text1875 text1876 text1877 text1878 text1879 text1880 
+      11       10        0       15       14       13       19       17 
+text1881 text1882 text1883 text1884 text1885 text1886 text1887 text1888 
+      14       16       11       18        9        0       13       14 
+text1889 text1890 text1891 text1892 text1893 text1894 text1895 text1896 
+      15       12       16       15       13       15       14       13 
+text1897 text1898 text1899 text1900 text1901 text1902 text1903 text1904 
+      17       10        0       13       14       12       13       12 
+text1905 text1906 text1907 text1908 text1909 text1910 text1911 text1912 
+      14       14       19       12       14        4        0       17 
+text1913 text1914 text1915 text1916 text1917 text1918 text1919 text1920 
+      14       15       14       14       21       16       12       14 
+text1921 text1922 text1923 text1924 text1925 text1926 text1927 text1928 
+      14       13       11       13       16       14       14       10 
+text1929 text1930 text1931 text1932 text1933 text1934 text1935 text1936 
+      13       14       12       16       15       15       12       14 
+text1937 text1938 text1939 text1940 text1941 text1942 text1943 text1944 
+       0       15       13       15       11       13       16       17 
+text1945 text1946 text1947 text1948 text1949 text1950 text1951 text1952 
+      14       17       17       14       17       14       14       14 
+text1953 text1954 text1955 text1956 text1957 text1958 text1959 text1960 
+      15        2        0       14       15       14       14       14 
+text1961 text1962 text1963 text1964 text1965 text1966 text1967 text1968 
+      14       16       14       12        0        0        0        0 
+text1969 text1970 text1971 text1972 text1973 text1974 text1975 text1976 
+       2        3        0        0       17       16       12       12 
+text1977 text1978 text1979 text1980 text1981 text1982 text1983 text1984 
+      12       14       10       13       17       19       10        0 
+text1985 text1986 text1987 text1988 text1989 text1990 text1991 text1992 
+      16       14       14       14       16       14       13       15 
+text1993 text1994 text1995 text1996 text1997 text1998 text1999 text2000 
+      13       12       14       12       14       13       12       12 
+text2001 text2002 text2003 text2004 text2005 text2006 text2007 text2008 
+      11       13       15       15       12       16       14       14 
+text2009 text2010 text2011 text2012 text2013 text2014 text2015 text2016 
+      13       14       12       16       17       14       16       12 
+text2017 text2018 text2019 text2020 text2021 text2022 text2023 text2024 
+       0       13       14       16       14       12       16       13 
+text2025 text2026 text2027 text2028 text2029 text2030 text2031 text2032 
+      15       14        9        0       14       13        9       16 
+text2033 text2034 text2035 text2036 text2037 text2038 text2039 text2040 
+      12       16       14       16       15       11       16       12 
+text2041 text2042 text2043 text2044 text2045 text2046 text2047 text2048 
+      16       13        0       16       18       13       15       11 
+text2049 text2050 text2051 text2052 text2053 text2054 text2055 text2056 
+      13       11        0       14       13       11        0       15 
+text2057 text2058 text2059 text2060 text2061 text2062 text2063 text2064 
+      13       15       13       15       14       14       16       13 
+text2065 text2066 text2067 text2068 text2069 text2070 text2071 text2072 
+      13       11       15       12       13       14        7        0 
+text2073 text2074 text2075 text2076 text2077 text2078 text2079 text2080 
+      17       15       14       16       18       15       16       15 
+text2081 text2082 text2083 text2084 text2085 text2086 text2087 text2088 
+      16       15       16       15        4        0       16       18 
+text2089 text2090 text2091 text2092 text2093 text2094 text2095 text2096 
+      15       13       15       15       14       15       14       11 
+text2097 text2098 text2099 text2100 text2101 text2102 text2103 text2104 
+      16       17        9        0       18       15       14       16 
+text2105 text2106 text2107 text2108 text2109 text2110 text2111 text2112 
+      14       12       13       11       16       15       16       12 
+text2113 text2114 text2115 text2116 text2117 text2118 text2119 text2120 
+      12        6        0       13       10       13       12       12 
+text2121 text2122 text2123 text2124 text2125 text2126 text2127 text2128 
+      12       13       12       15       13       14       15       16 
+text2129 text2130 text2131 text2132 text2133 text2134 text2135 text2136 
+      15       14       12        0       16       15       13       19 
+text2137 text2138 text2139 text2140 text2141 text2142 text2143 text2144 
+      16       14       14       18       15       15       15       15 
+text2145 text2146 text2147 text2148 text2149 text2150 text2151 text2152 
+      13        0       16       12       16       14       18       16 
+text2153 text2154 text2155 text2156 text2157 text2158 text2159 text2160 
+      14       15       14       12       13       16       15       12 
+text2161 text2162 text2163 text2164 text2165 text2166 text2167 text2168 
+      12       15       12       12        5        0       14       14 
+text2169 text2170 text2171 text2172 text2173 text2174 text2175 text2176 
+      14       14       14       11       10       15       14        3 
+text2177 text2178 text2179 text2180 text2181 text2182 text2183 text2184 
+       0       17       15       14       17       18       12       12 
+text2185 text2186 text2187 text2188 text2189 text2190 text2191 text2192 
+      17       15       13       15       16       13        2        0 
+text2193 text2194 text2195 text2196 text2197 text2198 text2199 text2200 
+       0        0        0        2        5        0        0       14 
+text2201 text2202 text2203 text2204 text2205 text2206 text2207 text2208 
+      13       13       13       14       14       12       13       10 
+text2209 text2210 text2211 text2212 text2213 text2214 text2215 text2216 
+       0       12       14       13       15       16       13        0 
+text2217 text2218 text2219 text2220 text2221 text2222 text2223 text2224 
+      14       15       15       12       13       16       14       12 
+text2225 text2226 text2227 text2228 text2229 text2230 text2231 text2232 
+      16       13       14       12       13       14       15        7 
+text2233 text2234 text2235 text2236 text2237 text2238 text2239 text2240 
+       0       13       13       13       15       11       12       15 
+text2241 text2242 text2243 text2244 text2245 text2246 text2247 text2248 
+      13       13       14       14       15       15        2        0 
+text2249 text2250 text2251 text2252 text2253 text2254 text2255 text2256 
+      15       11       11        5        0       15       14       17 
+text2257 text2258 text2259 text2260 text2261 text2262 text2263 text2264 
+      11       13       12       15       14       14       17       15 
+text2265 text2266 text2267 text2268 text2269 text2270 text2271 text2272 
+      16       14       13       13       12       12       17       12 
+text2273 text2274 text2275 text2276 text2277 text2278 text2279 text2280 
+      10       14       13       14        9       14       15       13 
+text2281 text2282 text2283 text2284 text2285 text2286 text2287 text2288 
+      14       16       14       15       13        5        0       14 
+text2289 text2290 text2291 text2292 text2293 text2294 text2295 text2296 
+      16       16       17       21       15       14       18       15 
+text2297 text2298 text2299 text2300 text2301 text2302 text2303 text2304 
+      14       10       16       18       13       14       12       15 
+text2305 text2306 text2307 text2308 text2309 text2310 text2311 text2312 
+      13       16       16       15        5        0       18       14 
+text2313 text2314 text2315 text2316 text2317 text2318 text2319 text2320 
+      13       15       15       14       16       15       17       14 
+text2321 text2322 text2323 text2324 text2325 text2326 text2327 text2328 
+      14       13       11        8        0       18       13       13 
+text2329 text2330 text2331 text2332 text2333 text2334 text2335 text2336 
+      14       12       15       12       16       15       13       13 
+text2337 text2338 text2339 text2340 text2341 text2342 text2343 text2344 
+      10        9        0       18       14       13       14       17 
+text2345 text2346 text2347 text2348 text2349 text2350 text2351 text2352 
+      15       20       14       15       14       13       18       17 
+text2353 text2354 text2355 text2356 text2357 text2358 text2359 text2360 
+      10        0       16       16       16       17       14       14 
+text2361 text2362 text2363 text2364 text2365 text2366 text2367 text2368 
+      12       10       14       13       14       14       14       15 
+text2369 text2370 text2371 text2372 text2373 text2374 text2375 text2376 
+      15       12        0       15       13       15       15       15 
+text2377 text2378 text2379 text2380 text2381 text2382 text2383 text2384 
+      16       16       14       15       15       12       15       15 
+text2385 text2386 text2387 text2388 text2389 text2390 text2391 text2392 
+       7        0       15       13       14       15       12       16 
+text2393 text2394 text2395 text2396 text2397 text2398 text2399 text2400 
+      16       15       15       15       14       15       12        0 
+text2401 text2402 text2403 text2404 text2405 text2406 text2407 text2408 
+      18       16       12       12       16       14       17       15 
+text2409 text2410 text2411 text2412 text2413 text2414 text2415 text2416 
+      17       14       18       14       12       15       14        0 
+text2417 text2418 text2419 text2420 text2421 text2422 text2423 text2424 
+       0        0        0        2        3        0        0       15 
+text2425 text2426 text2427 text2428 text2429 text2430 text2431 text2432 
+      13       14       15       15       14       15       14       15 
+text2433 text2434 text2435 text2436 text2437 text2438 text2439 text2440 
+      15       14       13       16       14       15        0       15 
+text2441 text2442 text2443 text2444 text2445 text2446 text2447 text2448 
+      13       15       16       17       13       12       15       14 
+text2449 text2450 text2451 text2452 text2453 text2454 text2455 text2456 
+      17       13       14        7        0       16       15       15 
+text2457 text2458 text2459 text2460 text2461 text2462 text2463 text2464 
+      12       13       11       16       13       14        2        0 
+text2465 text2466 text2467 text2468 text2469 text2470 text2471 text2472 
+      17       17       15       16       16       15       16       17 
+text2473 text2474 text2475 text2476 text2477 text2478 text2479 text2480 
+      14       14       15       17       17        3        0       15 
+text2481 text2482 text2483 text2484 text2485 text2486 text2487 text2488 
+      14       15       13       15       13       17       15        4 
+text2489 text2490 text2491 text2492 text2493 text2494 text2495 text2496 
+       0       22       15       14       14       15       16       15 
+text2497 text2498 text2499 text2500 text2501 text2502 text2503 text2504 
+      16       13       15       16       16       15       13        0 
+text2505 text2506 text2507 text2508 text2509 text2510 text2511 text2512 
+      15       14       13       15       16       16       17       16 
+text2513 text2514 text2515 text2516 text2517 text2518 text2519 text2520 
+      13       15        4        0       19       12       16       16 
+text2521 text2522 text2523 text2524 text2525 text2526 text2527 text2528 
+      16       14       15       18       14       15       14       17 
+text2529 text2530 text2531 text2532 text2533 text2534 text2535 text2536 
+      15        3        0       18       17       15       18       14 
+text2537 text2538 text2539 text2540 text2541 text2542 text2543 text2544 
+      16       14       14       18       16       17       15       15 
+text2545 text2546 text2547 text2548 text2549 text2550 text2551 text2552 
+      16       18       16       15       16       15        3        0 
+text2553 text2554 text2555 text2556 text2557 text2558 text2559 text2560 
+      12       17       16       16       16       14       14       16 
+text2561 text2562 text2563 text2564 text2565 text2566 text2567 text2568 
+      14       13       13       16       16       17       13       13 
+text2569 text2570 text2571 text2572 text2573 text2574 text2575 text2576 
+      15        0       16       15       16       14       14       17 
+text2577 text2578 text2579 text2580 text2581 text2582 text2583 text2584 
+      15       16       18       16        0       18       16       15 
+text2585 text2586 text2587 text2588 text2589 text2590 text2591 text2592 
+      13       13       13       15       11       13       17       14 
+text2593 text2594 text2595 text2596 text2597 text2598 text2599 text2600 
+      14       13       11        0       14       15       13       15 
+text2601 text2602 text2603 text2604 text2605 text2606 text2607 text2608 
+      14       15       15        2        0       16       12       15 
+text2609 text2610 text2611 text2612 text2613 text2614 text2615 text2616 
+      14       14       13       15        6        0       17       14 
+text2617 text2618 text2619 text2620 text2621 text2622 text2623 text2624 
+      16       17       15       18       13       12       14        0 
+text2625 text2626 text2627 text2628 text2629 text2630 text2631 text2632 
+      16       15       14       16       13       17       15       14 
+text2633 text2634 text2635 text2636 text2637 text2638 text2639 text2640 
+      14       13       14       11       14       16       12       15 
+text2641 text2642 text2643 text2644 text2645 text2646 text2647 text2648 
+      16       12       17        6        0       16       15       10 
+text2649 text2650 text2651 text2652 text2653 text2654 text2655 text2656 
+       0        0        0        0        2        6        0        0 
+text2657 text2658 text2659 text2660 text2661 text2662 text2663 text2664 
+      16       15       12       12       12       11       13       14 
+text2665 text2666 text2667 text2668 text2669 text2670 text2671 text2672 
+      16       13       12       15       16       12        0       14 
+text2673 text2674 text2675 text2676 text2677 text2678 text2679 text2680 
+      13       12       16       12       14       14       13        3 
+text2681 text2682 text2683 text2684 text2685 text2686 text2687 text2688 
+       0       14       13       12       12       14       12        5 
+text2689 text2690 text2691 text2692 text2693 text2694 text2695 text2696 
+       0       16       12        9       11       13       14       14 
+text2697 text2698 text2699 text2700 text2701 text2702 text2703 text2704 
+      13       11       15       14       18       14       16        8 
+text2705 text2706 text2707 text2708 text2709 text2710 text2711 text2712 
+       0       16       14       15       14       14        3        0 
+text2713 text2714 text2715 text2716 text2717 text2718 text2719 text2720 
+      14       15       16       11        0       15       15        2 
+text2721 text2722 text2723 text2724 text2725 text2726 text2727 text2728 
+       0       13        0       16       16       13       16        5 
+text2729 text2730 text2731 text2732 text2733 text2734 text2735 text2736 
+       0       15       15       12       16       12       14        4 
+text2737 text2738 text2739 text2740 text2741 text2742 text2743 text2744 
+       0       16       13       16       13        0       14       16 
+text2745 text2746 text2747 text2748 text2749 text2750 text2751 text2752 
+      14       14        2        0       15       17       15       16 
+text2753 text2754 text2755 text2756 text2757 text2758 text2759 text2760 
+      13       15       19       13       16        2        0       15 
+text2761 text2762 text2763 text2764 text2765 text2766 text2767 text2768 
+      14       13        0        0        0        0        2        3 
+text2769 text2770 text2771 text2772 text2773 text2774 text2775 text2776 
+       0        0       14       15       14       15       15       14 
+text2777 text2778 text2779 text2780 text2781 text2782 text2783 text2784 
+      14       16       15       13        6        0       16       10 
+text2785 text2786 text2787 text2788 text2789 text2790 text2791 text2792 
+       9       14       15       14       14       14       14       12 
+text2793 text2794 text2795 text2796 text2797 text2798 text2799 text2800 
+      14       17       14       15       14       15       14       12 
+text2801 text2802 text2803 text2804 text2805 text2806 text2807 text2808 
+      14       16       17       14       13       12       15        7 
+text2809 text2810 text2811 text2812 text2813 text2814 text2815 text2816 
+       0       15       15       12       13       15       17       15 
+text2817 text2818 text2819 text2820 text2821 text2822 text2823 text2824 
+      10       14       15        6        0       15       13       17 
+text2825 text2826 text2827 text2828 text2829 text2830 text2831 text2832 
+      13       14       12       13       15       12       15        0 
+text2833 text2834 text2835 text2836 text2837 text2838 text2839 text2840 
+      17       13       14       13       17       16       14       14 
+text2841 text2842 text2843 text2844 text2845 text2846 text2847 text2848 
+      14       14       14       10       15        7        0       15 
+text2849 text2850 text2851 text2852 text2853 text2854 text2855 text2856 
+      15       16       14       14       16       13       14       13 
+text2857 text2858 text2859 text2860 text2861 text2862 text2863 text2864 
+      19       15       15       15        6        0       13       16 
+text2865 text2866 text2867 text2868 text2869 text2870 text2871 text2872 
+      12       11       14       16       14       13       18        4 
+text2873 text2874 text2875 text2876 text2877 text2878 text2879 text2880 
+       0       15       15       12       18       14       14       13 
+text2881 text2882 text2883 text2884 text2885 text2886 text2887 text2888 
+      14       14       15       13       14       13       15        8 
+text2889 text2890 text2891 text2892 text2893 text2894 text2895 text2896 
+       0       16       11       17       14       13       15       16 
+text2897 text2898 text2899 text2900 text2901 text2902 text2903 text2904 
+      15       14        2        0       13       18       13       15 
+text2905 text2906 text2907 text2908 text2909 text2910 text2911 text2912 
+      13       18       15       10        0       15       14       15 
+text2913 text2914 text2915 text2916 text2917 text2918 text2919 text2920 
+      15       15       17       13       14       18       12       15 
+text2921 text2922 text2923 text2924 text2925 text2926 text2927 text2928 
+      13       14        3        0       18       17       15       17 
+text2929 text2930 text2931 text2932 text2933 text2934 text2935 text2936 
+      14       12       13       19       15       13       15       11 
+text2937 text2938 text2939 text2940 text2941 text2942 text2943 text2944 
+       2        0        0        0        0        2        4        0 
+text2945 text2946 text2947 text2948 text2949 text2950 text2951 text2952 
+       0       17       13       14       13       15       15       16 
+text2953 text2954 text2955 text2956 text2957 text2958 text2959 text2960 
+      13       12       14       14        2        0       18       16 
+text2961 text2962 text2963 text2964 text2965 text2966 text2967 text2968 
+      16       14       13       15       12       12       16        2 
+text2969 text2970 text2971 text2972 text2973 text2974 text2975 text2976 
+       0       15       17       15       14       16        8        0 
+text2977 text2978 text2979 text2980 text2981 text2982 text2983 text2984 
+      15       15       15       13        6        0       16       14 
+text2985 text2986 text2987 text2988 text2989 text2990 text2991 text2992 
+      14       15       14       16       15       17        0        0 
+text2993 text2994 text2995 text2996 text2997 text2998 text2999 text3000 
+       0        0        2        3        0        0       19       16 
+text3001 text3002 text3003 text3004 text3005 text3006 text3007 text3008 
+      12       14       19       14       15       15       15        0 
+text3009 text3010 text3011 text3012 text3013 text3014 text3015 text3016 
+      17       14       13       15       16       12       14       16 
+text3017 text3018 text3019 text3020 text3021 text3022 text3023 text3024 
+       5        0       18       14        2        0        7        0 
+text3025 text3026 text3027 text3028 text3029 text3030 text3031 text3032 
+       5        0        6        0       18       20       15        0 
+text3033 text3034 text3035 text3036 text3037 text3038 text3039 text3040 
+      13       16       12        0       17       14        8        0 
+text3041 text3042 text3043 text3044 text3045 text3046 text3047 text3048 
+      18        6        0       13        0       17       14        0 
+text3049 text3050 text3051 text3052 text3053 text3054 text3055 text3056 
+      13        0       14        0       16       17       17       16 
+text3057 text3058 text3059 text3060 text3061 text3062 text3063 text3064 
+      18       19       14       17       12        0       16       14 
+text3065 text3066 text3067 text3068 text3069 text3070 text3071 text3072 
+      17       14       15       15       10        0       15       19 
+text3073 text3074 text3075 text3076 text3077 text3078 text3079 text3080 
+      18       17        2        0       16       14       15       11 
+text3081 text3082 text3083 text3084 text3085 text3086 text3087 text3088 
+       0       19       16       13       15       16       18       16 
+text3089 text3090 text3091 text3092 text3093 text3094 text3095 text3096 
+      12       12       12       15       14       16       16       18 
+text3097 text3098 text3099 text3100 text3101 text3102 text3103 text3104 
+       3        0       21        0       17       18       18       14 
+text3105 text3106 text3107 text3108 text3109 text3110 text3111 text3112 
+      14        5        0       13       16       16       14       12 
+text3113 text3114 text3115 text3116 text3117 text3118 text3119 text3120 
+      17       15        3        0       16       17       16       15 
+text3121 text3122 text3123 text3124 text3125 text3126 text3127 text3128 
+      14       12       12       16       15       13        0       12 
+text3129 text3130 text3131 text3132 text3133 text3134 text3135 text3136 
+      12       16        5        0       20        7        0       19 
+text3137 text3138 text3139 text3140 text3141 text3142 text3143 text3144 
+       3        0       13       14       12       17       13        7 
+text3145 text3146 text3147 text3148 text3149 text3150 text3151 text3152 
+       0        0        0        0        1        0        0       16 
+text3153 text3154 text3155 text3156 text3157 text3158 text3159 text3160 
+      13       13       12       14       10       14       17       12 
+text3161 text3162 text3163 text3164 text3165 text3166 text3167 text3168 
+      18       12       15       14       10       12       12       18 
+text3169 text3170 text3171 text3172 text3173 text3174 
+      16       15       15       11       13        9 </code></pre>
 </div>
 </div>
 <p>To get a <strong>document-term matrix</strong> (documents × terms) for frequency analysis or modelling:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenize and build document-term matrix</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>dtm <span class="ot">&lt;-</span> corp <span class="sc">|&gt;</span></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens</span>(<span class="at">remove_punct =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm</span>()</span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>dtm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenize and build document-term matrix (remove punctuation)</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>doc_term_matrix <span class="ot">&lt;-</span> corp <span class="sc">|&gt;</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens</span>(<span class="at">remove_punct =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm</span>()</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Dimensions and top terms</span></span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(doc_term_matrix)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Document-feature matrix of: 3 documents, 11 features (57.58% sparse) and 0 docvars.
-      features
-docs   the cat sat on mat dog ran in sun a
-  doc1   2   1   1  1   1   0   0  0   0 0
-  doc2   2   0   0  0   0   1   1  1   1 0
-  doc3   0   1   0  0   0   1   0  0   0 2
-[ reached max_nfeat ... 1 more feature ]</code></pre>
+<pre><code>[1] 3174 4832</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">textstat_frequency</span>(doc_term_matrix) <span class="sc">|&gt;</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   feature frequency rank docfreq group
+1      the      2275    1    1604   all
+2        i      1241    2    1013   all
+3      and      1234    3    1053   all
+4       of      1159    4     996   all
+5        a       806    5     702   all
+6       to       678    6     605   all
+7      was       546    7     504   all
+8       in       545    8     504   all
+9       my       439    9     405   all
+10    that       435   10     408   all</code></pre>
 </div>
 </div>
-<p>Later you can use <code>readtext::readtext()</code> to read files from disk into a data frame, then pass that to <code>corpus(..., text_field = "text")</code>.</p>
+<p>So: <strong>tidytext</strong> gives you a long tibble (one row per token); <strong>quanteda</strong> gives you a corpus and a matrix (documents × terms). For more on Gutenberg + quanteda you can combine <code>gutenberg_download()</code> with <code>corpus(..., text_field = "text")</code> or use <code>readtext::readtext()</code> for files on disk.</p>
 <p><strong>When to use which?</strong></p>
 <ul>
 <li><strong>tidytext</strong>: you prefer working in tibbles and dplyr (one row per token); good for word counts, sentiment, and tidy-style workflows.</li>
@@ -659,8 +1655,297 @@ docs   the cat sat on mat dog ran in sun a
 </ul>
 </section>
 </section>
-<section id="first-taste-of-data-transformation-with-language-data" class="level1">
-<h1>First taste of data transformation (with language data)</h1>
+<section id="import-lod-dictionary-data-xml" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Import LOD dictionary data (XML)</h1>
+<section id="getting-the-file" class="level2 scrollable" data-number="7.1">
+<h2 class="scrollable anchored" data-number="7.1" data-anchor-id="getting-the-file"><span class="header-section-number">7.1</span> Getting the file</h2>
+<p>The LOD linguistic dataset is published as <strong>open data</strong> by the Luxembourg government (Zenter fir d’Lëtzebuerger Sprooch) under <strong>CC0 (</strong><a href="https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b">LOD – Linguistesch Daten (resource)</a>. Download the zip, extract it, and place the XML file (<code>new_lod-art.xml</code>, ~74 MB) in a folder in your project (e.g.&nbsp;<code>data/</code>). Below we read it from that folder and inspect its structure.</p>
+<p><strong>Install once:</strong> <code>install.packages("xml2")</code>. Then load with <code>library(xml2)</code>.</p>
+</section>
+<section id="reading-the-xml-file" class="level2 scrollable" data-number="7.2">
+<h2 class="scrollable anchored" data-number="7.2" data-anchor-id="reading-the-xml-file"><span class="header-section-number">7.2</span> Reading the XML file</h2>
+<p>Read the XML from the file path. The file is large, so the first parse may take a few seconds.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'xml2' was built under R version 4.5.2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to the XML file (e.g. in data/; adjust if your file is elsewhere)</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>lod_xml_path <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"data/new_lod-art.xml"</span>)) <span class="st">"data/new_lod-art.xml"</span> <span class="cf">else</span> <span class="st">"new_lod-art.xml"</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read XML from the folder</span></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>lod_xml <span class="ot">&lt;-</span> <span class="fu">read_xml</span>(lod_xml_path)</span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Root element</span></span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_name</span>(lod_xml)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "lod"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_children</span>(lod_xml) <span class="sc">|&gt;</span> <span class="fu">length</span>()   <span class="co"># number of top-level children (entries)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 33737</code></pre>
+</div>
+</div>
+</section>
+<section id="structure-of-the-lod-xml" class="level2 scrollable" data-number="7.3">
+<h2 class="scrollable anchored" data-number="7.3" data-anchor-id="structure-of-the-lod-xml"><span class="header-section-number">7.3</span> Structure of the LOD XML</h2>
+<p>The document has a single root element <code>&lt;lod&gt;</code>, which contains many <strong><code>&lt;entry&gt;</code></strong> elements. Each entry represents one <strong>headword</strong> (lemma) and its dictionary information. The hierarchy is:</p>
+<p><strong>1. Entry level (<code>&lt;entry id="..."&gt;</code>)</strong></p>
+<ul>
+<li><strong><code>&lt;lemma&gt;</code></strong> — the headword (e.g.&nbsp;“A”).</li>
+<li><strong><code>&lt;ipa&gt;</code></strong> — IPA pronunciation (e.g.&nbsp;“aː”).</li>
+<li><strong><code>&lt;microStructure&gt;</code></strong> — grammatical and semantic information.</li>
+</ul>
+<p><strong>2. Inside <code>&lt;microStructure&gt;</code></strong></p>
+<ul>
+<li><strong><code>&lt;partOfSpeech gen="..."&gt;</code></strong> — part of speech (e.g.&nbsp;SUBST, with optional gender).</li>
+<li><strong><code>&lt;inflection type="..."&gt;</code></strong> — inflectional forms (e.g.&nbsp;plural), with <code>&lt;form nRuleForm="..."&gt;</code> for each form.</li>
+<li><strong><code>&lt;grammaticalUnit&gt;</code></strong> — groups one or more <strong>meanings</strong>.</li>
+</ul>
+<p><strong>3. Meaning level (<code>&lt;meaning id="..." video="..."&gt;</code>)</strong></p>
+<ul>
+<li><strong><code>&lt;number&gt;</code></strong> — sense number.</li>
+<li><strong><code>&lt;targetLanguage lang="de|fr|en|pt|nl"&gt;</code></strong> — translations:
+<ul>
+<li><strong><code>&lt;translation&gt;</code></strong> — equivalent in the target language.</li>
+<li><strong><code>&lt;semanticClarifier&gt;</code></strong> — short clarification (e.g.&nbsp;“Sehorgan” for “Auge”).</li>
+</ul></li>
+<li><strong><code>&lt;examples count="..."&gt;</code></strong> — example sentences:
+<ul>
+<li><strong><code>&lt;example&gt;</code></strong> (optional <code>id</code>):
+<ul>
+<li><strong><code>&lt;text&gt;</code></strong> — Luxembourgish example: <code>&lt;word&gt;</code> elements for each token, <code>&lt;inflectedHeadword&gt;</code> for the headword form used; optional <code>&lt;attribute&gt;</code> (e.g.&nbsp;EGS = example).</li>
+<li><strong><code>&lt;gloss&gt;</code></strong> (optional) — gloss/paraphrase, again with <code>&lt;word&gt;</code> elements.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>So each <strong>entry</strong> → <strong>microStructure</strong> → <strong>grammaticalUnit</strong> → one or more <strong>meaning</strong> → translations in several languages and <strong>examples</strong> (with optional glosses).</p>
+</section>
+<section id="how-xpath-works" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="how-xpath-works"><span class="header-section-number">7.4</span> How XPath works</h2>
+<p><strong>XPath</strong> is a language for selecting nodes in an XML (or HTML) tree. In R you use it with <strong>xml2</strong> via <code>xml_find_first()</code> (one node) and <code>xml_find_all()</code> (all matching nodes). The expression is a path that describes where to go in the tree.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>XPath</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>nodename</code></td>
+<td>Direct child with that name</td>
+<td><code>lemma</code> → children of the current node named <code>lemma</code></td>
+</tr>
+<tr class="even">
+<td><code>/nodename</code></td>
+<td>Child from the <strong>root</strong></td>
+<td><code>/lod</code> → root element; <code>/lod/entry</code> → every <code>entry</code> directly under <code>lod</code></td>
+</tr>
+<tr class="odd">
+<td><code>//nodename</code></td>
+<td><strong>Any</strong> descendant (any depth)</td>
+<td><code>//entry</code> → every <code>entry</code> in the document</td>
+</tr>
+<tr class="even">
+<td><code>.//nodename</code></td>
+<td>Any descendant <strong>from the current node</strong></td>
+<td>Inside an entry, <code>.//lemma</code> finds <code>lemma</code> anywhere under that entry</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>Any element (wildcard)</td>
+<td><code>./*</code> → all direct children of the current node</td>
+</tr>
+<tr class="even">
+<td><code>[@attr='value']</code></td>
+<td>Filter by attribute</td>
+<td><code>targetLanguage[@lang='de']</code> → <code>targetLanguage</code> whose <code>lang</code> is <code>de</code></td>
+</tr>
+<tr class="odd">
+<td><code>path1/path2</code></td>
+<td>Then: path2 under path1</td>
+<td><code>.//meaning/examples/example</code> → <code>example</code> under <code>examples</code> under <code>meaning</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples on the LOD:</strong></p>
+<ul>
+<li><code>//entry</code> — every entry in the document (from root).</li>
+<li><code>//entry/lemma</code> — every <code>lemma</code> that is a direct child of an <code>entry</code>.</li>
+<li><code>.//lemma</code> — the lemma of the <strong>current</strong> entry (when you’re already on one entry).</li>
+<li><code>.//meaning/targetLanguage[@lang='en']/translation</code> — English translations under the current entry.</li>
+<li><code>.//meaning/examples/example</code> — all example nodes under the current entry.</li>
+</ul>
+<p>The <strong>dot</strong> (<code>.</code>) is the current node; <strong><code>.//</code></strong> means “starting from here, any descendant”. Without the dot, <code>//</code> starts from the document root.</p>
+</section>
+<section id="inspecting-one-entry-in-r" class="level2 scrollable" data-number="7.5">
+<h2 class="scrollable anchored" data-number="7.5" data-anchor-id="inspecting-one-entry-in-r"><span class="header-section-number">7.5</span> Inspecting one entry in R</h2>
+<p>To see the structure of a single entry and extract a few fields:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First entry</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>first_entry <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(lod_xml, <span class="st">"//entry"</span>)</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Lemma and IPA</span></span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_first</span>(first_entry, <span class="st">".//lemma"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_text</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "A"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_first</span>(first_entry, <span class="st">".//ipa"</span>)    <span class="sc">|&gt;</span> <span class="fu">xml_text</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "aː"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Part of speech</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_first</span>(first_entry, <span class="st">".//partOfSpeech"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_text</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SUBST"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_first</span>(first_entry, <span class="st">".//partOfSpeech"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_attr</span>(<span class="st">"gen"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "N"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First meaning: translations (e.g. German, English)</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_all</span>(first_entry, <span class="st">".//meaning/targetLanguage[@lang='de']/translation"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_text</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Auge"             "blaues Auge"      "Veilchen"         "Glasauge"        
+ [5] "vor Augen führen" "Auge"             "Fettauge"         "Auge"            
+ [9] "Keim"             "Knospe"           "Auge"            </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_all</span>(first_entry, <span class="st">".//meaning/targetLanguage[@lang='en']/translation"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_text</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "eye"               "black eye"         "glass eye"        
+ [4] "ocular prosthetic" "to make aware of"  "to show"          
+ [7] "to demonstrate"    "fat globule"       "eye"              
+[10] "bud"               "pip"               "spot"             </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of examples in the first meaning</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_first</span>(first_entry, <span class="st">".//meaning/examples"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_attr</span>(<span class="st">"count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2+"</code></pre>
+</div>
+</div>
+</section>
+<section id="exploring-the-examples-section" class="level2 scrollable" data-number="7.6">
+<h2 class="scrollable anchored" data-number="7.6" data-anchor-id="exploring-the-examples-section"><span class="header-section-number">7.6</span> Exploring the examples section</h2>
+<p>Each <strong>meaning</strong> can contain an <strong><code>&lt;examples&gt;</code></strong> block with one or more <strong><code>&lt;example&gt;</code></strong> nodes. Each <code>&lt;example&gt;</code> has at least one <strong><code>&lt;text&gt;</code></strong> element whose children are <strong><code>&lt;word&gt;</code></strong> and <strong><code>&lt;inflectedHeadword&gt;</code></strong> (and optionally <strong><code>&lt;attribute&gt;</code></strong>), in order — that is the Luxembourgish example sentence. Below we <strong>collect</strong> several example sentences from <strong>random entries</strong> and put them into a <strong>tibble</strong> so you can work with them like any table (filter, count, join, etc.).</p>
+<p><strong>Helper:</strong> turn one <code>&lt;example&gt;</code> node into the sentence string (first <code>&lt;text&gt;</code> only):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sentence text from one &lt;example&gt;: first &lt;text&gt;, then concatenate child elements (word, inflectedHeadword, etc.)</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>get_sentence <span class="ot">&lt;-</span> <span class="cf">function</span>(ex) {</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  text_node <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(ex, <span class="st">".//text"</span>)</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">inherits</span>(text_node, <span class="st">"xml_missing"</span>)) <span class="fu">return</span>(<span class="cn">NA_character_</span>)</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>  tokens <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(text_node, <span class="st">"./*"</span>)</span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="fu">xml_text</span>(tokens), <span class="at">collapse =</span> <span class="st">" "</span>)</span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Collect examples and build a tibble:</strong> sample a number of entries, take up to two examples per entry, then combine lemma and sentence into a data frame.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>all_entries <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(lod_xml, <span class="st">"//entry"</span>)</span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>n_entries  <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>sampled    <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">length</span>(all_entries), <span class="fu">min</span>(n_entries, <span class="fu">length</span>(all_entries)))</span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a>rows       <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(sampled)) {</span>
+<span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a>  entry  <span class="ot">&lt;-</span> all_entries[[sampled[i]]]</span>
+<span id="cb100-11"><a href="#cb100-11" aria-hidden="true" tabindex="-1"></a>  lemma  <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(entry, <span class="st">".//lemma"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_text</span>()</span>
+<span id="cb100-12"><a href="#cb100-12" aria-hidden="true" tabindex="-1"></a>  exs    <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(entry, <span class="st">".//meaning/examples/example"</span>)</span>
+<span id="cb100-13"><a href="#cb100-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Take at most 2 examples per entry</span></span>
+<span id="cb100-14"><a href="#cb100-14" aria-hidden="true" tabindex="-1"></a>  exs    <span class="ot">&lt;-</span> exs[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(<span class="dv">2</span>, <span class="fu">length</span>(exs))]</span>
+<span id="cb100-15"><a href="#cb100-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (ex <span class="cf">in</span> exs) {</span>
+<span id="cb100-16"><a href="#cb100-16" aria-hidden="true" tabindex="-1"></a>    sent <span class="ot">&lt;-</span> <span class="fu">get_sentence</span>(ex)</span>
+<span id="cb100-17"><a href="#cb100-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(sent) <span class="sc">&amp;&amp;</span> <span class="fu">nchar</span>(sent) <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb100-18"><a href="#cb100-18" aria-hidden="true" tabindex="-1"></a>      rows[[<span class="fu">length</span>(rows) <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">lemma =</span> lemma, <span class="at">sentence =</span> sent)</span>
+<span id="cb100-19"><a href="#cb100-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb100-20"><a href="#cb100-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb100-21"><a href="#cb100-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-22"><a href="#cb100-22" aria-hidden="true" tabindex="-1"></a><span class="co"># One row per example sentence</span></span>
+<span id="cb100-23"><a href="#cb100-23" aria-hidden="true" tabindex="-1"></a>lod_examples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb100-24"><a href="#cb100-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">lemma    =</span> <span class="fu">vapply</span>(rows, <span class="cf">function</span>(r) r<span class="sc">$</span>lemma,    <span class="fu">character</span>(<span class="dv">1</span>)),</span>
+<span id="cb100-25"><a href="#cb100-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">sentence =</span> <span class="fu">vapply</span>(rows, <span class="cf">function</span>(r) r<span class="sc">$</span>sentence, <span class="fu">character</span>(<span class="dv">1</span>))</span>
+<span id="cb100-26"><a href="#cb100-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb100-27"><a href="#cb100-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-28"><a href="#cb100-28" aria-hidden="true" tabindex="-1"></a>lod_examples</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 34 × 2
+   lemma        sentence                                                        
+   &lt;chr&gt;        &lt;chr&gt;                                                           
+ 1 Belsch       meng bescht Frëndin ass Belsch                                  
+ 2 Urbanistin   d' Urbanistin schafft Mesuren aus, déi zur Berouegung vum Trafi…
+ 3 befalen      bei waarmem, fiichtem Wieder ginn d' Riewen nawell gär vun enge…
+ 4 Finanzwiesen d' EU fuerdert méi eng streng Reglementatioun vum europäesche F…
+ 5 Finanzwiesen als Ekonomistin hues de gutt Chancen, am Finanzwiesen eng Aarbe…
+ 6 Virbau       wéi mir d' Haus renovéiert hunn, hu mer eisen Hall duerch e Vir…
+ 7 Interferenz  fir Interferenzen tëschent den elektreschen Apparater ze vermei…
+ 8 Interferenz  bei Kanner, déi méisproocheg opwuessen, kënnt et dacks zu sproo…
+ 9 Kärebrout    eise Bäcker mécht wonnerbaart Kärebrout                         
+10 Kärebrout    kanns de nach zwee Kärebrout bei de Bäcker siche goen?          
+# ℹ 24 more rows</code></pre>
+</div>
+</div>
+<p>You can now use <strong>dplyr</strong> or <strong>tidyr</strong> on <code>lod_examples</code> (e.g.&nbsp;count sentences per lemma, filter by length, or join with other data). The same idea scales to all entries if you loop over every entry and every example and bind the rows.</p>
+</section>
+<section id="summary-of-the-lod-xml-structure" class="level2 scrollable" data-number="7.7">
+<h2 class="scrollable anchored" data-number="7.7" data-anchor-id="summary-of-the-lod-xml-structure"><span class="header-section-number">7.7</span> Summary of the LOD XML structure</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Element</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Root</td>
+<td><code>lod</code></td>
+<td>Container for all entries.</td>
+</tr>
+<tr class="even">
+<td>Entry</td>
+<td><code>entry</code> (id)</td>
+<td>One headword: lemma, ipa, microStructure.</td>
+</tr>
+<tr class="odd">
+<td>Micro</td>
+<td><code>microStructure</code></td>
+<td>partOfSpeech, inflection(s), grammaticalUnit(s).</td>
+</tr>
+<tr class="even">
+<td>Unit</td>
+<td><code>grammaticalUnit</code></td>
+<td>Groups one or more meanings.</td>
+</tr>
+<tr class="odd">
+<td>Meaning</td>
+<td><code>meaning</code> (id, video)</td>
+<td>Sense: number, targetLanguage (translation, semanticClarifier), examples.</td>
+</tr>
+<tr class="even">
+<td>Example</td>
+<td><code>example</code></td>
+<td>text (word, inflectedHeadword, optional attribute), optional gloss.</td>
+</tr>
+</tbody>
+</table>
+<p>This structure lets you extract lemmas, translations, parts of speech, inflections, and example sentences (with glosses) for lexical and corpus-oriented analyses in R.</p>
+</section>
+</section>
+<section id="first-taste-of-data-transformation-with-language-data" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> First taste of data transformation (with language data)</h1>
 <p>We use <strong>dplyr</strong> (part of the tidyverse) to filter, select, and summarize data. Key ideas:</p>
 <ul>
 <li>First argument is always a <strong>data frame</strong>.</li>
@@ -669,18 +1954,18 @@ docs   the cat sat on mat dog ran in sun a
 </ul>
 <p>Use the pipe to chain steps. Example: take a small <strong>word/frequency</strong> table, filter by frequency, then sort:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a tiny “corpus-like” table: word, frequency, condition</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>word_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">word =</span> <span class="fu">c</span>(<span class="st">"the"</span>, <span class="st">"cat"</span>, <span class="st">"sat"</span>, <span class="st">"on"</span>, <span class="st">"mat"</span>, <span class="st">"dog"</span>, <span class="st">"ran"</span>),</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">50</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">4</span>),</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pos =</span> <span class="fu">c</span>(<span class="st">"det"</span>, <span class="st">"noun"</span>, <span class="st">"verb"</span>, <span class="st">"prep"</span>, <span class="st">"noun"</span>, <span class="st">"noun"</span>, <span class="st">"verb"</span>)</span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Then: filter, arrange, show</span></span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>word_data <span class="sc">|&gt;</span></span>
-<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(freq <span class="sc">&gt;=</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
-<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(freq)) <span class="sc">|&gt;</span></span>
-<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(word, freq, pos)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a tiny “corpus-like” table: word, frequency, condition</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>word_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">word =</span> <span class="fu">c</span>(<span class="st">"the"</span>, <span class="st">"cat"</span>, <span class="st">"sat"</span>, <span class="st">"on"</span>, <span class="st">"mat"</span>, <span class="st">"dog"</span>, <span class="st">"ran"</span>),</span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">50</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">4</span>),</span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pos =</span> <span class="fu">c</span>(<span class="st">"det"</span>, <span class="st">"noun"</span>, <span class="st">"verb"</span>, <span class="st">"prep"</span>, <span class="st">"noun"</span>, <span class="st">"noun"</span>, <span class="st">"verb"</span>)</span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Then: filter, arrange, show</span></span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>word_data <span class="sc">|&gt;</span></span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(freq <span class="sc">&gt;=</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(freq)) <span class="sc">|&gt;</span></span>
+<span id="cb102-12"><a href="#cb102-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(word, freq, pos)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   word   freq pos  
@@ -702,49 +1987,21 @@ docs   the cat sat on mat dog ran in sun a
 <li><code>summarize()</code> — compute summaries (often with <code>group_by()</code>).</li>
 </ul>
 </section>
-<section id="scripting-in-quarto" class="level1">
-<h1>Scripting in Quarto</h1>
-<section id="why-quarto" class="level2">
-<h2 class="anchored" data-anchor-id="why-quarto">Why Quarto?</h2>
-<ul>
-<li>Combine <strong>text, code, and output</strong> in one document — ideal for reporting on corpus or experiment results.</li>
-<li><strong>Reproducible</strong>: re-run and re-render to update tables and figures.</li>
-<li>Output to HTML, PDF, or other formats.</li>
-</ul>
-</section>
-<section id="running-code-in-a-.qmd-file" class="level2">
-<h2 class="anchored" data-anchor-id="running-code-in-a-.qmd-file">Running code in a .qmd file</h2>
-<ul>
-<li><strong>Code chunks</strong> are enclosed in <code>```{r}</code> and <code>```</code>.</li>
-<li>Run one chunk: <strong>Cmd+Enter</strong> (Mac) or <strong>Ctrl+Enter</strong> (Windows/Linux).</li>
-<li>Render the whole document: <strong>Cmd+Shift+K</strong> (or <strong>Ctrl+Shift+K</strong>) or click <em>Render</em>.</li>
-</ul>
-<p>Example chunk options:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: my-chunk</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>label</code>: unique name for the chunk.</li>
-<li><code>echo</code>: whether to show the code in the output.</li>
-<li><code>eval</code>: whether to run the code.</li>
-</ul>
-</section>
-</section>
-<section id="hands-on-exercises-toy-language-data" class="level1">
-<h1>Hands-on exercises (toy language data)</h1>
+<section id="hands-on-exercises" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Hands-on exercises</h1>
 <ol type="1">
 <li><p><strong>Typo.</strong> Why does this fail? (Look very carefully at the object name.)</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>my_variable <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>my_varıable   <span class="co"># error (hint: different character than 'i')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>my_variable <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>my_varıable   <span class="co"># error (hint: different character than 'i')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>Vectors and strings.</strong> In a new code chunk:</p>
 <ul>
 <li>Create a character vector <code>test_words</code> with at least three words (e.g.&nbsp;<code>c("word1", "word2", "word3")</code>).</li>
 <li>Use <code>length(test_words)</code> and <code>nchar(test_words)</code> and interpret the result.</li>
 </ul></li>
 <li><p><strong>Comparisons.</strong> Run these and say what they return (TRUE/FALSE) and why:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="st">"dog"</span> <span class="sc">==</span> <span class="st">"dog"</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="st">"dog"</span> <span class="sc">!=</span> <span class="st">"cat"</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nchar</span>(<span class="st">"linguistics"</span>) <span class="sc">&gt;</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="st">"dog"</span> <span class="sc">==</span> <span class="st">"dog"</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="st">"dog"</span> <span class="sc">!=</span> <span class="st">"cat"</span></span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nchar</span>(<span class="st">"linguistics"</span>) <span class="sc">&gt;</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>Data import and inspection.</strong> Create a short CSV string with columns <code>word</code> and <code>count</code> (e.g.&nbsp;three rows). Read it with <code>read_csv()</code>, then use <code>glimpse()</code> and <code>$</code> to inspect the <code>count</code> column and compute <code>mean(count)</code>.</p></li>
 <li><p><strong>Pipe and filter.</strong> Using the <code>word_data</code> table from the <a href="#first-taste-of-data-transformation-with-language-data">First taste</a> section (re-run that chunk if needed), write a pipe that:</p>
 <ul>
@@ -752,12 +2009,15 @@ docs   the cat sat on mat dog ran in sun a
 <li>then arranges by <code>freq</code> ascending.</li>
 </ul></li>
 <li><p><strong>Style.</strong> Restyle this into a clear, multi-line pipe (spaces, line breaks, indentation):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>word_data<span class="sc">|&gt;</span><span class="fu">filter</span>(freq<span class="sc">&gt;</span><span class="dv">3</span>)<span class="sc">|&gt;</span><span class="fu">arrange</span>(freq)<span class="sc">|&gt;</span><span class="fu">select</span>(word,freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p><strong>tidytext and quanteda (hands-on).</strong> Use the same toy texts as in the <a href="#reading-text-with-tidytext">tidytext</a> and <a href="#reading-text-with-quanteda">quanteda</a> sections (or two short sentences of your own in a tibble with columns <code>doc_id</code> and <code>text</code>).</p>
-<p><strong>(a) tidytext:</strong> Tokenize the text with <code>unnest_tokens(output = word, input = text)</code>. Then, using the pipe, count words with <code>count(word, sort = TRUE)</code> and show the result. How many times does <em>the</em> appear?</p>
-<p><strong>(b) quanteda:</strong> Build a corpus with <code>corpus(your_tibble, text_field = "text")</code>. Call <code>summary(corp)</code> and <code>ntoken(corp)</code>. How many tokens are in the corpus? Optional: build a document-term matrix with <code>tokens(corp, remove_punct = TRUE) |&gt; dfm()</code> and print it.</p>
-<p><strong>(c)</strong> In one sentence: what is the main difference between the tidytext output (tibble of tokens or counts) and the quanteda <code>dfm</code> (document-term matrix)?</p></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>word_data<span class="sc">|&gt;</span><span class="fu">filter</span>(freq<span class="sc">&gt;</span><span class="dv">3</span>)<span class="sc">|&gt;</span><span class="fu">arrange</span>(freq)<span class="sc">|&gt;</span><span class="fu">select</span>(word,freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>tidytext and quanteda with Gutenberg (hands-on).</strong> Use the same book downloaded in the <a href="#reading-text-with-tidytext">tidytext</a> section (<code>gutenberg_books</code>) or download another (e.g.&nbsp;<code>gutenberg_download(1342)</code> for <em>Pride and Prejudice</em>; see <a href="https://docs.ropensci.org/gutenbergr/articles/text-mining.html">gutenbergr text mining</a>).</p>
+<p><strong>(a) tidytext:</strong> Start from <code>gutenberg_books</code>. Tokenize with <code>unnest_tokens(output = word, input = text)</code>, then <code>anti_join(stop_words, by = "word")</code>, then <code>count(word, sort = TRUE)</code>. What are the <strong>top 5</strong> words? How many tokens are there in total (use <code>sum(n)</code> on the count table)?</p>
+<p><strong>(b) quanteda:</strong> Build a corpus with <code>corpus(gutenberg_books, text_field = "text")</code>. Call <code>sum(ntoken(corp))</code> to get total tokens (this counts all tokens; in (a) you had totals <em>after</em> removing stop words, so the numbers differ). Build a document-term matrix with <code>tokens(corp, remove_punct = TRUE) |&gt; dfm()</code>, then use <code>textstat_freq(your_dfm)</code> to list the most frequent terms. Compare the top 5 with tidytext’s top 5 (quanteda’s dfm doesn’t remove stop words by default, so you’ll see “the”, “and”, etc. unless you add a step to remove them).</p>
+<p><strong>(c)</strong> In one sentence: what is the main difference between tidytext’s one-token-per-row (or word-count) tibble and quanteda’s document-term matrix (<code>dfm</code>)?</p></li>
 </ol>
+</section>
+<section id="section" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> </h1>
 
 
 </section>
