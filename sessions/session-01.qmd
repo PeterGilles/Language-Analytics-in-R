@@ -62,7 +62,21 @@ Run code from the editor with **Cmd+Enter** (Mac) or **Ctrl+Enter** (Windows/Lin
 Prefix a command with `?`, e.g. `?mean` to call the help page for this command. Or use the `Help` pane in RStudio.
 
 ```{r}
+# Access help for a function by name:
 ?mean
+
+# Alternatively, use the help() function:
+help("mean")
+
+# Search help topics with apropos() or help.search():
+apropos("lin")  # Shows all objects/functions with "lin" in the name
+help.search("linear model")  # Looks up help topics related to linear models
+
+# View example usage for functions:
+example(mean)
+
+# See the vignette (long-form documentation) for a package:
+vignette("dplyr")
 ```
 
 There are numerous R [cheatsheets](https://posit.co/resources/cheatsheets/) that summarise command usages in a structured way.
@@ -764,4 +778,4 @@ Main verbs you will see again in Session 2:
 
     **(c)** In one sentence: what is the main difference between tidytext’s one-token-per-row (or word-count) tibble and quanteda’s document-term matrix (`dfm`)?
 
-# 
+#

@@ -1,5 +1,65 @@
 ---
-title: "session-01"
-format: html
+title: "Session 4 — Visualisation with ggplot2"
+subtitle: "Language Analytics in R"
+author: "Peter Gilles"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: false
+editor: visual
 ---
 
+## Learning objectives
+
+By the end of this session you will:
+
+- Build plots with **ggplot2**: data, aesthetics (`aes()`), and geoms.
+- Use **layers**: add geoms, scales, labels, and themes.
+- Choose appropriate **geoms** for the task (e.g. bar, point, line, boxplot, histogram).
+- Customize **axes**, **labels**, and **themes** for clear, publishable figures.
+- Apply ggplot2 to **language and corpus data** (e.g. frequencies, distributions, model results).
+
+# Grammar of graphics
+
+- **Data** → **Aesthetics** (mapping variables to x, y, color, fill, etc.) → **Geometries** (how to draw).
+- **`ggplot(data, aes(x = ..., y = ...)) + geom_...()`**
+
+*[Add a minimal example: e.g. bar chart of word counts or scatter plot.]*
+
+# Core geoms
+
+- **`geom_bar()`** / **`geom_col()`** — counts vs pre-computed values.
+- **`geom_point()`** — scatter plots.
+- **`geom_line()`** — time series or trends.
+- **`geom_histogram()`** / **`geom_density()`** — distributions.
+- **`geom_boxplot()`** / **`geom_violin()`** — group comparisons.
+
+*[Add one or two code chunks per geom using course-relevant data.]*
+
+# Aesthetics and layers
+
+- **`aes()`**: map variables to x, y, color, fill, size, shape.
+- **Faceting**: `facet_wrap()`, `facet_grid()`.
+- **Scales**: `scale_*` for axes, colors, labels.
+
+*[Add an example with faceting or custom scales.]*
+
+# Labels and themes
+
+- **`labs()`** — title, subtitle, axis labels.
+- **`theme_minimal()`**, **`theme_bw()`**, or custom **`theme()`**.
+- **Saving**: `ggsave()` or Quarto figure options.
+
+*[Add a polished plot example and ggsave.]*
+
+# Hands-on exercises
+
+- Reproduce a simple plot from the session (e.g. bar chart, boxplot).
+- Build a plot from your own or course data; add labels and a theme.
+
+# Summary and further reading
+
+- R4DS [Data visualization](https://r4ds.hadley.nz/data-visualize.html), [Layers](https://r4ds.hadley.nz/layers.html), [Communication](https://r4ds.hadley.nz/communication.html).
+- [R for Linguists — ggplot2](https://eleanorchodroff.com/r-for-linguists/ggplot2.html).

@@ -1,5 +1,72 @@
 ---
-title: "session-01"
-format: html
+title: "Session 2 — Data wrangling"
+subtitle: "Language Analytics in R"
+author: "Peter Gilles"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: false
+editor: visual
 ---
 
+## Learning objectives
+
+By the end of this session you will:
+
+- Use **dplyr** verbs to filter, select, mutate, arrange, and summarize data.
+- Chain operations with the **pipe** (`|>`).
+- Use **`group_by()`** for group-wise summaries.
+- Combine **tidyr** operations (pivot, separate, unite) where relevant.
+- Apply the tidyverse workflow to language and corpus data.
+
+# Tidyverse and dplyr
+
+- The tidyverse: a set of packages for data manipulation and visualization.
+- **dplyr** verbs: one table in, one table out; work with columns by name.
+
+## Filter and select
+
+- **`filter()`** — keep rows that satisfy a condition.
+- **`select()`** — keep or drop columns (with helpers like `starts_with()`, `contains()`).
+
+*[Add code chunks and examples using a linguistic or corpus dataset.]*
+
+## Mutate and arrange
+
+- **`mutate()`** — add or modify columns (e.g. derived variables, recoding).
+- **`arrange()`** — sort rows (ascending/descending).
+
+*[Add code chunks and examples.]*
+
+## Summarize and group_by
+
+- **`summarize()`** — one row per group (or one row total).
+- **`group_by()`** — define groups for group-wise operations (e.g. by lemma, by document).
+
+*[Add code chunks: e.g. counts per category, means per group.]*
+
+# Pipes and chaining
+
+- **Pipe** `|>`: pass the result of one step as the first argument to the next.
+- Style: one verb per line, indent after `|>`.
+
+*[Add a full pipeline example: load → filter → group_by → summarize → arrange.]*
+
+# Tidyr (when needed)
+
+- **`pivot_longer()`** / **`pivot_wider()`** — reshape between long and wide.
+- **`separate()`** / **`unite()`** — split or combine columns.
+
+*[Add a short example if relevant for the course data.]*
+
+# Hands-on exercises
+
+- Filter and summarize a dataset (e.g. population, LOD examples, or word counts).
+- Build a pipeline from raw data to a summary table.
+
+# Summary and further reading
+
+- R4DS [Data transformation](https://r4ds.hadley.nz/data-transform.html), [Tidy data](https://r4ds.hadley.nz/tidy-data.html).
+- [R for Linguists](https://eleanorchodroff.com/r-for-linguists/) — datasets and dplyr.

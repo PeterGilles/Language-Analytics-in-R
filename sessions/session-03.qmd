@@ -1,5 +1,65 @@
 ---
-title: "session-01"
-format: html
+title: "Session 3 — Statistics"
+subtitle: "Language Analytics in R"
+author: "Peter Gilles"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: false
+editor: visual
 ---
 
+## Learning objectives
+
+By the end of this session you will:
+
+- Compute and interpret **descriptive statistics** (mean, median, sd, etc.) in R.
+- Understand **distributions** and basic **hypothesis testing** (e.g. t-test, chi-squared).
+- Fit and interpret **linear models** (`lm()`) for continuous outcomes.
+- Use **model output** (coefficients, R², p-values) in a linguistic context.
+- Reference **Winter (2020)** or similar for statistics for linguists.
+
+# Descriptive statistics
+
+- **Measures of central tendency**: mean, median.
+- **Spread**: standard deviation, variance, range, IQR.
+- **By group**: e.g. `group_by()` + `summarize()` with `mean()`, `sd()`, `n()`.
+
+*[Add code chunks using a dataset from the course, e.g. reaction times, word frequencies, or population.]*
+
+# Distributions and exploratory checks
+
+- **Distributions**: normal, skewed; histograms and density plots.
+- **Assumptions**: when parametric tests are appropriate.
+
+*[Add brief code or references to visualization (Session 4) and to Winter/textbook.]*
+
+# Hypothesis testing
+
+- **t-test** — comparing means (e.g. two groups).
+- **Chi-squared test** — categorical data (e.g. contingency tables).
+- **Interpretation**: p-values, effect size, confidence intervals.
+
+*[Add code: `t.test()`, `chisq.test()`, and interpretation.]*
+
+# Linear models
+
+- **`lm()`** — formula interface (e.g. `y ~ x`, `y ~ x1 + x2`).
+- **Categorical predictors**: treatment coding; interpreting coefficients.
+- **Model output**: `summary()`, coefficients, R², F-test.
+
+*[Add one or two examples relevant to language data.]*
+
+# Hands-on exercises
+
+- Compute descriptive statistics by group and interpret.
+- Run a t-test or chi-squared test and report results.
+- Fit a simple linear model and interpret coefficients.
+
+# Summary and further reading
+
+- Winter, B. [Statistics for linguists](https://appliedstatisticsforlinguists.org/) (R introduction).
+- R4DS [Model basics](https://r4ds.hadley.nz/model-basics.html) (optional).
+- [Lin611 — Quantitative Methods in Linguistics](https://jofrhwld.github.io/2023_Lin611/).

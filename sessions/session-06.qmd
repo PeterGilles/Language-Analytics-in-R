@@ -1,5 +1,55 @@
 ---
-title: "session-01"
-format: html
+title: "Session 6 — Work on own projects (wrap-up)"
+subtitle: "Language Analytics in R"
+author: "Peter Gilles"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: false
+editor: visual
 ---
 
+## Learning objectives
+
+By the end of this session you will:
+
+- **Finalize** your project work (analysis, figures, and Quarto report).
+- **Present or share** your results (format to be defined: short presentation, shared document, or peer feedback).
+- **Reflect** on what you learned and how to use R in your future research.
+- Know where to find **further resources** and support.
+
+# Scope of the session
+
+- **Project work**: last stretch to complete analyses and write-up.
+- **Support**: instructor/TA available for final questions and code review.
+- **Wrap-up**: short recap of the course and optional presentations or sharing.
+
+*[Add any specific instructions: submission format, presentation length, or feedback procedure.]*
+
+# Final checklist
+
+- [ ] Data imported and wrangled; code is documented (e.g. in Quarto).
+- [ ] At least one clear research question addressed (stats or visualization).
+- [ ] Figures are labeled and interpretable.
+- [ ] Report or script is reproducible (run from top to bottom).
+
+*[Adjust checklist to match course requirements.]*
+
+# Course recap
+
+- **Session 1**: R workflow, Quarto, data import (CSV, tidytext, quanteda, LOD XML).
+- **Session 2**: Data wrangling with dplyr and the pipe.
+- **Session 3**: Statistics (descriptive, tests, linear models).
+- **Session 4**: Visualization with ggplot2.
+- **Sessions 5–6**: Applied project work.
+
+# Further learning
+
+- [R for Data Science (2e)](https://r4ds.hadley.nz/)
+- [R for Linguists](https://eleanorchodroff.com/r-for-linguists/)
+- [Applied statistics for linguists](https://appliedstatisticsforlinguists.org/)
+- Posit cheatsheets, community forums, and local R user groups.
+
+Thank you for participating. Good luck with your language analytics in R!
