@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Peter Gilles">
 
-<title>session-01 – Language Analytics in R</title>
+<title>Session 3 — Statistics – Language Analytics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -37,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -79,8 +80,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Language Analytics in R</span>
     </a>
@@ -130,21 +129,40 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</a></li>
+  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics"><span class="header-section-number">1</span> Descriptive statistics</a></li>
+  <li><a href="#distributions-and-exploratory-checks" id="toc-distributions-and-exploratory-checks" class="nav-link" data-scroll-target="#distributions-and-exploratory-checks"><span class="header-section-number">2</span> Distributions and exploratory checks</a></li>
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing"><span class="header-section-number">3</span> Hypothesis testing</a></li>
+  <li><a href="#linear-models" id="toc-linear-models" class="nav-link" data-scroll-target="#linear-models"><span class="header-section-number">4</span> Linear models</a></li>
+  <li><a href="#hands-on-exercises" id="toc-hands-on-exercises" class="nav-link" data-scroll-target="#hands-on-exercises"><span class="header-section-number">5</span> Hands-on exercises</a></li>
+  <li><a href="#summary-and-further-reading" id="toc-summary-and-further-reading" class="nav-link" data-scroll-target="#summary-and-further-reading"><span class="header-section-number">6</span> Summary and further reading</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">session-01</h1>
+<h1 class="title">Session 3 — Statistics</h1>
+<p class="subtitle lead">Language Analytics in R</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Peter Gilles </p>
+          </div>
+  </div>
     
   
     
@@ -155,8 +173,70 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="learning-objectives" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</h2>
+<p>By the end of this session you will:</p>
+<ul>
+<li>Compute and interpret <strong>descriptive statistics</strong> (mean, median, sd, etc.) in R.</li>
+<li>Understand <strong>distributions</strong> and basic <strong>hypothesis testing</strong> (e.g.&nbsp;t-test, chi-squared).</li>
+<li>Fit and interpret <strong>linear models</strong> (<code>lm()</code>) for continuous outcomes.</li>
+<li>Use <strong>model output</strong> (coefficients, R², p-values) in a linguistic context.</li>
+<li>Reference <strong>Winter (2020)</strong> or similar for statistics for linguists.</li>
+</ul>
+</section>
+<section id="descriptive-statistics" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Descriptive statistics</h1>
+<ul>
+<li><strong>Measures of central tendency</strong>: mean, median.</li>
+<li><strong>Spread</strong>: standard deviation, variance, range, IQR.</li>
+<li><strong>By group</strong>: e.g.&nbsp;<code>group_by()</code> + <code>summarize()</code> with <code>mean()</code>, <code>sd()</code>, <code>n()</code>.</li>
+</ul>
+<p><em>[Add code chunks using a dataset from the course, e.g.&nbsp;reaction times, word frequencies, or population.]</em></p>
+</section>
+<section id="distributions-and-exploratory-checks" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Distributions and exploratory checks</h1>
+<ul>
+<li><strong>Distributions</strong>: normal, skewed; histograms and density plots.</li>
+<li><strong>Assumptions</strong>: when parametric tests are appropriate.</li>
+</ul>
+<p><em>[Add brief code or references to visualization (Session 4) and to Winter/textbook.]</em></p>
+</section>
+<section id="hypothesis-testing" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Hypothesis testing</h1>
+<ul>
+<li><strong>t-test</strong> — comparing means (e.g.&nbsp;two groups).</li>
+<li><strong>Chi-squared test</strong> — categorical data (e.g.&nbsp;contingency tables).</li>
+<li><strong>Interpretation</strong>: p-values, effect size, confidence intervals.</li>
+</ul>
+<p><em>[Add code: <code>t.test()</code>, <code>chisq.test()</code>, and interpretation.]</em></p>
+</section>
+<section id="linear-models" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Linear models</h1>
+<ul>
+<li><strong><code>lm()</code></strong> — formula interface (e.g.&nbsp;<code>y ~ x</code>, <code>y ~ x1 + x2</code>).</li>
+<li><strong>Categorical predictors</strong>: treatment coding; interpreting coefficients.</li>
+<li><strong>Model output</strong>: <code>summary()</code>, coefficients, R², F-test.</li>
+</ul>
+<p><em>[Add one or two examples relevant to language data.]</em></p>
+</section>
+<section id="hands-on-exercises" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Hands-on exercises</h1>
+<ul>
+<li>Compute descriptive statistics by group and interpret.</li>
+<li>Run a t-test or chi-squared test and report results.</li>
+<li>Fit a simple linear model and interpret coefficients.</li>
+</ul>
+</section>
+<section id="summary-and-further-reading" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Summary and further reading</h1>
+<ul>
+<li>Winter, B. <a href="https://appliedstatisticsforlinguists.org/">Statistics for linguists</a> (R introduction).</li>
+<li>R4DS <a href="https://r4ds.hadley.nz/model-basics.html">Model basics</a> (optional).</li>
+<li><a href="https://jofrhwld.github.io/2023_Lin611/">Lin611 — Quantitative Methods in Linguistics</a>.</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

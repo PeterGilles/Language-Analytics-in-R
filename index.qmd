@@ -25,17 +25,17 @@ Initial steps:
 
 Six sessions
 
-1.  [Introduction](sessions/session-01.qmd):
+1.  Introduction:
     1.  Examples from own research
     2.  First steps in Rstudio, packages and basic constructs (workflow, variables, scripting in Rmarkdown; writing good code)
     3.  Work with text data and corpora (data import etc.)
     4.  Hands-on exercises on toy data
-2.  [Data wrangling](sessions/session-02.qmd)
+2.  Data wrangling
     1.  tidyverse
-3.  [Statistics](sessions/session-03.qmd)
-4.  [Visualisation with ggplot2](sessions/session-04.qmd)
-5.  [Work on own projects](sessions/session-05.qmd)
-6.  [Work on own projects](sessions/session-06.qmd)
+3.  Statistics
+4.  Visualisation with ggplot2
+5.  Work on own projects
+6.  Work on own projects
 
 ## Resources and recommended reading
 
@@ -64,6 +64,10 @@ Six sessions
 <https://posit.co/resources/cheatsheets/>
 
 <https://cran.r-project.org/doc/contrib/Short-refcard.pdf>
+
+## Stilometrics
+
+<https://computationalstylistics.github.io/>
 
 ## AI tools
 

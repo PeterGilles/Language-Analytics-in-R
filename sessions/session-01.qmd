@@ -583,7 +583,7 @@ So each **entry** → **microStructure** → **grammaticalUnit** → one or more
 **XPath** is a language for selecting nodes in an XML (or HTML) tree. In R you use it with **xml2** via `xml_find_first()` (one node) and `xml_find_all()` (all matching nodes). The expression is a path that describes where to go in the tree.
 
 | XPath | Meaning | Example |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | `nodename` | Direct child with that name | `lemma` → children of the current node named `lemma` |
 | `/nodename` | Child from the **root** | `/lod` → root element; `/lod/entry` → every `entry` directly under `lod` |
 | `//nodename` | **Any** descendant (any depth) | `//entry` → every `entry` in the document |
@@ -687,7 +687,7 @@ You can now use **dplyr** or **tidyr** on `lod_examples` (e.g. count sentences p
 ## Summary of the LOD XML structure {.scrollable}
 
 | Level | Element | Role |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Root | `lod` | Container for all entries. |
 | Entry | `entry` (id) | One headword: lemma, ipa, microStructure. |
 | Micro | `microStructure` | partOfSpeech, inflection(s), grammaticalUnit(s). |
@@ -778,4 +778,4 @@ Main verbs you will see again in Session 2:
 
     **(c)** In one sentence: what is the main difference between tidytext’s one-token-per-row (or word-count) tibble and quanteda’s document-term matrix (`dfm`)?
 
-#
+# 

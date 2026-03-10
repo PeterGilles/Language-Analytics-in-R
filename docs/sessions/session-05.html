@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Peter Gilles">
 
-<title>session-01 – Language Analytics in R</title>
+<title>Session 5 — Work on own projects – Language Analytics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -37,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -79,8 +80,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Language Analytics in R</span>
     </a>
@@ -130,21 +129,38 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</a></li>
+  <li><a href="#scope-of-the-session" id="toc-scope-of-the-session" class="nav-link" data-scroll-target="#scope-of-the-session"><span class="header-section-number">1</span> Scope of the session</a></li>
+  <li><a href="#suggested-workflow" id="toc-suggested-workflow" class="nav-link" data-scroll-target="#suggested-workflow"><span class="header-section-number">2</span> Suggested workflow</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="header-section-number">3</span> Resources</a></li>
+  <li><a href="#next-session" id="toc-next-session" class="nav-link" data-scroll-target="#next-session"><span class="header-section-number">4</span> Next session</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">session-01</h1>
+<h1 class="title">Session 5 — Work on own projects</h1>
+<p class="subtitle lead">Language Analytics in R</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Peter Gilles </p>
+          </div>
+  </div>
     
   
     
@@ -155,8 +171,50 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="learning-objectives" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</h2>
+<p>By the end of this session you will:</p>
+<ul>
+<li>Apply the skills from Sessions 1–4 to <strong>your own research data or question</strong>.</li>
+<li>Use R (and Quarto) to <strong>import</strong>, <strong>wrangle</strong>, <strong>summarize</strong>, and <strong>visualize</strong> your data.</li>
+<li>Get <strong>feedback and support</strong> from the instructor and peers.</li>
+<li>Plan next steps for Session 6 (final project work and wrap-up).</li>
+</ul>
+</section>
+<section id="scope-of-the-session" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Scope of the session</h1>
+<ul>
+<li><strong>Hands-on time</strong>: work on your project with R and Quarto.</li>
+<li><strong>Instructor/TA</strong>: available for questions, code review, and debugging.</li>
+<li><strong>Peer discussion</strong>: optional short check-ins or pair work.</li>
+</ul>
+<p><em>[Add any specific instructions: e.g.&nbsp;data to bring, template Quarto report, or suggested milestones.]</em></p>
+</section>
+<section id="suggested-workflow" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Suggested workflow</h1>
+<ol type="1">
+<li><strong>Data</strong>: Have your data ready (CSV, text, or corpus) and load it in R.</li>
+<li><strong>Wrangling</strong>: Use dplyr/tidyr to get the data into the shape you need.</li>
+<li><strong>Analysis</strong>: Descriptive stats, simple models, or text/corpus steps as relevant.</li>
+<li><strong>Visualization</strong>: Create at least one plot that answers a concrete question.</li>
+<li><strong>Document</strong>: Write your steps and results in a Quarto document (<code>.qmd</code>).</li>
+</ol>
+<p><em>[Customize with course-specific prompts or a checklist.]</em></p>
+</section>
+<section id="resources" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Resources</h1>
+<ul>
+<li>Session 1–4 materials for reference.</li>
+<li><a href="https://r4ds.hadley.nz/">R for Data Science</a>, <a href="https://eleanorchodroff.com/r-for-linguists/">R for Linguists</a>.</li>
+<li>R help: <code>?function_name</code>, Stack Overflow, Posit Community.</li>
+</ul>
+</section>
+<section id="next-session" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Next session</h1>
+<p>Session 6 will be the final project session: finish analyses, polish reports, and wrap up the course.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Peter Gilles">
 
-<title>session-01 – Language Analytics in R</title>
+<title>Session 2 — Data wrangling – Language Analytics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -37,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -79,8 +80,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Language Analytics in R</span>
     </a>
@@ -130,21 +129,44 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</a></li>
+  <li><a href="#tidyverse-and-dplyr" id="toc-tidyverse-and-dplyr" class="nav-link" data-scroll-target="#tidyverse-and-dplyr"><span class="header-section-number">1</span> Tidyverse and dplyr</a>
+  <ul class="collapse">
+  <li><a href="#filter-and-select" id="toc-filter-and-select" class="nav-link" data-scroll-target="#filter-and-select"><span class="header-section-number">1.1</span> Filter and select</a></li>
+  <li><a href="#mutate-and-arrange" id="toc-mutate-and-arrange" class="nav-link" data-scroll-target="#mutate-and-arrange"><span class="header-section-number">1.2</span> Mutate and arrange</a></li>
+  <li><a href="#summarize-and-group_by" id="toc-summarize-and-group_by" class="nav-link" data-scroll-target="#summarize-and-group_by"><span class="header-section-number">1.3</span> Summarize and group_by</a></li>
+  </ul></li>
+  <li><a href="#pipes-and-chaining" id="toc-pipes-and-chaining" class="nav-link" data-scroll-target="#pipes-and-chaining"><span class="header-section-number">2</span> Pipes and chaining</a></li>
+  <li><a href="#tidyr-when-needed" id="toc-tidyr-when-needed" class="nav-link" data-scroll-target="#tidyr-when-needed"><span class="header-section-number">3</span> Tidyr (when needed)</a></li>
+  <li><a href="#hands-on-exercises" id="toc-hands-on-exercises" class="nav-link" data-scroll-target="#hands-on-exercises"><span class="header-section-number">4</span> Hands-on exercises</a></li>
+  <li><a href="#summary-and-further-reading" id="toc-summary-and-further-reading" class="nav-link" data-scroll-target="#summary-and-further-reading"><span class="header-section-number">5</span> Summary and further reading</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">session-01</h1>
+<h1 class="title">Session 2 — Data wrangling</h1>
+<p class="subtitle lead">Language Analytics in R</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Peter Gilles </p>
+          </div>
+  </div>
     
   
     
@@ -155,8 +177,80 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="learning-objectives" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</h2>
+<p>By the end of this session you will:</p>
+<ul>
+<li>Use <strong>dplyr</strong> verbs to filter, select, mutate, arrange, and summarize data.</li>
+<li>Chain operations with the <strong>pipe</strong> (<code>|&gt;</code>).</li>
+<li>Use <strong><code>group_by()</code></strong> for group-wise summaries.</li>
+<li>Combine <strong>tidyr</strong> operations (pivot, separate, unite) where relevant.</li>
+<li>Apply the tidyverse workflow to language and corpus data.</li>
+</ul>
+</section>
+<section id="tidyverse-and-dplyr" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Tidyverse and dplyr</h1>
+<ul>
+<li>The tidyverse: a set of packages for data manipulation and visualization.</li>
+<li><strong>dplyr</strong> verbs: one table in, one table out; work with columns by name.</li>
+</ul>
+<section id="filter-and-select" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="filter-and-select"><span class="header-section-number">1.1</span> Filter and select</h2>
+<ul>
+<li><strong><code>filter()</code></strong> — keep rows that satisfy a condition.</li>
+<li><strong><code>select()</code></strong> — keep or drop columns (with helpers like <code>starts_with()</code>, <code>contains()</code>).</li>
+</ul>
+<p><em>[Add code chunks and examples using a linguistic or corpus dataset.]</em></p>
+</section>
+<section id="mutate-and-arrange" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="mutate-and-arrange"><span class="header-section-number">1.2</span> Mutate and arrange</h2>
+<ul>
+<li><strong><code>mutate()</code></strong> — add or modify columns (e.g.&nbsp;derived variables, recoding).</li>
+<li><strong><code>arrange()</code></strong> — sort rows (ascending/descending).</li>
+</ul>
+<p><em>[Add code chunks and examples.]</em></p>
+</section>
+<section id="summarize-and-group_by" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="summarize-and-group_by"><span class="header-section-number">1.3</span> Summarize and group_by</h2>
+<ul>
+<li><strong><code>summarize()</code></strong> — one row per group (or one row total).</li>
+<li><strong><code>group_by()</code></strong> — define groups for group-wise operations (e.g.&nbsp;by lemma, by document).</li>
+</ul>
+<p><em>[Add code chunks: e.g.&nbsp;counts per category, means per group.]</em></p>
+</section>
+</section>
+<section id="pipes-and-chaining" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Pipes and chaining</h1>
+<ul>
+<li><strong>Pipe</strong> <code>|&gt;</code>: pass the result of one step as the first argument to the next.</li>
+<li>Style: one verb per line, indent after <code>|&gt;</code>.</li>
+</ul>
+<p><em>[Add a full pipeline example: load → filter → group_by → summarize → arrange.]</em></p>
+</section>
+<section id="tidyr-when-needed" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Tidyr (when needed)</h1>
+<ul>
+<li><strong><code>pivot_longer()</code></strong> / <strong><code>pivot_wider()</code></strong> — reshape between long and wide.</li>
+<li><strong><code>separate()</code></strong> / <strong><code>unite()</code></strong> — split or combine columns.</li>
+</ul>
+<p><em>[Add a short example if relevant for the course data.]</em></p>
+</section>
+<section id="hands-on-exercises" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Hands-on exercises</h1>
+<ul>
+<li>Filter and summarize a dataset (e.g.&nbsp;population, LOD examples, or word counts).</li>
+<li>Build a pipeline from raw data to a summary table.</li>
+</ul>
+</section>
+<section id="summary-and-further-reading" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Summary and further reading</h1>
+<ul>
+<li>R4DS <a href="https://r4ds.hadley.nz/data-transform.html">Data transformation</a>, <a href="https://r4ds.hadley.nz/tidy-data.html">Tidy data</a>.</li>
+<li><a href="https://eleanorchodroff.com/r-for-linguists/">R for Linguists</a> — datasets and dplyr.</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Peter Gilles">
 
-<title>session-01 – Language Analytics in R</title>
+<title>Session 4 — Visualisation with ggplot2 – Language Analytics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -37,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -79,8 +80,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Language Analytics in R</span>
     </a>
@@ -130,21 +129,40 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</a></li>
+  <li><a href="#grammar-of-graphics" id="toc-grammar-of-graphics" class="nav-link" data-scroll-target="#grammar-of-graphics"><span class="header-section-number">1</span> Grammar of graphics</a></li>
+  <li><a href="#core-geoms" id="toc-core-geoms" class="nav-link" data-scroll-target="#core-geoms"><span class="header-section-number">2</span> Core geoms</a></li>
+  <li><a href="#aesthetics-and-layers" id="toc-aesthetics-and-layers" class="nav-link" data-scroll-target="#aesthetics-and-layers"><span class="header-section-number">3</span> Aesthetics and layers</a></li>
+  <li><a href="#labels-and-themes" id="toc-labels-and-themes" class="nav-link" data-scroll-target="#labels-and-themes"><span class="header-section-number">4</span> Labels and themes</a></li>
+  <li><a href="#hands-on-exercises" id="toc-hands-on-exercises" class="nav-link" data-scroll-target="#hands-on-exercises"><span class="header-section-number">5</span> Hands-on exercises</a></li>
+  <li><a href="#summary-and-further-reading" id="toc-summary-and-further-reading" class="nav-link" data-scroll-target="#summary-and-further-reading"><span class="header-section-number">6</span> Summary and further reading</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">session-01</h1>
+<h1 class="title">Session 4 — Visualisation with ggplot2</h1>
+<p class="subtitle lead">Language Analytics in R</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Peter Gilles </p>
+          </div>
+  </div>
     
   
     
@@ -155,8 +173,70 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="learning-objectives" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</h2>
+<p>By the end of this session you will:</p>
+<ul>
+<li>Build plots with <strong>ggplot2</strong>: data, aesthetics (<code>aes()</code>), and geoms.</li>
+<li>Use <strong>layers</strong>: add geoms, scales, labels, and themes.</li>
+<li>Choose appropriate <strong>geoms</strong> for the task (e.g.&nbsp;bar, point, line, boxplot, histogram).</li>
+<li>Customize <strong>axes</strong>, <strong>labels</strong>, and <strong>themes</strong> for clear, publishable figures.</li>
+<li>Apply ggplot2 to <strong>language and corpus data</strong> (e.g.&nbsp;frequencies, distributions, model results).</li>
+</ul>
+</section>
+<section id="grammar-of-graphics" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Grammar of graphics</h1>
+<ul>
+<li><strong>Data</strong> → <strong>Aesthetics</strong> (mapping variables to x, y, color, fill, etc.) → <strong>Geometries</strong> (how to draw).</li>
+<li><strong><code>ggplot(data, aes(x = ..., y = ...)) + geom_...()</code></strong></li>
+</ul>
+<p><em>[Add a minimal example: e.g.&nbsp;bar chart of word counts or scatter plot.]</em></p>
+</section>
+<section id="core-geoms" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Core geoms</h1>
+<ul>
+<li><strong><code>geom_bar()</code></strong> / <strong><code>geom_col()</code></strong> — counts vs pre-computed values.</li>
+<li><strong><code>geom_point()</code></strong> — scatter plots.</li>
+<li><strong><code>geom_line()</code></strong> — time series or trends.</li>
+<li><strong><code>geom_histogram()</code></strong> / <strong><code>geom_density()</code></strong> — distributions.</li>
+<li><strong><code>geom_boxplot()</code></strong> / <strong><code>geom_violin()</code></strong> — group comparisons.</li>
+</ul>
+<p><em>[Add one or two code chunks per geom using course-relevant data.]</em></p>
+</section>
+<section id="aesthetics-and-layers" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Aesthetics and layers</h1>
+<ul>
+<li><strong><code>aes()</code></strong>: map variables to x, y, color, fill, size, shape.</li>
+<li><strong>Faceting</strong>: <code>facet_wrap()</code>, <code>facet_grid()</code>.</li>
+<li><strong>Scales</strong>: <code>scale_*</code> for axes, colors, labels.</li>
+</ul>
+<p><em>[Add an example with faceting or custom scales.]</em></p>
+</section>
+<section id="labels-and-themes" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Labels and themes</h1>
+<ul>
+<li><strong><code>labs()</code></strong> — title, subtitle, axis labels.</li>
+<li><strong><code>theme_minimal()</code></strong>, <strong><code>theme_bw()</code></strong>, or custom <strong><code>theme()</code></strong>.</li>
+<li><strong>Saving</strong>: <code>ggsave()</code> or Quarto figure options.</li>
+</ul>
+<p><em>[Add a polished plot example and ggsave.]</em></p>
+</section>
+<section id="hands-on-exercises" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Hands-on exercises</h1>
+<ul>
+<li>Reproduce a simple plot from the session (e.g.&nbsp;bar chart, boxplot).</li>
+<li>Build a plot from your own or course data; add labels and a theme.</li>
+</ul>
+</section>
+<section id="summary-and-further-reading" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Summary and further reading</h1>
+<ul>
+<li>R4DS <a href="https://r4ds.hadley.nz/data-visualize.html">Data visualization</a>, <a href="https://r4ds.hadley.nz/layers.html">Layers</a>, <a href="https://r4ds.hadley.nz/communication.html">Communication</a>.</li>
+<li><a href="https://eleanorchodroff.com/r-for-linguists/ggplot2.html">R for Linguists — ggplot2</a>.</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
