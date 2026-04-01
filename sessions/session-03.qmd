@@ -1,5 +1,5 @@
 ---
-title: "Session 3 — Statistics"
+title: "Session 3 — Corpus analysis with tidytext and quanteda"
 subtitle: "Language Analytics in R"
 author: "Peter Gilles"
 format:
@@ -15,51 +15,95 @@ editor: visual
 
 By the end of this session you will:
 
-- Compute and interpret **descriptive statistics** (mean, median, sd, etc.) in R.
-- Understand **distributions** and basic **hypothesis testing** (e.g. t-test, chi-squared).
-- Fit and interpret **linear models** (`lm()`) for continuous outcomes.
-- Use **model output** (coefficients, R², p-values) in a linguistic context.
-- Reference **Winter (2020)** or similar for statistics for linguists.
+-   Understand the difference between **tidy text** (one token per row) and **corpus/dfm** workflows.
+-   Use **tidytext** to tokenize text and compute word frequencies.
+-   Use **quanteda** to build a corpus and a document-term matrix (`dfm`).
+-   Compare outputs from tidytext and quanteda on the same corpus.
+-   Apply these workflows to linguistic/corpus questions.
 
-# Descriptive statistics
+# Tidy text vs corpus objects
 
-- **Measures of central tendency**: mean, median.
-- **Spread**: standard deviation, variance, range, IQR.
-- **By group**: e.g. `group_by()` + `summarize()` with `mean()`, `sd()`, `n()`.
+-   **tidytext**: one token per row (tibbles + dplyr pipeline).
+-   **quanteda**: corpus objects and sparse matrices (`dfm`) for text mining.
+-   Why both are useful in language analytics.
 
-*[Add code chunks using a dataset from the course, e.g. reaction times, word frequencies, or population.]*
+# Working with Gutenberg text (tidytext)
 
-# Distributions and exploratory checks
+The **tidytext** package treats text as [one token per row](https://www.tidytextmining.com/tidytext.html).
 
-- **Distributions**: normal, skewed; histograms and density plots.
-- **Assumptions**: when parametric tests are appropriate.
+```{r}
+#| label: tidytext-example
+#| message: false
 
-*[Add brief code or references to visualization (Session 4) and to Winter/textbook.]*
+library(tidyverse)
+library(tidytext)
+library(gutenbergr)
 
-# Hypothesis testing
+# Download one book by Gutenberg ID (35 = The Time Machine)
+gutenberg_books <- gutenberg_download(c(35), meta_fields = "title")
+head(gutenberg_books)
 
-- **t-test** — comparing means (e.g. two groups).
-- **Chi-squared test** — categorical data (e.g. contingency tables).
-- **Interpretation**: p-values, effect size, confidence intervals.
+# Tokenize text to one-word-per-row
+tidy_tokens <- gutenberg_books |>
+  unnest_tokens(output = word, input = text)
 
-*[Add code: `t.test()`, `chisq.test()`, and interpretation.]*
+head(tidy_tokens, 12)
+```
 
-# Linear models
+```{r}
+#| label: tidytext-count
+#| message: false
 
-- **`lm()`** — formula interface (e.g. `y ~ x`, `y ~ x1 + x2`).
-- **Categorical predictors**: treatment coding; interpreting coefficients.
-- **Model output**: `summary()`, coefficients, R², F-test.
+# Remove stop words and count
+tidy_tokens |>
+  anti_join(stop_words, by = "word") |>
+  count(word, sort = TRUE) |>
+  head(15)
+```
 
-*[Add one or two examples relevant to language data.]*
+# Working with corpus objects (quanteda)
+
+Use the same Gutenberg data to build a corpus and a document-term matrix.
+
+```{r}
+#| label: quanteda-example
+#| message: false
+
+library(quanteda)
+library(quanteda.textstats)
+
+corp <- corpus(gutenberg_books, text_field = "text")
+summary(corp, n = 5)
+ndoc(corp)
+ntoken(corp)
+```
+
+```{r}
+#| label: quanteda-dfm
+
+doc_term_matrix <- corp |>
+  tokens(remove_punct = TRUE) |>
+  dfm()
+
+dim(doc_term_matrix)
+textstat_frequency(doc_term_matrix) |>
+  head(10)
+```
+
+# Comparing outputs
+
+-   **tidytext** output: token table (easy with dplyr and joins, e.g. sentiment lexicons).
+-   **quanteda** output: corpus + `dfm` (efficient for matrix-based text mining/classification).
+-   Same corpus, different data structures and downstream strengths.
 
 # Hands-on exercises
 
-- Compute descriptive statistics by group and interpret.
-- Run a t-test or chi-squared test and report results.
-- Fit a simple linear model and interpret coefficients.
+1.  Download a Gutenberg text (`gutenberg_download()`), tokenize with `unnest_tokens()`, remove stop words, and list top 20 words.
+2.  Build a quanteda corpus and `dfm` for the same text; inspect `ndoc()`, `ntoken()`, and top terms.
+3.  Write 2–3 sentences comparing tidytext and quanteda outputs for your text.
 
 # Summary and further reading
 
-- Winter, B. [Statistics for linguists](https://appliedstatisticsforlinguists.org/) (R introduction).
-- R4DS [Model basics](https://r4ds.hadley.nz/model-basics.html) (optional).
-- [Lin611 — Quantitative Methods in Linguistics](https://jofrhwld.github.io/2023_Lin611/).
+-   [Text Mining with R — tidy text format](https://www.tidytextmining.com/tidytext)
+-   [gutenbergr text-mining vignette](https://docs.ropensci.org/gutenbergr/articles/text-mining.html)
+-   [A&S500 class notes (text + quanteda)](https://jofrhwld.github.io/AandS500_2023/)

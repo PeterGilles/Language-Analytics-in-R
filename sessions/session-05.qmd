@@ -15,35 +15,35 @@ editor: visual
 
 By the end of this session you will:
 
-- Apply the skills from Sessions 1–4 to **your own research data or question**.
-- Use R (and Quarto) to **import**, **wrangle**, **summarize**, and **visualize** your data.
-- Get **feedback and support** from the instructor and peers.
-- Plan next steps for Session 6 (final project work and wrap-up).
+-   Apply the skills from Sessions 1–4 to **your own research data or question**.
+-   Use R (and Quarto) to **import**, **wrangle**, **summarize**, and **visualize** your data.
+-   Get **feedback and support** from the instructor and peers.
+-   Finalize your project workflow and prepare outputs for submission/discussion.
 
 # Scope of the session
 
-- **Hands-on time**: work on your project with R and Quarto.
-- **Instructor/TA**: available for questions, code review, and debugging.
-- **Peer discussion**: optional short check-ins or pair work.
+-   **Hands-on time**: work on your project with R and Quarto.
+-   **Instructor/TA**: available for questions, code review, and debugging.
+-   **Peer discussion**: optional short check-ins or pair work.
 
-*[Add any specific instructions: e.g. data to bring, template Quarto report, or suggested milestones.]*
+*\[Add any specific instructions: e.g. data to bring, template Quarto report, or suggested milestones.\]*
 
 # Suggested workflow
 
-1. **Data**: Have your data ready (CSV, text, or corpus) and load it in R.
-2. **Wrangling**: Use dplyr/tidyr to get the data into the shape you need.
-3. **Analysis**: Descriptive stats, simple models, or text/corpus steps as relevant.
-4. **Visualization**: Create at least one plot that answers a concrete question.
-5. **Document**: Write your steps and results in a Quarto document (`.qmd`).
+1.  **Data**: Have your data ready (CSV, text, or corpus) and load it in R.
+2.  **Wrangling**: Use dplyr/tidyr to get the data into the shape you need.
+3.  **Analysis**: Descriptive stats, simple models, or text/corpus steps as relevant.
+4.  **Visualization**: Create at least one plot that answers a concrete question.
+5.  **Document**: Write your steps and results in a Quarto document (`.qmd`).
 
-*[Customize with course-specific prompts or a checklist.]*
+*\[Customize with course-specific prompts or a checklist.\]*
 
 # Resources
 
-- Session 1–4 materials for reference.
-- [R for Data Science](https://r4ds.hadley.nz/), [R for Linguists](https://eleanorchodroff.com/r-for-linguists/).
-- R help: `?function_name`, Stack Overflow, Posit Community.
+-   Session 1–4 materials for reference.
+-   [R for Data Science](https://r4ds.hadley.nz/), [R for Linguists](https://eleanorchodroff.com/r-for-linguists/).
+-   R help: `?function_name`, Stack Overflow, Posit Community.
 
-# Next session
+# Course wrap-up
 
-Session 6 will be the final project session: finish analyses, polish reports, and wrap up the course.
+This is the final session: finish analyses, polish reports, and wrap up the course.

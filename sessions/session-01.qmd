@@ -40,7 +40,6 @@ By the end of this session you will:
 -   Call functions with correct syntax and use the pipe (`|>`).
 -   Run and render a minimal Quarto (.qmd) script.
 -   **Load and inspect text/language data** (e.g. CSV) and understand basics of data import for corpora.
--   **Use tidytext and quanteda** to turn short example text into tokens and a corpus, and run minimal counts.
 
 This course focuses on **linguistic and language data in R**. Examples and exercises use words, frequencies, and simple text data so you can quickly apply the same ideas to your own corpora and experiments.
 
@@ -48,7 +47,7 @@ The material draws on [R for Data Science (2e)](https://r4ds.hadley.nz/) (chapte
 
 # RStudio and running R code
 
-## The RStudio interface {.scrollable}
+## The RStudio interface
 
 -   **Console**: type R code and see results.
 -   **Editor**: write and save scripts (e.g. `.qmd` or `.R`).
@@ -76,12 +75,12 @@ help.search("linear model")  # Looks up help topics related to linear models
 example(mean)
 
 # See the vignette (long-form documentation) for a package:
-vignette("dplyr")
+# vignette("dplyr")
 ```
 
 There are numerous R [cheatsheets](https://posit.co/resources/cheatsheets/) that summarise command usages in a structured way.
 
-## Packages {.scrollable}
+## Packages
 
 Install a package once with `install.packages("package_name")` or use the `packages` tab in RStudio. Load it every time you start R or open a document with `library(package_name)`:
 
@@ -93,9 +92,9 @@ Install a package once with `install.packages("package_name")` or use the `packa
 library(tidyverse)
 ```
 
-##  {.scrollable}
+## 
 
-## Coding basics {#sec-basics .scrollable}
+## Coding basics {#sec-basics}
 
 You can use R as a calculator (e.g. for reaction times, accuracy, or counts):
 
@@ -351,7 +350,7 @@ Example chunk options:
 
 # Working with text data and corpora (data import)
 
-For language analytics we usually work with **tables** (e.g. CSV or Excel) or **text files**. Here we cover reading tabular data with **readr**, then **tidytext** and **quanteda** for turning text into a format you can analyze. Later sessions will go deeper (frequency lists, sentiment, document classification, etc.).
+For language analytics we usually work with **tables** (e.g. CSV or Excel) or **text files**. Here we focus on reading tabular data with **readr** and tidyverse tools. We will cover **tidytext** and **quanteda** in Session 3 (corpus analysis).
 
 ## Reading a CSV file {.scrollable}
 
@@ -429,96 +428,7 @@ pop |>
 
 So: **load** with `read_csv()`, **inspect** with `glimpse()`, `names()`, `head()`, **access** columns with `$`, and **aggregate** with `mutate()`, `summarise()`, `arrange()`, and `select()` (and later `group_by()` for group-wise summaries).
 
-## Reading text with tidytext {#reading-text-with-tidytext .scrollable}
-
-The **tidytext** package treats text as **tidy data**: [one token per row](https://www.tidytextmining.com/tidytext.html). You start from a table with one row per document (or line) and a text column, then **tokenize** with `unnest_tokens()`.
-
-**Install once:** `install.packages("tidytext")` and `install.packages("gutenbergr")`. Load with `library(tidytext)` and `library(gutenbergr)` (and `library(tidyverse)` for tibbles and the pipe).
-
-**Example:** download a book from the [Project Gutenberg](https://www.gutenberg.org/) corpus using **gutenbergr**, then turn it into a one-word-per-row tibble. The first run requires an internet connection.
-
-```{r}
-#| label: tidytext-example
-#| message: false
-
-library(tidytext)
-library(gutenbergr)
-
-# Download one book by Gutenberg ID (35 = The Time Machine, H.G. Wells)
-# See https://docs.ropensci.org/gutenbergr/articles/text-mining.html
-gutenberg_books <- gutenberg_download(c(35), meta_fields = "title")
-head(gutenberg_books)
-
-# One row per line; tokenize to one row per word (punctuation removed, lowercased)
-tidy_tokens <- gutenberg_books |>
-  unnest_tokens(output = word, input = text)
-
-# First rows of tokenized text
-head(tidy_tokens, 12)
-```
-
-Remove **stop words** (very common words like “the”, “of”) with `anti_join(stop_words)` from tidytext, then count words:
-
-```{r}
-#| message: false
-
-# Remove stop words, then count
-tidy_tokens |>
-  anti_join(stop_words, by = "word") |>
-  count(word, sort = TRUE) |>
-  head(15)
-```
-
-This follows the [Text Mining with R](https://www.tidytextmining.com/tidytext.html) workflow: tidy format → tokenize → filter → count. You can join with sentiment lexicons (e.g. `get_sentiments()`) or use **gutenbergr** to download more works and compare word frequencies across texts.
-
-## Reading text with quanteda {#reading-text-with-quanteda .scrollable}
-
-The **quanteda** package works with a **corpus** object: a collection of documents with metadata. You can build a corpus from a data frame with a text column (e.g. the same Gutenberg tibble) or from a character vector.
-
-**Install once:** `install.packages("quanteda")`. Load with `library(quanteda)`.
-
-**Example:** use the same Gutenberg data we downloaded for tidytext. Here each **line** of the book is treated as one document (you could instead collapse by chapter or use one document per book):
-
-```{r}
-#| label: quanteda-example
-#| message: false
-
-library(quanteda)
-library(quanteda.textstats)
-
-# Use the gutenberg_books tibble from the tidytext chunk (run that chunk first)
-# It has columns gutenberg_id, text, title
-corp <- corpus(gutenberg_books, text_field = "text")
-
-# Basic inspection: one row per document (line)
-summary(corp, n = 5)
-ndoc(corp)
-ntoken(corp)
-```
-
-To get a **document-term matrix** (documents × terms) for frequency analysis or modelling:
-
-```{r}
-#| label: quanteda-dfm
-
-# Tokenize and build document-term matrix (remove punctuation)
-doc_term_matrix <- corp |>
-  tokens(remove_punct = TRUE) |>
-  dfm()
-
-# Dimensions and top terms
-dim(doc_term_matrix)
-textstat_frequency(doc_term_matrix) |>
-  head(10)
-```
-
-So: **tidytext** gives you a long tibble (one row per token); **quanteda** gives you a corpus and a matrix (documents × terms). For more on Gutenberg + quanteda you can combine `gutenberg_download()` with `corpus(..., text_field = "text")` or use `readtext::readtext()` for files on disk.
-
-**When to use which?**
-
--   **tidytext**: you prefer working in tibbles and dplyr (one row per token); good for word counts, sentiment, and tidy-style workflows.
--   **quanteda**: you need a corpus object, document-term matrices, or built-in NLP (e.g. keywords, collocations, classification); good for corpus linguistics and text mining.
--   **readr/read_csv**: for tabular data (responses, word lists, metadata); combine with tidytext or quanteda when your “text” lives in a column.
+For text mining workflows with **tidytext** and **quanteda**, see **Session 3**.
 
 # Import LOD dictionary data (XML)
 
@@ -539,7 +449,7 @@ Read the XML from the file path. The file is large, so the first parse may take 
 library(xml2)
 
 # Path to the XML file (e.g. in data/; adjust if your file is elsewhere)
-lod_xml_path <- if (file.exists("data/new_lod-art.xml")) "data/new_lod-art.xml" else "new_lod-art.xml"
+lod_xml_path <- "new_lod-art.xml"
 
 # Read XML from the folder
 lod_xml <- read_xml(lod_xml_path)
@@ -583,7 +493,7 @@ So each **entry** → **microStructure** → **grammaticalUnit** → one or more
 **XPath** is a language for selecting nodes in an XML (or HTML) tree. In R you use it with **xml2** via `xml_find_first()` (one node) and `xml_find_all()` (all matching nodes). The expression is a path that describes where to go in the tree.
 
 | XPath | Meaning | Example |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `nodename` | Direct child with that name | `lemma` → children of the current node named `lemma` |
 | `/nodename` | Child from the **root** | `/lod` → root element; `/lod/entry` → every `entry` directly under `lod` |
 | `//nodename` | **Any** descendant (any depth) | `//entry` → every `entry` in the document |
@@ -687,7 +597,7 @@ You can now use **dplyr** or **tidyr** on `lod_examples` (e.g. count sentences p
 ## Summary of the LOD XML structure {.scrollable}
 
 | Level | Element | Role |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Root | `lod` | Container for all entries. |
 | Entry | `entry` (id) | One headword: lemma, ipa, microStructure. |
 | Micro | `microStructure` | partOfSpeech, inflection(s), grammaticalUnit(s). |
@@ -697,51 +607,13 @@ You can now use **dplyr** or **tidyr** on `lod_examples` (e.g. count sentences p
 
 This structure lets you extract lemmas, translations, parts of speech, inflections, and example sentences (with glosses) for lexical and corpus-oriented analyses in R.
 
-# First taste of data transformation (with language data) {#first-taste-of-data-transformation-with-language-data}
-
-We use **dplyr** (part of the tidyverse) to filter, select, and summarize data. Key ideas:
-
--   First argument is always a **data frame**.
--   You refer to **column names** without quotes.
--   The result is a **new data frame** (the original is unchanged).
-
-Use the pipe to chain steps. Example: take a small **word/frequency** table, filter by frequency, then sort:
-
-```{r}
-#| label: first-pipe
-#| message: false
-
-# Build a tiny “corpus-like” table: word, frequency, condition
-word_data <- tibble(
-  word = c("the", "cat", "sat", "on", "mat", "dog", "ran"),
-  freq = c(100, 5, 3, 50, 2, 8, 4),
-  pos = c("det", "noun", "verb", "prep", "noun", "noun", "verb")
-)
-
-# Then: filter, arrange, show
-word_data |>
-  filter(freq >= 4) |>
-  arrange(desc(freq)) |>
-  select(word, freq, pos)
-```
-
-Read this as: *“Take `word_data`, then keep rows where `freq` is at least 4, then sort by `freq` descending, then show columns `word`, `freq`, `pos`.”*
-
-Main verbs you will see again in Session 2:
-
--   `filter()` — keep rows that satisfy a condition (e.g. certain words or participants).
--   `select()` — keep or drop columns.
--   `mutate()` — add or change columns (e.g. log frequency, word length).
--   `arrange()` — sort rows.
--   `summarize()` — compute summaries (often with `group_by()`).
-
 # Hands-on exercises
 
 1.  **Typo.** Why does this fail? (Look very carefully at the object name.)
 
     ``` r
     my_variable <- 10
-    my_varıable   # error (hint: different character than 'i')
+    my_varıable
     ```
 
 2.  **Vectors and strings.** In a new code chunk:
@@ -759,23 +631,10 @@ Main verbs you will see again in Session 2:
 
 4.  **Data import and inspection.** Create a short CSV string with columns `word` and `count` (e.g. three rows). Read it with `read_csv()`, then use `glimpse()` and `$` to inspect the `count` column and compute `mean(count)`.
 
-5.  **Pipe and filter.** Using the `word_data` table from the [First taste](#first-taste-of-data-transformation-with-language-data) section (re-run that chunk if needed), write a pipe that:
-
-    -   keeps only rows where `pos` is `"noun"`,
-    -   then arranges by `freq` ascending.
-
-6.  **Style.** Restyle this into a clear, multi-line pipe (spaces, line breaks, indentation):
+5.  **Style.** Restyle this into a clear, multi-line pipe (spaces, line breaks, indentation):
 
     ``` r
     word_data|>filter(freq>3)|>arrange(freq)|>select(word,freq)
     ```
-
-7.  **tidytext and quanteda with Gutenberg (hands-on).** Use the same book downloaded in the [tidytext](#reading-text-with-tidytext) section (`gutenberg_books`) or download another (e.g. `gutenberg_download(1342)` for *Pride and Prejudice*; see [gutenbergr text mining](https://docs.ropensci.org/gutenbergr/articles/text-mining.html)).
-
-    **(a) tidytext:** Start from `gutenberg_books`. Tokenize with `unnest_tokens(output = word, input = text)`, then `anti_join(stop_words, by = "word")`, then `count(word, sort = TRUE)`. What are the **top 5** words? How many tokens are there in total (use `sum(n)` on the count table)?
-
-    **(b) quanteda:** Build a corpus with `corpus(gutenberg_books, text_field = "text")`. Call `sum(ntoken(corp))` to get total tokens (this counts all tokens; in (a) you had totals *after* removing stop words, so the numbers differ). Build a document-term matrix with `tokens(corp, remove_punct = TRUE) |> dfm()`, then use `textstat_freq(your_dfm)` to list the most frequent terms. Compare the top 5 with tidytext’s top 5 (quanteda’s dfm doesn’t remove stop words by default, so you’ll see “the”, “and”, etc. unless you add a step to remove them).
-
-    **(c)** In one sentence: what is the main difference between tidytext’s one-token-per-row (or word-count) tibble and quanteda’s document-term matrix (`dfm`)?
 
 # 

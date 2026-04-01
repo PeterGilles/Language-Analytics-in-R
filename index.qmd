@@ -23,7 +23,7 @@ Initial steps:
 
 ## Syllabus
 
-Six sessions
+Five sessions
 
 1.  Introduction:
     1.  Examples from own research
@@ -32,10 +32,11 @@ Six sessions
     4.  Hands-on exercises on toy data
 2.  Data wrangling
     1.  tidyverse
-3.  Statistics
-4.  Visualisation with ggplot2
+3.  Corpus analysis with tidytext and quanteda
+4.  Visualisation and basic statistics with ggplot2
 5.  Work on own projects
-6.  Work on own projects
+
+Progression: **Session 1** (Introduction) → **Session 2** (Wrangling) → **Session 3** (Corpus analysis) → **Session 4** (Visualisation/Stats) → **Session 5** (Projects).
 
 ## Resources and recommended reading
 
