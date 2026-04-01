@@ -157,6 +157,12 @@ stein.fac <- as.factor(c("a", "rose", "is", "a", "rose", "is", "a", "rose"))
 print(stein.fac)
 ```
 
+Print as table
+
+```{r}
+table(stein.fac)
+```
+
 # Tibbles and data frames {.scrollable}
 
 Vectors and factors hold a single column of values. For **tabular data** (rows and columns), R uses **data frames**. A **tibble** is a modern, tidyverse-style data frame: it prints nicely, doesn’t convert strings to factors by default, and works well with the pipe and dplyr.

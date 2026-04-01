@@ -36,8 +36,6 @@ Five sessions
 4.  Visualisation and basic statistics with ggplot2
 5.  Work on own projects
 
-Progression: **Session 1** (Introduction) → **Session 2** (Wrangling) → **Session 3** (Corpus analysis) → **Session 4** (Visualisation/Stats) → **Session 5** (Projects).
-
 ## Resources and recommended reading
 
 [@levshina2015]
