@@ -104,7 +104,7 @@ pop |>
 
 ## Getting the file {.scrollable}
 
-The LOD linguistic dataset is published as **open data** by the Luxembourg government (Zenter fir d'Lëtzebuerger Sprooch) under **CC0** ([LOD – Linguistesch Daten (resource)](https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b)). Download the zip, extract it, and place the XML file (`new_lod-art.xml`, ~74 MB) in a folder in your project (e.g. `data/`).
+The LOD linguistic dataset is published as **open data** by the Luxembourg government (Zenter fir d'Lëtzebuerger Sprooch) under **CC0** ([LOD – Linguistesch Daten (resource)](https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b)). Download the zip, extract it, and place the XML file (`new_lod-art.xml`, \~74 MB) in a folder in your project (e.g. `data/`).
 
 **Install once:** `install.packages("xml2")`. Then load with `library(xml2)`.
 
@@ -136,7 +136,7 @@ The document has a single root element `<lod>`, which contains many **`<entry>`*
 **XPath** selects nodes in the XML tree. In R, use `xml_find_first()` (one match) and `xml_find_all()` (all matches).
 
 | XPath | Meaning | Example |
-|---|---|---|
+|----|----|----|
 | `//entry` | any `entry` in document | all entries |
 | `.//lemma` | lemma under current node | current entry lemma |
 | `.//meaning/examples/example` | examples under meanings | all examples for an entry |
@@ -200,6 +200,6 @@ lod_examples
 
 ## Hands-on exercises
 
-1. Read `rnrpp-population-commune.csv` and compute total population per commune.
-2. For LOD XML, extract lemma and first English translation for 10 entries.
-3. Build a tibble of random example sentences (lemma + sentence) and count rows per lemma.
+1.  Read `rnrpp-population-commune.csv` and compute total population per commune.
+2.  For LOD XML, extract lemma and first English translation for 10 entries.
+3.  Build a tibble of random example sentences (lemma + sentence) and count rows per lemma.
