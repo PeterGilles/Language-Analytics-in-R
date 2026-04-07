@@ -15,58 +15,191 @@ editor: visual
 
 By the end of this session you will:
 
--   Use **dplyr** verbs to filter, select, mutate, arrange, and summarize data.
--   Chain operations with the **pipe** (`|>`).
--   Use **`group_by()`** for group-wise summaries.
--   Combine **tidyr** operations (pivot, separate, unite) where relevant.
--   Apply the tidyverse workflow to language and corpus data.
+-   Load, inspect, and aggregate CSV data with tidyverse tools.
+-   Import and inspect complex XML dictionary data (LOD).
+-   Use XPath selectors to extract linguistic information from XML.
+-   Build a tibble of example sentences from XML nodes.
 
-# Tidyverse and dplyr
+# Working with text data and corpora (data import)
 
--   The tidyverse: a set of packages for data manipulation and visualization.
--   **dplyr** verbs: one table in, one table out; work with columns by name.
+For language analytics we usually work with **tables** (e.g. CSV or Excel) or **text files**.
 
-## Filter and select
+## Reading a CSV file {.scrollable}
 
--   **`filter()`** — keep rows that satisfy a condition.
--   **`select()`** — keep or drop columns (with helpers like `starts_with()`, `contains()`).
+Use `read_csv()` from the **readr** package (included in tidyverse) to read comma-separated files. Example: population by commune (Luxembourg), file `rnrpp-population-commune.csv` (same folder as this document, or adjust the path if needed).
 
-*\[Add code chunks and examples using a linguistic or corpus dataset.\]*
+```{r}
+#| label: read-csv
+#| echo: false
 
-## Mutate and arrange
+library(tidyverse)
 
--   **`mutate()`** — add or modify columns (e.g. derived variables, recoding).
--   **`arrange()`** — sort rows (ascending/descending).
+# Path: same folder as this .qmd, or "sessions/rnrpp-population-commune.csv" from project root
+pop_path <- "rnrpp-population-commune.csv"
+pop <- read_csv(pop_path, show_col_types = FALSE)
+pop
+```
 
-*\[Add code chunks and examples.\]*
+## Inspecting the dataset {.scrollable}
 
-## Summarize and group_by
+-   **Print** the data frame: type its name.
+-   **View(pop)**: opens a spreadsheet-like viewer in RStudio.
+-   **glimpse()**: compact view of columns and types.
 
--   **`summarize()`** — one row per group (or one row total).
--   **`group_by()`** — define groups for group-wise operations (e.g. by lemma, by document).
+```{r}
+#| label: inspect-data
 
-*\[Add code chunks: e.g. counts per category, means per group.\]*
+glimpse(pop)
+nrow(pop)
+ncol(pop)
+names(pop)
+head(pop, 5)
+```
 
-# Pipes and chaining
+## Accessing columns {.scrollable}
 
--   **Pipe** `|>`: pass the result of one step as the first argument to the next.
--   Style: one verb per line, indent after `|>`.
+Use `$` to get one column as a vector (e.g. to compute totals or means):
 
-*\[Add a full pipeline example: load → filter → group_by → summarize → arrange.\]*
+```{r}
+#| label: access-columns
 
-# Tidyr (when needed)
+pop$COMMUNE_NOM
+pop$FEMMES_MAJEURES
+# Mean population per commune (total = sum of the four count columns)
+mean(pop$FEMMES_MINEURES + pop$HOMMES_MINEURS + pop$FEMMES_MAJEURES + pop$HOMMES_MAJEURS)
+```
 
--   **`pivot_longer()`** / **`pivot_wider()`** — reshape between long and wide.
--   **`separate()`** / **`unite()`** — split or combine columns.
+## Aggregating the data {.scrollable}
 
-*\[Add a short example if relevant for the course data.\]*
+With **dplyr** you can **aggregate** by groups (e.g. totals, means). Example: add a total population per commune, then show the top 10 communes by total population; or summarize across all rows (e.g. national totals by category).
 
-# Hands-on exercises
+```{r}
+#| label: aggregate-pop
 
--   Filter and summarize a dataset (e.g. population, LOD examples, or word counts).
--   Build a pipeline from raw data to a summary table.
+# Total population per commune (using the pipe)
+pop |>
+  mutate(
+    total = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS
+  ) |>
+  arrange(desc(total)) |>
+  select(COMMUNE_NOM, total) |>
+  head(10)
+```
 
-# Summary and further reading
+```{r}
+#| label: aggregate-summarize
 
--   R4DS [Data transformation](https://r4ds.hadley.nz/data-transform.html), [Tidy data](https://r4ds.hadley.nz/tidy-data.html).
--   [R for Linguists](https://eleanorchodroff.com/r-for-linguists/) — datasets and dplyr.
+# One-row summary: national totals by category (sum across all communes)
+pop |>
+  summarise(
+    femmes_mineures = sum(FEMMES_MINEURES),
+    hommes_mineurs  = sum(HOMMES_MINEURS),
+    femmes_majeures = sum(FEMMES_MAJEURES),
+    hommes_majeurs  = sum(HOMMES_MAJEURS),
+    total          = sum(FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS)
+  )
+```
+
+# Import LOD dictionary data (XML)
+
+## Getting the file {.scrollable}
+
+The LOD linguistic dataset is published as **open data** by the Luxembourg government (Zenter fir d'Lëtzebuerger Sprooch) under **CC0** ([LOD – Linguistesch Daten (resource)](https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b)). Download the zip, extract it, and place the XML file (`new_lod-art.xml`, ~74 MB) in a folder in your project (e.g. `data/`).
+
+**Install once:** `install.packages("xml2")`. Then load with `library(xml2)`.
+
+## Reading the XML file {.scrollable}
+
+```{r}
+#| label: lod-read-xml
+#| message: false
+
+library(xml2)
+
+# Path to the XML file (e.g. in data/; adjust if your file is elsewhere)
+lod_xml_path <- "new_lod-art.xml"
+
+# Read XML from the folder
+lod_xml <- read_xml(lod_xml_path)
+
+# Root element
+xml_name(lod_xml)
+xml_children(lod_xml) |> length()
+```
+
+## Structure of the LOD XML {.scrollable}
+
+The document has a single root element `<lod>`, which contains many **`<entry>`** elements. Each entry has a lemma, pronunciation, grammatical structure, meanings, translations, and examples.
+
+## How XPath works
+
+**XPath** selects nodes in the XML tree. In R, use `xml_find_first()` (one match) and `xml_find_all()` (all matches).
+
+| XPath | Meaning | Example |
+|---|---|---|
+| `//entry` | any `entry` in document | all entries |
+| `.//lemma` | lemma under current node | current entry lemma |
+| `.//meaning/examples/example` | examples under meanings | all examples for an entry |
+| `targetLanguage[@lang='en']` | attribute filter | English translation nodes |
+
+## Inspecting one entry in R {.scrollable}
+
+```{r}
+#| label: lod-structure
+
+first_entry <- xml_find_first(lod_xml, "//entry")
+xml_find_first(first_entry, ".//lemma") |> xml_text()
+xml_find_first(first_entry, ".//ipa")   |> xml_text()
+xml_find_all(first_entry, ".//meaning/targetLanguage[@lang='en']/translation") |> xml_text()
+```
+
+## Exploring the examples section {.scrollable}
+
+```{r}
+#| label: lod-get-sentence
+
+get_sentence <- function(ex) {
+  text_node <- xml_find_first(ex, ".//text")
+  if (inherits(text_node, "xml_missing")) return(NA_character_)
+  tokens <- xml_find_all(text_node, "./*")
+  paste(xml_text(tokens), collapse = " ")
+}
+```
+
+```{r}
+#| label: lod-examples-tibble
+#| message: false
+
+library(tibble)
+
+all_entries <- xml_find_all(lod_xml, "//entry")
+set.seed(123)
+sampled <- sample(length(all_entries), min(30, length(all_entries)))
+rows <- list()
+
+for (i in seq_along(sampled)) {
+  entry <- all_entries[[sampled[i]]]
+  lemma <- xml_find_first(entry, ".//lemma") |> xml_text()
+  exs <- xml_find_all(entry, ".//meaning/examples/example")
+  exs <- exs[1:min(2, length(exs))]
+  for (ex in exs) {
+    sent <- get_sentence(ex)
+    if (!is.na(sent) && nchar(sent) > 0) {
+      rows[[length(rows) + 1]] <- list(lemma = lemma, sentence = sent)
+    }
+  }
+}
+
+lod_examples <- tibble(
+  lemma = vapply(rows, function(r) r$lemma, character(1)),
+  sentence = vapply(rows, function(r) r$sentence, character(1))
+)
+
+lod_examples
+```
+
+## Hands-on exercises
+
+1. Read `rnrpp-population-commune.csv` and compute total population per commune.
+2. For LOD XML, extract lemma and first English translation for 10 entries.
+3. Build a tibble of random example sentences (lemma + sentence) and count rows per lemma.
