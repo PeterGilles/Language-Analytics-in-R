@@ -558,5 +558,12 @@
     "title": "Syllabus",
     "section": "",
     "text": "https://computationalstylistics.github.io/"
+  },
+  {
+    "objectID": "first_script.html",
+    "href": "first_script.html",
+    "title": "our first script",
+    "section": "",
+    "text": "This is our first script! :-)\n\nlibrary(tibble)\n\nWarning: package 'tibble' was built under R version 4.5.2\n\n# Example: a small table (e.g. word, frequency, part of speech)\nlex &lt;- tibble(\n  word = c(\"the\", \"cat\", \"sat\", \"on\", \"mat\"),\n  freq = c(100, 5, 3, 50, 2),\n  pos  = c(\"det\", \"noun\", \"verb\", \"prep\", \"noun\")\n)\n\nlex\n\n# A tibble: 5 × 3\n  word   freq pos  \n  &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;\n1 the     100 det  \n2 cat       5 noun \n3 sat       3 verb \n4 on       50 prep \n5 mat       2 noun \n\n\nThis is a nice result…\n\nplot(lex$freq)"
   }
 ]

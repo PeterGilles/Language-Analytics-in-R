@@ -15,11 +15,9 @@ website:
       - href: sessions/session-03.qmd
         text: Session 3
       - href: sessions/session-04.qmd
-        text: Session 4        
+        text: "Session 4 (Viz/Stats)"
       - href: sessions/session-05.qmd
         text: Session 5
-      - href: sessions/session-06.qmd
-        text: Session 6        
 format:
   html:
     toc: true
