@@ -46,6 +46,10 @@ Initial steps:
 
 ## Resources and recommended reading
 
+[@rühlemann2020]
+
+[@jockers2014]
+
 [@levshina2015]
 
 [@schneider2024]
