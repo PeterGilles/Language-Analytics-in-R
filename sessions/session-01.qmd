@@ -8,25 +8,6 @@ format:
     toc-depth: 2
     number-sections: true
     code-fold: false
-  revealjs:
-    output-file: session-01-slides.html
-    slide-level: 2
-    smaller: true
-    incremental: true
-    transition: slide
-    scrollable: true
-    include-in-header:
-      - text: |
-          <style>
-          /* Scrollable slides: constrain height so overflow can scroll (see SO 76962902) */
-          .reveal .slide.scrollable {
-            height: 100% !important;
-            max-height: 100vh !important;
-            overflow-y: auto !important;
-            overflow-x: hidden;
-            box-sizing: border-box;
-          }
-          </style>
 editor: visual
 ---
 
