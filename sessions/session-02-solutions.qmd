@@ -80,6 +80,14 @@ pop_clean <- pop |>
     male_adults = HOMMES_MAJEURS
   )
 
+# or
+pop_clean <- pop |>
+  select(commune_name = COMMUNE_NOM, 
+         female_minors = FEMMES_MINEURES,
+         male_minors = HOMMES_MINEURS, 
+         female_adults = FEMMES_MAJEURES, 
+         male_adults = HOMMES_MAJEURS)
+
 pop_clean
 ```
 
@@ -116,31 +124,7 @@ Why this works:
 
 ## Exercise 4
 
-**Task:** Compute z-scores of `total_population` and list communes with `z_population > 2`.
-
-```{r}
-#| label: csv-solution-4
-
-pop_z <- pop |>
-  mutate(
-    total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS,
-    z_population = as.numeric(scale(total_population))
-  )
-
-pop_z |>
-  filter(z_population > 2) |>
-  arrange(desc(z_population)) |>
-  select(COMMUNE_NOM, total_population, z_population)
-```
-
-Why this works:
-
--   `scale()` standardizes values to mean 0 and standard deviation 1.
--   `z_population > 2` identifies unusually large communes relative to the full distribution.
-
-## Exercise 5
-
-**Task:** Plot `total_population` vs `adult_share` and describe the pattern.
+**Task:** Create a histogram of `total_population` and describe the shape.
 
 ```{r}
 #| label: csv-solution-5
@@ -149,23 +133,42 @@ Why this works:
 
 pop |>
   mutate(
-    total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS,
-    adult_share = (FEMMES_MAJEURES + HOMMES_MAJEURS) / total_population
+    total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS
   ) |>
-  ggplot(aes(x = total_population, y = adult_share)) +
-  geom_point(alpha = 0.7, color = "steelblue") +
-  geom_smooth(method = "lm", se = FALSE, color = "firebrick") +
+  ggplot(aes(x = total_population)) +
+  geom_histogram(bins = 25, fill = "steelblue", color = "white") +
   labs(
-    title = "Adult share vs commune population",
-    x = "Total population",
-    y = "Adult share"
+    title = "Distribution of commune population",
+    x = "Population per commune",
+    y = "Number of communes"
   )
 ```
 
 Interpretation note:
 
--   Use the regression line as a rough trend indicator.
--   In many datasets, adult share varies only moderately across commune size.
+-   The histogram is typically right-skewed.
+-   Most communes have smaller populations, with a few much larger communes.
+
+## Exercise 5
+
+**Task:** Export the tibble `pop_totals` to a CSV file.
+
+```{r}
+#| label: csv-solution-6
+
+pop_totals <- pop |>
+  mutate(
+    total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS,
+    adult_share = (FEMMES_MAJEURES + HOMMES_MAJEURS) / total_population
+  )
+
+write.csv(pop_totals, "pop_totals.csv", row.names = FALSE)
+```
+
+Why this works:
+
+-   `write.csv()` writes the tibble to disk in comma-separated format.
+-   `row.names = FALSE` avoids adding an extra index column.
 
 # Gutenberg + tidytext exercises — solutions
 

@@ -143,7 +143,7 @@ pop_totals <- pop |>
 
 pop_totals |>
   arrange(desc(total_population)) |>
-  select(COMMUNE_NOM, total_population, adult_share) |>
+  select(COMMUNE_NOM, adult_share, total_population) |>
   slice_head(n = 10)
 ```
 
@@ -204,9 +204,8 @@ What happens:
 1.  Compute the total number of minors (`FEMMES_MINEURES + HOMMES_MINEURS`) per commune and list the top 15 communes.
 2.  Remove the variable `COMMUNE_CODE` from the tibble and rename the French variable names to English.
 3.  Filter `pop_totals` to keep only communes with an adult share below 80 %.
-4.  Add a variable `female_share` = total females / total population, then report the 10 communes with the highest `female_share`.
-5.  Create a histogram of `total_population` and briefly describe its shape.
-6.  Export the tibble `pop_totals` to a csv file using `write.csv`.
+4.  Create a histogram of `total_population` and briefly describe its shape.
+5.  Export the tibble `pop_totals` to a csv file using `write.csv`.
 
 # Part 2 — Working with text data from `Project Gutenberg` using `tidytext`
 
