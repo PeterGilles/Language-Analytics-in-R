@@ -1,5 +1,5 @@
 ---
-title: "Session 2 — Data wrangling"
+title: "Session 2 — Data import and exploratory analysis"
 subtitle: "Language Analytics in R"
 author: "Peter Gilles"
 format:
@@ -11,195 +11,443 @@ format:
 editor: visual
 ---
 
-## Learning objectives
+## Learning objectives {.scrollable}
 
 By the end of this session you will:
 
--   Load, inspect, and aggregate CSV data with tidyverse tools.
--   Import and inspect complex XML dictionary data (LOD).
--   Use XPath selectors to extract linguistic information from XML.
--   Build a tibble of example sentences from XML nodes.
+-   Import tabular, textual, and XML language data into R.
+-   Use tidyverse workflows for exploratory statistics and visualization.
+-   Tokenize and analyze Gutenberg texts with `tidytext`.
+-   Extract structured information from LOD XML with `xml2`.
+-   Solve format-specific exercises for CSV, text, and XML data.
 
-# Working with text data and corpora (data import)
+This session covers three common data formats for language analytics:
 
-For language analytics we usually work with **tables** (e.g. CSV or Excel) or **text files**.
+1.  **CSV** (tabular data)
+2.  **Text** from Project Gutenberg (`tidytext` workflow)
+3.  **XML** from the LOD dictionary
 
-## Reading a CSV file {.scrollable}
+Each section ends with dedicated exercises. Explained solutions are provided in `sessions/session-02-solutions.qmd`.
 
-Use `read_csv()` from the **readr** package (included in tidyverse) to read comma-separated files. Example: population by commune (Luxembourg), file `rnrpp-population-commune.csv` (same folder as this document, or adjust the path if needed).
+# Setup
+
+This block loads all packages used in this session and defines a helper function for robust file paths.
 
 ```{r}
-#| label: read-csv
-#| echo: false
+#| label: setup
+#| message: false
 
 library(tidyverse)
+library(tidytext)
+library(gutenbergr)
+library(xml2)
 
-# Path: same folder as this .qmd, or "sessions/rnrpp-population-commune.csv" from project root
-pop_path <- "rnrpp-population-commune.csv"
-pop <- read_csv(pop_path, show_col_types = FALSE)
+resolve_path <- function(filename) {
+  if (file.exists(filename)) {
+    filename
+  } else {
+    file.path("sessions", filename)
+  }
+}
+```
+
+What happens:
+
+-   `library(...)` attaches the packages.
+-   `resolve_path()` first checks local folder, then falls back to `sessions/`.
+-   This avoids path errors when students render from different working directories.
+
+# Part 1 — CSV data
+
+## Read and inspect CSV {.scrollable}
+
+We start with demographic data by commune in `rnrpp-population-commune.csv`.
+
+This block reads the file into a tibble named `pop`.
+
+```{r}
+#| label: csv-read
+#| message: false
+
+csv_path <- resolve_path("rnrpp-population-commune.csv")
+pop <- read_csv(
+  csv_path,
+  locale = locale(encoding = "ISO-8859-1"),
+  show_col_types = FALSE
+)
+
 pop
 ```
 
-## Inspecting the dataset {.scrollable}
+What happens:
 
--   **Print** the data frame: type its name.
--   **View(pop)**: opens a spreadsheet-like viewer in RStudio.
--   **glimpse()**: compact view of columns and types.
+-   `resolve_path()` finds the file.
+-   `read_csv(..., locale = locale(encoding = \"ISO-8859-1\"))` imports text with the correct source encoding.
+-   Printing `pop` gives a quick first look at rows and columns.
+
+This block performs structural inspection (shape and variable names).
 
 ```{r}
-#| label: inspect-data
+#| label: csv-inspect
 
 glimpse(pop)
 nrow(pop)
 ncol(pop)
 names(pop)
-head(pop, 5)
 ```
 
-## Accessing columns {.scrollable}
+What happens:
 
-Use `$` to get one column as a vector (e.g. to compute totals or means):
+-   `glimpse()` shows column types and sample values.
+-   `nrow()` and `ncol()` report dataset size.
+-   `names()` lists column names for later use in `mutate()` and `summarise()`.
 
-```{r}
-#| label: access-columns
+## Basic exploratory statistics {.scrollable}
 
-pop$COMMUNE_NOM
-pop$FEMMES_MAJEURES
-# Mean population per commune (total = sum of the four count columns)
-mean(pop$FEMMES_MINEURES + pop$HOMMES_MINEURS + pop$FEMMES_MAJEURES + pop$HOMMES_MAJEURS)
-```
-
-## Aggregating the data {.scrollable}
-
-With **dplyr** you can **aggregate** by groups (e.g. totals, means). Example: add a total population per commune, then show the top 10 communes by total population; or summarize across all rows (e.g. national totals by category).
+Create derived variables and inspect the largest communes.
 
 ```{r}
-#| label: aggregate-pop
+#| label: csv-explore
 
-# Total population per commune (using the pipe)
-pop |>
+pop_totals <- pop |>
   mutate(
-    total = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS
-  ) |>
-  arrange(desc(total)) |>
-  select(COMMUNE_NOM, total) |>
-  head(10)
+    total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS,
+    adult_share = (FEMMES_MAJEURES + HOMMES_MAJEURS) / total_population
+  )
+
+pop_totals |>
+  arrange(desc(total_population)) |>
+  select(COMMUNE_NOM, total_population, adult_share) |>
+  slice_head(n = 10)
 ```
 
-```{r}
-#| label: aggregate-summarize
+What happens:
 
-# One-row summary: national totals by category (sum across all communes)
-pop |>
+-   `mutate()` adds two analysis variables: total size and adult proportion.
+-   `arrange(desc(...))` ranks communes from largest to smallest.
+-   `select()` keeps only the most relevant columns for interpretation.
+
+This block computes one-row summary statistics across all communes.
+
+```{r}
+#| label: csv-summary
+
+pop_totals |>
   summarise(
-    femmes_mineures = sum(FEMMES_MINEURES),
-    hommes_mineurs  = sum(HOMMES_MINEURS),
-    femmes_majeures = sum(FEMMES_MAJEURES),
-    hommes_majeurs  = sum(HOMMES_MAJEURS),
-    total          = sum(FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS)
+    mean_commune_population = mean(total_population),
+    median_commune_population = median(total_population),
+    min_commune_population = min(total_population),
+    max_commune_population = max(total_population)
   )
 ```
 
-# Import LOD dictionary data (XML)
+What happens:
 
-## Getting the file {.scrollable}
+-   `summarise()` reduces many rows to one row.
+-   We compute central tendency (`mean`, `median`) and range (`min`, `max`).
+-   This gives a fast statistical profile before plotting.
 
-The LOD linguistic dataset is published as **open data** by the Luxembourg government (Zenter fir d'Lëtzebuerger Sprooch) under **CC0** ([LOD – Linguistesch Daten (resource)](https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b)). Download the zip, extract it, and place the XML file (`new_lod-art.xml`, \~74 MB) in a folder in your project (e.g. `data/`).
-
-**Install once:** `install.packages("xml2")`. Then load with `library(xml2)`.
-
-## Reading the XML file {.scrollable}
+This block visualizes the top 20 communes with a horizontal bar chart.
 
 ```{r}
-#| label: lod-read-xml
-#| message: false
+#| label: csv-plot
+#| fig-width: 8
+#| fig-height: 5
 
-library(xml2)
-
-# Path to the XML file (e.g. in data/; adjust if your file is elsewhere)
-lod_xml_path <- "new_lod-art.xml"
-
-# Read XML from the folder
-lod_xml <- read_xml(lod_xml_path)
-
-# Root element
-xml_name(lod_xml)
-xml_children(lod_xml) |> length()
+pop_totals |>
+  arrange(desc(total_population)) |>
+  slice_head(n = 20) |>
+  mutate(COMMUNE_NOM = fct_reorder(COMMUNE_NOM, total_population)) |>
+  ggplot(aes(x = total_population, y = COMMUNE_NOM)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    title = "Top 20 communes by population",
+    x = "Population",
+    y = NULL
+  )
 ```
 
-## Structure of the LOD XML {.scrollable}
+What happens:
 
-The document has a single root element `<lod>`, which contains many **`<entry>`** elements. Each entry has a lemma, pronunciation, grammatical structure, meanings, translations, and examples.
+-   `slice_head(n = 20)` keeps only the top communes.
+-   `fct_reorder()` orders labels by population so the chart is readable.
+-   `geom_col()` displays already-aggregated values.
 
-## How XPath works
+## Exercises (CSV)
 
-**XPath** selects nodes in the XML tree. In R, use `xml_find_first()` (one match) and `xml_find_all()` (all matches).
+1.  Compute the total number of minors (`FEMMES_MINEURES + HOMMES_MINEURS`) per commune and list the top 15 communes.
+2.  Remove the variable `COMMUNE_CODE` from the tibble.
+3.  Add a variable `female_share` = total females / total population, then report the 10 communes with the highest `female_share`.
+4.  Create a histogram of `total_population` and briefly describe its shape.
+5.  Export the tibble `pop_totals` to a csv file using `write.csv`.
 
-| XPath | Meaning | Example |
-|----|----|----|
-| `//entry` | any `entry` in document | all entries |
-| `.//lemma` | lemma under current node | current entry lemma |
-| `.//meaning/examples/example` | examples under meanings | all examples for an entry |
-| `targetLanguage[@lang='en']` | attribute filter | English translation nodes |
+# Part 2 — Gutenberg text with tidytext
 
-## Inspecting one entry in R {.scrollable}
+We use [`tidytext`](https://www.tidytextmining.com/tidytext) ideas: convert text to **one-token-per-row**, remove stop words, and compare frequencies.
 
-```{r}
-#| label: lod-structure
+## Download and tokenize Gutenberg texts {.scrollable}
 
-first_entry <- xml_find_first(lod_xml, "//entry")
-xml_find_first(first_entry, ".//lemma") |> xml_text()
-xml_find_first(first_entry, ".//ipa")   |> xml_text()
-xml_find_all(first_entry, ".//meaning/targetLanguage[@lang='en']/translation") |> xml_text()
-```
-
-## Exploring the examples section {.scrollable}
+This block downloads two books from Project Gutenberg, including title metadata.
 
 ```{r}
-#| label: lod-get-sentence
+#| label: gutenberg-download
 
-get_sentence <- function(ex) {
-  text_node <- xml_find_first(ex, ".//text")
-  if (inherits(text_node, "xml_missing")) return(NA_character_)
-  tokens <- xml_find_all(text_node, "./*")
-  paste(xml_text(tokens), collapse = " ")
-}
-```
-
-```{r}
-#| label: lod-examples-tibble
-#| message: false
-
-library(tibble)
-
-all_entries <- xml_find_all(lod_xml, "//entry")
-set.seed(123)
-sampled <- sample(length(all_entries), min(30, length(all_entries)))
-rows <- list()
-
-for (i in seq_along(sampled)) {
-  entry <- all_entries[[sampled[i]]]
-  lemma <- xml_find_first(entry, ".//lemma") |> xml_text()
-  exs <- xml_find_all(entry, ".//meaning/examples/example")
-  exs <- exs[1:min(2, length(exs))]
-  for (ex in exs) {
-    sent <- get_sentence(ex)
-    if (!is.na(sent) && nchar(sent) > 0) {
-      rows[[length(rows) + 1]] <- list(lemma = lemma, sentence = sent)
-    }
-  }
-}
-
-lod_examples <- tibble(
-  lemma = vapply(rows, function(r) r$lemma, character(1)),
-  sentence = vapply(rows, function(r) r$sentence, character(1))
+gutenberg_books <- gutenberg_download(
+  c(11, 1342), # Alice in Wonderland, Pride and Prejudice
+  meta_fields = c("author", "title")
+ ) |>
+  # bug in gutenberg; deduplication of rows necessary
+  filter(
+    is.na(lag(text)) | text != lag(text),
+    .by = gutenberg_id
 )
 
-lod_examples
+gutenberg_books
 ```
 
-## Hands-on exercises
+What happens:
 
-1.  Read `rnrpp-population-commune.csv` and compute total population per commune.
-2.  For LOD XML, extract lemma and first English translation for 10 entries.
-3.  Build a tibble of random example sentences (lemma + sentence) and count rows per lemma.
+-   `gutenberg_download()` retrieves cleaned text (header/footer removed).
+-   Some Gutenberg texts (e.g., Alice on certain mirrors) include duplicated adjacent lines.
+-   `filter(is.na(lag(text)) | text != lag(text), .by = gutenberg_id)` removes only consecutive duplicate lines within each book.
+-   Each row is one line of text, with `gutenberg_id` and `title`.
+-   The table is now ready for tokenization.
+
+This block converts lines into words and removes stop words.
+
+```{r}
+#| label: gutenberg-tokenize
+
+tokens <- gutenberg_books |>
+  unnest_tokens(word, text) |>
+  anti_join(stop_words, by = join_by(word))
+
+tokens
+```
+
+What happens:
+
+-   `unnest_tokens(word, text)` turns each line into multiple word rows.
+-   Tokens are lowercase by default and punctuation is removed.
+-   `anti_join()` removes common function words (`the`, `and`, etc.).
+
+## Explore word frequencies {.scrollable}
+
+This block counts how often each word appears in each title.
+
+```{r}
+#| label: gutenberg-count
+
+top_words <- tokens |>
+  count(title, word, sort = TRUE)
+
+top_words |>
+  group_by(title) |>
+  slice_head(n = 15) |>
+  ungroup()
+```
+
+What happens:
+
+-   `count(title, word)` computes frequencies per book.
+-   `sort = TRUE` returns highest counts first.
+-   Grouping + `slice_head()` keeps the top words for each book.
+
+This block visualizes top words by title in faceted panels.
+
+```{r}
+#| label: gutenberg-plot
+#| fig-width: 9
+#| fig-height: 5
+
+top_words |>
+  group_by(title) |>
+  slice_head(n = 12) |>
+  ungroup() |>
+  mutate(word = fct_reorder(word, n)) |>
+  ggplot(aes(x = n, y = word, fill = title)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(title), scales = "free_y") +
+  labs(
+    title = "Most frequent non-stopwords per Gutenberg book",
+    x = "Count",
+    y = NULL
+  )
+```
+
+What happens:
+
+-   We plot only the top 12 words for readability.
+-   `facet_wrap()` produces one panel per book.
+-   Students can compare lexical profiles side by side.
+
+## Compare distinctive words with tf-idf {.scrollable}
+
+**TF–IDF** (term frequency–inverse document frequency) scores how *characteristic* a word is for one text *relative to the whole set* you are comparing.
+
+-   **Term frequency (TF)** — how often the word appears **in that book** (here reflected in the count column `n` after `count(title, word)`). A word that appears many times in *Alice* has high TF for *Alice*.
+-   **Inverse document frequency (IDF)** — how *unusual* the word is **across books**. If a word appears in almost every title with similar counts, IDF is low (it is not distinguishing). If a word is concentrated in one book, IDF is higher for that contrast.
+-   **TF × IDF** — the product (stored as `tf_idf` in `tidytext`) is high when the word is **both** frequent in that book **and** not equally typical everywhere else. That is why high `tf_idf` words are often proper names, place words, or topic-specific vocabulary, while raw “most frequent” lists are often dominated by shared literary English.
+
+```{r}
+#| label: gutenberg-tfidf
+
+book_tfidf <- tokens |>
+  count(title, word, sort = TRUE) |>
+  bind_tf_idf(word, title, n) |>
+  arrange(desc(tf_idf))
+
+book_tfidf |>
+  group_by(title) |>
+  slice_head(n = 10) |>
+  ungroup() |>
+  select(title, word, n, tf_idf)
+```
+
+What happens:
+
+-   `count(title, word)` builds a table of how many times each `word` appears in each `title` (document).
+-   `bind_tf_idf(word, title, n)` adds three columns: `tf` (term frequency in that document), `idf` (inverse document frequency in the corpus), and `tf_idf` (their product).
+-   We sort by `tf_idf` and show the top terms per book so you can read off **distinctive** words, not just frequent ones.
+-   Interpretation: compare a high-`tf_idf` word’s role in the story (character, place, motif) with its `n` — a word can be distinctive with a moderate `n` if it barely appears in the other books.
+
+## Exercises (Gutenberg + tidytext)
+
+1.  Download one additional Gutenberg text (choose one ID yourself), tokenize it, and compute the top 20 non-stopwords.
+2.  Download from the Gutenberg archive all works by Jane Austen (check the help page for package `gutenbergr`.
+3.  Build a three-book dataset (`bind_rows()`), then compare top words across books with a faceted bar plot.
+4.  Compute tf-idf for the three-book dataset and interpret two high tf-idf words per book.
+5.  Compute bigrams (`token = "ngrams", n = 2`) for one selected book and list the 20 most frequent bigrams after removing rows that contain stop words.
+6.  For each of the three books, compute lexical diversity as `n_distinct(word) / n()` and compare the values.
+
+# Part 3 — XML data (LOD dictionary)
+
+The LOD XML file can be downloaded from the Luxembourg open data portal ([LOD resource](https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b)).
+
+Conceptually, the XML workflow has four steps:
+
+1.  Read the XML tree (`read_xml()`).
+2.  Select `<entry>` nodes with XPath.
+3.  Extract a few fields from each entry.
+4.  Combine extracted rows into one tidy tibble.
+
+## Read XML and inspect structure {.scrollable}
+
+This block parses the XML file and checks basic structure.
+
+```{r}
+#| label: lod-read
+#| message: false
+
+lod_xml_path <- resolve_path("new_lod-art.xml")
+lod_xml <- read_xml(lod_xml_path)
+
+xml_name(lod_xml)
+xml_find_all(lod_xml, "//entry") |> 
+  length()
+```
+
+What happens:
+
+-   `read_xml()` loads the XML tree into memory.
+-   `xml_name()` identifies the root node (here: `lod`).
+-   `xml_find_all(lod_xml, "//entry")` returns all dictionary entries anywhere in the tree.
+-   `length()` gives the number of entries you could potentially process.
+
+XPath quick reminder:
+
+| XPath                                       | Meaning                      |
+|---------------------------------------------|------------------------------|
+| `//entry`                                   | all entries                  |
+| `.//lemma`                                  | lemma under current entry    |
+| `.//ipa`                                    | IPA node under current entry |
+| `.//targetLanguage[@lang='en']/translation` | English translations         |
+
+Two key XML functions used below:
+
+-   `xml_find_first(node, "xpath")` returns the **first matching XML node** (not plain text).
+-   `xml_text(node)` returns the **text content inside that XML node**.
+
+So this pattern:
+
+`xml_find_first(entry_node, ".//lemma") |> xml_text()`
+
+means: first find the `<lemma>` node inside one entry, then extract only its text value.
+
+## Build a tidy tibble from XML {.scrollable}
+
+This block converts XML nodes into a tidy one-row-per-entry table.
+
+```{r}
+#| label: lod-extract
+
+# Full extraction over all entries is computationally heavy.
+# We keep classroom render fast by using a sample.
+entry_nodes <- xml_find_all(lod_xml, "//entry")
+sample_n <- 1000
+entry_idx <- sample.int(length(entry_nodes), size = sample_n)
+entry_sample <- entry_nodes[entry_idx]
+
+extract_entry <- function(entry_node) {
+  # Pull all English translation strings for one entry.
+  en_translations <- xml_find_all(
+    entry_node,
+    ".//meaning/targetLanguage[@lang='en']/translation"
+  ) |>
+    xml_text()
+
+  # Return one-row tibble for this entry.
+  tibble(
+    lemma = xml_find_first(entry_node, ".//lemma") |> xml_text(),
+    ipa = xml_find_first(entry_node, ".//ipa") |> xml_text(),
+    n_en_translations = length(en_translations),
+    first_en_translation = en_translations |> first(default = NA_character_)
+  )
+}
+
+# takes some time
+lod_entries <- entry_sample |>
+  map(extract_entry) |>
+  list_rbind()
+
+lod_entries |> slice_head(n = 20)
+```
+
+What happens:
+
+-   `entry_nodes` is an XML node set with all `<entry>` elements.
+-   We randomly sample 1,000 entries so rendering stays fast.
+-   `extract_entry()` runs on one XML node and returns one tibble row.
+-   `xml_find_first()` gives an XML node object; `xml_text()` converts that node into a character string.
+-   `map(extract_entry)` creates a list of small tibbles; `list_rbind()` stacks them into one dataset.
+-   `first(..., default = NA_character_)` avoids an error when an entry has no English translation.
+
+This block lists the most common first English translations.
+
+```{r}
+#| label: lod-top-en
+
+lod_entries |>
+  filter(!is.na(first_en_translation)) |>
+  count(first_en_translation, sort = TRUE) |>
+  slice_head(n = 20)
+```
+
+What happens:
+
+-   Missing translations are filtered out.
+-   Frequencies are counted and ranked.
+-   This provides a quick lexical overview of common gloss labels in the sample.
+
+## Exercises (XML / LOD)
+
+1.  Extract a tibble with columns `lemma`, `ipa`, and `n_examples` (number of `<example>` nodes per entry).
+2.  Create a table of the 25 most common first English translations and discuss why this summary may be linguistically limited.
+3.  Sample 30 entries with at least one English translation and inspect whether `lemma` and `first_en_translation` appear semantically aligned.
+4.  Create a summary table of average, median, and maximum `n_examples` across sampled entries.
+5.  Build a filtered table of entries with both an IPA value and at least one English translation, and report the share of sampled entries that satisfy both conditions.
+6.  Extract `partofspeech` for each sampled entry (together with `lemma`) and list the 20 most frequent part-of-speech labels.
+
+# Solutions
+
+Explained solutions for all exercise blocks are in `sessions/session-02-solutions.qmd`.

@@ -8,7 +8,7 @@
 
 <meta name="author" content="Peter Gilles">
 
-<title>Session 2 — Data wrangling – Language Analytics in R</title>
+<title>Session 2 — Data import and exploratory analysis – Language Analytics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -166,23 +166,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul class="collapse">
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</a></li>
-  <li><a href="#working-with-text-data-and-corpora-data-import" id="toc-working-with-text-data-and-corpora-data-import" class="nav-link" data-scroll-target="#working-with-text-data-and-corpora-data-import"><span class="header-section-number">1</span> Working with text data and corpora (data import)</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">1</span> Setup</a></li>
+  <li><a href="#part-1-csv-data" id="toc-part-1-csv-data" class="nav-link" data-scroll-target="#part-1-csv-data"><span class="header-section-number">2</span> Part 1 — CSV data</a>
   <ul class="collapse">
-  <li><a href="#reading-a-csv-file" id="toc-reading-a-csv-file" class="nav-link" data-scroll-target="#reading-a-csv-file"><span class="header-section-number">1.1</span> Reading a CSV file</a></li>
-  <li><a href="#inspecting-the-dataset" id="toc-inspecting-the-dataset" class="nav-link" data-scroll-target="#inspecting-the-dataset"><span class="header-section-number">1.2</span> Inspecting the dataset</a></li>
-  <li><a href="#accessing-columns" id="toc-accessing-columns" class="nav-link" data-scroll-target="#accessing-columns"><span class="header-section-number">1.3</span> Accessing columns</a></li>
-  <li><a href="#aggregating-the-data" id="toc-aggregating-the-data" class="nav-link" data-scroll-target="#aggregating-the-data"><span class="header-section-number">1.4</span> Aggregating the data</a></li>
+  <li><a href="#read-and-inspect-csv" id="toc-read-and-inspect-csv" class="nav-link" data-scroll-target="#read-and-inspect-csv"><span class="header-section-number">2.1</span> Read and inspect CSV</a></li>
+  <li><a href="#basic-exploratory-statistics" id="toc-basic-exploratory-statistics" class="nav-link" data-scroll-target="#basic-exploratory-statistics"><span class="header-section-number">2.2</span> Basic exploratory statistics</a></li>
+  <li><a href="#exercises-csv" id="toc-exercises-csv" class="nav-link" data-scroll-target="#exercises-csv"><span class="header-section-number">2.3</span> Exercises (CSV)</a></li>
   </ul></li>
-  <li><a href="#import-lod-dictionary-data-xml" id="toc-import-lod-dictionary-data-xml" class="nav-link" data-scroll-target="#import-lod-dictionary-data-xml"><span class="header-section-number">2</span> Import LOD dictionary data (XML)</a>
+  <li><a href="#part-2-gutenberg-text-with-tidytext" id="toc-part-2-gutenberg-text-with-tidytext" class="nav-link" data-scroll-target="#part-2-gutenberg-text-with-tidytext"><span class="header-section-number">3</span> Part 2 — Gutenberg text with tidytext</a>
   <ul class="collapse">
-  <li><a href="#getting-the-file" id="toc-getting-the-file" class="nav-link" data-scroll-target="#getting-the-file"><span class="header-section-number">2.1</span> Getting the file</a></li>
-  <li><a href="#reading-the-xml-file" id="toc-reading-the-xml-file" class="nav-link" data-scroll-target="#reading-the-xml-file"><span class="header-section-number">2.2</span> Reading the XML file</a></li>
-  <li><a href="#structure-of-the-lod-xml" id="toc-structure-of-the-lod-xml" class="nav-link" data-scroll-target="#structure-of-the-lod-xml"><span class="header-section-number">2.3</span> Structure of the LOD XML</a></li>
-  <li><a href="#how-xpath-works" id="toc-how-xpath-works" class="nav-link" data-scroll-target="#how-xpath-works"><span class="header-section-number">2.4</span> How XPath works</a></li>
-  <li><a href="#inspecting-one-entry-in-r" id="toc-inspecting-one-entry-in-r" class="nav-link" data-scroll-target="#inspecting-one-entry-in-r"><span class="header-section-number">2.5</span> Inspecting one entry in R</a></li>
-  <li><a href="#exploring-the-examples-section" id="toc-exploring-the-examples-section" class="nav-link" data-scroll-target="#exploring-the-examples-section"><span class="header-section-number">2.6</span> Exploring the examples section</a></li>
-  <li><a href="#hands-on-exercises" id="toc-hands-on-exercises" class="nav-link" data-scroll-target="#hands-on-exercises"><span class="header-section-number">2.7</span> Hands-on exercises</a></li>
+  <li><a href="#download-and-tokenize-gutenberg-texts" id="toc-download-and-tokenize-gutenberg-texts" class="nav-link" data-scroll-target="#download-and-tokenize-gutenberg-texts"><span class="header-section-number">3.1</span> Download and tokenize Gutenberg texts</a></li>
+  <li><a href="#explore-word-frequencies" id="toc-explore-word-frequencies" class="nav-link" data-scroll-target="#explore-word-frequencies"><span class="header-section-number">3.2</span> Explore word frequencies</a></li>
+  <li><a href="#compare-distinctive-words-with-tf-idf" id="toc-compare-distinctive-words-with-tf-idf" class="nav-link" data-scroll-target="#compare-distinctive-words-with-tf-idf"><span class="header-section-number">3.3</span> Compare distinctive words with tf-idf</a></li>
+  <li><a href="#exercises-gutenberg-tidytext" id="toc-exercises-gutenberg-tidytext" class="nav-link" data-scroll-target="#exercises-gutenberg-tidytext"><span class="header-section-number">3.4</span> Exercises (Gutenberg + tidytext)</a></li>
   </ul></li>
+  <li><a href="#part-3-xml-data-lod-dictionary" id="toc-part-3-xml-data-lod-dictionary" class="nav-link" data-scroll-target="#part-3-xml-data-lod-dictionary"><span class="header-section-number">4</span> Part 3 — XML data (LOD dictionary)</a>
+  <ul class="collapse">
+  <li><a href="#read-xml-and-inspect-structure" id="toc-read-xml-and-inspect-structure" class="nav-link" data-scroll-target="#read-xml-and-inspect-structure"><span class="header-section-number">4.1</span> Read XML and inspect structure</a></li>
+  <li><a href="#build-a-tidy-tibble-from-xml" id="toc-build-a-tidy-tibble-from-xml" class="nav-link" data-scroll-target="#build-a-tidy-tibble-from-xml"><span class="header-section-number">4.2</span> Build a tidy tibble from XML</a></li>
+  <li><a href="#exercises-xml-lod" id="toc-exercises-xml-lod" class="nav-link" data-scroll-target="#exercises-xml-lod"><span class="header-section-number">4.3</span> Exercises (XML / LOD)</a></li>
+  </ul></li>
+  <li><a href="#solutions" id="toc-solutions" class="nav-link" data-scroll-target="#solutions"><span class="header-section-number">5</span> Solutions</a></li>
   </ul>
 </nav>
     </div>
@@ -191,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Session 2 — Data wrangling</h1>
+<h1 class="title">Session 2 — Data import and exploratory analysis</h1>
 <p class="subtitle lead">Language Analytics in R</p>
 </div>
 
@@ -215,23 +219,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="learning-objectives" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</h2>
+<section id="learning-objectives" class="level2 scrollable" data-number="0.1">
+<h2 class="scrollable anchored" data-number="0.1" data-anchor-id="learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</h2>
 <p>By the end of this session you will:</p>
 <ul>
-<li>Load, inspect, and aggregate CSV data with tidyverse tools.</li>
-<li>Import and inspect complex XML dictionary data (LOD).</li>
-<li>Use XPath selectors to extract linguistic information from XML.</li>
-<li>Build a tibble of example sentences from XML nodes.</li>
+<li>Import tabular, textual, and XML language data into R.</li>
+<li>Use tidyverse workflows for exploratory statistics and visualization.</li>
+<li>Tokenize and analyze Gutenberg texts with <code>tidytext</code>.</li>
+<li>Extract structured information from LOD XML with <code>xml2</code>.</li>
+<li>Solve format-specific exercises for CSV, text, and XML data.</li>
 </ul>
+<p>This session covers three common data formats for language analytics:</p>
+<ol type="1">
+<li><strong>CSV</strong> (tabular data)</li>
+<li><strong>Text</strong> from Project Gutenberg (<code>tidytext</code> workflow)</li>
+<li><strong>XML</strong> from the LOD dictionary</li>
+</ol>
+<p>Each section ends with dedicated exercises. Explained solutions are provided in <code>sessions/session-02-solutions.qmd</code>.</p>
 </section>
-<section id="working-with-text-data-and-corpora-data-import" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Working with text data and corpora (data import)</h1>
-<p>For language analytics we usually work with <strong>tables</strong> (e.g.&nbsp;CSV or Excel) or <strong>text files</strong>.</p>
-<section id="reading-a-csv-file" class="level2 scrollable" data-number="1.1">
-<h2 class="scrollable anchored" data-number="1.1" data-anchor-id="reading-a-csv-file"><span class="header-section-number">1.1</span> Reading a CSV file</h2>
-<p>Use <code>read_csv()</code> from the <strong>readr</strong> package (included in tidyverse) to read comma-separated files. Example: population by commune (Luxembourg), file <code>rnrpp-population-commune.csv</code> (same folder as this document, or adjust the path if needed).</p>
+<section id="setup" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
+<p>This block loads all packages used in this session and defines a helper function for robust file paths.</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'ggplot2' was built under R version 4.5.2</code></pre>
 </div>
@@ -250,18 +260,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'dplyr' was built under R version 4.5.2</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.2.0     ✔ readr     2.1.6
-✔ forcats   1.0.1     ✔ stringr   1.6.0
-✔ ggplot2   4.0.1     ✔ tibble    3.3.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.2
-✔ purrr     1.2.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre><code>Warning: package 'gutenbergr' was built under R version 4.5.2</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'xml2' was built under R version 4.5.2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>resolve_path <span class="ot">&lt;-</span> <span class="cf">function</span>(filename) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(filename)) {</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    filename</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">file.path</span>(<span class="st">"sessions"</span>, filename)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>What happens:</p>
+<ul>
+<li><code>library(...)</code> attaches the packages.</li>
+<li><code>resolve_path()</code> first checks local folder, then falls back to <code>sessions/</code>.</li>
+<li>This avoids path errors when students render from different working directories.</li>
+</ul>
+</section>
+<section id="part-1-csv-data" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Part 1 — CSV data</h1>
+<section id="read-and-inspect-csv" class="level2 scrollable" data-number="2.1">
+<h2 class="scrollable anchored" data-number="2.1" data-anchor-id="read-and-inspect-csv"><span class="header-section-number">2.1</span> Read and inspect CSV</h2>
+<p>We start with demographic data by commune in <code>rnrpp-population-commune.csv</code>.</p>
+<p>This block reads the file into a tibble named <code>pop</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>csv_path <span class="ot">&lt;-</span> <span class="fu">resolve_path</span>(<span class="st">"rnrpp-population-commune.csv"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>pop <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(csv_path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>pop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 102 × 6
    COMMUNE_CODE COMMUNE_NOM FEMMES_MINEURES HOMMES_MINEURS FEMMES_MAJEURES
@@ -280,16 +313,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 1 more variable: HOMMES_MAJEURS &lt;dbl&gt;</code></pre>
 </div>
 </div>
-</section>
-<section id="inspecting-the-dataset" class="level2 scrollable" data-number="1.2">
-<h2 class="scrollable anchored" data-number="1.2" data-anchor-id="inspecting-the-dataset"><span class="header-section-number">1.2</span> Inspecting the dataset</h2>
+<p>What happens:</p>
 <ul>
-<li><strong>Print</strong> the data frame: type its name.</li>
-<li><strong>View(pop)</strong>: opens a spreadsheet-like viewer in RStudio.</li>
-<li><strong>glimpse()</strong>: compact view of columns and types.</li>
+<li><code>resolve_path()</code> finds the file.</li>
+<li><code>read_csv()</code> imports data as a tibble.</li>
+<li>Printing <code>pop</code> gives a quick first look at rows and columns.</li>
 </ul>
+<p>This block performs structural inspection (shape and variable names).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 102
 Columns: 6
@@ -300,318 +332,515 @@ $ HOMMES_MINEURS  &lt;dbl&gt; 306, 134, 287, 244, 953, 1167, 293, 487, 314, 194,
 $ FEMMES_MAJEURES &lt;dbl&gt; 1250, 557, 1178, 906, 3899, 4821, 1203, 1663, 1462, 72…
 $ HOMMES_MAJEURS  &lt;dbl&gt; 1234, 575, 1177, 927, 3798, 4573, 1286, 1587, 1450, 79…</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 102</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "COMMUNE_CODE"    "COMMUNE_NOM"     "FEMMES_MINEURES" "HOMMES_MINEURS" 
 [5] "FEMMES_MAJEURES" "HOMMES_MAJEURS" </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pop, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 6
-  COMMUNE_CODE COMMUNE_NOM FEMMES_MINEURES HOMMES_MINEURS FEMMES_MAJEURES
-  &lt;chr&gt;        &lt;chr&gt;                 &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;
-1 1101         Beaufort                312            306            1250
-2 1102         Bech                    104            134             557
-3 0802         Beckerich               271            287            1178
-4 1103         Berdorf                 216            244             906
-5 0401         Bertrange               839            953            3899
-# ℹ 1 more variable: HOMMES_MAJEURS &lt;dbl&gt;</code></pre>
 </div>
-</div>
+<p>What happens:</p>
+<ul>
+<li><code>glimpse()</code> shows column types and sample values.</li>
+<li><code>nrow()</code> and <code>ncol()</code> report dataset size.</li>
+<li><code>names()</code> lists column names for later use in <code>mutate()</code> and <code>summarise()</code>.</li>
+</ul>
 </section>
-<section id="accessing-columns" class="level2 scrollable" data-number="1.3">
-<h2 class="scrollable anchored" data-number="1.3" data-anchor-id="accessing-columns"><span class="header-section-number">1.3</span> Accessing columns</h2>
-<p>Use <code>$</code> to get one column as a vector (e.g.&nbsp;to compute totals or means):</p>
+<section id="basic-exploratory-statistics" class="level2 scrollable" data-number="2.2">
+<h2 class="scrollable anchored" data-number="2.2" data-anchor-id="basic-exploratory-statistics"><span class="header-section-number">2.2</span> Basic exploratory statistics</h2>
+<p>Create derived variables and inspect the largest communes.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pop<span class="sc">$</span>COMMUNE_NOM</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pop_totals <span class="ot">&lt;-</span> pop <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_population =</span> FEMMES_MINEURES <span class="sc">+</span> HOMMES_MINEURS <span class="sc">+</span> FEMMES_MAJEURES <span class="sc">+</span> HOMMES_MAJEURS,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">adult_share =</span> (FEMMES_MAJEURES <span class="sc">+</span> HOMMES_MAJEURS) <span class="sc">/</span> total_population</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>pop_totals <span class="sc">|&gt;</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_population)) <span class="sc">|&gt;</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(COMMUNE_NOM, total_population, adult_share) <span class="sc">|&gt;</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1] "Beaufort"                "Bech"                   
-  [3] "Beckerich"               "Berdorf"                
-  [5] "Bertrange"               "Bettembourg"            
-  [7] "Bettendorf"              "Betzdorf"               
-  [9] "Bissen"                  "Biwer"                  
- [11] "Boulaide"                "Bourscheid"             
- [13] "Bous"                    "Bous-Waldbredimus"      
- [15] "Clervaux"                "Colmar-Berg"            
- [17] "Consdorf"                "Contern"                
- [19] "Dalheim"                 "Diekirch"               
- [21] "Differdange"             "Dippach"                
- [23] "Dudelange"               "Echternach"             
- [25] "Ell"                     "Erpeldange-sur-S\xfbre" 
- [27] "Esch-sur-Alzette"        "Esch-sur-S\xfbre"       
- [29] "Ettelbruck"              "Feulen"                 
- [31] "Fischbach"               "Flaxweiler"             
- [33] "Frisange"                "Garnich"                
- [35] "Goesdorf"                "Grevenmacher"           
- [37] "Groussbus-Wal"           "Habscht"                
- [39] "Heffingen"               "Helperknapp"            
- [41] "Hesperange"              "Junglinster"            
- [43] "K\xe4erjeng"             "Kayl"                   
- [45] "Kehlen"                  "Kiischpelt"             
- [47] "Koerich"                 "Kopstal"                
- [49] "Lac de la Haute-S\xfbre" "Larochette"             
- [51] "Lenningen"               "Leudelange"             
- [53] "Lintgen"                 "Lorentzweiler"          
- [55] "Luxembourg"              "Mamer"                  
- [57] "Manternach"              "Mersch"                 
- [59] "Mertert"                 "Mertzig"                
- [61] "Mondercange"             "Mondorf-les-Bains"      
- [63] "Niederanven"             "Nommern"                
- [65] "P\xe9tange"              "Parc Hosingen"          
- [67] "Pr\xe9izerdaul"          "Putscheid"              
- [69] "Rambrouch"               "Reckange-sur-Mess"      
- [71] "Redange/Attert"          "Reisdorf"               
- [73] "Remich"                  "Roeser"                 
- [75] "Rosport-Mompach"         "Rumelange"              
- [77] "Saeul"                   "Sandweiler"             
- [79] "Sanem"                   "Schengen"               
- [81] "Schieren"                "Schifflange"            
- [83] "Schuttrange"             "Stadtbredimus"          
- [85] "Steinfort"               "Steinsel"               
- [87] "Strassen"                "Tandel"                 
- [89] "Troisvierges"            "Useldange"              
- [91] "Vall\xe9e de l'Ernz"     "Vianden"                
- [93] "Vichten"                 "Waldbillig"             
- [95] "Waldbredimus"            "Walferdange"            
- [97] "Weiler-la-Tour"          "Weiswampach"            
- [99] "Wiltz"                   "Wincrange"              
-[101] "Winseler"                "Wormeldange"            </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pop<span class="sc">$</span>FEMMES_MAJEURES</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  [1]  1250   557  1178   906  3899  4821  1203  1663  1462   727   635   687
- [13]     0  1300  2546  1013   827  2000   951  3111 12393  1973  9274  2567
- [25]   678  1117 15436  1330  4186   965   519   880  2040   960   662  2210
- [37]   938  2114   623  2052  7066  3690  4791  4116  2969   524  1093  1908
- [49]   874   911   889  1133  1399  1952 56612  4620   942  4330  2332   961
- [61]  3034  2431  2992   604  8540  1686   744   462  1969  1214  1348   557
- [73]  1765  2923  1521  2299   422  1572  8019  2135   896  4827  1763   831
- [85]  2541  2580  4504   925  1429   849  1162   923   573   782     2  3864
- [97]  1012  1042  3269  1942   623  1337</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean population per commune (total = sum of the four count columns)</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pop<span class="sc">$</span>FEMMES_MINEURES <span class="sc">+</span> pop<span class="sc">$</span>HOMMES_MINEURS <span class="sc">+</span> pop<span class="sc">$</span>FEMMES_MAJEURES <span class="sc">+</span> pop<span class="sc">$</span>HOMMES_MAJEURS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 6774.01</code></pre>
+<pre><code># A tibble: 10 × 3
+   COMMUNE_NOM        total_population adult_share
+   &lt;chr&gt;                         &lt;dbl&gt;       &lt;dbl&gt;
+ 1 "Luxembourg"                 137663       0.853
+ 2 "Esch-sur-Alzette"            38269       0.810
+ 3 "Differdange"                 31420       0.786
+ 4 "Dudelange"                   22377       0.817
+ 5 "P\xe9tange"                  21290       0.792
+ 6 "Sanem"                       19609       0.806
+ 7 "Hesperange"                  17260       0.801
+ 8 "Schifflange"                 11678       0.810
+ 9 "Bettembourg"                 11652       0.806
+10 "Mamer"                       11582       0.770</code></pre>
 </div>
 </div>
-</section>
-<section id="aggregating-the-data" class="level2 scrollable" data-number="1.4">
-<h2 class="scrollable anchored" data-number="1.4" data-anchor-id="aggregating-the-data"><span class="header-section-number">1.4</span> Aggregating the data</h2>
-<p>With <strong>dplyr</strong> you can <strong>aggregate</strong> by groups (e.g.&nbsp;totals, means). Example: add a total population per commune, then show the top 10 communes by total population; or summarize across all rows (e.g.&nbsp;national totals by category).</p>
+<p>What happens:</p>
+<ul>
+<li><code>mutate()</code> adds two analysis variables: total size and adult proportion.</li>
+<li><code>arrange(desc(...))</code> ranks communes from largest to smallest.</li>
+<li><code>select()</code> keeps only the most relevant columns for interpretation.</li>
+</ul>
+<p>This block computes one-row summary statistics across all communes.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Total population per commune (using the pipe)</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>pop <span class="sc">|&gt;</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> FEMMES_MINEURES <span class="sc">+</span> HOMMES_MINEURS <span class="sc">+</span> FEMMES_MAJEURES <span class="sc">+</span> HOMMES_MAJEURS</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total)) <span class="sc">|&gt;</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(COMMUNE_NOM, total) <span class="sc">|&gt;</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pop_totals <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_commune_population =</span> <span class="fu">mean</span>(total_population),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_commune_population =</span> <span class="fu">median</span>(total_population),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_commune_population =</span> <span class="fu">min</span>(total_population),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_commune_population =</span> <span class="fu">max</span>(total_population)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 2
-   COMMUNE_NOM         total
-   &lt;chr&gt;               &lt;dbl&gt;
- 1 "Luxembourg"       137663
- 2 "Esch-sur-Alzette"  38269
- 3 "Differdange"       31420
- 4 "Dudelange"         22377
- 5 "P\xe9tange"        21290
- 6 "Sanem"             19609
- 7 "Hesperange"        17260
- 8 "Schifflange"       11678
- 9 "Bettembourg"       11652
-10 "Mamer"             11582</code></pre>
+<pre><code># A tibble: 1 × 4
+  mean_commune_population median_commune_population min_commune_population
+                    &lt;dbl&gt;                     &lt;dbl&gt;                  &lt;dbl&gt;
+1                   6774.                      3427                      2
+# ℹ 1 more variable: max_commune_population &lt;dbl&gt;</code></pre>
 </div>
 </div>
+<p>What happens:</p>
+<ul>
+<li><code>summarise()</code> reduces many rows to one row.</li>
+<li>We compute central tendency (<code>mean</code>, <code>median</code>) and range (<code>min</code>, <code>max</code>).</li>
+<li>This gives a fast statistical profile before plotting.</li>
+</ul>
+<p>This block visualizes the top 20 communes with a horizontal bar chart.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-row summary: national totals by category (sum across all communes)</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>pop <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">femmes_mineures =</span> <span class="fu">sum</span>(FEMMES_MINEURES),</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">hommes_mineurs  =</span> <span class="fu">sum</span>(HOMMES_MINEURS),</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">femmes_majeures =</span> <span class="fu">sum</span>(FEMMES_MAJEURES),</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">hommes_majeurs  =</span> <span class="fu">sum</span>(HOMMES_MAJEURS),</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">total          =</span> <span class="fu">sum</span>(FEMMES_MINEURES <span class="sc">+</span> HOMMES_MINEURS <span class="sc">+</span> FEMMES_MAJEURES <span class="sc">+</span> HOMMES_MAJEURS)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pop_totals <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_population)) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">20</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">COMMUNE_NOM =</span> <span class="fu">fct_reorder</span>(COMMUNE_NOM, total_population)) <span class="sc">|&gt;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> total_population, <span class="at">y =</span> COMMUNE_NOM)) <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Top 20 communes by population"</span>,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Population"</span>,</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-02_files/figure-html/csv-plot-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What happens:</p>
+<ul>
+<li><code>slice_head(n = 20)</code> keeps only the top communes.</li>
+<li><code>fct_reorder()</code> orders labels by population so the chart is readable.</li>
+<li><code>geom_col()</code> displays already-aggregated values.</li>
+</ul>
+</section>
+<section id="exercises-csv" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="exercises-csv"><span class="header-section-number">2.3</span> Exercises (CSV)</h2>
+<ol type="1">
+<li>Compute the total number of minors (<code>FEMMES_MINEURES + HOMMES_MINEURS</code>) per commune and list the top 15 communes.</li>
+<li>Add a variable <code>female_share</code> = total females / total population, then report the 10 communes with the highest <code>female_share</code>.</li>
+<li>Create a histogram of <code>total_population</code> and briefly describe its shape.</li>
+</ol>
+</section>
+</section>
+<section id="part-2-gutenberg-text-with-tidytext" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part 2 — Gutenberg text with tidytext</h1>
+<p>We use <a href="https://www.tidytextmining.com/tidytext"><code>tidytext</code></a> ideas: convert text to <strong>one-token-per-row</strong>, remove stop words, and compare frequencies.</p>
+<section id="download-and-tokenize-gutenberg-texts" class="level2 scrollable" data-number="3.1">
+<h2 class="scrollable anchored" data-number="3.1" data-anchor-id="download-and-tokenize-gutenberg-texts"><span class="header-section-number">3.1</span> Download and tokenize Gutenberg texts</h2>
+<p>This block downloads two books from Project Gutenberg, including title metadata.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>gutenberg_books <span class="ot">&lt;-</span> <span class="fu">gutenberg_download</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">1342</span>), <span class="co"># Alice in Wonderland, Pride and Prejudice</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">meta_fields =</span> <span class="st">"title"</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>gutenberg_books</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 5
-  femmes_mineures hommes_mineurs femmes_majeures hommes_majeurs  total
-            &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;
-1           63118          66173          280678         280980 690949</code></pre>
+<pre><code># A tibble: 21,289 × 3
+   gutenberg_id text             title                           
+          &lt;int&gt; &lt;chr&gt;            &lt;chr&gt;                           
+ 1           11 "[Illustration]" Alice's Adventures in Wonderland
+ 2           11 "[Illustration]" Alice's Adventures in Wonderland
+ 3           11 ""               Alice's Adventures in Wonderland
+ 4           11 ""               Alice's Adventures in Wonderland
+ 5           11 ""               Alice's Adventures in Wonderland
+ 6           11 ""               Alice's Adventures in Wonderland
+ 7           11 ""               Alice's Adventures in Wonderland
+ 8           11 ""               Alice's Adventures in Wonderland
+ 9           11 ""               Alice's Adventures in Wonderland
+10           11 ""               Alice's Adventures in Wonderland
+# ℹ 21,279 more rows</code></pre>
 </div>
 </div>
-</section>
-</section>
-<section id="import-lod-dictionary-data-xml" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Import LOD dictionary data (XML)</h1>
-<section id="getting-the-file" class="level2 scrollable" data-number="2.1">
-<h2 class="scrollable anchored" data-number="2.1" data-anchor-id="getting-the-file"><span class="header-section-number">2.1</span> Getting the file</h2>
-<p>The LOD linguistic dataset is published as <strong>open data</strong> by the Luxembourg government (Zenter fir d’Lëtzebuerger Sprooch) under <strong>CC0</strong> (<a href="https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b">LOD – Linguistesch Daten (resource)</a>). Download the zip, extract it, and place the XML file (<code>new_lod-art.xml</code>, ~74 MB) in a folder in your project (e.g.&nbsp;<code>data/</code>).</p>
-<p><strong>Install once:</strong> <code>install.packages("xml2")</code>. Then load with <code>library(xml2)</code>.</p>
-</section>
-<section id="reading-the-xml-file" class="level2 scrollable" data-number="2.2">
-<h2 class="scrollable anchored" data-number="2.2" data-anchor-id="reading-the-xml-file"><span class="header-section-number">2.2</span> Reading the XML file</h2>
+<p>What happens:</p>
+<ul>
+<li><code>gutenberg_download()</code> retrieves cleaned text (header/footer removed).</li>
+<li>Each row is one line of text, with <code>gutenberg_id</code> and <code>title</code>.</li>
+<li>The table is now ready for tokenization.</li>
+</ul>
+<p>This block converts lines into words and removes stop words.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'xml2' was built under R version 4.5.2</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>tokens <span class="ot">&lt;-</span> gutenberg_books <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="fu">join_by</span>(word))</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>tokens</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 56,573 × 3
+   gutenberg_id title                            word        
+          &lt;int&gt; &lt;chr&gt;                            &lt;chr&gt;       
+ 1           11 Alice's Adventures in Wonderland illustration
+ 2           11 Alice's Adventures in Wonderland illustration
+ 3           11 Alice's Adventures in Wonderland alice’s     
+ 4           11 Alice's Adventures in Wonderland adventures  
+ 5           11 Alice's Adventures in Wonderland wonderland  
+ 6           11 Alice's Adventures in Wonderland alice’s     
+ 7           11 Alice's Adventures in Wonderland adventures  
+ 8           11 Alice's Adventures in Wonderland wonderland  
+ 9           11 Alice's Adventures in Wonderland lewis       
+10           11 Alice's Adventures in Wonderland carroll     
+# ℹ 56,563 more rows</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to the XML file (e.g. in data/; adjust if your file is elsewhere)</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>lod_xml_path <span class="ot">&lt;-</span> <span class="st">"new_lod-art.xml"</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read XML from the folder</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>lod_xml <span class="ot">&lt;-</span> <span class="fu">read_xml</span>(lod_xml_path)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Root element</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_name</span>(lod_xml)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>What happens:</p>
+<ul>
+<li><code>unnest_tokens(word, text)</code> turns each line into multiple word rows.</li>
+<li>Tokens are lowercase by default and punctuation is removed.</li>
+<li><code>anti_join()</code> removes common function words (<code>the</code>, <code>and</code>, etc.).</li>
+</ul>
+</section>
+<section id="explore-word-frequencies" class="level2 scrollable" data-number="3.2">
+<h2 class="scrollable anchored" data-number="3.2" data-anchor-id="explore-word-frequencies"><span class="header-section-number">3.2</span> Explore word frequencies</h2>
+<p>This block counts how often each word appears in each title.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>top_words <span class="ot">&lt;-</span> tokens <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(title, word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>top_words <span class="sc">|&gt;</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(title) <span class="sc">|&gt;</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">15</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 30 × 3
+   title                            word        n
+   &lt;chr&gt;                            &lt;chr&gt;   &lt;int&gt;
+ 1 Alice's Adventures in Wonderland alice     772
+ 2 Alice's Adventures in Wonderland time      142
+ 3 Alice's Adventures in Wonderland queen     136
+ 4 Alice's Adventures in Wonderland king      122
+ 5 Alice's Adventures in Wonderland don’t     120
+ 6 Alice's Adventures in Wonderland it’s      114
+ 7 Alice's Adventures in Wonderland mock      114
+ 8 Alice's Adventures in Wonderland i’m       112
+ 9 Alice's Adventures in Wonderland turtle    112
+10 Alice's Adventures in Wonderland gryphon   110
+# ℹ 20 more rows</code></pre>
+</div>
+</div>
+<p>What happens:</p>
+<ul>
+<li><code>count(title, word)</code> computes frequencies per book.</li>
+<li><code>sort = TRUE</code> returns highest counts first.</li>
+<li>Grouping + <code>slice_head()</code> keeps the top words for each book.</li>
+</ul>
+<p>This block visualizes top words by title in faceted panels.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>top_words <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(title) <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">12</span>) <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">fct_reorder</span>(word, n)) <span class="sc">|&gt;</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> word, <span class="at">fill =</span> title)) <span class="sc">+</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(title), <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Most frequent non-stopwords per Gutenberg book"</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Count"</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-02_files/figure-html/gutenberg-plot-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What happens:</p>
+<ul>
+<li>We plot only the top 12 words for readability.</li>
+<li><code>facet_wrap()</code> produces one panel per book.</li>
+<li>Students can compare lexical profiles side by side.</li>
+</ul>
+</section>
+<section id="compare-distinctive-words-with-tf-idf" class="level2 scrollable" data-number="3.3">
+<h2 class="scrollable anchored" data-number="3.3" data-anchor-id="compare-distinctive-words-with-tf-idf"><span class="header-section-number">3.3</span> Compare distinctive words with tf-idf</h2>
+<p>This block computes tf-idf to highlight words that are frequent in one book but less frequent in the others.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>book_tfidf <span class="ot">&lt;-</span> tokens <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(title, word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_tf_idf</span>(word, title, n) <span class="sc">|&gt;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf))</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>book_tfidf <span class="sc">|&gt;</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(title) <span class="sc">|&gt;</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, word, n, tf_idf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 4
+   title                            word          n  tf_idf
+   &lt;chr&gt;                            &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;
+ 1 Alice's Adventures in Wonderland alice       772 0.0317 
+ 2 Alice's Adventures in Wonderland queen       136 0.00559
+ 3 Alice's Adventures in Wonderland it’s        114 0.00468
+ 4 Alice's Adventures in Wonderland mock        114 0.00468
+ 5 Alice's Adventures in Wonderland turtle      112 0.00460
+ 6 Alice's Adventures in Wonderland gryphon     110 0.00452
+ 7 Alice's Adventures in Wonderland hatter      110 0.00452
+ 8 Alice's Adventures in Wonderland rabbit       98 0.00403
+ 9 Alice's Adventures in Wonderland mouse        86 0.00353
+10 Alice's Adventures in Wonderland dormouse     78 0.00320
+11 Pride and Prejudice              elizabeth   605 0.0106 
+12 Pride and Prejudice              darcy       383 0.00669
+13 Pride and Prejudice              bennet      309 0.00540
+14 Pride and Prejudice              jane        273 0.00477
+15 Pride and Prejudice              bingley     262 0.00457
+16 Pride and Prejudice              wickham     168 0.00293
+17 Pride and Prejudice              collins     167 0.00292
+18 Pride and Prejudice              lydia       136 0.00237
+19 Pride and Prejudice              catherine   116 0.00203
+20 Pride and Prejudice              mother      112 0.00196</code></pre>
+</div>
+</div>
+<p>What happens:</p>
+<ul>
+<li><code>bind_tf_idf()</code> adds <code>tf</code>, <code>idf</code>, and <code>tf_idf</code> columns.</li>
+<li>High <code>tf_idf</code> values indicate distinctive vocabulary.</li>
+<li>This is often more informative than raw frequency alone.</li>
+</ul>
+</section>
+<section id="exercises-gutenberg-tidytext" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="exercises-gutenberg-tidytext"><span class="header-section-number">3.4</span> Exercises (Gutenberg + tidytext)</h2>
+<ol type="1">
+<li>Download one additional Gutenberg text (choose one ID yourself), tokenize it, and compute the top 20 non-stopwords.</li>
+<li>Build a three-book dataset (<code>bind_rows()</code>), then compare top words across books with a faceted bar plot.</li>
+<li>Compute tf-idf for the three-book dataset and interpret two high tf-idf words per book.</li>
+<li>Compute bigrams (<code>token = "ngrams", n = 2</code>) for one selected book and list the 20 most frequent bigrams after removing rows that contain stop words.</li>
+<li>For each of the three books, compute lexical diversity as <code>n_distinct(word) / n()</code> and compare the values.</li>
+</ol>
+</section>
+</section>
+<section id="part-3-xml-data-lod-dictionary" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Part 3 — XML data (LOD dictionary)</h1>
+<p>The LOD XML file can be downloaded from the Luxembourg open data portal (<a href="https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b">LOD resource</a>).</p>
+<section id="read-xml-and-inspect-structure" class="level2 scrollable" data-number="4.1">
+<h2 class="scrollable anchored" data-number="4.1" data-anchor-id="read-xml-and-inspect-structure"><span class="header-section-number">4.1</span> Read XML and inspect structure</h2>
+<p>This block parses the XML file and checks basic structure.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>lod_xml_path <span class="ot">&lt;-</span> <span class="fu">resolve_path</span>(<span class="st">"new_lod-art.xml"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>lod_xml <span class="ot">&lt;-</span> <span class="fu">read_xml</span>(lod_xml_path)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_name</span>(lod_xml)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "lod"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_children</span>(lod_xml) <span class="sc">|&gt;</span> <span class="fu">length</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_all</span>(lod_xml, <span class="st">"//entry"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 33737</code></pre>
 </div>
 </div>
-</section>
-<section id="structure-of-the-lod-xml" class="level2 scrollable" data-number="2.3">
-<h2 class="scrollable anchored" data-number="2.3" data-anchor-id="structure-of-the-lod-xml"><span class="header-section-number">2.3</span> Structure of the LOD XML</h2>
-<p>The document has a single root element <code>&lt;lod&gt;</code>, which contains many <strong><code>&lt;entry&gt;</code></strong> elements. Each entry has a lemma, pronunciation, grammatical structure, meanings, translations, and examples.</p>
-</section>
-<section id="how-xpath-works" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="how-xpath-works"><span class="header-section-number">2.4</span> How XPath works</h2>
-<p><strong>XPath</strong> selects nodes in the XML tree. In R, use <code>xml_find_first()</code> (one match) and <code>xml_find_all()</code> (all matches).</p>
+<p>What happens:</p>
+<ul>
+<li><code>read_xml()</code> loads the XML tree into memory.</li>
+<li><code>xml_name()</code> identifies the root node.</li>
+<li>Counting <code>//entry</code> gives a first estimate of lexicon size.</li>
+</ul>
+<p>XPath quick reminder:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 59%">
+<col style="width: 40%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>XPath</th>
 <th>Meaning</th>
-<th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><code>//entry</code></td>
-<td>any <code>entry</code> in document</td>
 <td>all entries</td>
 </tr>
 <tr class="even">
 <td><code>.//lemma</code></td>
-<td>lemma under current node</td>
-<td>current entry lemma</td>
+<td>lemma under current entry</td>
 </tr>
 <tr class="odd">
-<td><code>.//meaning/examples/example</code></td>
-<td>examples under meanings</td>
-<td>all examples for an entry</td>
+<td><code>.//ipa</code></td>
+<td>IPA node under current entry</td>
 </tr>
 <tr class="even">
-<td><code>targetLanguage[@lang='en']</code></td>
-<td>attribute filter</td>
-<td>English translation nodes</td>
+<td><code>.//targetLanguage[@lang='en']/translation</code></td>
+<td>English translations</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="inspecting-one-entry-in-r" class="level2 scrollable" data-number="2.5">
-<h2 class="scrollable anchored" data-number="2.5" data-anchor-id="inspecting-one-entry-in-r"><span class="header-section-number">2.5</span> Inspecting one entry in R</h2>
+<section id="build-a-tidy-tibble-from-xml" class="level2 scrollable" data-number="4.2">
+<h2 class="scrollable anchored" data-number="4.2" data-anchor-id="build-a-tidy-tibble-from-xml"><span class="header-section-number">4.2</span> Build a tidy tibble from XML</h2>
+<p>This block converts XML nodes into a tidy one-row-per-entry table.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>first_entry <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(lod_xml, <span class="st">"//entry"</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_first</span>(first_entry, <span class="st">".//lemma"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_text</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full extraction over all entries is computationally heavy.</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We keep classroom render fast by using a sample.</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>entry_nodes <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(lod_xml, <span class="st">"//entry"</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>sample_n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>entry_idx <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(<span class="fu">length</span>(entry_nodes), <span class="at">size =</span> sample_n)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>entry_sample <span class="ot">&lt;-</span> entry_nodes[entry_idx]</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>extract_entry <span class="ot">&lt;-</span> <span class="cf">function</span>(entry_node) {</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  en_translations <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    entry_node,</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">".//meaning/targetLanguage[@lang='en']/translation"</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xml_text</span>()</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">lemma =</span> <span class="fu">xml_find_first</span>(entry_node, <span class="st">".//lemma"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_text</span>(),</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">ipa =</span> <span class="fu">xml_find_first</span>(entry_node, <span class="st">".//ipa"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_text</span>(),</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_en_translations =</span> <span class="fu">length</span>(en_translations),</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">first_en_translation =</span> en_translations <span class="sc">|&gt;</span> <span class="fu">first</span>(<span class="at">default =</span> <span class="cn">NA_character_</span>)</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>lod_entries <span class="ot">&lt;-</span> entry_sample <span class="sc">|&gt;</span></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(extract_entry) <span class="sc">|&gt;</span></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>()</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>lod_entries <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "A"</code></pre>
+<pre><code># A tibble: 20 × 4
+   lemma         ipa             n_en_translations first_en_translation    
+   &lt;chr&gt;         &lt;chr&gt;                       &lt;int&gt; &lt;chr&gt;                   
+ 1 Efeu          ˈeːfɔɪ                          0 &lt;NA&gt;                    
+ 2 Antigel       ˈɑ̃ːtiʒæl                        1 antifreeze              
+ 3 vunenaner     funənˈaːnɐ                      0 &lt;NA&gt;                    
+ 4 Pyjama        pˈiʒɑmaː                        1 pyjamas                 
+ 5 mengetweegen  mˈeŋətveːʑən                    1 as far as I am concerned
+ 6 Gabun         ɡɑbˈuːn                         1 Gabon                   
+ 7 Zougrëff      tsˈəʊɡʀəf                       1 access                  
+ 8 kuerzzäiteg   kˈuːɐ̯tstsæːɪtəɕ                 0 &lt;NA&gt;                    
+ 9 Stimulatioun  ʃtimulɑsi̯ˈəʊn                   1 stimulation             
+10 Turnprofesser tˈuʀnpʀofæsɐ                    1 PE teacher              
+11 tweeten       twˈiːtən                        0 &lt;NA&gt;                    
+12 aseefen       ˈɑzeːfən                        2 to soap                 
+13 Comptabel     kɔ̃ːtˈaːbəl                      2 accountant              
+14 Wunnberäich   &lt;NA&gt;                            0 &lt;NA&gt;                    
+15 fistbumpen    &lt;NA&gt;                            0 &lt;NA&gt;                    
+16 dowéinst      doːvˈɜɪnst                      2 that's why              
+17 foneetesch    fonˈeːtəʃ                       0 &lt;NA&gt;                    
+18 schniewelen   ʃnˈiəvələn                      0 &lt;NA&gt;                    
+19 Entrée        ˈɑ̃ːtʀeː                         6 entrance                
+20 Slogan        slˈoɡɑ̃ː                         1 slogan                  </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_first</span>(first_entry, <span class="st">".//ipa"</span>)   <span class="sc">|&gt;</span> <span class="fu">xml_text</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>What happens:</p>
+<ul>
+<li>We extract all <code>entry</code> nodes, then draw a random sample of up to 1,000 for speed.</li>
+<li>We extract <code>lemma</code> and <code>ipa</code> directly with <code>xml_find_first() |&gt; xml_text()</code>.</li>
+<li><code>map(...) |&gt; list_rbind()</code> applies extraction to each sampled entry and combines results.</li>
+</ul>
+<p>If you want to run the full extraction outside class time:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>lod_entries_full <span class="ot">&lt;-</span> entry_nodes <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(extract_entry) <span class="sc">|&gt;</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This block computes simple coverage diagnostics.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>lod_entries <span class="sc">|&gt;</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_entries =</span> <span class="fu">n</span>(),</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_ipa =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(ipa)),</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">entries_with_en =</span> <span class="fu">sum</span>(n_en_translations <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "aː"</code></pre>
+<pre><code># A tibble: 1 × 3
+  n_entries missing_ipa entries_with_en
+      &lt;int&gt;       &lt;int&gt;           &lt;int&gt;
+1      1000         133             758</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xml_find_all</span>(first_entry, <span class="st">".//meaning/targetLanguage[@lang='en']/translation"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_text</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>What happens:</p>
+<ul>
+<li><code>n_entries</code> counts total rows.</li>
+<li><code>missing_ipa</code> checks data completeness.</li>
+<li><code>entries_with_en</code> indicates translation coverage.</li>
+</ul>
+<p>This block lists the most common first English translations.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>lod_entries <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(first_en_translation)) <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(first_en_translation, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "eye"               "black eye"         "glass eye"        
- [4] "ocular prosthetic" "to make aware of"  "to show"          
- [7] "to demonstrate"    "fat globule"       "eye"              
-[10] "bud"               "pip"               "spot"             </code></pre>
+<pre><code># A tibble: 20 × 2
+   first_en_translation       n
+   &lt;chr&gt;                  &lt;int&gt;
+ 1 Mozambican                 2
+ 2 Samoan                     2
+ 3 Ugandan                    2
+ 4 access                     2
+ 5 accountant                 2
+ 6 bath                       2
+ 7 expert                     2
+ 8 steam                      2
+ 9 to chirp                   2
+10 to help out                2
+11 to rinse                   2
+12 to slip away               2
+13 to thunder                 2
+14 (Ferme de) Niedert         1
+15 (case of) death            1
+16 (female) enemy             1
+17 (grape)vine                1
+18 (middle) ear infection     1
+19 (substitutes') bench       1
+20 (swimming) pool            1</code></pre>
 </div>
 </div>
+<p>What happens:</p>
+<ul>
+<li>Missing translations are filtered out.</li>
+<li>Frequencies are counted and ranked.</li>
+<li>This provides a quick lexical overview of translation labels.</li>
+</ul>
 </section>
-<section id="exploring-the-examples-section" class="level2 scrollable" data-number="2.6">
-<h2 class="scrollable anchored" data-number="2.6" data-anchor-id="exploring-the-examples-section"><span class="header-section-number">2.6</span> Exploring the examples section</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>get_sentence <span class="ot">&lt;-</span> <span class="cf">function</span>(ex) {</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  text_node <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(ex, <span class="st">".//text"</span>)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">inherits</span>(text_node, <span class="st">"xml_missing"</span>)) <span class="fu">return</span>(<span class="cn">NA_character_</span>)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  tokens <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(text_node, <span class="st">"./*"</span>)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="fu">xml_text</span>(tokens), <span class="at">collapse =</span> <span class="st">" "</span>)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>all_entries <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(lod_xml, <span class="st">"//entry"</span>)</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>sampled <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">length</span>(all_entries), <span class="fu">min</span>(<span class="dv">30</span>, <span class="fu">length</span>(all_entries)))</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>rows <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(sampled)) {</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  entry <span class="ot">&lt;-</span> all_entries[[sampled[i]]]</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>  lemma <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(entry, <span class="st">".//lemma"</span>) <span class="sc">|&gt;</span> <span class="fu">xml_text</span>()</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>  exs <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(entry, <span class="st">".//meaning/examples/example"</span>)</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  exs <span class="ot">&lt;-</span> exs[<span class="dv">1</span><span class="sc">:</span><span class="fu">min</span>(<span class="dv">2</span>, <span class="fu">length</span>(exs))]</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (ex <span class="cf">in</span> exs) {</span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    sent <span class="ot">&lt;-</span> <span class="fu">get_sentence</span>(ex)</span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(sent) <span class="sc">&amp;&amp;</span> <span class="fu">nchar</span>(sent) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>      rows[[<span class="fu">length</span>(rows) <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">lemma =</span> lemma, <span class="at">sentence =</span> sent)</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>lod_examples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">lemma =</span> <span class="fu">vapply</span>(rows, <span class="cf">function</span>(r) r<span class="sc">$</span>lemma, <span class="fu">character</span>(<span class="dv">1</span>)),</span>
-<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">sentence =</span> <span class="fu">vapply</span>(rows, <span class="cf">function</span>(r) r<span class="sc">$</span>sentence, <span class="fu">character</span>(<span class="dv">1</span>))</span>
-<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>lod_examples</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 34 × 2
-   lemma        sentence                                                        
-   &lt;chr&gt;        &lt;chr&gt;                                                           
- 1 Belsch       meng bescht Frëndin ass Belsch                                  
- 2 Urbanistin   d' Urbanistin schafft Mesuren aus, déi zur Berouegung vum Trafi…
- 3 befalen      bei waarmem, fiichtem Wieder ginn d' Riewen nawell gär vun enge…
- 4 Finanzwiesen d' EU fuerdert méi eng streng Reglementatioun vum europäesche F…
- 5 Finanzwiesen als Ekonomistin hues de gutt Chancen, am Finanzwiesen eng Aarbe…
- 6 Virbau       wéi mir d' Haus renovéiert hunn, hu mer eisen Hall duerch e Vir…
- 7 Interferenz  fir Interferenzen tëschent den elektreschen Apparater ze vermei…
- 8 Interferenz  bei Kanner, déi méisproocheg opwuessen, kënnt et dacks zu sproo…
- 9 Kärebrout    eise Bäcker mécht wonnerbaart Kärebrout                         
-10 Kärebrout    kanns de nach zwee Kärebrout bei de Bäcker siche goen?          
-# ℹ 24 more rows</code></pre>
-</div>
-</div>
-</section>
-<section id="hands-on-exercises" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="hands-on-exercises"><span class="header-section-number">2.7</span> Hands-on exercises</h2>
+<section id="exercises-xml-lod" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="exercises-xml-lod"><span class="header-section-number">4.3</span> Exercises (XML / LOD)</h2>
 <ol type="1">
-<li>Read <code>rnrpp-population-commune.csv</code> and compute total population per commune.</li>
-<li>For LOD XML, extract lemma and first English translation for 10 entries.</li>
-<li>Build a tibble of random example sentences (lemma + sentence) and count rows per lemma.</li>
+<li>Extract a tibble with columns <code>lemma</code>, <code>ipa</code>, and <code>n_examples</code> (number of <code>&lt;example&gt;</code> nodes per entry).</li>
+<li>Create a table of the 25 most common first English translations and discuss why this summary may be linguistically limited.</li>
+<li>Sample 30 entries with at least one English translation and inspect whether <code>lemma</code> and <code>first_en_translation</code> appear semantically aligned.</li>
+<li>Create a summary table of average, median, and maximum <code>n_examples</code> across sampled entries.</li>
+<li>Build a filtered table of entries with both an IPA value and at least one English translation, and report the share of sampled entries that satisfy both conditions.</li>
 </ol>
-
-
 </section>
+</section>
+<section id="solutions" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Solutions</h1>
+<p>Explained solutions for all exercise blocks are in <code>sessions/session-02-solutions.qmd</code>.</p>
+
+
 </section>
 
 </main> <!-- /main -->

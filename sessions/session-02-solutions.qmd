@@ -1,0 +1,524 @@
+---
+title: "Session 2 — Exercise solutions"
+subtitle: "Language Analytics in R"
+author: "Peter Gilles"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: false
+editor: visual
+---
+
+## How to use this file
+
+This document contains explained solutions for the exercises in `sessions/session-02.qmd`.
+
+```{r}
+#| label: setup
+#| message: false
+
+library(tidyverse)
+library(tidytext)
+library(gutenbergr)
+library(xml2)
+
+resolve_path <- function(filename) {
+  if (file.exists(filename)) {
+    filename
+  } else {
+    file.path("sessions", filename)
+  }
+}
+```
+
+# CSV exercises — solutions
+
+## Exercise 1
+
+**Task:** Compute the total number of minors per commune and list the top 15.
+
+```{r}
+#| label: csv-solution-1
+
+pop <- read_csv(
+  resolve_path("rnrpp-population-commune.csv"),
+  locale = locale(encoding = "ISO-8859-1"),
+  show_col_types = FALSE
+)
+
+top_minors <- pop |>
+  mutate(minors_total = FEMMES_MINEURES + HOMMES_MINEURS) |>
+  arrange(desc(minors_total)) |>
+  select(COMMUNE_NOM, minors_total) |>
+  slice_head(n = 15)
+
+top_minors
+```
+
+Why this works:
+
+-   `mutate()` creates a new variable without changing the raw input columns.
+-   `arrange(desc())` sorts from highest to lowest.
+-   `slice_head(n = 15)` keeps exactly the requested number of rows.
+
+## Exercise 2
+
+**Task:** Add `female_share` and report top 10 communes.
+
+```{r}
+#| label: csv-solution-2
+
+female_share_tbl <- pop |>
+  mutate(
+    total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS,
+    female_total = FEMMES_MINEURES + FEMMES_MAJEURES,
+    female_share = female_total / total_population
+  ) |>
+  arrange(desc(female_share)) |>
+  select(COMMUNE_NOM, total_population, female_share) |>
+  slice_head(n = 10)
+
+female_share_tbl
+```
+
+Interpretation note:
+
+-   `female_share` is a proportion between 0 and 1.
+-   For reporting, you can add `mutate(female_share_pct = scales::percent(female_share))`.
+
+## Exercise 3
+
+**Task:** Plot a histogram of commune population and describe the shape.
+
+```{r}
+#| label: csv-solution-3
+#| fig-width: 8
+#| fig-height: 5
+
+pop |>
+  mutate(total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS) |>
+  ggplot(aes(x = total_population)) +
+  geom_histogram(bins = 25, fill = "steelblue", color = "white") +
+  labs(
+    title = "Distribution of commune population",
+    x = "Population per commune",
+    y = "Number of communes"
+  )
+```
+
+Expected interpretation:
+
+-   The histogram is typically right-skewed.
+-   Most communes have relatively smaller populations, with a few much larger communes.
+
+## Exercise 4
+
+**Task:** Compute z-scores of `total_population` and list communes with `z_population > 2`.
+
+```{r}
+#| label: csv-solution-4
+
+pop_z <- pop |>
+  mutate(
+    total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS,
+    z_population = as.numeric(scale(total_population))
+  )
+
+pop_z |>
+  filter(z_population > 2) |>
+  arrange(desc(z_population)) |>
+  select(COMMUNE_NOM, total_population, z_population)
+```
+
+Why this works:
+
+-   `scale()` standardizes values to mean 0 and standard deviation 1.
+-   `z_population > 2` identifies unusually large communes relative to the full distribution.
+
+## Exercise 5
+
+**Task:** Plot `total_population` vs `adult_share` and describe the pattern.
+
+```{r}
+#| label: csv-solution-5
+#| fig-width: 8
+#| fig-height: 5
+
+pop |>
+  mutate(
+    total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS,
+    adult_share = (FEMMES_MAJEURES + HOMMES_MAJEURS) / total_population
+  ) |>
+  ggplot(aes(x = total_population, y = adult_share)) +
+  geom_point(alpha = 0.7, color = "steelblue") +
+  geom_smooth(method = "lm", se = FALSE, color = "firebrick") +
+  labs(
+    title = "Adult share vs commune population",
+    x = "Total population",
+    y = "Adult share"
+  )
+```
+
+Interpretation note:
+
+-   Use the regression line as a rough trend indicator.
+-   In many datasets, adult share varies only moderately across commune size.
+
+# Gutenberg + tidytext exercises — solutions
+
+First build the baseline token table:
+
+```{r}
+#| label: text-base
+#| message: false
+
+base_books <- gutenberg_download(c(11, 1342), meta_fields = "title")
+base_books <- base_books |>
+  filter(
+    is.na(lag(text)) | text != lag(text),
+    .by = gutenberg_id
+  )
+
+base_tokens <- base_books |>
+  unnest_tokens(word, text) |>
+  anti_join(stop_words, by = join_by(word))
+```
+
+## Exercise 1
+
+**Task:** Add one extra Gutenberg text and compute top 20 non-stopwords.
+
+```{r}
+#| label: text-solution-1
+
+extra_book <- gutenberg_download(84, meta_fields = "title") # Frankenstein
+extra_book <- extra_book |>
+  filter(
+    is.na(lag(text)) | text != lag(text),
+    .by = gutenberg_id
+  )
+
+extra_top_words <- extra_book |>
+  unnest_tokens(word, text) |>
+  anti_join(stop_words, by = join_by(word)) |>
+  count(title, word, sort = TRUE) |>
+  slice_head(n = 20)
+
+extra_top_words
+```
+
+Why this works:
+
+-   `unnest_tokens()` creates one-token-per-row format.
+-   `anti_join(stop_words, by = join_by(word))` removes common function words.
+-   `count(sort = TRUE)` yields frequency ranking directly.
+
+## Exercise 2
+
+**Task:** Build a three-book dataset and compare top words.
+
+```{r}
+#| label: text-solution-2
+#| fig-width: 10
+#| fig-height: 6
+
+extra_tokens <- extra_book |>
+  unnest_tokens(word, text) |>
+  anti_join(stop_words, by = join_by(word))
+
+three_book_tokens <- bind_rows(base_tokens, extra_tokens)
+
+three_top <- three_book_tokens |>
+  count(title, word, sort = TRUE) |>
+  group_by(title) |>
+  slice_head(n = 12) |>
+  ungroup()
+
+three_top |>
+  mutate(word = fct_reorder(word, n)) |>
+  ggplot(aes(x = n, y = word, fill = title)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(title), scales = "free_y") +
+  labs(
+    title = "Top words in three Gutenberg books",
+    x = "Count",
+    y = NULL
+  )
+```
+
+Interpretation note:
+
+-   Shared high-frequency content words may reflect common literary vocabulary.
+-   Distinctive words often point to characters, setting, or genre themes.
+
+## Exercise 3
+
+**Task:** Compute tf-idf and interpret high tf-idf words.
+
+```{r}
+#| label: text-solution-3
+
+three_tfidf <- three_book_tokens |>
+  count(title, word, sort = TRUE) |>
+  bind_tf_idf(word, title, n) |>
+  arrange(desc(tf_idf))
+
+three_tfidf |>
+  group_by(title) |>
+  slice_head(n = 10) |>
+  ungroup() |>
+  select(title, word, n, tf_idf)
+```
+
+Interpretation guideline:
+
+-   High tf-idf means a word is frequent in one text but not frequent across all texts.
+-   Character names and topic-specific words are common high tf-idf candidates.
+
+## Exercise 4
+
+**Task:** Compute bigrams for one selected book and list frequent non-stopword bigrams.
+
+```{r}
+#| label: text-solution-4
+
+book_bigrams <- extra_book |>
+  unnest_tokens(bigram, text, token = "ngrams", n = 2) |>
+  separate_wider_delim(bigram, delim = " ", names = c("word1", "word2")) |>
+  filter(!is.na(word1), !is.na(word2)) |>
+  anti_join(stop_words, by = join_by(word1 == word)) |>
+  anti_join(stop_words, by = join_by(word2 == word)) |>
+  count(word1, word2, sort = TRUE)
+
+book_bigrams |>
+  mutate(bigram = str_c(word1, word2, sep = " ")) |>
+  select(bigram, n) |>
+  slice_head(n = 20)
+```
+
+Why this works:
+
+-   `token = "ngrams", n = 2` produces adjacent two-word sequences.
+-   Removing stop words from both positions highlights more semantic phrases.
+
+## Exercise 5
+
+**Task:** Compare lexical diversity across the three books.
+
+```{r}
+#| label: text-solution-5
+
+three_book_tokens |>
+  summarise(
+    total_tokens = n(),
+    unique_tokens = n_distinct(word),
+    lexical_diversity = unique_tokens / total_tokens,
+    .by = title
+  ) |>
+  arrange(desc(lexical_diversity))
+```
+
+Interpretation note:
+
+-   Higher lexical diversity means a larger share of unique words.
+-   The metric is sensitive to document length and genre.
+
+# XML / LOD exercises — solutions
+
+Build a reusable entry table:
+
+```{r}
+#| label: xml-base
+#| message: false
+
+lod_xml <- read_xml(resolve_path("new_lod-art.xml"))
+entry_nodes <- xml_find_all(lod_xml, "//entry")
+set.seed(42)
+sample_n <- min(1000, length(entry_nodes))
+entry_idx <- sample.int(length(entry_nodes), size = sample_n)
+entry_sample <- entry_nodes[entry_idx]
+
+node_text_or_na <- function(node, xpath) {
+  candidate <- xml_find_first(node, xpath)
+  if (inherits(candidate, "xml_missing")) {
+    NA_character_
+  } else {
+    xml_text(candidate)
+  }
+}
+```
+
+For teaching speed, the solutions below use `entry_sample` (up to 1,000 random entries), not the full XML.
+
+```{r}
+#| label: xml-full-note
+#| eval: false
+
+# Full run (slow, often many minutes):
+# entry_sample <- entry_nodes
+```
+
+## Exercise 1
+
+**Task:** Extract `lemma`, `ipa`, and `n_examples`.
+
+```{r}
+#| label: xml-solution-1
+
+xml_tbl <- entry_sample |>
+  map(
+    \(entry_node) {
+      tibble(
+        lemma = node_text_or_na(entry_node, ".//lemma"),
+        ipa = node_text_or_na(entry_node, ".//ipa"),
+        n_examples = xml_find_all(entry_node, ".//meaning/examples/example") |> length()
+      )
+    }
+  ) |>
+  list_rbind()
+
+xml_tbl
+```
+
+Why this works:
+
+-   Each XML `entry` becomes exactly one tibble row.
+-   Counting `<example>` nodes captures usage richness per entry.
+
+## Exercise 2
+
+**Task:** Top 25 first English translations and discuss limits.
+
+```{r}
+#| label: xml-solution-2
+
+xml_first_translation <- entry_sample |>
+  map(
+    \(entry_node) {
+      en_translations <- xml_find_all(
+        entry_node,
+        ".//meaning/targetLanguage[@lang='en']/translation"
+      ) |>
+        xml_text()
+
+      tibble(
+        lemma = node_text_or_na(entry_node, ".//lemma"),
+        first_en_translation = en_translations |> first(default = NA_character_)
+      )
+    }
+  ) |>
+  list_rbind()
+
+xml_first_translation |>
+  filter(!is.na(first_en_translation)) |>
+  count(first_en_translation, sort = TRUE) |>
+  slice_head(n = 25)
+```
+
+Limitation discussion:
+
+-   Using only the first translation ignores polysemy and context.
+-   Different lemmas may share one broad English gloss, reducing specificity.
+-   XML ordering may be editorial rather than frequency-based.
+
+## Exercise 3
+
+**Task:** Sample 30 entries with translations and inspect semantic alignment.
+
+```{r}
+#| label: xml-solution-3
+
+set.seed(42)
+
+xml_first_translation |>
+  filter(!is.na(first_en_translation), !is.na(lemma)) |>
+  slice_sample(n = 30) |>
+  arrange(lemma)
+```
+
+Interpretation guideline:
+
+-   Check whether the English gloss is plausible for the lemma.
+-   Mark ambiguous or overly broad glosses for manual follow-up.
+
+## Exercise 4
+
+**Task:** Summarise average, median, and maximum `n_examples`.
+
+```{r}
+#| label: xml-solution-4
+
+xml_tbl |>
+  summarise(
+    mean_n_examples = mean(n_examples),
+    median_n_examples = median(n_examples),
+    max_n_examples = max(n_examples)
+  )
+```
+
+Why this works:
+
+-   `summarise()` provides compact descriptive statistics for usage examples.
+-   Comparing mean and median helps detect skewness.
+
+## Exercise 5
+
+**Task:** Keep entries with both IPA and an English translation, then compute the share.
+
+```{r}
+#| label: xml-solution-5
+
+xml_joined <- xml_tbl |>
+  left_join(
+    xml_first_translation |>
+      select(lemma, first_en_translation),
+    by = join_by(lemma)
+  ) |>
+  mutate(has_ipa_and_en = !is.na(ipa) & !is.na(first_en_translation))
+
+xml_joined |>
+  summarise(
+    n_entries = n(),
+    n_has_ipa_and_en = sum(has_ipa_and_en),
+    share_has_ipa_and_en = n_has_ipa_and_en / n_entries
+  )
+```
+
+Interpretation note:
+
+-   This gives a simple coverage metric for entries that are useful in bilingual phonological work.
+
+## Exercise 6
+
+**Task:** Extract `partofspeech` with `lemma` and list the 20 most frequent labels.
+
+```{r}
+#| label: xml-solution-6
+
+xml_pos <- entry_sample |>
+  map(
+    \(entry_node) {
+      pos_values <- xml_find_all(entry_node, ".//partofspeech") |>
+        xml_text()
+
+      tibble(
+        lemma = node_text_or_na(entry_node, ".//lemma"),
+        partofspeech = pos_values |> first(default = NA_character_)
+      )
+    }
+  ) |>
+  list_rbind()
+
+xml_pos |>
+  filter(!is.na(partofspeech), partofspeech != "") |>
+  count(partofspeech, sort = TRUE) |>
+  slice_head(n = 20)
+```
+
+Why this works:
+
+-   `xml_find_all(..., ".//partofspeech")` collects part-of-speech nodes inside each entry.
+-   `first(default = NA_character_)` keeps one value per entry and handles missing tags.
+-   `count(..., sort = TRUE)` gives a frequency profile of grammatical categories.
