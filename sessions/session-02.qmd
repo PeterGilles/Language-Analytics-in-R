@@ -31,6 +31,8 @@ Each section ends with dedicated exercises. Explained solutions are provided in 
 
 # Setup
 
+First, load the data from the GitHub repository <https://github.com/PeterGilles/Language-Analytics-in-R>. Use either the download function on GitHub or use `git clone` that will allow you to easily update the data with new versions.
+
 This block loads all packages used in this session and defines a helper function for robust file paths.
 
 ```{r}
@@ -57,7 +59,7 @@ What happens:
 -   `resolve_path()` first checks local folder, then falls back to `sessions/`.
 -   This avoids path errors when students render from different working directories.
 
-# Part 1 — CSV data
+# Part 1 — Working with CSV data
 
 ## Read and inspect CSV {.scrollable}
 
@@ -84,6 +86,30 @@ What happens:
 -   `resolve_path()` finds the file.
 -   `read_csv(..., locale = locale(encoding = \"ISO-8859-1\"))` imports text with the correct source encoding.
 -   Printing `pop` gives a quick first look at rows and columns.
+
+If your data is in Excel format (`.xlsx`) instead of CSV, use `read_excel()` from package `readxl`:
+
+```{r}
+#| label: xlsx-read-example
+#| eval: false
+
+# install.packages("readxl")   # run once if needed
+
+xlsx_path <- resolve_path("my-data.xlsx")
+
+excel_data <- readxl::read_excel(
+  xlsx_path,
+  sheet = 1
+)
+
+excel_data
+```
+
+What happens:
+
+-   `readxl::read_excel()` reads an Excel worksheet into a tibble.
+-   `sheet = 1` selects the first sheet (you can also use a sheet name).
+-   The resulting object can be used exactly like `pop` in tidyverse workflows.
 
 This block performs structural inspection (shape and variable names).
 
@@ -173,17 +199,18 @@ What happens:
 -   `fct_reorder()` orders labels by population so the chart is readable.
 -   `geom_col()` displays already-aggregated values.
 
-## Exercises (CSV)
+## Exercises
 
 1.  Compute the total number of minors (`FEMMES_MINEURES + HOMMES_MINEURS`) per commune and list the top 15 communes.
-2.  Remove the variable `COMMUNE_CODE` from the tibble.
-3.  Add a variable `female_share` = total females / total population, then report the 10 communes with the highest `female_share`.
-4.  Create a histogram of `total_population` and briefly describe its shape.
-5.  Export the tibble `pop_totals` to a csv file using `write.csv`.
+2.  Remove the variable `COMMUNE_CODE` from the tibble and rename the French variable names to English.
+3.  Filter `pop_totals` to keep only communes with an adult share below 80 %.
+4.  Add a variable `female_share` = total females / total population, then report the 10 communes with the highest `female_share`.
+5.  Create a histogram of `total_population` and briefly describe its shape.
+6.  Export the tibble `pop_totals` to a csv file using `write.csv`.
 
-# Part 2 — Gutenberg text with tidytext
+# Part 2 — Working with text data from `Project Gutenberg` using `tidytext`
 
-We use [`tidytext`](https://www.tidytextmining.com/tidytext) ideas: convert text to **one-token-per-row**, remove stop words, and compare frequencies.
+We use [`tidytext`](https://www.tidytextmining.com/tidytext) ideas: convert text to **one-token-per-row**, remove stop words, and compare frequencies. Data comes from `Project Gutenberg` using the R package `gutenbergr` (documentation [here](https://docs.ropensci.org/gutenbergr/index.html)) - make sure it is installed and loaded.
 
 ## Download and tokenize Gutenberg texts {.scrollable}
 
@@ -193,13 +220,9 @@ This block downloads two books from Project Gutenberg, including title metadata.
 #| label: gutenberg-download
 
 gutenberg_books <- gutenberg_download(
-  c(11, 1342), # Alice in Wonderland, Pride and Prejudice
+  c(12, 1342), # Through the Looking-Glass, Pride and Prejudice
   meta_fields = c("author", "title")
- ) |>
-  # bug in gutenberg; deduplication of rows necessary
-  filter(
-    is.na(lag(text)) | text != lag(text),
-    .by = gutenberg_id
+
 )
 
 gutenberg_books
@@ -208,12 +231,14 @@ gutenberg_books
 What happens:
 
 -   `gutenberg_download()` retrieves cleaned text (header/footer removed).
--   Some Gutenberg texts (e.g., Alice on certain mirrors) include duplicated adjacent lines.
--   `filter(is.na(lag(text)) | text != lag(text), .by = gutenberg_id)` removes only consecutive duplicate lines within each book.
--   Each row is one line of text, with `gutenberg_id` and `title`.
+-   Each row is one line of text, with `gutenberg_id` , `author` and `title`.
 -   The table is now ready for tokenization.
 
 This block converts lines into words and removes stop words.
+
+`stop_words` is a built-in lexicon from `tidytext` containing very frequent function words such as articles, pronouns, and prepositions (e.g. `the`, `and`, `of`, `to`). These words are often useful for grammar, but less useful when you want fast topic-oriented exploration of lexical content.
+
+Important caveat: stop-word removal is a modeling choice, not a universal rule. For stylistic analysis, authorship studies, or grammatical research, you may want to keep stop words.
 
 ```{r}
 #| label: gutenberg-tokenize
@@ -229,7 +254,8 @@ What happens:
 
 -   `unnest_tokens(word, text)` turns each line into multiple word rows.
 -   Tokens are lowercase by default and punctuation is removed.
--   `anti_join()` removes common function words (`the`, `and`, etc.).
+-   `anti_join(stop_words, by = join_by(word))` removes tokens that appear in the stop-word list.
+-   The result keeps mostly content words, so top-frequency tables are usually more interpretable.
 
 ## Explore word frequencies {.scrollable}
 
@@ -311,18 +337,80 @@ What happens:
 -   We sort by `tf_idf` and show the top terms per book so you can read off **distinctive** words, not just frequent ones.
 -   Interpretation: compare a high-`tf_idf` word’s role in the story (character, place, motif) with its `n` — a word can be distinctive with a moderate `n` if it barely appears in the other books.
 
+## Analyze word pairs with bigrams (Hermann Hesse) {.scrollable}
+
+Following the tidytext n-grams workflow, we now move from single words to **bigrams** (two consecutive words).\
+Here we use three works by the German author **Hermann Hesse** from Project Gutenberg.
+
+```{r}
+#| label: gutenberg-bigrams-hesse
+
+hesse_works <- gutenberg_works(author == "Hesse, Hermann") |>
+  arrange(gutenberg_id) |>
+  slice_head(n = 3)
+
+hesse_books <- gutenberg_download(
+  hesse_works$gutenberg_id,
+  meta_fields = c("author", "title")
+  )
+
+hesse_bigrams <- hesse_books |>
+  unnest_tokens(bigram, text, token = "ngrams", n = 2) |>
+  separate_wider_delim(
+    bigram,
+    delim = " ",
+    names = c("word1", "word2"),
+    too_few = "align_start"
+  ) |>
+  filter(!is.na(word1), !is.na(word2)) |>
+  anti_join(stop_words, by = join_by(word1 == word)) |>
+  anti_join(stop_words, by = join_by(word2 == word))
+
+hesse_bigram_counts <- hesse_bigrams |>
+  count(title, word1, word2, sort = TRUE)
+
+hesse_bigram_counts |>
+  mutate(bigram = str_c(word1, word2, sep = " ")) |>
+  group_by(title) |>
+  slice_head(n = 10) |>
+  ungroup() |>
+  select(title, bigram, n)
+```
+
+What happens:
+
+-   `unnest_tokens(..., token = "ngrams", n = 2)` creates overlapping two-word sequences.
+-   `separate_wider_delim()` splits each bigram into `word1` and `word2`.
+-   We remove stop words in both positions to focus on more informative pairs.
+-   `count(title, word1, word2, sort = TRUE)` gives the most frequent word-pair patterns per text.
+
+### Note on lexical diversity
+
+In Exercise 5, lexical diversity is defined as:
+
+`n_distinct(word) / n()`
+
+-   `n_distinct(word)` = number of unique word forms (the vocabulary size in your token table).
+-   `n()` = total number of tokens (all running words).
+-   The ratio is often called **type-token ratio (TTR)**.
+
+Interpretation:
+
+-   Higher values mean a larger share of unique words (more varied vocabulary in that sample).
+-   Lower values mean more repetition of the same words.
+-   Important caveat: this measure is sensitive to text length (shorter texts often look more diverse), so compare texts of similar size or interpret with care.
+
 ## Exercises (Gutenberg + tidytext)
 
-1.  Download one additional Gutenberg text (choose one ID yourself), tokenize it, and compute the top 20 non-stopwords.
-2.  Download from the Gutenberg archive all works by Jane Austen (check the help page for package `gutenbergr`.
-3.  Build a three-book dataset (`bind_rows()`), then compare top words across books with a faceted bar plot.
-4.  Compute tf-idf for the three-book dataset and interpret two high tf-idf words per book.
-5.  Compute bigrams (`token = "ngrams", n = 2`) for one selected book and list the 20 most frequent bigrams after removing rows that contain stop words.
-6.  For each of the three books, compute lexical diversity as `n_distinct(word) / n()` and compare the values.
+1.  Download one random Gutenberg text (choose one ID yourself), tokenize it, and compute the top 20 non-stopwords.
+2.  Download from the Gutenberg archive the first 3 works by Wells, H. G. (Herbert George), create a token table for this mini-corpus, then build a three-book dataset (`bind_rows()`) and compare top words across books with a faceted bar plot.
+3.  Compute tf-idf for the three-book dataset and interpret two high tf-idf words per book.
+4.  Compute bigrams (`token = "ngrams", n = 2`) for one selected book and list the 20 most frequent bigrams after removing rows that contain stop words.
+5.  For each of the three books, compute lexical diversity as `n_distinct(word) / n()` and compare the values.
 
-# Part 3 — XML data (LOD dictionary)
+# Part 3 — Working with XML data
 
-The LOD XML file can be downloaded from the Luxembourg open data portal ([LOD resource](https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b)).
+We are working here with the data of the entire Lëtzebuerger Online Dictionary (LOD). The XML file of the entire dictionary can be downloaded from the Luxembourg open data portal ([LOD resource](https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b)).
 
 Conceptually, the XML workflow has four steps:
 
@@ -357,7 +445,7 @@ What happens:
 XPath quick reminder:
 
 | XPath                                       | Meaning                      |
-|---------------------------------------------|------------------------------|
+|-------------------------------------------|-----------------------------|
 | `//entry`                                   | all entries                  |
 | `.//lemma`                                  | lemma under current entry    |
 | `.//ipa`                                    | IPA node under current entry |

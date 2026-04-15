@@ -65,53 +65,54 @@ Why this works:
 
 ## Exercise 2
 
-**Task:** Add `female_share` and report top 10 communes.
+**Task:** Remove `COMMUNE_CODE` and rename French variable names to English.
 
 ```{r}
 #| label: csv-solution-2
 
-female_share_tbl <- pop |>
-  mutate(
-    total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS,
-    female_total = FEMMES_MINEURES + FEMMES_MAJEURES,
-    female_share = female_total / total_population
-  ) |>
-  arrange(desc(female_share)) |>
-  select(COMMUNE_NOM, total_population, female_share) |>
-  slice_head(n = 10)
+pop_clean <- pop |>
+  select(-COMMUNE_CODE) |>
+  rename(
+    commune_name = COMMUNE_NOM,
+    female_minors = FEMMES_MINEURES,
+    male_minors = HOMMES_MINEURS,
+    female_adults = FEMMES_MAJEURES,
+    male_adults = HOMMES_MAJEURS
+  )
 
-female_share_tbl
+pop_clean
 ```
 
-Interpretation note:
+Why this works:
 
--   `female_share` is a proportion between 0 and 1.
--   For reporting, you can add `mutate(female_share_pct = scales::percent(female_share))`.
+-   `select(-COMMUNE_CODE)` drops the ID column requested in the task.
+-   `rename()` assigns clear English names while preserving the same values.
+-   The resulting tibble is easier to read in the following analysis steps.
 
 ## Exercise 3
 
-**Task:** Plot a histogram of commune population and describe the shape.
+**Task:** Filter `pop_totals` to keep only communes with an adult share below 80%.
 
 ```{r}
 #| label: csv-solution-3
-#| fig-width: 8
-#| fig-height: 5
 
-pop |>
-  mutate(total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS) |>
-  ggplot(aes(x = total_population)) +
-  geom_histogram(bins = 25, fill = "steelblue", color = "white") +
-  labs(
-    title = "Distribution of commune population",
-    x = "Population per commune",
-    y = "Number of communes"
+pop_totals <- pop |>
+  mutate(
+    total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS,
+    adult_share = (FEMMES_MAJEURES + HOMMES_MAJEURS) / total_population
   )
+
+pop_totals |>
+  filter(adult_share < 0.80) |>
+  select(COMMUNE_NOM, total_population, adult_share) |>
+  arrange(adult_share)
 ```
 
-Expected interpretation:
+Why this works:
 
--   The histogram is typically right-skewed.
--   Most communes have relatively smaller populations, with a few much larger communes.
+-   `adult_share` is computed as adults divided by total population.
+-   `filter(adult_share < 0.80)` keeps only communes below 80%.
+-   Sorting helps inspect which communes have the lowest adult shares.
 
 ## Exercise 4
 
@@ -168,37 +169,22 @@ Interpretation note:
 
 # Gutenberg + tidytext exercises — solutions
 
-First build the baseline token table:
-
-```{r}
-#| label: text-base
-#| message: false
-
-base_books <- gutenberg_download(c(11, 1342), meta_fields = "title")
-base_books <- base_books |>
-  filter(
-    is.na(lag(text)) | text != lag(text),
-    .by = gutenberg_id
-  )
-
-base_tokens <- base_books |>
-  unnest_tokens(word, text) |>
-  anti_join(stop_words, by = join_by(word))
-```
-
 ## Exercise 1
 
-**Task:** Add one extra Gutenberg text and compute top 20 non-stopwords.
+**Task:** Download one random Gutenberg text and compute top 20 non-stopwords.
 
 ```{r}
 #| label: text-solution-1
 
-extra_book <- gutenberg_download(84, meta_fields = "title") # Frankenstein
-extra_book <- extra_book |>
-  filter(
-    is.na(lag(text)) | text != lag(text),
-    .by = gutenberg_id
-  )
+set.seed(42)
+
+random_choice <- gutenberg_works(language == "en") |>
+  distinct(gutenberg_id, title) |>
+  slice_sample(n = 1)
+
+random_choice
+
+extra_book <- gutenberg_download(random_choice$gutenberg_id, meta_fields = "title")
 
 extra_top_words <- extra_book |>
   unnest_tokens(word, text) |>
@@ -211,38 +197,43 @@ extra_top_words
 
 Why this works:
 
+-   `gutenberg_works(language == "en") |> slice_sample(n = 1)` selects one random English work.
 -   `unnest_tokens()` creates one-token-per-row format.
 -   `anti_join(stop_words, by = join_by(word))` removes common function words.
 -   `count(sort = TRUE)` yields frequency ranking directly.
 
 ## Exercise 2
 
-**Task:** Build a three-book dataset and compare top words.
+**Task:** Download the first 3 works by Wells, H. G. (Herbert George), create a token table, then build a three-book dataset and compare top words.
 
 ```{r}
 #| label: text-solution-2
 #| fig-width: 10
 #| fig-height: 6
 
-extra_tokens <- extra_book |>
+wells_works <- gutenberg_works(author == "Wells, H. G. (Herbert George)") |>
+  arrange(gutenberg_id) |>
+  slice_head(n = 3)
+
+wells_books <- gutenberg_download(wells_works$gutenberg_id, meta_fields = "title")
+
+wells_tokens <- wells_books |>
   unnest_tokens(word, text) |>
   anti_join(stop_words, by = join_by(word))
 
-three_book_tokens <- bind_rows(base_tokens, extra_tokens)
-
-three_top <- three_book_tokens |>
+wells_top <- wells_tokens |>
   count(title, word, sort = TRUE) |>
   group_by(title) |>
   slice_head(n = 12) |>
   ungroup()
 
-three_top |>
+wells_top |>
   mutate(word = fct_reorder(word, n)) |>
   ggplot(aes(x = n, y = word, fill = title)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(vars(title), scales = "free_y") +
   labs(
-    title = "Top words in three Gutenberg books",
+    title = "Top words in Wells' books",
     x = "Count",
     y = NULL
   )
@@ -250,22 +241,25 @@ three_top |>
 
 Interpretation note:
 
+-   `gutenberg_works(author == "Wells, H. G. (Herbert George)")` returns metadata (including IDs) for that author.
+-   `arrange(gutenberg_id) |> slice_head(n = 3)` keeps the first three works by Gutenberg ID.
+-   `wells_tokens` gives a mini-corpus for Wells, and `bind_rows()` combines it with previously prepared token tables.
 -   Shared high-frequency content words may reflect common literary vocabulary.
 -   Distinctive words often point to characters, setting, or genre themes.
 
 ## Exercise 3
 
-**Task:** Compute tf-idf and interpret high tf-idf words.
+**Task:** Compute tf-idf and interpret high tf-idf words for the Wells corpus.
 
 ```{r}
 #| label: text-solution-3
 
-three_tfidf <- three_book_tokens |>
+wells_tfidf <- wells_tokens |>
   count(title, word, sort = TRUE) |>
   bind_tf_idf(word, title, n) |>
   arrange(desc(tf_idf))
 
-three_tfidf |>
+wells_tfidf |>
   group_by(title) |>
   slice_head(n = 10) |>
   ungroup() |>
@@ -310,7 +304,7 @@ Why this works:
 ```{r}
 #| label: text-solution-5
 
-three_book_tokens |>
+wells_tokens |>
   summarise(
     total_tokens = n(),
     unique_tokens = n_distinct(word),
