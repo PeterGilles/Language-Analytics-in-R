@@ -204,8 +204,15 @@ What happens:
 1.  Compute the total number of minors (`FEMMES_MINEURES + HOMMES_MINEURS`) per commune and list the top 15 communes.
 2.  Remove the variable `COMMUNE_CODE` from the tibble and rename the French variable names to English.
 3.  Filter `pop_totals` to keep only communes with an adult share below 80 %.
-4.  Create a histogram of `total_population` and briefly describe its shape.
-5.  Export the tibble `pop_totals` to a csv file using `write.csv`.
+
+```{r}
+pop_totals |>
+  select(COMMUNE_NOM, adult_share) |>
+  filter(adult_share < 0.8)
+```
+
+1.  Create a histogram of `total_population` and briefly describe its shape.
+2.  Export the tibble `pop_totals` to a csv file using `write.csv`.
 
 # Part 2 — Working with text data from `Project Gutenberg` using `tidytext`
 
@@ -221,7 +228,6 @@ This block downloads two books from Project Gutenberg, including title metadata.
 gutenberg_books <- gutenberg_download(
   c(12, 1342), # Through the Looking-Glass, Pride and Prejudice
   meta_fields = c("author", "title")
-
 )
 
 gutenberg_books
@@ -344,12 +350,12 @@ Here we use three works by the German author **Hermann Hesse** from Project Gute
 ```{r}
 #| label: gutenberg-bigrams-hesse
 
-hesse_works <- gutenberg_works(author == "Hesse, Hermann") |>
+hesse_works <- gutenberg_works(author == "Hesse, Hermann", languages = "de") |>
   arrange(gutenberg_id) |>
   slice_head(n = 3)
 
 hesse_books <- gutenberg_download(
-  hesse_works$gutenberg_id,
+  c(1998),
   meta_fields = c("author", "title")
   )
 
@@ -402,7 +408,7 @@ Interpretation:
 ## Exercises (Gutenberg + tidytext)
 
 1.  Download one random Gutenberg text (choose one ID yourself), tokenize it, and compute the top 20 non-stopwords.
-2.  Download from the Gutenberg archive the first 3 works by Wells, H. G. (Herbert George), create a token table for this mini-corpus, then build a three-book dataset (`bind_rows()`) and compare top words across books with a faceted bar plot.
+2.  Download from the Gutenberg archive the first 3 works by Wells, H. G. (Herbert George), create a token table for this mini-corpus, then build a three-book dataset (`bind_rows()`) and compare top words across books.
 3.  Compute tf-idf for the three-book dataset and interpret two high tf-idf words per book.
 4.  Compute bigrams (`token = "ngrams", n = 2`) for one selected book and list the 20 most frequent bigrams after removing rows that contain stop words.
 5.  For each of the three books, compute lexical diversity as `n_distinct(word) / n()` and compare the values.
