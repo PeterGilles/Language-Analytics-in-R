@@ -1,5 +1,5 @@
 ---
-title: "Session 4 — Visualisation and basic statistics with ggplot2"
+title: "Session 4 — Work with own data"
 subtitle: "Language Analytics in R"
 author: "Peter Gilles"
 format:
@@ -15,60 +15,63 @@ editor: visual
 
 By the end of this session you will:
 
--   Build plots with **ggplot2**: data, aesthetics (`aes()`), and geoms.
--   Use **layers**: add geoms, scales, labels, and themes.
--   Choose appropriate **geoms** for the task (e.g. bar, point, line, boxplot, histogram).
--   Add basic statistical summaries to plots (e.g. means, error bars, smooth trends).
--   Customize **axes**, **labels**, and **themes** for clear, publishable figures.
--   Apply ggplot2 to **language and corpus data** (e.g. frequencies, distributions, model results).
+-   Define a clear and feasible mini-question for your own project data.
+-   Import and inspect your own dataset in a reproducible way.
+-   Prepare a clean analysis table (variables, types, missing data, filters).
+-   Run and document one or two core analyses from your project.
+-   Create at least one interpretable visualization for your data.
+-   Structure your workflow in a reusable Quarto document.
 
-# Grammar of graphics
+## Focus of this session
 
--   **Data** → **Aesthetics** (mapping variables to x, y, color, fill, etc.) → **Geometries** (how to draw).
--   **`ggplot(data, aes(x = ..., y = ...)) + geom_...()`**
+This session is a guided workshop. You work with your own data, and the goal is to leave with a reproducible analysis draft that you can continue after class.
 
-*\[Add a minimal example: e.g. bar chart of word counts or scatter plot.\]*
+## Suggested workflow
 
-# Core geoms
+1.  **Research question**
+    -   Write one focused question you can answer with the available data.
+2.  **Data import and checks**
+    -   Load your files (`readr`, `readxl`, `quanteda`, etc.).
+    -   Confirm encoding, separators, and metadata.
+3.  **Data preparation**
+    -   Keep relevant variables.
+    -   Recode variable names and values if needed.
+    -   Handle missing or noisy values.
+4.  **First analysis**
+    -   Frequency tables, distributions, or group comparisons.
+5.  **Visualization**
+    -   Build one figure that supports your question.
+6.  **Documentation**
+    -   Save everything in a Quarto file with short interpretation notes.
 
--   **`geom_bar()`** / **`geom_col()`** — counts vs pre-computed values.
--   **`geom_point()`** — scatter plots.
--   **`geom_line()`** — time series or trends.
--   **`geom_histogram()`** / **`geom_density()`** — distributions.
--   **`geom_boxplot()`** / **`geom_violin()`** — group comparisons.
+## Recommended Quarto structure
 
-*\[Add one or two code chunks per geom using course-relevant data.\]*
+Use this section layout in your own project document:
 
-# Aesthetics and layers
+1.  **Question and data**
+2.  **Import**
+3.  **Cleaning and preparation**
+4.  **Analysis**
+5.  **Visualization**
+6.  **Interpretation and next steps**
 
--   **`aes()`**: map variables to x, y, color, fill, size, shape.
--   **Faceting**: `facet_wrap()`, `facet_grid()`.
--   **Scales**: `scale_*` for axes, colors, labels.
+## In-class checklist
 
-*\[Add an example with faceting or custom scales.\]*
+-   Your data is loaded successfully.
+-   Variable names and types are understood.
+-   One clean analysis table is created.
+-   One plot is generated and interpreted.
+-   Your Quarto file runs from top to bottom without errors.
 
-# Labels and themes
+## Hands-on tasks
 
--   **`labs()`** — title, subtitle, axis labels.
--   **`theme_minimal()`**, **`theme_bw()`**, or custom **`theme()`**.
--   **Saving**: `ggsave()` or Quarto figure options.
+1.  Import your own data and print a compact overview (`glimpse()`, `summary()`).
+2.  Create a cleaned table for one key variable or comparison.
+3.  Compute one descriptive result (counts, proportions, means, or dispersion).
+4.  Build one plot and add clear axis labels and title.
+5.  Write 3-5 sentences interpreting your result.
 
-*\[Add a polished plot example and ggsave.\]*
+## Wrap-up
 
-# Adding basic statistics to plots
-
--   **`stat_summary()`** for means and confidence intervals/error bars.
--   **`geom_smooth()`** for trend lines (e.g. linear model or loess).
--   Combine group summaries with faceting to compare patterns across categories.
-
-*\[Add one example with means + error bars and one example with `geom_smooth()`.\]*
-
-# Hands-on exercises
-
--   Reproduce a simple plot from the session (e.g. bar chart, boxplot).
--   Build a plot from your own or course data; add labels and a theme.
-
-# Summary and further reading
-
--   R4DS [Data visualization](https://r4ds.hadley.nz/data-visualize.html), [Layers](https://r4ds.hadley.nz/layers.html), [Communication](https://r4ds.hadley.nz/communication.html).
--   [R for Linguists — ggplot2](https://eleanorchodroff.com/r-for-linguists/ggplot2.html).
+-   Keep your session file as the starting point for your final project workflow.
+-   In the next session, we will use AI/Cursor to speed up coding, debugging, and documentation in a controlled way.

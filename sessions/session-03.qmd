@@ -1,5 +1,5 @@
 ---
-title: "Session 3 — Corpus analysis with tidytext and quanteda"
+title: "Session 3 — Introduction to quanteda"
 subtitle: "Language Analytics in R"
 author: "Peter Gilles"
 format:
@@ -15,95 +15,948 @@ editor: visual
 
 By the end of this session you will:
 
--   Understand the difference between **tidy text** (one token per row) and **corpus/dfm** workflows.
--   Use **tidytext** to tokenize text and compute word frequencies.
--   Use **quanteda** to build a corpus and a document-term matrix (`dfm`).
--   Compare outputs from tidytext and quanteda on the same corpus.
--   Apply these workflows to linguistic/corpus questions.
+-   Understand core **quanteda** objects (`corpus`, `tokens`, `dfm`, `docvars`).
+-   Build and inspect corpora from both package data and Project Gutenberg data.
+-   Use `kwic()` for context-based exploration and `topfeatures()` for frequency analysis.
+-   Group documents via document variables and apply a simple dictionary analysis.
+-   Run an end-to-end mini analysis workflow with **quanteda**.
 
-# Tidy text vs corpus objects
+# Setup
 
--   **tidytext**: one token per row (tibbles + dplyr pipeline).
--   **quanteda**: corpus objects and sparse matrices (`dfm`) for text mining.
--   Why both are useful in language analytics.
+In this session we combine:
 
-# Working with Gutenberg text (tidytext)
+-   **quanteda** for corpus objects and matrix-based analysis,
+-   **quanteda.textstats/textplots** for basic statistics and visual output,
+-   **gutenbergr** to fetch open literary data.
 
-The **tidytext** package treats text as [one token per row](https://www.tidytextmining.com/tidytext.html).
-
-```{r}
-#| label: tidytext-example
-#| message: false
-
-library(tidyverse)
-library(tidytext)
-library(gutenbergr)
-
-# Download one book by Gutenberg ID (35 = The Time Machine)
-gutenberg_books <- gutenberg_download(c(35), meta_fields = "title")
-head(gutenberg_books)
-
-# Tokenize text to one-word-per-row
-tidy_tokens <- gutenberg_books |>
-  unnest_tokens(output = word, input = text)
-
-head(tidy_tokens, 12)
-```
+Run this chunk once at the beginning. If a package is missing, install it with `install.packages()`.
 
 ```{r}
-#| label: tidytext-count
-#| message: false
-
-# Remove stop words and count
-tidy_tokens |>
-  anti_join(stop_words, by = "word") |>
-  count(word, sort = TRUE) |>
-  head(15)
-```
-
-# Working with corpus objects (quanteda)
-
-Use the same Gutenberg data to build a corpus and a document-term matrix.
-
-```{r}
-#| label: quanteda-example
+#| label: setup
 #| message: false
 
 library(quanteda)
 library(quanteda.textstats)
+library(quanteda.textplots)
+library(gutenbergr)
+library(dplyr)
+library(ggplot2)
+```
 
-corp <- corpus(gutenberg_books, text_field = "text")
-summary(corp, n = 5)
-ndoc(corp)
-ntoken(corp)
+# Introduction to quanteda
+
+**quanteda** is a text analysis framework for R that is optimized for corpus workflows:
+
+-   keep original texts in a `corpus`,
+-   transform texts into `tokens`,
+-   represent token counts in a sparse matrix (`dfm`),
+-   combine textual data with metadata (`docvars`) for linguistic and social analysis.
+
+In short: quanteda is useful when you want transparent preprocessing, efficient counting, and reproducible corpus-based analysis.
+
+## 1) Build a corpus from built-in quanteda data
+
+`data_corpus_inaugural` is bundled with quanteda and contains U.S. inaugural speeches with document metadata (`docvars`) such as `Year`, `President`, and `Party`.
+
+In quanteda, **docvars** are document-level variables attached to each text (comparable to columns in a metadata table).\
+They are crucial because they let us:
+
+-   filter documents (`corpus_subset(corp, Year >= 1993)`),
+-   compare groups (`dfm_group(..., groups = Party)`),
+-   model textual outcomes with external information.
+
+The goal of this first step is to inspect the corpus structure before any preprocessing:
+
+-   how many documents we have,
+-   how large they are,
+-   which metadata variables are available for grouping and filtering.
+
+```{r}
+#| label: corpus-built-in
+#| message: false
+
+corp_inaug <- data_corpus_inaugural
+summary(corp_inaug, n = 6)
+head(docvars(corp_inaug))
+```
+
+To get a direct glimpse of corpus content, inspect one or two documents as plain character text.\
+For fast corpus statistics, use:
+
+-   `summary(corpus_obj)` for document-level overview,
+-   `ndoc(corpus_obj)` for number of documents,
+-   `ntoken(corpus_obj)` for total token count,
+-   `nfeat(dfm_obj)` once a dfm exists (number of features/columns).
+
+```{r}
+#| label: corpus-glimpse-and-stats
+
+# A readable text glimpse with explicit labels
+cat("First document name:", docnames(corp_inaug)[1], "\n")
+cat(as.character(corp_inaug)[1], "\n\n")
+
+cat("Second document name:", docnames(corp_inaug)[2], "\n")
+cat(as.character(corp_inaug)[2], "\n\n")
+
+# Core corpus statistics with labels
+cat("Number of documents (ndoc):", ndoc(corp_inaug), "\n")
+cat("Total number of tokens (ntoken):", ntoken(corp_inaug), "\n")
+```
+
+You can also build a corpus from your own text file.\
+The next chunk reads `Bibel.txt` from the same folder as this session file, creates a one-document corpus, and adds docvars manually.
+
+```{r}
+#| label: own-file-corpus
+#| message: false
+
+bibel_path <- file.path("Bibel.txt")
+
+bibel_text <- readLines(bibel_path, encoding = "UTF-8", warn = FALSE) |>
+  paste(collapse = "\n")
+
+corp_bibel <- corpus(
+  x = bibel_text,
+  docnames = "Bibel"
+)
+corp_bibel
+
+# Example docvars: these can be changed/adapted
+docvars(corp_bibel, "language") <- "lb"
+docvars(corp_bibel, "genre") <- "religious_text"
+
+summary(corp_bibel)
+```
+
+## 2) Subset by document variables
+
+Now we narrow the corpus to recent speeches (`Year >= 1993`). This mirrors a common workflow: define a specific analytical window before tokenization.
+
+```{r}
+#| label: corpus-subset
+
+corp_recent <- corpus_subset(corp_inaug, Year >= 1993)
+summary(corp_recent, n = 6)
+```
+
+## 3) Tokenize and preprocess
+
+This is the central preprocessing step:
+
+-   `tokens()` splits text into tokens,
+-   `remove_punct` and `remove_numbers` reduce noise,
+-   `tokens_tolower()` normalizes case,
+-   `tokens_remove(stopwords("en"))` removes frequent function words.
+
+We keep the original corpus unchanged and store transformed text in a new object (`toks_recent`).
+
+```{r}
+#| label: tokens-preprocess
+
+toks_recent <- tokens(
+  corp_recent,
+  remove_punct = TRUE,
+  remove_numbers = TRUE
+) |>
+  tokens_tolower() |>
+  tokens_remove(stopwords("en"))
+
+toks_recent
+```
+
+## 4) Keywords in context (KWIC)
+
+`kwic()` lets us inspect how a term is used in context, not just how often it occurs. This is useful for linguistic interpretation because it prevents over-interpreting frequency counts alone.
+
+```{r}
+#| label: kwic-example
+
+kwic(toks_recent, pattern = "freedom") |>
+  head(12)
+```
+
+Further example with wildcard patterns (`valuetype = "glob"`):
+
+```{r}
+#| label: kwic-wildcard
+
+kwic(toks_recent, pattern = "democra*", valuetype = "glob") |>
+  head(12)
+```
+
+## 5) Create and inspect a dfm
+
+A **document-feature matrix** (`dfm`) is a sparse matrix with:
+
+-   rows = documents,
+-   columns = features (tokens),
+-   cells = feature counts.
+
+Why this matrix matters:
+
+-   it transforms text into a numeric format required for statistics and machine learning,
+-   it is sparse and memory-efficient (important for large corpora),
+-   it allows direct operations such as feature selection, weighting, grouping, and modeling.
+
+Typical use cases include keyness analysis, topic/style comparison, supervised classification, and dimensional reduction.
+
+```{r}
+#| label: dfm-example
+
+# Build document-feature matrix from cleaned tokens
+dfm_recent <- dfm(toks_recent)
+
+# Inspect matrix dimensions and sparsity
+dfm_recent
+
+# Show the 20 most frequent features across all documents
+topfeatures(dfm_recent, 20)
+```
+
+Using the dfm, we can also easily create word clouds.
+
+```{r}
+textplot_wordcloud(dfm_recent, min_count = 20, random_order = FALSE,
+                   rotation = .25)
+```
+
+## 6) Group by docvars (Party) and compare
+
+With `dfm_group()`, we aggregate all documents that share the same value of a document variable (`Party`). This moves from document-level comparison to group-level comparison.
+
+```{r}
+#| label: dfm-group
+
+dfm_party <- dfm_recent |>
+  dfm_group(groups = Party)
+
+dfm_party
+topfeatures(dfm_party, 20)
+```
+
+## 7) Simple dictionary analysis
+
+A dictionary maps many individual words to a smaller set of analytical categories.\
+Here we define three thematic categories and then count category matches per document.
+
+Pedagogically, this demonstrates how to move from raw lexical frequencies to theory-driven categories.
+
+```{r}
+#| label: dictionary-analysis
+
+# Define a small dictionary with 3 thematic categories
+issue_dict <- dictionary(
+  list(
+    economy = c("economy", "jobs", "work", "business", "growth"),
+    security = c("security", "terror", "terrorism", "war", "threat"),
+    democracy = c("democracy", "freedom", "rights", "constitution", "people")
+  )
+)
+
+# Map matching tokens to dictionary categories, then count by document
+dfm_dict <- toks_recent |>
+  tokens_lookup(dictionary = issue_dict) |>
+  dfm()
+
+# Inspect category counts by document
+dfm_dict
+
+# Summarize most frequent dictionary categories in the corpus
+textstat_frequency(dfm_dict, n = 15)
+```
+
+Interpretation tip: a high value for a category means that words from this category appear frequently in a document.\
+Because categories have different dictionary sizes and texts have different lengths, compare results carefully (relative frequencies can be useful in advanced analysis).
+
+# Quanteda with Gutenberg data
+
+We now repeat the workflow on an external corpus from Project Gutenberg, using German literary texts.
+
+For these Faust texts, a direct UTF-8 text import is more reliable than `gutenberg_download()` and avoids encoding artifacts that can split words into fragments.
+
+```{r}
+#| label: gutenberg-data
+#| message: false
+
+load_faust_lines <- function(gutenberg_id, title, author) {
+  url <- sprintf(
+    "https://www.gutenberg.org/cache/epub/%s/pg%s.txt",
+    gutenberg_id, gutenberg_id
+  )
+  con <- url(url)
+  on.exit(close(con), add = TRUE)
+
+  lines <- readLines(con, warn = FALSE, encoding = "UTF-8")
+  lines <- gutenbergr::gutenberg_strip(lines)
+
+  tibble(
+    gutenberg_id = gutenberg_id,
+    title = title,
+    author = author,
+    text = lines
+  )
+}
+
+books <- bind_rows(
+  load_faust_lines(2229, "Faust: Der Tragödie erster Teil", "Johann Wolfgang von Goethe"),
+  load_faust_lines(2230, "Faust: Der Tragödie zweiter Teil", "Johann Wolfgang von Goethe")
+)
+
+books |>
+  distinct(gutenberg_id, title, author)
+
+head(books)
+
+# Collapse line-level Gutenberg rows into one document per title
+faust_docs <- books |> 
+  summarise(text = paste(text, collapse = "\n"), .by = title)
+
+head(faust_docs)
 ```
 
 ```{r}
-#| label: quanteda-dfm
+#| label: gutenberg-corpus
 
-doc_term_matrix <- corp |>
-  tokens(remove_punct = TRUE) |>
-  dfm()
-
-dim(doc_term_matrix)
-textstat_frequency(doc_term_matrix) |>
-  head(10)
+corp_faust <- corpus(faust_docs, text_field = "text")
+summary(corp_faust, n = 10)
 ```
 
-# Comparing outputs
+Again, we tokenize, normalize, remove German stopwords, and build a `dfm`.
 
--   **tidytext** output: token table (easy with dplyr and joins, e.g. sentiment lexicons).
--   **quanteda** output: corpus + `dfm` (efficient for matrix-based text mining/classification).
--   Same corpus, different data structures and downstream strengths.
+```{r}
+#| label: gutenberg-dfm
 
-# Hands-on exercises
+# Tokenize and clean German texts
+toks_gut <- corp_faust |>
+  tokens(remove_punct = TRUE, remove_numbers = TRUE) |>
+  tokens_tolower() |>
+  tokens_remove(stopwords("de"))
 
-1.  Download a Gutenberg text (`gutenberg_download()`), tokenize with `unnest_tokens()`, remove stop words, and list top 20 words.
-2.  Build a quanteda corpus and `dfm` for the same text; inspect `ndoc()`, `ntoken()`, and top terms.
-3.  Write 2–3 sentences comparing tidytext and quanteda outputs for your text.
+dfm_gut <-  dfm(toks_gut)
 
-# Summary and further reading
+# Compact structural overview
+cat("Documents:", ndoc(dfm_gut), "\n")
+cat("Features:", nfeat(dfm_gut), "\n")
 
--   [Text Mining with R — tidy text format](https://www.tidytextmining.com/tidytext)
--   [gutenbergr text-mining vignette](https://docs.ropensci.org/gutenbergr/articles/text-mining.html)
--   [A&S500 class notes (text + quanteda)](https://jofrhwld.github.io/AandS500_2023/)
+# Most frequent features
+top_25_gut <- topfeatures(dfm_gut, 25)
+top_25_gut
+```
+
+## Exercise 1: Moby-Dick workflow
+
+In this exercise, you apply the full quanteda pipeline to one classic text.
+
+### Task
+
+1.  Load *Moby-Dick* from Gutenberg (`ID = 2701`).
+2.  Build a quanteda corpus from the downloaded text.
+3.  Tokenize the corpus (remove stopwords, punctuation and numbers, lowercase).
+4.  Run some `kwic()` searches with a flexible `valuetype` argument (`"fixed"`, `"glob"`, `"regex"`), e.g.:
+    -   an exact search (`"whale"`),
+    -   a wildcard search (`"whal*"`),
+    -   a regex search (`"whal(e|es|ing)"`).
+
+::: {.callout-tip collapse="true"}
+## Possible solution — Exercise 1
+
+```{r}
+#| label: exercise-mobydick-data
+#| message: false
+
+# 1) Load Moby-Dick from Gutenberg
+moby_raw <- gutenberg_download(2701, meta_fields = c("title", "author"))
+
+# Keep only key metadata rows for inspection
+moby_raw |>
+  distinct(gutenberg_id, title, author)
+```
+
+```{r}
+#| label: exercise-mobydick-corpus
+
+# 2) Build corpus
+corp_moby <- corpus(moby_raw, text_field = "text")
+summary(corp_moby, n = 5)
+```
+
+```{r}
+#| label: exercise-mobydick-tokens
+
+# 3) Tokenize and basic preprocessing
+toks_moby <- tokens(
+  corp_moby,
+  remove_punct = TRUE,
+  remove_numbers = TRUE
+) |>
+  tokens_tolower() |>
+  tokens_remove(stopwords("en"))
+
+toks_moby
+```
+
+```{r}
+#| label: exercise-mobydick-kwic-function
+
+# Exact search
+kwic(toks_moby, pattern = "whale", valuetype = "fixed", n = 8)
+
+# Wildcard search
+kwic(toks_moby, pattern = "whal*", valuetype = "glob", n = 8)
+
+# Regex search
+kwic(toks_moby, pattern = "whal(e|es|ing)", valuetype = "regex", n = 8)
+```
+:::
+
+## Exercise 2: Lexical dispersion plot with `textplot_xray()`
+
+In this exercise, you create a lexical dispersion plot for the **Faust** corpus (*Faust I* + *Faust II*) similar to the quanteda plotting example:
+
+-   [quanteda textual data visualization example](https://quanteda.io/articles/pkgdown/examples/plotting.html)
+
+### Task
+
+1.  Open the help page for `textplot_xray()` and review:
+    -   required input object(s),
+
+    -   how multiple `kwic()` objects are passed,
+
+    -   main plotting options.
+2.  Using your Faust Gutenberg data, first collapse line-level rows to one text per title, then create a dispersion plot for, e.g. (or other words):
+    -   `"gretchen"`
+    -   `"teufel"`
+
+::: {.callout-tip collapse="true"}
+## Possible solution — Exercise 2 (click to expand)
+
+```{r}
+#| label: exercise-faust-xray-solution
+
+corp_faust <- corpus(faust_docs, text_field = "text")
+
+# Build tokens from the collapsed Faust corpus
+toks_faust <- tokens(corp_faust, remove_punct = TRUE) |>
+  tokens_tolower()
+
+# Create KWIC objects for both search terms
+kwic_1 <- kwic(toks_faust, pattern = "himmel")
+kwic_2 <- kwic(toks_faust, pattern = "hölle")
+
+# Plot lexical dispersion ("x-ray")
+textplot_xray(
+  kwic_1,
+  kwic_2
+)
+```
+:::
+
+# Introduction to ggplot2
+
+## Generic introduction
+
+`ggplot2` is based on the **grammar of graphics**.\
+The core idea is that every plot is built from the same components:
+
+-   **data** (the dataset),
+-   **aesthetics** (`aes()`: which variable maps to x, y, color, etc.),
+-   **geometry** (`geom_*()`: bars, points, lines, polygons),
+-   **optional layers** (labels, scales, themes, facets).
+
+The canonical structure is:
+
+```{r}
+#| eval: false
+
+ggplot(data = ..., aes(x = ..., y = ...)) +
+  geom_...() +
+  labs(...) +
+  theme_minimal()
+```
+
+Note that the components in ggplot2 are connected with the + sign.
+
+## First plots
+
+The dataset `mpg` is included in ggplot2.\
+Each row is a car model observation, with variables such as:
+
+-   `class`: vehicle type (SUV, compact, etc.),
+-   `manufacturer`: car brand,
+-   `displ`: engine displacement (liters),
+-   `hwy`: highway fuel economy (miles per gallon).
+
+It is a good teaching dataset because it contains both categorical and numeric variables. When ggplot2 is loaded, the dataset is immediately available as `mpg`.
+
+```{r}
+#| label: ggplot-easy-1
+
+ggplot(mpg, aes(x = class)) +
+  geom_bar()
+```
+
+```{r}
+#| label: ggplot-easy-2
+
+ggplot(mpg, aes(x = class)) +
+  geom_bar(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Number of cars by class",
+    x = "Car class",
+    y = "Count"
+  ) +
+  theme_minimal()
+```
+
+## Bar charts
+
+`geom_bar()` counts rows automatically.\
+`geom_col()` expects a pre-computed y-value.
+
+When to use which:
+
+-   Use `geom_bar()` if your question is "how many observations are in each category?".
+-   Use `geom_col()` if you already calculated a statistic (mean, median, sum) per category.
+
+In the first example, ggplot2 performs the counting for us.
+
+```{r}
+#| label: ggplot-barchart-count
+
+ggplot(mpg, aes(x = manufacturer)) +
+  geom_bar(fill = "darkorange") +
+  coord_flip() +
+  labs(
+    title = "Observations by manufacturer",
+    x = "Manufacturer",
+    y = "Count"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| label: ggplot-barchart-mean
+
+# First, compute mean highway fuel economy by car class
+mean_hwy_by_class <- mpg |>
+  summarise(mean_hwy = mean(hwy), .by = class)
+
+# Then plot those pre-computed values
+ggplot(mean_hwy_by_class, aes(x = class, y = mean_hwy)) +
+  geom_col(fill = "seagreen") +
+  coord_flip() +
+  labs(
+    title = "Mean highway MPG by class",
+    x = "Class",
+    y = "Mean highway MPG"
+  ) +
+  theme_minimal()
+```
+
+## Boxplots and violin plots with `iris`
+
+The `iris` dataset is a classic built-in dataset with 150 flowers from 3 species:
+
+-   `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` (numeric measurements),
+-   `Species` (categorical label: setosa, versicolor, virginica).
+
+A **boxplot** summarizes distribution (median, quartiles, outliers).\
+A **violin plot** shows the full density shape of the distribution.
+
+```{r}
+#| label: ggplot-boxplot-iris
+
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_boxplot(alpha = 0.8) +
+  labs(
+    title = "Sepal length by species (boxplot)",
+    x = "Species",
+    y = "Sepal length"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+```{r}
+#| label: ggplot-violin-iris
+
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_violin(alpha = 0.6, color = "grey20") +
+  geom_boxplot(width = 0.12, fill = "white", outlier.size = 0.8) +
+  labs(
+    title = "Sepal length by species (violin + boxplot)",
+    x = "Species",
+    y = "Sepal length"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+Color options you can discuss with students:
+
+-   Set one fixed color: `fill = "steelblue"` in `geom_*()`.
+-   Map color/fill to a variable: `aes(fill = Species)`.
+-   Use manual palettes: `scale_fill_manual(values = c(...))`.
+-   Use ColorBrewer palettes: `scale_fill_brewer(palette = "Set2")`.
+
+## Scatter plots
+
+```{r}
+#| label: ggplot-scatter-basic
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(alpha = 0.7) +
+  labs(
+    title = "Engine displacement and highway MPG",
+    x = "Engine displacement (liters)",
+    y = "Highway MPG"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| label: ggplot-scatter-colored
+
+# Linear model and correlation (r) for displ ~ hwy
+lm_mpg <- lm(hwy ~ displ, data = mpg)
+summary(lm_mpg)
+
+r_displ_hwy <- cor(mpg$displ, mpg$hwy, use = "complete.obs")
+cat("Pearson r (displ, hwy):", round(r_displ_hwy, 3), "\n")
+
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  labs(
+    title = "Displacement vs highway MPG by class",
+    x = "Engine displacement (liters)",
+    y = "Highway MPG",
+    color = "Class"
+  ) +
+  theme_minimal()
+```
+
+## Maps with Luxembourg examples
+
+For a lightweight first map, we use polygon data from `map_data("world")` and zoom into Luxembourg.
+
+```{r}
+#| label: ggplot-map-lux-region
+#| fig-width: 11
+#| fig-height: 7
+#| out-width: "100%"
+
+world_map <- map_data("world")
+
+ggplot(world_map, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "grey90", color = "white", linewidth = 0.2) +
+  coord_quickmap(xlim = c(4.5, 7.0), ylim = c(49.2, 50.4)) +
+  labs(
+    title = "Luxembourg in regional context",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| label: ggplot-map-lux-highlight
+#| fig-width: 12
+#| fig-height: 18
+#| out-width: "100%"
+#| fig.show: "hold"
+
+world_map <- map_data("world")
+communes_df <- readRDS("communes_df.RDS")
+centroids_label <- readRDS("centroids_label.RDS")
+
+lux_map <- world_map |>
+  filter(region == "Luxembourg")
+
+# Step 1: regional background
+p1 <- ggplot() +
+  geom_polygon(
+    data = world_map,
+    aes(x = long, y = lat, group = group),
+    fill = "grey92", color = "white", linewidth = 0.2
+  ) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.4)) +
+  labs(
+    title = "Step 1: Regional background",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_minimal()
+print(p1)
+
+# Step 2: add commune polygons
+p2 <- p1 +
+  # Layer 2: commune polygons inside Luxembourg
+  geom_polygon(
+    data = communes_df,
+    aes(x = long, y = lat, group = group),
+    fill = "#fdebd0", color = "#d35400", linewidth = 0.15, alpha = 0.8
+  ) +
+  labs(title = "Step 2: + Commune polygons")
+print(p2)
+
+# Step 3: add Luxembourg country outline
+p3 <- p2 +
+  # Layer 3: Luxembourg country outline
+  geom_polygon(
+    data = lux_map,
+    aes(x = long, y = lat, group = group),
+    fill = NA, color = "black", linewidth = 0.5
+  ) +
+  labs(title = "Step 3: + Country outline")
+print(p3)
+
+# Step 4: add centroid points for important places
+p4 <- p3 +
+  # Layer 4: important city points from centroid file
+  geom_point(
+    data = centroids_label,
+    aes(x = long, y = lat),
+    color = "navy", size = 1.8
+  ) +
+  labs(title = "Step 4: + Important place points")
+print(p4)
+
+# Step 5: add city labels (final map)
+p5 <- p4 +
+  # Layer 5: city labels
+  geom_text(
+    data = centroids_label,
+    aes(x = long, y = lat, label = label),
+    size = 2.8, nudge_y = 0.015, color = "navy"
+  ) +
+  labs(
+    title = "Step 5: Final map",
+    subtitle = "Communes (polygons) + centroid city labels",
+    x = "Longitude",
+    y = "Latitude"
+  )
+print(p5)
+```
+
+You can also combine the five map states into one overview grid:
+
+```{r}
+#| label: ggplot-map-layers-grid
+#| fig-width: 13
+#| fig-height: 10
+#| out-width: "100%"
+
+gridExtra::grid.arrange(p1, p2, p3, p4, p5, ncol = 5)
+```
+
+Step-by-step map logic:
+
+1.  Load base map polygons (`map_data("world")`) and zoom to Luxembourg.
+2.  Add commune polygons from `communes_df.RDS` as an internal administrative layer.
+3.  Draw Luxembourg border on top for a clear country outline.
+4.  Add centroid points from `centroids_label.RDS`.
+5.  Add text labels for important places (`label` column).
+
+## Population per commune (choropleth)
+
+This map visualizes total population (`total_population`) by commune.
+
+How it works:
+
+1.  Load commune population table from `Gemengen_Statistiken.qs`.
+2.  Join population values to commune polygons via commune name (`id` vs `COMMUNE_NOM`).
+3.  Use `fill = total_population` to encode population with a color gradient.
+4.  Optionally add commune labels at centroids for orientation.
+
+```{r}
+#| label: ggplot-map-population-communes
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: "100%"
+
+communes_df <- readRDS("communes_df.RDS")
+centroids_label <- readRDS("centroids_label.RDS")
+
+# Preferred source: Gemengen_Statistiken.qs
+pop_totals <- readRDS("Gemengen_Statistiken.RDS")
+
+# Join population table to polygon coordinates
+communes_pop_map <- communes_df |>
+  left_join(
+    pop_totals |>
+      select(Gemeng, total_population = Awunnerzuel),
+    by = c("id" = "Gemeng")
+  )
+
+ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = total_population)) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  geom_text(
+    data = centroids_label,
+    aes(x = long, y = lat, label = label),
+    inherit.aes = FALSE,
+    size = 2.4,
+    color = "grey20"
+  ) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  labs(
+    title = "Luxembourg: total population by commune",
+    subtitle = "Fill color = total_population",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_minimal()
+```
+
+Interpretation:
+
+-   Darker communes have lower population totals.
+-   Luxembourg City should stand out clearly as the most populous commune.
+
+## Exercises
+
+### Exercise A (`mpg`): from raw data to summary plots
+
+**Goal:** practice both direct plotting and plotting after data restructuring.
+
+Tasks:
+
+1.  Create a simple count plot of `class` with `geom_bar()`.
+2.  Build a summary table with:
+    -   `mean_hwy` (mean of `hwy`) by `class`
+    -   `sum_cty` (sum of `cty`) by `class`
+3.  Plot both summaries with `geom_col()` (two separate plots).
+4.  Briefly interpret one pattern (2-3 lines).
+
+::: {.callout-tip collapse="true"}
+## Possible solution — Exercise A (click to expand)
+
+```{r}
+# A1: direct count plot from raw rows
+ggplot(mpg, aes(x = class)) +
+  geom_bar(fill = "steelblue") +
+  coord_flip() +
+  theme_minimal()
+
+# A2: restructure data (mean and sum by class)
+mpg_summary <- mpg |>
+  summarise(
+    mean_hwy = mean(hwy, na.rm = TRUE),
+    sum_cty = sum(cty, na.rm = TRUE),
+    .by = class
+  )
+
+# A3a: plot mean_hwy
+ggplot(mpg_summary, aes(x = class, y = mean_hwy)) +
+  geom_col(fill = "seagreen") +
+  coord_flip() +
+  labs(title = "Mean highway MPG by class", x = "Class", y = "Mean hwy") +
+  theme_minimal()
+
+# A3b: plot sum_cty
+ggplot(mpg_summary, aes(x = class, y = sum_cty)) +
+  geom_col(fill = "darkorange") +
+  coord_flip() +
+  labs(title = "Sum of city MPG values by class", x = "Class", y = "Sum cty") +
+  theme_minimal()
+```
+:::
+
+### Exercise B (`iris`): distribution plots and grouping summaries
+
+**Goal:** compare distributions and aggregated means across species.
+
+Tasks:
+
+1.  Create a boxplot of `Sepal.Length` by `Species`.
+2.  Create a violin plot of `Sepal.Length` by `Species` and overlay a narrow boxplot.
+3.  Build a summary table with mean values of `Sepal.Length` and `Petal.Length` by species.
+4.  Plot the mean `Sepal.Length` by species as `geom_col()`.
+
+::: {.callout-tip collapse="true"}
+## Possible solution — Exercise B (click to expand)
+
+```{r}
+# B1: boxplot
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_boxplot(alpha = 0.8) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# B2: violin + boxplot overlay
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_violin(alpha = 0.6, color = "grey20") +
+  geom_boxplot(width = 0.12, fill = "white", outlier.size = 0.8) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# B3: restructure with species-level means
+iris_summary <- iris |>
+  summarise(
+    mean_sepal = mean(Sepal.Length, na.rm = TRUE),
+    mean_petal = mean(Petal.Length, na.rm = TRUE),
+    .by = Species
+  )
+
+# B4: plot mean sepal length
+ggplot(iris_summary, aes(x = Species, y = mean_sepal, fill = Species)) +
+  geom_col() +
+  labs(title = "Mean Sepal Length by species", y = "Mean Sepal Length") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+:::
+
+### Exercise C (population): choropleth with joins and aggregation
+
+**Goal:** practice map joins and pre-aggregation for cartographic input.
+
+Tasks:
+
+1.  Join `communes_df` with `pop_totals` to map `total_population` by commune.
+2.  Create the choropleth (`fill = total_population`) with commune labels.
+3.  Build a 5-class quantile variable (`pop_quantile`) from `total_population`.
+4.  Plot a second choropleth using `fill = pop_quantile` (discrete classes).
+
+::: {.callout-tip collapse="true"}
+## Possible solution — Exercise C (click to expand)
+
+```{r}
+communes_df <- readRDS("communes_df.RDS")
+centroids_label <- readRDS("centroids_label.RDS")
+pop_totals <- readRDS("Gemengen_Statistiken.RDS")
+
+# C1: join map polygons with commune population stats
+communes_pop_map <- communes_df |>
+  left_join(
+    pop_totals |>
+      select(Gemeng, total_population = Awunnerzuel),
+    by = c("id" = "Gemeng")
+  )
+
+# C2: continuous choropleth
+ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = total_population)) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  geom_text(
+    data = centroids_label,
+    aes(x = long, y = lat, label = label),
+    inherit.aes = FALSE,
+    size = 2.2
+  ) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  labs(title = "Population by commune", fill = "Population") +
+  theme_minimal()
+
+# C3: aggregation/restructuring into quantile groups
+communes_pop_map <- communes_pop_map |>
+  mutate(pop_quantile = dplyr::ntile(total_population, 5))
+
+# C4: discrete choropleth (5 classes)
+ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = factor(pop_quantile))) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  labs(title = "Population quantiles by commune", fill = "Quantile") +
+  theme_minimal()
+```
+:::

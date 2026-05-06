@@ -1,5 +1,5 @@
 ---
-title: "Session 5 — Work on own projects"
+title: "Session 5 — Using AI (Cursor) as coding assistant"
 subtitle: "Language Analytics in R"
 author: "Peter Gilles"
 format:
@@ -11,4 +11,59 @@ format:
 editor: visual
 ---
 
-## Working on own data
+## Learning objectives
+
+By the end of this session you will:
+
+-   Use Cursor as a coding assistant for R and Quarto tasks.
+-   Write effective prompts for data wrangling, visualization, and debugging.
+-   Validate AI-generated code before using it in your project.
+-   Integrate AI support into a reproducible, transparent workflow.
+-   Recognize limitations and risks (hallucinations, wrong assumptions, hidden errors).
+
+## What Cursor can help with
+
+-   Drafting code templates (imports, joins, pipelines, plots).
+-   Explaining existing code and suggesting refactors.
+-   Debugging error messages and proposing fixes.
+-   Generating short documentation snippets and comments.
+-   Helping structure Quarto reports.
+
+## Prompt patterns for this course
+
+Use prompts that include:
+
+1.  **Context**: what your data looks like and what packages you use.
+2.  **Task**: exact output you need (table, plot, function, interpretation).
+3.  **Constraints**: keep tidyverse style, avoid changing variable names, keep reproducibility.
+4.  **Verification**: ask for checks and edge cases.
+
+Example prompt:
+
+> I have a tibble with variables `speaker`, `genre`, and `token_count`.\
+> Write tidyverse code to compute median token count by genre and create a ggplot boxplot by genre.\
+> Keep original variable names and add a short interpretation paragraph.
+
+## Human-in-the-loop workflow
+
+1.  **Ask** Cursor for a first draft.
+2.  **Review** every line of generated code.
+3.  **Run** code chunk by chunk.
+4.  **Check** whether output matches the research question.
+5.  **Revise** prompt and code until result is correct.
+6.  **Document** what was generated and what you changed manually.
+
+## Common failure modes
+
+-   Fabricated column names or package functions.
+-   Incorrect assumptions about data types or missing values.
+-   Code that runs but does not answer your question.
+-   Overly complex solutions for simple tasks.
+-   Missing citations or weak methodological transparency.
+
+## Good practice and transparency
+
+-   Keep AI support visible in your workflow notes.
+-   Save intermediate steps and interpretation text in Quarto.
+-   Prefer small, testable prompts over one large prompt.
+-   Cross-check key results with simple summaries.

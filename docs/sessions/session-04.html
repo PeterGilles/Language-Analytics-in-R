@@ -8,7 +8,7 @@
 
 <meta name="author" content="Peter Gilles">
 
-<title>Session 4 — Visualisation and basic statistics with ggplot2 – Language Analytics in R</title>
+<title>Session 4 — Work with own data – Language Analytics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -108,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="../sessions/session-04.html" aria-current="page"> 
-<span class="menu-text">Session 4</span></a>
+<span class="menu-text">Session 4 (Viz/Stats)</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../sessions/session-05.html"> 
@@ -130,14 +130,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</a></li>
-  <li><a href="#grammar-of-graphics" id="toc-grammar-of-graphics" class="nav-link" data-scroll-target="#grammar-of-graphics"><span class="header-section-number">1</span> Grammar of graphics</a></li>
-  <li><a href="#core-geoms" id="toc-core-geoms" class="nav-link" data-scroll-target="#core-geoms"><span class="header-section-number">2</span> Core geoms</a></li>
-  <li><a href="#aesthetics-and-layers" id="toc-aesthetics-and-layers" class="nav-link" data-scroll-target="#aesthetics-and-layers"><span class="header-section-number">3</span> Aesthetics and layers</a></li>
-  <li><a href="#labels-and-themes" id="toc-labels-and-themes" class="nav-link" data-scroll-target="#labels-and-themes"><span class="header-section-number">4</span> Labels and themes</a></li>
-  <li><a href="#adding-basic-statistics-to-plots" id="toc-adding-basic-statistics-to-plots" class="nav-link" data-scroll-target="#adding-basic-statistics-to-plots"><span class="header-section-number">5</span> Adding basic statistics to plots</a></li>
-  <li><a href="#hands-on-exercises" id="toc-hands-on-exercises" class="nav-link" data-scroll-target="#hands-on-exercises"><span class="header-section-number">6</span> Hands-on exercises</a></li>
-  <li><a href="#summary-and-further-reading" id="toc-summary-and-further-reading" class="nav-link" data-scroll-target="#summary-and-further-reading"><span class="header-section-number">7</span> Summary and further reading</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">1</span> Learning objectives</a></li>
+  <li><a href="#focus-of-this-session" id="toc-focus-of-this-session" class="nav-link" data-scroll-target="#focus-of-this-session"><span class="header-section-number">2</span> Focus of this session</a></li>
+  <li><a href="#suggested-workflow" id="toc-suggested-workflow" class="nav-link" data-scroll-target="#suggested-workflow"><span class="header-section-number">3</span> Suggested workflow</a></li>
+  <li><a href="#recommended-quarto-structure" id="toc-recommended-quarto-structure" class="nav-link" data-scroll-target="#recommended-quarto-structure"><span class="header-section-number">4</span> Recommended Quarto structure</a></li>
+  <li><a href="#in-class-checklist" id="toc-in-class-checklist" class="nav-link" data-scroll-target="#in-class-checklist"><span class="header-section-number">5</span> In-class checklist</a></li>
+  <li><a href="#hands-on-tasks" id="toc-hands-on-tasks" class="nav-link" data-scroll-target="#hands-on-tasks"><span class="header-section-number">6</span> Hands-on tasks</a></li>
+  <li><a href="#wrap-up" id="toc-wrap-up" class="nav-link" data-scroll-target="#wrap-up"><span class="header-section-number">7</span> Wrap-up</a></li>
   </ul>
 </nav>
     </div>
@@ -146,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Session 4 — Visualisation and basic statistics with ggplot2</h1>
+<h1 class="title">Session 4 — Work with own data</h1>
 <p class="subtitle lead">Language Analytics in R</p>
 </div>
 
@@ -170,76 +169,91 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="learning-objectives" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">0.1</span> Learning objectives</h2>
+<section id="learning-objectives" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
 <p>By the end of this session you will:</p>
 <ul>
-<li>Build plots with <strong>ggplot2</strong>: data, aesthetics (<code>aes()</code>), and geoms.</li>
-<li>Use <strong>layers</strong>: add geoms, scales, labels, and themes.</li>
-<li>Choose appropriate <strong>geoms</strong> for the task (e.g.&nbsp;bar, point, line, boxplot, histogram).</li>
-<li>Add basic statistical summaries to plots (e.g.&nbsp;means, error bars, smooth trends).</li>
-<li>Customize <strong>axes</strong>, <strong>labels</strong>, and <strong>themes</strong> for clear, publishable figures.</li>
-<li>Apply ggplot2 to <strong>language and corpus data</strong> (e.g.&nbsp;frequencies, distributions, model results).</li>
+<li>Define a clear and feasible mini-question for your own project data.</li>
+<li>Import and inspect your own dataset in a reproducible way.</li>
+<li>Prepare a clean analysis table (variables, types, missing data, filters).</li>
+<li>Run and document one or two core analyses from your project.</li>
+<li>Create at least one interpretable visualization for your data.</li>
+<li>Structure your workflow in a reusable Quarto document.</li>
 </ul>
 </section>
-<section id="grammar-of-graphics" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Grammar of graphics</h1>
-<ul>
-<li><strong>Data</strong> → <strong>Aesthetics</strong> (mapping variables to x, y, color, fill, etc.) → <strong>Geometries</strong> (how to draw).</li>
-<li><strong><code>ggplot(data, aes(x = ..., y = ...)) + geom_...()</code></strong></li>
-</ul>
-<p><em>[Add a minimal example: e.g.&nbsp;bar chart of word counts or scatter plot.]</em></p>
+<section id="focus-of-this-session" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="focus-of-this-session"><span class="header-section-number">2</span> Focus of this session</h2>
+<p>This session is a guided workshop. You work with your own data, and the goal is to leave with a reproducible analysis draft that you can continue after class.</p>
 </section>
-<section id="core-geoms" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Core geoms</h1>
+<section id="suggested-workflow" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="suggested-workflow"><span class="header-section-number">3</span> Suggested workflow</h2>
+<ol type="1">
+<li><strong>Research question</strong>
 <ul>
-<li><strong><code>geom_bar()</code></strong> / <strong><code>geom_col()</code></strong> — counts vs pre-computed values.</li>
-<li><strong><code>geom_point()</code></strong> — scatter plots.</li>
-<li><strong><code>geom_line()</code></strong> — time series or trends.</li>
-<li><strong><code>geom_histogram()</code></strong> / <strong><code>geom_density()</code></strong> — distributions.</li>
-<li><strong><code>geom_boxplot()</code></strong> / <strong><code>geom_violin()</code></strong> — group comparisons.</li>
-</ul>
-<p><em>[Add one or two code chunks per geom using course-relevant data.]</em></p>
+<li>Write one focused question you can answer with the available data.</li>
+</ul></li>
+<li><strong>Data import and checks</strong>
+<ul>
+<li>Load your files (<code>readr</code>, <code>readxl</code>, <code>quanteda</code>, etc.).</li>
+<li>Confirm encoding, separators, and metadata.</li>
+</ul></li>
+<li><strong>Data preparation</strong>
+<ul>
+<li>Keep relevant variables.</li>
+<li>Recode variable names and values if needed.</li>
+<li>Handle missing or noisy values.</li>
+</ul></li>
+<li><strong>First analysis</strong>
+<ul>
+<li>Frequency tables, distributions, or group comparisons.</li>
+</ul></li>
+<li><strong>Visualization</strong>
+<ul>
+<li>Build one figure that supports your question.</li>
+</ul></li>
+<li><strong>Documentation</strong>
+<ul>
+<li>Save everything in a Quarto file with short interpretation notes.</li>
+</ul></li>
+</ol>
 </section>
-<section id="aesthetics-and-layers" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Aesthetics and layers</h1>
-<ul>
-<li><strong><code>aes()</code></strong>: map variables to x, y, color, fill, size, shape.</li>
-<li><strong>Faceting</strong>: <code>facet_wrap()</code>, <code>facet_grid()</code>.</li>
-<li><strong>Scales</strong>: <code>scale_*</code> for axes, colors, labels.</li>
-</ul>
-<p><em>[Add an example with faceting or custom scales.]</em></p>
+<section id="recommended-quarto-structure" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="recommended-quarto-structure"><span class="header-section-number">4</span> Recommended Quarto structure</h2>
+<p>Use this section layout in your own project document:</p>
+<ol type="1">
+<li><strong>Question and data</strong></li>
+<li><strong>Import</strong></li>
+<li><strong>Cleaning and preparation</strong></li>
+<li><strong>Analysis</strong></li>
+<li><strong>Visualization</strong></li>
+<li><strong>Interpretation and next steps</strong></li>
+</ol>
 </section>
-<section id="labels-and-themes" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Labels and themes</h1>
+<section id="in-class-checklist" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="in-class-checklist"><span class="header-section-number">5</span> In-class checklist</h2>
 <ul>
-<li><strong><code>labs()</code></strong> — title, subtitle, axis labels.</li>
-<li><strong><code>theme_minimal()</code></strong>, <strong><code>theme_bw()</code></strong>, or custom <strong><code>theme()</code></strong>.</li>
-<li><strong>Saving</strong>: <code>ggsave()</code> or Quarto figure options.</li>
-</ul>
-<p><em>[Add a polished plot example and ggsave.]</em></p>
-</section>
-<section id="adding-basic-statistics-to-plots" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Adding basic statistics to plots</h1>
-<ul>
-<li><strong><code>stat_summary()</code></strong> for means and confidence intervals/error bars.</li>
-<li><strong><code>geom_smooth()</code></strong> for trend lines (e.g.&nbsp;linear model or loess).</li>
-<li>Combine group summaries with faceting to compare patterns across categories.</li>
-</ul>
-<p><em>[Add one example with means + error bars and one example with <code>geom_smooth()</code>.]</em></p>
-</section>
-<section id="hands-on-exercises" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Hands-on exercises</h1>
-<ul>
-<li>Reproduce a simple plot from the session (e.g.&nbsp;bar chart, boxplot).</li>
-<li>Build a plot from your own or course data; add labels and a theme.</li>
+<li>Your data is loaded successfully.</li>
+<li>Variable names and types are understood.</li>
+<li>One clean analysis table is created.</li>
+<li>One plot is generated and interpreted.</li>
+<li>Your Quarto file runs from top to bottom without errors.</li>
 </ul>
 </section>
-<section id="summary-and-further-reading" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Summary and further reading</h1>
+<section id="hands-on-tasks" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="hands-on-tasks"><span class="header-section-number">6</span> Hands-on tasks</h2>
+<ol type="1">
+<li>Import your own data and print a compact overview (<code>glimpse()</code>, <code>summary()</code>).</li>
+<li>Create a cleaned table for one key variable or comparison.</li>
+<li>Compute one descriptive result (counts, proportions, means, or dispersion).</li>
+<li>Build one plot and add clear axis labels and title.</li>
+<li>Write 3-5 sentences interpreting your result.</li>
+</ol>
+</section>
+<section id="wrap-up" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="wrap-up"><span class="header-section-number">7</span> Wrap-up</h2>
 <ul>
-<li>R4DS <a href="https://r4ds.hadley.nz/data-visualize.html">Data visualization</a>, <a href="https://r4ds.hadley.nz/layers.html">Layers</a>, <a href="https://r4ds.hadley.nz/communication.html">Communication</a>.</li>
-<li><a href="https://eleanorchodroff.com/r-for-linguists/ggplot2.html">R for Linguists — ggplot2</a>.</li>
+<li>Keep your session file as the starting point for your final project workflow.</li>
+<li>In the next session, we will use AI/Cursor to speed up coding, debugging, and documentation in a controlled way.</li>
 </ul>
 
 

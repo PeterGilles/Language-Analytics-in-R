@@ -884,28 +884,28 @@ Here we use three works by the German author <strong>Hermann Hesse</strong> from
 <span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a>lod_entries <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 20 × 4
-   lemma            ipa                   n_en_translations first_en_translation
-   &lt;chr&gt;            &lt;chr&gt;                             &lt;int&gt; &lt;chr&gt;               
- 1 Echec            eʃˈæk                                 1 failure             
- 2 retouchéieren    ʀətuʃˈɜɪəʀən                          0 &lt;NA&gt;                
- 3 virbehandelen    fˈiːɐ̯bəhɑndələn                       1 to pretreat         
- 4 ganzdaags        &lt;NA&gt;                                  2 all-day             
- 5 kenteren         kˈæntəʀən                             0 &lt;NA&gt;                
- 6 Psychoterror     psˈikotɛʀoːʀ                          0 &lt;NA&gt;                
- 7 Abenteurerin     &lt;NA&gt;                                  1 adventurer          
- 8 Karfreideg       kaːfʀˈɑɪdəɕ                           1 Good Friday         
- 9 Muskulatur       muskulɑtˈuːɐ̯                          2 musculature         
-10 Krokelshaff      kʀˈoːkəlshɑf                          1 Krokelshaff         
-11 Aarbechtskolleeg ˈaːbəɕtskoleːɕ                        1 colleague           
-12 Kiwi             &lt;NA&gt;                                  1 kiwi                
-13 andreiwen        ˈɑndʀɑɪvən                            3 to recover          
-14 prototypesch     pʀˈotoːtipəʃ                          1 prototypical        
-15 Covid-19-Emprunt kˈoːvitnˈontseŋˈɑ̃ːmp…                 1 COVID-19 loan       
-16 Kloterwand       &lt;NA&gt;                                  1 climbing wall       
-17 Merkur           &lt;NA&gt;                                  0 &lt;NA&gt;                
-18 järlech          jˈɛːɐ̯ləɕ                              3 yearly              
-19 virausser        fˈiːɐ̯ʀæːʊsɐ                           0 &lt;NA&gt;                
-20 Gänsegeier       ɡˈænzəɡɑɪɐ                            1 Eurasian griffon    </code></pre>
+   lemma                    ipa           n_en_translations first_en_translation
+   &lt;chr&gt;                    &lt;chr&gt;                     &lt;int&gt; &lt;chr&gt;               
+ 1 qualifizéieren           kɑlifitsˈɜɪə…                 1 to qualify (for)    
+ 2 embêtéiert               ɑ̃ːmbɛːtˈɜɪɐt                  2 to be embarrassed   
+ 3 Späicherliicht           ʃpæːɪɕɐlˈiːɕt                 1 skylight            
+ 4 Hongkong                 &lt;NA&gt;                          1 Hong Kong           
+ 5 Choreographie            koʀeoɡʀɑfˈiː                  0 &lt;NA&gt;                
+ 6 Bléckkontakt             &lt;NA&gt;                          2 eye contact         
+ 7 léierräich               lˈɜɪɐʀæːɪɕ                    0 &lt;NA&gt;                
+ 8 Meitnerium               mɑɪtnˈeːʀium                  1 meitnerium          
+ 9 Col                      kol                           2 collar              
+10 Stéifschwëster           ʃtˈɜɪfʃwəstɐ                  1 stepsister          
+11 Urecht                   ˈuʀæɕt                        1 right               
+12 Häerz-Kreeslaf-Krankheet hɛːɐ̯tskʀˈeːs…                 1 cardiovascular dise…
+13 Nohëllef                 nˈoːhələf                     2 coaching            
+14 Feldhärin                fˈælthɛːʀin                   2 general             
+15 Är                       ɛːɐ̯                           8 your                
+16 Versement                vˈɛʀsəmɑ̃ː                     2 deposit             
+17 Ochs                     oks                           2 ox                  
+18 genau                    ɡenˈɑʊ                        0 &lt;NA&gt;                
+19 erofkucken               əʀˈoːfkukən                   1 to look down        
+20 gewinnen                 ɡəvˈinən                      3 to get used to      </code></pre>
 </div>
 </div>
 <p>What happens:</p>
@@ -925,28 +925,28 @@ Here we use three works by the German author <strong>Hermann Hesse</strong> from
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 20 × 2
-   first_en_translation                 n
-   &lt;chr&gt;                            &lt;int&gt;
- 1 adventurer                           2
- 2 alarming                             2
- 3 happy                                2
- 4 illness                              2
- 5 to crumple                           2
- 6 to glue                              2
- 7 to run                               2
- 8 to touch                             2
- 9 unemployed person                    2
-10 unusual                              2
-11 (Ferme de) Berbourg                  1
-12 (allotted) task                      1
-13 (at) home                            1
-14 (bottle) cap                         1
-15 (completely) nuts                    1
-16 (female) field keeper                1
-17 (flaming) torch                      1
-18 (made of) stainless steel            1
-19 (only available) on prescription     1
-20 Advanced Care Centre                 1</code></pre>
+   first_en_translation           n
+   &lt;chr&gt;                      &lt;int&gt;
+ 1 ball                           2
+ 2 general                        2
+ 3 paediatrician                  2
+ 4 professional                   2
+ 5 pure                           2
+ 6 researcher                     2
+ 7 to assist                      2
+ 8 to change                      2
+ 9 to smoke                       2
+10 to squeeze together            2
+11 to tear off                    2
+12 to tie up                      2
+13 (Sicilian) Mafia               1
+14 (air) turbulence               1
+15 (bubonic) plague               1
+16 (lasting) for hours            1
+17 (local) planning authority     1
+18 (protective) vaccination       1
+19 (railway) station              1
+20 (yellow) ochre                 1</code></pre>
 </div>
 </div>
 <p>What happens:</p>

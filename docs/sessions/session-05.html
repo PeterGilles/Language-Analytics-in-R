@@ -8,7 +8,7 @@
 
 <meta name="author" content="Peter Gilles">
 
-<title>Session 5 — Work on own projects – Language Analytics in R</title>
+<title>Session 5 — Using AI (Cursor) as coding assistant – Language Analytics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,7 +130,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#working-on-own-data" id="toc-working-on-own-data" class="nav-link active" data-scroll-target="#working-on-own-data"><span class="header-section-number">1</span> Working on own data</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">1</span> Learning objectives</a></li>
+  <li><a href="#what-cursor-can-help-with" id="toc-what-cursor-can-help-with" class="nav-link" data-scroll-target="#what-cursor-can-help-with"><span class="header-section-number">2</span> What Cursor can help with</a></li>
+  <li><a href="#prompt-patterns-for-this-course" id="toc-prompt-patterns-for-this-course" class="nav-link" data-scroll-target="#prompt-patterns-for-this-course"><span class="header-section-number">3</span> Prompt patterns for this course</a></li>
+  <li><a href="#human-in-the-loop-workflow" id="toc-human-in-the-loop-workflow" class="nav-link" data-scroll-target="#human-in-the-loop-workflow"><span class="header-section-number">4</span> Human-in-the-loop workflow</a></li>
+  <li><a href="#common-failure-modes" id="toc-common-failure-modes" class="nav-link" data-scroll-target="#common-failure-modes"><span class="header-section-number">5</span> Common failure modes</a></li>
+  <li><a href="#good-practice-and-transparency" id="toc-good-practice-and-transparency" class="nav-link" data-scroll-target="#good-practice-and-transparency"><span class="header-section-number">6</span> Good practice and transparency</a></li>
   </ul>
 </nav>
     </div>
@@ -139,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Session 5 — Work on own projects</h1>
+<h1 class="title">Session 5 — Using AI (Cursor) as coding assistant</h1>
 <p class="subtitle lead">Language Analytics in R</p>
 </div>
 
@@ -163,8 +168,72 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="working-on-own-data" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="working-on-own-data"><span class="header-section-number">1</span> Working on own data</h2>
+<section id="learning-objectives" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
+<p>By the end of this session you will:</p>
+<ul>
+<li>Use Cursor as a coding assistant for R and Quarto tasks.</li>
+<li>Write effective prompts for data wrangling, visualization, and debugging.</li>
+<li>Validate AI-generated code before using it in your project.</li>
+<li>Integrate AI support into a reproducible, transparent workflow.</li>
+<li>Recognize limitations and risks (hallucinations, wrong assumptions, hidden errors).</li>
+</ul>
+</section>
+<section id="what-cursor-can-help-with" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="what-cursor-can-help-with"><span class="header-section-number">2</span> What Cursor can help with</h2>
+<ul>
+<li>Drafting code templates (imports, joins, pipelines, plots).</li>
+<li>Explaining existing code and suggesting refactors.</li>
+<li>Debugging error messages and proposing fixes.</li>
+<li>Generating short documentation snippets and comments.</li>
+<li>Helping structure Quarto reports.</li>
+</ul>
+</section>
+<section id="prompt-patterns-for-this-course" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="prompt-patterns-for-this-course"><span class="header-section-number">3</span> Prompt patterns for this course</h2>
+<p>Use prompts that include:</p>
+<ol type="1">
+<li><strong>Context</strong>: what your data looks like and what packages you use.</li>
+<li><strong>Task</strong>: exact output you need (table, plot, function, interpretation).</li>
+<li><strong>Constraints</strong>: keep tidyverse style, avoid changing variable names, keep reproducibility.</li>
+<li><strong>Verification</strong>: ask for checks and edge cases.</li>
+</ol>
+<p>Example prompt:</p>
+<blockquote class="blockquote">
+<p>I have a tibble with variables <code>speaker</code>, <code>genre</code>, and <code>token_count</code>.<br>
+Write tidyverse code to compute median token count by genre and create a ggplot boxplot by genre.<br>
+Keep original variable names and add a short interpretation paragraph.</p>
+</blockquote>
+</section>
+<section id="human-in-the-loop-workflow" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="human-in-the-loop-workflow"><span class="header-section-number">4</span> Human-in-the-loop workflow</h2>
+<ol type="1">
+<li><strong>Ask</strong> Cursor for a first draft.</li>
+<li><strong>Review</strong> every line of generated code.</li>
+<li><strong>Run</strong> code chunk by chunk.</li>
+<li><strong>Check</strong> whether output matches the research question.</li>
+<li><strong>Revise</strong> prompt and code until result is correct.</li>
+<li><strong>Document</strong> what was generated and what you changed manually.</li>
+</ol>
+</section>
+<section id="common-failure-modes" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="common-failure-modes"><span class="header-section-number">5</span> Common failure modes</h2>
+<ul>
+<li>Fabricated column names or package functions.</li>
+<li>Incorrect assumptions about data types or missing values.</li>
+<li>Code that runs but does not answer your question.</li>
+<li>Overly complex solutions for simple tasks.</li>
+<li>Missing citations or weak methodological transparency.</li>
+</ul>
+</section>
+<section id="good-practice-and-transparency" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="good-practice-and-transparency"><span class="header-section-number">6</span> Good practice and transparency</h2>
+<ul>
+<li>Keep AI support visible in your workflow notes.</li>
+<li>Save intermediate steps and interpretation text in Quarto.</li>
+<li>Prefer small, testable prompts over one large prompt.</li>
+<li>Cross-check key results with simple summaries.</li>
+</ul>
 
 
 </section>
