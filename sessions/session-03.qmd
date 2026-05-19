@@ -136,7 +136,7 @@ Now we narrow the corpus to recent speeches (`Year >= 1993`). This mirrors a com
 #| label: corpus-subset
 
 corp_recent <- corpus_subset(corp_inaug, Year >= 1993)
-summary(corp_recent, n = 6)
+summary(corp_recent)
 ```
 
 ## 3) Tokenize and preprocess
@@ -159,7 +159,11 @@ toks_recent <- tokens(
   remove_numbers = TRUE
 ) |>
   tokens_tolower() |>
-  tokens_remove(stopwords("en"))
+  tokens_remove(stopwords("en")) |>
+  tokens_wordstem(
+  language = quanteda_options("language_stemmer"),
+  verbose = quanteda_options("verbose")
+)
 
 toks_recent
 ```
@@ -440,8 +444,8 @@ toks_faust <- tokens(corp_faust, remove_punct = TRUE) |>
   tokens_tolower()
 
 # Create KWIC objects for both search terms
-kwic_1 <- kwic(toks_faust, pattern = "himmel")
-kwic_2 <- kwic(toks_faust, pattern = "hölle")
+kwic_1 <- kwic(toks_faust, pattern = "heinrich")
+kwic_2 <- kwic(toks_faust, pattern = "mephistopheles")
 
 # Plot lexical dispersion ("x-ray")
 textplot_xray(
@@ -468,7 +472,7 @@ The canonical structure is:
 ```{r}
 #| eval: false
 
-ggplot(data = ..., aes(x = ..., y = ...)) +
+ggplot(data = ..., aes(x = ..., y = ...)) + 
   geom_...() +
   labs(...) +
   theme_minimal()
@@ -491,7 +495,7 @@ It is a good teaching dataset because it contains both categorical and numeric v
 ```{r}
 #| label: ggplot-easy-1
 
-ggplot(mpg, aes(x = class)) +
+ggplot(data = mpg, aes(x = class)) +
   geom_bar()
 ```
 
@@ -552,6 +556,8 @@ ggplot(mean_hwy_by_class, aes(x = class, y = mean_hwy)) +
     y = "Mean highway MPG"
   ) +
   theme_minimal()
+
+
 ```
 
 ## Boxplots and violin plots with `iris`
@@ -567,8 +573,9 @@ A **violin plot** shows the full density shape of the distribution.
 ```{r}
 #| label: ggplot-boxplot-iris
 
-ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
-  geom_boxplot(alpha = 0.8) +
+ggplot(iris) +
+  geom_jitter(aes(x = Species, y = Sepal.Length, colour = Species)) +
+  geom_boxplot(aes(x = Species, y = Sepal.Length, fill = Species), alpha = 0.4, notch = TRUE, outlier.colour = "red", outlier.shape = 2) +
   labs(
     title = "Sepal length by species (boxplot)",
     x = "Species",
@@ -637,188 +644,9 @@ ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
   theme_minimal()
 ```
 
-## Maps with Luxembourg examples
-
-For a lightweight first map, we use polygon data from `map_data("world")` and zoom into Luxembourg.
-
-```{r}
-#| label: ggplot-map-lux-region
-#| fig-width: 11
-#| fig-height: 7
-#| out-width: "100%"
-
-world_map <- map_data("world")
-
-ggplot(world_map, aes(x = long, y = lat, group = group)) +
-  geom_polygon(fill = "grey90", color = "white", linewidth = 0.2) +
-  coord_quickmap(xlim = c(4.5, 7.0), ylim = c(49.2, 50.4)) +
-  labs(
-    title = "Luxembourg in regional context",
-    x = "Longitude",
-    y = "Latitude"
-  ) +
-  theme_minimal()
-```
-
-```{r}
-#| label: ggplot-map-lux-highlight
-#| fig-width: 12
-#| fig-height: 18
-#| out-width: "100%"
-#| fig.show: "hold"
-
-world_map <- map_data("world")
-communes_df <- readRDS("communes_df.RDS")
-centroids_label <- readRDS("centroids_label.RDS")
-
-lux_map <- world_map |>
-  filter(region == "Luxembourg")
-
-# Step 1: regional background
-p1 <- ggplot() +
-  geom_polygon(
-    data = world_map,
-    aes(x = long, y = lat, group = group),
-    fill = "grey92", color = "white", linewidth = 0.2
-  ) +
-  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.4)) +
-  labs(
-    title = "Step 1: Regional background",
-    x = "Longitude",
-    y = "Latitude"
-  ) +
-  theme_minimal()
-print(p1)
-
-# Step 2: add commune polygons
-p2 <- p1 +
-  # Layer 2: commune polygons inside Luxembourg
-  geom_polygon(
-    data = communes_df,
-    aes(x = long, y = lat, group = group),
-    fill = "#fdebd0", color = "#d35400", linewidth = 0.15, alpha = 0.8
-  ) +
-  labs(title = "Step 2: + Commune polygons")
-print(p2)
-
-# Step 3: add Luxembourg country outline
-p3 <- p2 +
-  # Layer 3: Luxembourg country outline
-  geom_polygon(
-    data = lux_map,
-    aes(x = long, y = lat, group = group),
-    fill = NA, color = "black", linewidth = 0.5
-  ) +
-  labs(title = "Step 3: + Country outline")
-print(p3)
-
-# Step 4: add centroid points for important places
-p4 <- p3 +
-  # Layer 4: important city points from centroid file
-  geom_point(
-    data = centroids_label,
-    aes(x = long, y = lat),
-    color = "navy", size = 1.8
-  ) +
-  labs(title = "Step 4: + Important place points")
-print(p4)
-
-# Step 5: add city labels (final map)
-p5 <- p4 +
-  # Layer 5: city labels
-  geom_text(
-    data = centroids_label,
-    aes(x = long, y = lat, label = label),
-    size = 2.8, nudge_y = 0.015, color = "navy"
-  ) +
-  labs(
-    title = "Step 5: Final map",
-    subtitle = "Communes (polygons) + centroid city labels",
-    x = "Longitude",
-    y = "Latitude"
-  )
-print(p5)
-```
-
-You can also combine the five map states into one overview grid:
-
-```{r}
-#| label: ggplot-map-layers-grid
-#| fig-width: 13
-#| fig-height: 10
-#| out-width: "100%"
-
-gridExtra::grid.arrange(p1, p2, p3, p4, p5, ncol = 5)
-```
-
-Step-by-step map logic:
-
-1.  Load base map polygons (`map_data("world")`) and zoom to Luxembourg.
-2.  Add commune polygons from `communes_df.RDS` as an internal administrative layer.
-3.  Draw Luxembourg border on top for a clear country outline.
-4.  Add centroid points from `centroids_label.RDS`.
-5.  Add text labels for important places (`label` column).
-
-## Population per commune (choropleth)
-
-This map visualizes total population (`total_population`) by commune.
-
-How it works:
-
-1.  Load commune population table from `Gemengen_Statistiken.qs`.
-2.  Join population values to commune polygons via commune name (`id` vs `COMMUNE_NOM`).
-3.  Use `fill = total_population` to encode population with a color gradient.
-4.  Optionally add commune labels at centroids for orientation.
-
-```{r}
-#| label: ggplot-map-population-communes
-#| fig-width: 14
-#| fig-height: 10
-#| out-width: "100%"
-
-communes_df <- readRDS("communes_df.RDS")
-centroids_label <- readRDS("centroids_label.RDS")
-
-# Preferred source: Gemengen_Statistiken.qs
-pop_totals <- readRDS("Gemengen_Statistiken.RDS")
-
-# Join population table to polygon coordinates
-communes_pop_map <- communes_df |>
-  left_join(
-    pop_totals |>
-      select(Gemeng, total_population = Awunnerzuel),
-    by = c("id" = "Gemeng")
-  )
-
-ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = total_population)) +
-  geom_polygon(color = "white", linewidth = 0.15) +
-  geom_text(
-    data = centroids_label,
-    aes(x = long, y = lat, label = label),
-    inherit.aes = FALSE,
-    size = 2.4,
-    color = "grey20"
-  ) +
-  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
-  labs(
-    title = "Luxembourg: total population by commune",
-    subtitle = "Fill color = total_population",
-    x = "Longitude",
-    y = "Latitude"
-  ) +
-  theme_minimal()
-```
-
-Interpretation:
-
--   Darker communes have lower population totals.
--   Luxembourg City should stand out clearly as the most populous commune.
-
 ## Exercises
 
 ### Exercise A (`mpg`): from raw data to summary plots
-
-**Goal:** practice both direct plotting and plotting after data restructuring.
 
 Tasks:
 
@@ -826,8 +654,7 @@ Tasks:
 2.  Build a summary table with:
     -   `mean_hwy` (mean of `hwy`) by `class`
     -   `sum_cty` (sum of `cty`) by `class`
-3.  Plot both summaries with `geom_col()` (two separate plots).
-4.  Briefly interpret one pattern (2-3 lines).
+3.  Plot both summaries with `geom_col()` (two separate plots)
 
 ::: {.callout-tip collapse="true"}
 ## Possible solution — Exercise A (click to expand)
@@ -848,18 +675,24 @@ mpg_summary <- mpg |>
   )
 
 # A3a: plot mean_hwy
-ggplot(mpg_summary, aes(x = class, y = mean_hwy)) +
+plot1 <- ggplot(mpg_summary, aes(x = class, y = mean_hwy)) +
   geom_col(fill = "seagreen") +
   coord_flip() +
   labs(title = "Mean highway MPG by class", x = "Class", y = "Mean hwy") +
   theme_minimal()
 
 # A3b: plot sum_cty
-ggplot(mpg_summary, aes(x = class, y = sum_cty)) +
+plot2 <- ggplot(mpg_summary, aes(x = class, y = sum_cty)) +
   geom_col(fill = "darkorange") +
   coord_flip() +
   labs(title = "Sum of city MPG values by class", x = "Class", y = "Sum cty") +
   theme_minimal()
+
+library(patchwork)
+sum_plot <- plot1 + plot2
+sum_plot
+
+ggsave("plots.pdf")
 ```
 :::
 
@@ -905,58 +738,5 @@ ggplot(iris_summary, aes(x = Species, y = mean_sepal, fill = Species)) +
   labs(title = "Mean Sepal Length by species", y = "Mean Sepal Length") +
   theme_minimal() +
   theme(legend.position = "none")
-```
-:::
-
-### Exercise C (population): choropleth with joins and aggregation
-
-**Goal:** practice map joins and pre-aggregation for cartographic input.
-
-Tasks:
-
-1.  Join `communes_df` with `pop_totals` to map `total_population` by commune.
-2.  Create the choropleth (`fill = total_population`) with commune labels.
-3.  Build a 5-class quantile variable (`pop_quantile`) from `total_population`.
-4.  Plot a second choropleth using `fill = pop_quantile` (discrete classes).
-
-::: {.callout-tip collapse="true"}
-## Possible solution — Exercise C (click to expand)
-
-```{r}
-communes_df <- readRDS("communes_df.RDS")
-centroids_label <- readRDS("centroids_label.RDS")
-pop_totals <- readRDS("Gemengen_Statistiken.RDS")
-
-# C1: join map polygons with commune population stats
-communes_pop_map <- communes_df |>
-  left_join(
-    pop_totals |>
-      select(Gemeng, total_population = Awunnerzuel),
-    by = c("id" = "Gemeng")
-  )
-
-# C2: continuous choropleth
-ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = total_population)) +
-  geom_polygon(color = "white", linewidth = 0.15) +
-  geom_text(
-    data = centroids_label,
-    aes(x = long, y = lat, label = label),
-    inherit.aes = FALSE,
-    size = 2.2
-  ) +
-  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
-  labs(title = "Population by commune", fill = "Population") +
-  theme_minimal()
-
-# C3: aggregation/restructuring into quantile groups
-communes_pop_map <- communes_pop_map |>
-  mutate(pop_quantile = dplyr::ntile(total_population, 5))
-
-# C4: discrete choropleth (5 classes)
-ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = factor(pop_quantile))) +
-  geom_polygon(color = "white", linewidth = 0.15) +
-  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
-  labs(title = "Population quantiles by commune", fill = "Quantile") +
-  theme_minimal()
 ```
 :::

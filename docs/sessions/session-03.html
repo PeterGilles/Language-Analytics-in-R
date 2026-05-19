@@ -189,9 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#bar-charts" id="toc-bar-charts" class="nav-link" data-scroll-target="#bar-charts"><span class="header-section-number">4.3</span> Bar charts</a></li>
   <li><a href="#boxplots-and-violin-plots-with-iris" id="toc-boxplots-and-violin-plots-with-iris" class="nav-link" data-scroll-target="#boxplots-and-violin-plots-with-iris"><span class="header-section-number">4.4</span> Boxplots and violin plots with <code>iris</code></a></li>
   <li><a href="#scatter-plots" id="toc-scatter-plots" class="nav-link" data-scroll-target="#scatter-plots"><span class="header-section-number">4.5</span> Scatter plots</a></li>
-  <li><a href="#maps-with-luxembourg-examples" id="toc-maps-with-luxembourg-examples" class="nav-link" data-scroll-target="#maps-with-luxembourg-examples"><span class="header-section-number">4.6</span> Maps with Luxembourg examples</a></li>
-  <li><a href="#population-per-commune-choropleth" id="toc-population-per-commune-choropleth" class="nav-link" data-scroll-target="#population-per-commune-choropleth"><span class="header-section-number">4.7</span> Population per commune (choropleth)</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">4.8</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">4.6</span> Exercises</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -412,9 +410,9 @@ Bibel :
 <p>Now we narrow the corpus to recent speeches (<code>Year &gt;= 1993</code>). This mirrors a common workflow: define a specific analytical window before tokenization.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>corp_recent <span class="ot">&lt;-</span> <span class="fu">corpus_subset</span>(corp_inaug, Year <span class="sc">&gt;=</span> <span class="dv">1993</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(corp_recent, <span class="at">n =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(corp_recent)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Corpus consisting of 9 documents, showing 6 documents:
+<pre><code>Corpus consisting of 9 documents, showing 9 documents:
 
          Text Types Tokens Sentences Year President FirstName      Party
  1993-Clinton   642   1833        82 1993   Clinton      Bill Democratic
@@ -422,7 +420,10 @@ Bibel :
     2001-Bush   621   1806        98 2001      Bush George W. Republican
     2005-Bush   772   2312        99 2005      Bush George W. Republican
    2009-Obama   938   2689       112 2009     Obama    Barack Democratic
-   2013-Obama   814   2317        90 2013     Obama    Barack Democratic</code></pre>
+   2013-Obama   814   2317        90 2013     Obama    Barack Democratic
+   2017-Trump   582   1660        89 2017     Trump Donald J. Republican
+   2021-Biden   812   2766       229 2021     Biden Joseph R. Democratic
+   2025-Trump  1000   3347       177 2025     Trump Donald J. Republican</code></pre>
 </div>
 </div>
 </section>
@@ -443,43 +444,46 @@ Bibel :
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_numbers =</span> <span class="cn">TRUE</span></span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_tolower</span>() <span class="sc">|&gt;</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="fu">stopwords</span>(<span class="st">"en"</span>))</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>toks_recent</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="fu">stopwords</span>(<span class="st">"en"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_wordstem</span>(</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">language =</span> <span class="fu">quanteda_options</span>(<span class="st">"language_stemmer"</span>),</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="fu">quanteda_options</span>(<span class="st">"verbose"</span>)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>toks_recent</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tokens consisting of 9 documents and 4 docvars.
 1993-Clinton :
- [1] "fellow"    "citizens"  "today"     "celebrate" "mystery"   "american" 
- [7] "renewal"   "ceremony"  "held"      "depth"     "winter"    "words"    
+ [1] "fellow"   "citizen"  "today"    "celebr"   "mysteri"  "american"
+ [7] "renew"    "ceremoni" "held"     "depth"    "winter"   "word"    
 [ ... and 786 more ]
 
 1997-Clinton :
- [1] "fellow"       "citizens"     "last"         "presidential" "inauguration"
- [6] "20th"         "century"      "let"          "us"           "lift"        
-[11] "eyes"         "toward"      
+ [1] "fellow"     "citizen"    "last"       "presidenti" "inaugur"   
+ [6] "20th"       "centuri"    "let"        "us"         "lift"      
+[11] "eye"        "toward"    
 [ ... and 1,118 more ]
 
 2001-Bush :
- [1] "president"     "clinton"       "distinguished" "guests"       
- [5] "fellow"        "citizens"      "peaceful"      "transfer"     
- [9] "authority"     "rare"          "history"       "yet"          
+ [1] "presid"      "clinton"     "distinguish" "guest"       "fellow"     
+ [6] "citizen"     "peac"        "transfer"    "author"      "rare"       
+[11] "histori"     "yet"        
 [ ... and 771 more ]
 
 2005-Bush :
- [1] "vice"      "president" "cheney"    "mr"        "chief"     "justice"  
- [7] "president" "carter"    "president" "bush"      "president" "clinton"  
+ [1] "vice"    "presid"  "cheney"  "mr"      "chief"   "justic"  "presid" 
+ [8] "carter"  "presid"  "bush"    "presid"  "clinton"
 [ ... and 1,029 more ]
 
 2009-Obama :
- [1] "fellow"     "citizens"   "stand"      "today"      "humbled"   
- [6] "task"       "us"         "grateful"   "trust"      "bestowed"  
-[11] "mindful"    "sacrifices"
+ [1] "fellow"   "citizen"  "stand"    "today"    "humbl"    "task"    
+ [7] "us"       "grate"    "trust"    "bestow"   "mind"     "sacrific"
 [ ... and 1,161 more ]
 
 2013-Obama :
- [1] "vice"          "president"     "biden"         "mr"           
- [5] "chief"         "justice"       "members"       "united"       
- [9] "states"        "congress"      "distinguished" "guests"       
+ [1] "vice"        "presid"      "biden"       "mr"          "chief"      
+ [6] "justic"      "member"      "unit"        "state"       "congress"   
+[11] "distinguish" "guest"      
 [ ... and 1,019 more ]
 
 [ reached max_ndoc ... 3 more documents ]</code></pre>
@@ -493,32 +497,32 @@ Bibel :
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kwic</span>(toks_recent, <span class="at">pattern =</span> <span class="st">"freedom"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Keyword-in-context with 12 matches.                                                                            
-   [1993-Clinton, 97] new responsibilities world warmed sunshine | freedom |
-  [1993-Clinton, 218]            crime robs law abiding citizens | freedom |
-  [1993-Clinton, 611]   hands every continent building democracy | freedom |
-  [1997-Clinton, 764]             long denied stand mighty peace | freedom |
- [1997-Clinton, 1108]      reality people america's bright flame | freedom |
-      [2001-Bush, 68] story slave-holding society became servant | freedom |
-     [2001-Bush, 123]          much last century america's faith | freedom |
-     [2001-Bush, 297]             never small country lead cause | freedom |
-     [2001-Bush, 430]        choice shaping balance power favors | freedom |
-     [2001-Bush, 598]      unhonored acts decency give direction | freedom |
-      [2005-Bush, 63]     together half century america defended | freedom |
-     [2005-Bush, 127]          hopes decent tolerant force human | freedom |
-                                           
- threatened still ancient hatreds new      
- millions poor children even imagine       
- cause america's cause american people     
- maintain strong defense terror destruction
- spreading throughout world height place   
- story power went world protect            
- democracy rock raging sea now             
- led turn hearts children toward           
- defend allies interests show purpose      
- sometimes life called great things        
- standing watch distant borders shipwreck  
- led events common sense one               </code></pre>
+<pre><code>Keyword-in-context with 12 matches.                                                                        
+   [1993-Clinton, 97]         new respons world warm sunshin | freedom |
+  [1993-Clinton, 218]             crime rob law abid citizen | freedom |
+  [1993-Clinton, 611]      hand everi contin build democraci | freedom |
+  [1997-Clinton, 764]            long deni stand mighti peac | freedom |
+ [1997-Clinton, 1108]     realiti peopl america bright flame | freedom |
+      [2001-Bush, 68] stori slave-hold societi becam servant | freedom |
+     [2001-Bush, 123]        much last centuri america faith | freedom |
+     [2001-Bush, 297]          never small countri lead caus | freedom |
+     [2001-Bush, 430]         choic shape balanc power favor | freedom |
+     [2001-Bush, 598]         unhonor act decenc give direct | freedom |
+      [2005-Bush, 63]     togeth half centuri america defend | freedom |
+     [2005-Bush, 127]           hope decent toler forc human | freedom |
+                                       
+ threaten still ancient hatr new       
+ million poor children even imagin     
+ caus america caus american peopl      
+ maintain strong defens terror destruct
+ spread throughout world height place  
+ stori power went world protect        
+ democraci rock rage sea now           
+ led turn heart children toward        
+ defend alli interest show purpos      
+ sometim life call great thing         
+ stand watch distant border shipwreck  
+ led event common sens one             </code></pre>
 </div>
 </div>
 <p>Further example with wildcard patterns (<code>valuetype = "glob"</code>):</p>
@@ -526,32 +530,32 @@ Bibel :
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kwic</span>(toks_recent, <span class="at">pattern =</span> <span class="st">"democra*"</span>, <span class="at">valuetype =</span> <span class="st">"glob"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Keyword-in-context with 12 matches.                                                                            
-  [1993-Clinton, 23]     spring spring reborn world's oldest |  democracy  |
- [1993-Clinton, 298]           americans time let us embrace |  democracy  |
- [1993-Clinton, 412]   country renew america must revitalize |  democracy  |
- [1993-Clinton, 610]   hearts hands every continent building |  democracy  |
-  [1997-Clinton, 45]              decades come must keep old |  democracy  |
- [1997-Clinton, 295]        founders understood well gave us |  democracy  |
- [1997-Clinton, 612]         time history people planet live |  democracy  |
- [1997-Clinton, 788] trade innovation ideas world's greatest |  democracy  |
- [1997-Clinton, 792]     greatest democracy lead whole world | democracies |
-    [2001-Bush, 124]    last century america's faith freedom |  democracy  |
-    [2001-Bush, 136]           wind taking root many nations | democratic  |
-    [2001-Bush, 616]       things great love important tasks |  democracy  |
-                                        
- brings forth vision courage reinvent   
- must envy world engine renewal         
- beautiful capitol like every capitol   
- freedom cause america's cause american 
- forever young guided ancient vision    
- strong enough endure centuries flexible
- dictatorship fellow americans look back
- lead whole world democracies land      
- land new promise nation meets          
- rock raging sea now seed               
- faith creed country inborn hope        
- done everyone live lead principles     </code></pre>
+<pre><code>Keyword-in-context with 12 matches.                                                                      
+  [1993-Clinton, 23]   spring spring reborn world oldest | democraci |
+ [1993-Clinton, 298]         american time let us embrac | democraci |
+ [1993-Clinton, 412]    countri renew america must revit | democraci |
+ [1993-Clinton, 610]       heart hand everi contin build | democraci |
+  [1997-Clinton, 45]            decad come must keep old | democraci |
+ [1997-Clinton, 295]     founder understood well gave us | democraci |
+ [1997-Clinton, 612]      time histori peopl planet live | democraci |
+ [1997-Clinton, 788]     trade innov idea world greatest | democraci |
+ [1997-Clinton, 792] greatest democraci lead whole world | democraci |
+    [2001-Bush, 124]  last centuri america faith freedom | democraci |
+    [2001-Bush, 136]          wind take root mani nation | democrat  |
+    [2001-Bush, 616]        thing great love import task | democraci |
+                                       
+ bring forth vision courag reinvent    
+ must envi world engin renew           
+ beauti capitol like everi capitol     
+ freedom caus america caus american    
+ forev young guid ancient vision       
+ strong enough endur centuri flexibl   
+ dictatorship fellow american look back
+ lead whole world democraci land       
+ land new promis nation meet           
+ rock rage sea now seed                
+ faith creed countri inborn hope       
+ done everyon live lead principl       </code></pre>
 </div>
 </div>
 </section>
@@ -577,34 +581,34 @@ Bibel :
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect matrix dimensions and sparsity</span></span>
 <span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>dfm_recent</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Document-feature matrix of: 9 documents, 2,915 features (78.25% sparse) and 4 docvars.
+<pre><code>Document-feature matrix of: 9 documents, 2,148 features (73.64% sparse) and 4 docvars.
               features
-docs           fellow citizens today celebrate mystery american renewal
-  1993-Clinton      5        2    10         3       1        4       4
-  1997-Clinton      7        7     5         1       0        9       0
-  2001-Bush         1        9     2         0       0        4       0
-  2005-Bush         3        6     3         1       0        2       0
-  2009-Obama        1        1     6         0       0        2       0
-  2013-Obama        3        6     4         0       0        6       0
+docs           fellow citizen today celebr mysteri american renew ceremoni held
+  1993-Clinton      5       2    10      4       1       14     8        2    1
+  1997-Clinton      7       8     6      1       0       16     1        0    0
+  2001-Bush         1      10     2      0       0        9     1        0    0
+  2005-Bush         3       7     3      2       0       10     1        1    0
+  2009-Obama        1       1     6      2       0        5     0        0    1
+  2013-Obama        3       8     6      1       0       10     1        0    0
               features
-docs           ceremony held depth
-  1993-Clinton        2    1     1
-  1997-Clinton        0    0     0
-  2001-Bush           0    0     0
-  2005-Bush           1    0     0
-  2009-Obama          0    1     1
-  2013-Obama          0    0     0
-[ reached max_ndoc ... 3 more documents, reached max_nfeat ... 2,905 more features ]</code></pre>
+docs           depth
+  1993-Clinton     1
+  1997-Clinton     0
+  2001-Bush        0
+  2005-Bush        0
+  2009-Obama       1
+  2013-Obama       0
+[ reached max_ndoc ... 3 more documents, reached max_nfeat ... 2,138 more features ]</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the 20 most frequent features across all documents</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">topfeatures</span>(dfm_recent, <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        us    america     nation       must        new     people      world 
-       129        114         90         79         76         75         72 
-       can      every   american        one  americans       time    country 
-        66         63         60         59         56         55         54 
-     today        now    freedom   citizens       work government 
-        52         48         47         44         42         40 </code></pre>
+<pre><code> america       us   nation american    world     must    peopl      new 
+     141      129      123      117       81       79       77       76 
+     can     time    everi  countri      one    today  freedom  citizen 
+      66       63       63       60       60       57       51       49 
+     now     work   govern    power 
+      48       48       47       44 </code></pre>
 </div>
 </div>
 <p>Using the dfm, we can also easily create word clouds.</p>
@@ -629,25 +633,25 @@ docs           ceremony held depth
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>dfm_party</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Document-feature matrix of: 2 documents, 2,915 features (35.08% sparse) and 1 docvar.
+<pre><code>Document-feature matrix of: 2 documents, 2,148 features (30.87% sparse) and 1 docvar.
             features
-docs         fellow citizens today celebrate mystery american renewal ceremony
-  Democratic     21       17    33         5       1       30       5        2
-  Republican      6       27    19         2       0       30       0        2
+docs         fellow citizen today celebr mysteri american renew ceremoni held
+  Democratic     21      20    37      9       1       63    11        2    2
+  Republican      6      29    20      5       1       54     2        2    0
             features
-docs         held depth
-  Democratic    2     2
-  Republican    0     0
-[ reached max_nfeat ... 2,905 more features ]</code></pre>
+docs         depth
+  Democratic     2
+  Republican     0
+[ reached max_nfeat ... 2,138 more features ]</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">topfeatures</span>(dfm_party, <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        us    america     nation       must        new     people      world 
-       129        114         90         79         76         75         72 
-       can      every   american        one  americans       time    country 
-        66         63         60         59         56         55         54 
-     today        now    freedom   citizens       work government 
-        52         48         47         44         42         40 </code></pre>
+<pre><code> america       us   nation american    world     must    peopl      new 
+     141      129      123      117       81       79       77       76 
+     can     time    everi  countri      one    today  freedom  citizen 
+      66       63       63       60       60       57       51       49 
+     now     work   govern    power 
+      48       48       47       44 </code></pre>
 </div>
 </div>
 </section>
@@ -677,21 +681,21 @@ Here we define three thematic categories and then count category matches per doc
 <pre><code>Document-feature matrix of: 9 documents, 3 features (3.70% sparse) and 4 docvars.
               features
 docs           economy security democracy
-  1993-Clinton      11        2        20
-  1997-Clinton      10        5        18
-  2001-Bush          6        2         9
-  2005-Bush          7        4        38
-  2009-Obama        14        5        11
-  2013-Obama         7        7        22
+  1993-Clinton       7        2         3
+  1997-Clinton       8        5         2
+  2001-Bush          5        1         5
+  2005-Bush          7        2        27
+  2009-Obama         9        5         3
+  2013-Obama         4        4         7
 [ reached max_ndoc ... 3 more documents ]</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize most frequent dictionary categories in the corpus</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">textstat_frequency</span>(dfm_dict, <span class="at">n =</span> <span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    feature frequency rank docfreq group
-1 democracy       164    1       9   all
-2   economy        70    2       9   all
-3  security        36    3       8   all</code></pre>
+1 democracy        51    1       8   all
+2   economy        50    2       9   all
+3  security        33    3       9   all</code></pre>
 </div>
 </div>
 <p>Interpretation tip: a high value for a category means that words from this category appear frequently in a document.<br>
@@ -6885,8 +6889,8 @@ character(0)
 <span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_tolower</span>()</span>
 <span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create KWIC objects for both search terms</span></span>
-<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>kwic_1 <span class="ot">&lt;-</span> <span class="fu">kwic</span>(toks_faust, <span class="at">pattern =</span> <span class="st">"himmel"</span>)</span>
-<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a>kwic_2 <span class="ot">&lt;-</span> <span class="fu">kwic</span>(toks_faust, <span class="at">pattern =</span> <span class="st">"hölle"</span>)</span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>kwic_1 <span class="ot">&lt;-</span> <span class="fu">kwic</span>(toks_faust, <span class="at">pattern =</span> <span class="st">"heinrich"</span>)</span>
+<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a>kwic_2 <span class="ot">&lt;-</span> <span class="fu">kwic</span>(toks_faust, <span class="at">pattern =</span> <span class="st">"mephistopheles"</span>)</span>
 <span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb79-11"><a href="#cb79-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot lexical dispersion ("x-ray")</span></span>
 <span id="cb79-12"><a href="#cb79-12" aria-hidden="true" tabindex="-1"></a><span class="fu">textplot_xray</span>(</span>
@@ -6921,7 +6925,7 @@ The core idea is that every plot is built from the same components:</p>
 </ul>
 <p>The canonical structure is:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ..., <span class="fu">aes</span>(<span class="at">x =</span> ..., <span class="at">y =</span> ...)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ..., <span class="fu">aes</span>(<span class="at">x =</span> ..., <span class="at">y =</span> ...)) <span class="sc">+</span> </span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_...</span>() <span class="sc">+</span></span>
 <span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(...) <span class="sc">+</span></span>
 <span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -6940,7 +6944,7 @@ Each row is a car model observation, with variables such as:</p>
 </ul>
 <p>It is a good teaching dataset because it contains both categorical and numeric variables. When ggplot2 is loaded, the dataset is immediately available as <code>mpg</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span></span>
 <span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
@@ -7031,15 +7035,16 @@ Each row is a car model observation, with variables such as:</p>
 <p>A <strong>boxplot</strong> summarizes distribution (median, quartiles, outliers).<br>
 A <strong>violin plot</strong> shows the full density shape of the distribution.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Sepal length by species (boxplot)"</span>,</span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Species"</span>,</span>
-<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Sepal length"</span></span>
-<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris) <span class="sc">+</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Sepal.Length, <span class="at">colour =</span> Species)) <span class="sc">+</span></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Sepal.Length, <span class="at">fill =</span> Species), <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">notch =</span> <span class="cn">TRUE</span>, <span class="at">outlier.colour =</span> <span class="st">"red"</span>, <span class="at">outlier.shape =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Sepal length by species (boxplot)"</span>,</span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Species"</span>,</span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Sepal length"</span></span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -7145,224 +7150,10 @@ F-statistic: 329.5 on 1 and 232 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </section>
-<section id="maps-with-luxembourg-examples" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="maps-with-luxembourg-examples"><span class="header-section-number">4.6</span> Maps with Luxembourg examples</h2>
-<p>For a lightweight first map, we use polygon data from <code>map_data("world")</code> and zoom into Luxembourg.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>world_map <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"world"</span>)</span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(world_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group)) <span class="sc">+</span></span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">fill =</span> <span class="st">"grey90"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">4.5</span>, <span class="fl">7.0</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.4</span>)) <span class="sc">+</span></span>
-<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Luxembourg in regional context"</span>,</span>
-<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Longitude"</span>,</span>
-<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Latitude"</span></span>
-<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="session-03_files/figure-html/ggplot-map-lux-region-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>world_map <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"world"</span>)</span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>communes_df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"communes_df.RDS"</span>)</span>
-<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>centroids_label <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"centroids_label.RDS"</span>)</span>
-<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>lux_map <span class="ot">&lt;-</span> world_map <span class="sc">|&gt;</span></span>
-<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"Luxembourg"</span>)</span>
-<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: regional background</span></span>
-<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(</span>
-<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> world_map,</span>
-<span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group),</span>
-<span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"grey92"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.2</span></span>
-<span id="cb95-14"><a href="#cb95-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb95-15"><a href="#cb95-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.7</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.4</span>)) <span class="sc">+</span></span>
-<span id="cb95-16"><a href="#cb95-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb95-17"><a href="#cb95-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Step 1: Regional background"</span>,</span>
-<span id="cb95-18"><a href="#cb95-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Longitude"</span>,</span>
-<span id="cb95-19"><a href="#cb95-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Latitude"</span></span>
-<span id="cb95-20"><a href="#cb95-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb95-21"><a href="#cb95-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb95-22"><a href="#cb95-22" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p1)</span>
-<span id="cb95-23"><a href="#cb95-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb95-24"><a href="#cb95-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: add commune polygons</span></span>
-<span id="cb95-25"><a href="#cb95-25" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p1 <span class="sc">+</span></span>
-<span id="cb95-26"><a href="#cb95-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Layer 2: commune polygons inside Luxembourg</span></span>
-<span id="cb95-27"><a href="#cb95-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(</span>
-<span id="cb95-28"><a href="#cb95-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> communes_df,</span>
-<span id="cb95-29"><a href="#cb95-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group),</span>
-<span id="cb95-30"><a href="#cb95-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#fdebd0"</span>, <span class="at">color =</span> <span class="st">"#d35400"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.8</span></span>
-<span id="cb95-31"><a href="#cb95-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb95-32"><a href="#cb95-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Step 2: + Commune polygons"</span>)</span>
-<span id="cb95-33"><a href="#cb95-33" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p2)</span>
-<span id="cb95-34"><a href="#cb95-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb95-35"><a href="#cb95-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: add Luxembourg country outline</span></span>
-<span id="cb95-36"><a href="#cb95-36" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p2 <span class="sc">+</span></span>
-<span id="cb95-37"><a href="#cb95-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Layer 3: Luxembourg country outline</span></span>
-<span id="cb95-38"><a href="#cb95-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(</span>
-<span id="cb95-39"><a href="#cb95-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> lux_map,</span>
-<span id="cb95-40"><a href="#cb95-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group),</span>
-<span id="cb95-41"><a href="#cb95-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span></span>
-<span id="cb95-42"><a href="#cb95-42" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb95-43"><a href="#cb95-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Step 3: + Country outline"</span>)</span>
-<span id="cb95-44"><a href="#cb95-44" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p3)</span>
-<span id="cb95-45"><a href="#cb95-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb95-46"><a href="#cb95-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: add centroid points for important places</span></span>
-<span id="cb95-47"><a href="#cb95-47" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> p3 <span class="sc">+</span></span>
-<span id="cb95-48"><a href="#cb95-48" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Layer 4: important city points from centroid file</span></span>
-<span id="cb95-49"><a href="#cb95-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb95-50"><a href="#cb95-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> centroids_label,</span>
-<span id="cb95-51"><a href="#cb95-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat),</span>
-<span id="cb95-52"><a href="#cb95-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"navy"</span>, <span class="at">size =</span> <span class="fl">1.8</span></span>
-<span id="cb95-53"><a href="#cb95-53" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb95-54"><a href="#cb95-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Step 4: + Important place points"</span>)</span>
-<span id="cb95-55"><a href="#cb95-55" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p4)</span>
-<span id="cb95-56"><a href="#cb95-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb95-57"><a href="#cb95-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 5: add city labels (final map)</span></span>
-<span id="cb95-58"><a href="#cb95-58" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> p4 <span class="sc">+</span></span>
-<span id="cb95-59"><a href="#cb95-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Layer 5: city labels</span></span>
-<span id="cb95-60"><a href="#cb95-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
-<span id="cb95-61"><a href="#cb95-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> centroids_label,</span>
-<span id="cb95-62"><a href="#cb95-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">label =</span> label),</span>
-<span id="cb95-63"><a href="#cb95-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.8</span>, <span class="at">nudge_y =</span> <span class="fl">0.015</span>, <span class="at">color =</span> <span class="st">"navy"</span></span>
-<span id="cb95-64"><a href="#cb95-64" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb95-65"><a href="#cb95-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb95-66"><a href="#cb95-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Step 5: Final map"</span>,</span>
-<span id="cb95-67"><a href="#cb95-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Communes (polygons) + centroid city labels"</span>,</span>
-<span id="cb95-68"><a href="#cb95-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Longitude"</span>,</span>
-<span id="cb95-69"><a href="#cb95-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Latitude"</span></span>
-<span id="cb95-70"><a href="#cb95-70" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb95-71"><a href="#cb95-71" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="session-03_files/figure-html/ggplot-map-lux-highlight-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="session-03_files/figure-html/ggplot-map-lux-highlight-2.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="session-03_files/figure-html/ggplot-map-lux-highlight-3.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="session-03_files/figure-html/ggplot-map-lux-highlight-4.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="session-03_files/figure-html/ggplot-map-lux-highlight-5.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>You can also combine the five map states into one overview grid:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(p1, p2, p3, p4, p5, <span class="at">ncol =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="session-03_files/figure-html/ggplot-map-layers-grid-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Step-by-step map logic:</p>
-<ol type="1">
-<li>Load base map polygons (<code>map_data("world")</code>) and zoom to Luxembourg.</li>
-<li>Add commune polygons from <code>communes_df.RDS</code> as an internal administrative layer.</li>
-<li>Draw Luxembourg border on top for a clear country outline.</li>
-<li>Add centroid points from <code>centroids_label.RDS</code>.</li>
-<li>Add text labels for important places (<code>label</code> column).</li>
-</ol>
-</section>
-<section id="population-per-commune-choropleth" class="level2" data-number="4.7">
-<h2 data-number="4.7" class="anchored" data-anchor-id="population-per-commune-choropleth"><span class="header-section-number">4.7</span> Population per commune (choropleth)</h2>
-<p>This map visualizes total population (<code>total_population</code>) by commune.</p>
-<p>How it works:</p>
-<ol type="1">
-<li>Load commune population table from <code>Gemengen_Statistiken.qs</code>.</li>
-<li>Join population values to commune polygons via commune name (<code>id</code> vs <code>COMMUNE_NOM</code>).</li>
-<li>Use <code>fill = total_population</code> to encode population with a color gradient.</li>
-<li>Optionally add commune labels at centroids for orientation.</li>
-</ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>communes_df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"communes_df.RDS"</span>)</span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>centroids_label <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"centroids_label.RDS"</span>)</span>
-<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Preferred source: Gemengen_Statistiken.qs</span></span>
-<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>pop_totals <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"Gemengen_Statistiken.RDS"</span>)</span>
-<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Join population table to polygon coordinates</span></span>
-<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>communes_pop_map <span class="ot">&lt;-</span> communes_df <span class="sc">|&gt;</span></span>
-<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a>    pop_totals <span class="sc">|&gt;</span></span>
-<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(Gemeng, <span class="at">total_population =</span> Awunnerzuel),</span>
-<span id="cb97-12"><a href="#cb97-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span> <span class="ot">=</span> <span class="st">"Gemeng"</span>)</span>
-<span id="cb97-13"><a href="#cb97-13" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in left_join(communes_df, select(pop_totals, Gemeng, total_population = Awunnerzuel), : Detected an unexpected many-to-many relationship between `x` and `y`.
-ℹ Row 1 of `x` matches multiple rows in `y`.
-ℹ Row 1 of `y` matches multiple rows in `x`.
-ℹ If a many-to-many relationship is expected, set `relationship =
-  "many-to-many"` to silence this warning.</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(communes_pop_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group, <span class="at">fill =</span> total_population)) <span class="sc">+</span></span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> centroids_label,</span>
-<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">label =</span> label),</span>
-<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.4</span>,</span>
-<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"grey20"</span></span>
-<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.7</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.2</span>)) <span class="sc">+</span></span>
-<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Luxembourg: total population by commune"</span>,</span>
-<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Fill color = total_population"</span>,</span>
-<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Longitude"</span>,</span>
-<span id="cb99-15"><a href="#cb99-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Latitude"</span></span>
-<span id="cb99-16"><a href="#cb99-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb99-17"><a href="#cb99-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="session-03_files/figure-html/ggplot-map-population-communes-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Interpretation:</p>
-<ul>
-<li>Darker communes have lower population totals.</li>
-<li>Luxembourg City should stand out clearly as the most populous commune.</li>
-</ul>
-</section>
-<section id="exercises" class="level2" data-number="4.8">
-<h2 data-number="4.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.8</span> Exercises</h2>
-<section id="exercise-a-mpg-from-raw-data-to-summary-plots" class="level3" data-number="4.8.1">
-<h3 data-number="4.8.1" class="anchored" data-anchor-id="exercise-a-mpg-from-raw-data-to-summary-plots"><span class="header-section-number">4.8.1</span> Exercise A (<code>mpg</code>): from raw data to summary plots</h3>
-<p><strong>Goal:</strong> practice both direct plotting and plotting after data restructuring.</p>
+<section id="exercises" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.6</span> Exercises</h2>
+<section id="exercise-a-mpg-from-raw-data-to-summary-plots" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="exercise-a-mpg-from-raw-data-to-summary-plots"><span class="header-section-number">4.6.1</span> Exercise A (<code>mpg</code>): from raw data to summary plots</h3>
 <p>Tasks:</p>
 <ol type="1">
 <li>Create a simple count plot of <code>class</code> with <code>geom_bar()</code>.</li>
@@ -7371,8 +7162,7 @@ F-statistic: 329.5 on 1 and 232 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li><code>mean_hwy</code> (mean of <code>hwy</code>) by <code>class</code></li>
 <li><code>sum_cty</code> (sum of <code>cty</code>) by <code>class</code></li>
 </ul></li>
-<li>Plot both summaries with <code>geom_col()</code> (two separate plots).</li>
-<li>Briefly interpret one pattern (2-3 lines).</li>
+<li>Plot both summaries with <code>geom_col()</code> (two separate plots)</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
@@ -7387,11 +7177,11 @@ F-statistic: 329.5 on 1 and 232 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A1: direct count plot from raw rows</span></span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span></span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A1: direct count plot from raw rows</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class)) <span class="sc">+</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -7399,20 +7189,31 @@ F-statistic: 329.5 on 1 and 232 DF,  p-value: &lt; 2.2e-16</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A2: restructure data (mean and sum by class)</span></span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>mpg_summary <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span></span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_hwy =</span> <span class="fu">mean</span>(hwy, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sum_cty =</span> <span class="fu">sum</span>(cty, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> class</span>
-<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A3a: plot mean_hwy</span></span>
-<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg_summary, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> mean_hwy)) <span class="sc">+</span></span>
-<span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"seagreen"</span>) <span class="sc">+</span></span>
-<span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb101-13"><a href="#cb101-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mean highway MPG by class"</span>, <span class="at">x =</span> <span class="st">"Class"</span>, <span class="at">y =</span> <span class="st">"Mean hwy"</span>) <span class="sc">+</span></span>
-<span id="cb101-14"><a href="#cb101-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A2: restructure data (mean and sum by class)</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>mpg_summary <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_hwy =</span> <span class="fu">mean</span>(hwy, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sum_cty =</span> <span class="fu">sum</span>(cty, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> class</span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A3a: plot mean_hwy</span></span>
+<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg_summary, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> mean_hwy)) <span class="sc">+</span></span>
+<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"seagreen"</span>) <span class="sc">+</span></span>
+<span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mean highway MPG by class"</span>, <span class="at">x =</span> <span class="st">"Class"</span>, <span class="at">y =</span> <span class="st">"Mean hwy"</span>) <span class="sc">+</span></span>
+<span id="cb95-14"><a href="#cb95-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb95-15"><a href="#cb95-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-16"><a href="#cb95-16" aria-hidden="true" tabindex="-1"></a><span class="co"># A3b: plot sum_cty</span></span>
+<span id="cb95-17"><a href="#cb95-17" aria-hidden="true" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg_summary, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> sum_cty)) <span class="sc">+</span></span>
+<span id="cb95-18"><a href="#cb95-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"darkorange"</span>) <span class="sc">+</span></span>
+<span id="cb95-19"><a href="#cb95-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb95-20"><a href="#cb95-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Sum of city MPG values by class"</span>, <span class="at">x =</span> <span class="st">"Class"</span>, <span class="at">y =</span> <span class="st">"Sum cty"</span>) <span class="sc">+</span></span>
+<span id="cb95-21"><a href="#cb95-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb95-22"><a href="#cb95-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-23"><a href="#cb95-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb95-24"><a href="#cb95-24" aria-hidden="true" tabindex="-1"></a>sum_plot <span class="ot">&lt;-</span> plot1 <span class="sc">+</span> plot2</span>
+<span id="cb95-25"><a href="#cb95-25" aria-hidden="true" tabindex="-1"></a>sum_plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -7420,26 +7221,17 @@ F-statistic: 329.5 on 1 and 232 DF,  p-value: &lt; 2.2e-16</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A3b: plot sum_cty</span></span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg_summary, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> sum_cty)) <span class="sc">+</span></span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"darkorange"</span>) <span class="sc">+</span></span>
-<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Sum of city MPG values by class"</span>, <span class="at">x =</span> <span class="st">"Class"</span>, <span class="at">y =</span> <span class="st">"Sum cty"</span>) <span class="sc">+</span></span>
-<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="session-03_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"plots.pdf"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-b-iris-distribution-plots-and-grouping-summaries" class="level3" data-number="4.8.2">
-<h3 data-number="4.8.2" class="anchored" data-anchor-id="exercise-b-iris-distribution-plots-and-grouping-summaries"><span class="header-section-number">4.8.2</span> Exercise B (<code>iris</code>): distribution plots and grouping summaries</h3>
+<section id="exercise-b-iris-distribution-plots-and-grouping-summaries" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="exercise-b-iris-distribution-plots-and-grouping-summaries"><span class="header-section-number">4.6.2</span> Exercise B (<code>iris</code>): distribution plots and grouping summaries</h3>
 <p><strong>Goal:</strong> compare distributions and aggregated means across species.</p>
 <p>Tasks:</p>
 <ol type="1">
@@ -7461,11 +7253,11 @@ F-statistic: 329.5 on 1 and 232 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B1: boxplot</span></span>
-<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
-<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B1: boxplot</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -7473,12 +7265,12 @@ F-statistic: 329.5 on 1 and 232 DF,  p-value: &lt; 2.2e-16</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B2: violin + boxplot overlay</span></span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
-<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"grey20"</span>) <span class="sc">+</span></span>
-<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.12</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">outlier.size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B2: violin + boxplot overlay</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"grey20"</span>) <span class="sc">+</span></span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.12</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">outlier.size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -7486,106 +7278,24 @@ F-statistic: 329.5 on 1 and 232 DF,  p-value: &lt; 2.2e-16</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B3: restructure with species-level means</span></span>
-<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>iris_summary <span class="ot">&lt;-</span> iris <span class="sc">|&gt;</span></span>
-<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_sepal =</span> <span class="fu">mean</span>(Sepal.Length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb105-5"><a href="#cb105-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_petal =</span> <span class="fu">mean</span>(Petal.Length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb105-6"><a href="#cb105-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> Species</span>
-<span id="cb105-7"><a href="#cb105-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb105-8"><a href="#cb105-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb105-9"><a href="#cb105-9" aria-hidden="true" tabindex="-1"></a><span class="co"># B4: plot mean sepal length</span></span>
-<span id="cb105-10"><a href="#cb105-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris_summary, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> mean_sepal, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
-<span id="cb105-11"><a href="#cb105-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb105-12"><a href="#cb105-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mean Sepal Length by species"</span>, <span class="at">y =</span> <span class="st">"Mean Sepal Length"</span>) <span class="sc">+</span></span>
-<span id="cb105-13"><a href="#cb105-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb105-14"><a href="#cb105-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B3: restructure with species-level means</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>iris_summary <span class="ot">&lt;-</span> iris <span class="sc">|&gt;</span></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_sepal =</span> <span class="fu">mean</span>(Sepal.Length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_petal =</span> <span class="fu">mean</span>(Petal.Length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> Species</span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a><span class="co"># B4: plot mean sepal length</span></span>
+<span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris_summary, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> mean_sepal, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb100-11"><a href="#cb100-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb100-12"><a href="#cb100-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mean Sepal Length by species"</span>, <span class="at">y =</span> <span class="st">"Mean Sepal Length"</span>) <span class="sc">+</span></span>
+<span id="cb100-13"><a href="#cb100-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb100-14"><a href="#cb100-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="session-03_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exercise-c-population-choropleth-with-joins-and-aggregation" class="level3" data-number="4.8.3">
-<h3 data-number="4.8.3" class="anchored" data-anchor-id="exercise-c-population-choropleth-with-joins-and-aggregation"><span class="header-section-number">4.8.3</span> Exercise C (population): choropleth with joins and aggregation</h3>
-<p><strong>Goal:</strong> practice map joins and pre-aggregation for cartographic input.</p>
-<p>Tasks:</p>
-<ol type="1">
-<li>Join <code>communes_df</code> with <code>pop_totals</code> to map <code>total_population</code> by commune.</li>
-<li>Create the choropleth (<code>fill = total_population</code>) with commune labels.</li>
-<li>Build a 5-class quantile variable (<code>pop_quantile</code>) from <code>total_population</code>.</li>
-<li>Plot a second choropleth using <code>fill = pop_quantile</code> (discrete classes).</li>
-</ol>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Possible solution — Exercise C (click to expand)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>communes_df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"communes_df.RDS"</span>)</span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>centroids_label <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"centroids_label.RDS"</span>)</span>
-<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>pop_totals <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"Gemengen_Statistiken.RDS"</span>)</span>
-<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="co"># C1: join map polygons with commune population stats</span></span>
-<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a>communes_pop_map <span class="ot">&lt;-</span> communes_df <span class="sc">|&gt;</span></span>
-<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb106-8"><a href="#cb106-8" aria-hidden="true" tabindex="-1"></a>    pop_totals <span class="sc">|&gt;</span></span>
-<span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(Gemeng, <span class="at">total_population =</span> Awunnerzuel),</span>
-<span id="cb106-10"><a href="#cb106-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span> <span class="ot">=</span> <span class="st">"Gemeng"</span>)</span>
-<span id="cb106-11"><a href="#cb106-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in left_join(communes_df, select(pop_totals, Gemeng, total_population = Awunnerzuel), : Detected an unexpected many-to-many relationship between `x` and `y`.
-ℹ Row 1 of `x` matches multiple rows in `y`.
-ℹ Row 1 of `y` matches multiple rows in `x`.
-ℹ If a many-to-many relationship is expected, set `relationship =
-  "many-to-many"` to silence this warning.</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># C2: continuous choropleth</span></span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(communes_pop_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group, <span class="at">fill =</span> total_population)) <span class="sc">+</span></span>
-<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
-<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
-<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> centroids_label,</span>
-<span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">label =</span> label),</span>
-<span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb108-8"><a href="#cb108-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.2</span></span>
-<span id="cb108-9"><a href="#cb108-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb108-10"><a href="#cb108-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.7</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.2</span>)) <span class="sc">+</span></span>
-<span id="cb108-11"><a href="#cb108-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Population by commune"</span>, <span class="at">fill =</span> <span class="st">"Population"</span>) <span class="sc">+</span></span>
-<span id="cb108-12"><a href="#cb108-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="session-03_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># C3: aggregation/restructuring into quantile groups</span></span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>communes_pop_map <span class="ot">&lt;-</span> communes_pop_map <span class="sc">|&gt;</span></span>
-<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop_quantile =</span> dplyr<span class="sc">::</span><span class="fu">ntile</span>(total_population, <span class="dv">5</span>))</span>
-<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a><span class="co"># C4: discrete choropleth (5 classes)</span></span>
-<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(communes_pop_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group, <span class="at">fill =</span> <span class="fu">factor</span>(pop_quantile))) <span class="sc">+</span></span>
-<span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
-<span id="cb109-8"><a href="#cb109-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.7</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.2</span>)) <span class="sc">+</span></span>
-<span id="cb109-9"><a href="#cb109-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Population quantiles by commune"</span>, <span class="at">fill =</span> <span class="st">"Quantile"</span>) <span class="sc">+</span></span>
-<span id="cb109-10"><a href="#cb109-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="session-03_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

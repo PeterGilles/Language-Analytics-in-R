@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -108,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="../sessions/session-04.html" aria-current="page"> 
-<span class="menu-text">Session 4 (Viz/Stats)</span></a>
+<span class="menu-text">Session 4</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../sessions/session-05.html"> 
@@ -130,13 +165,26 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">1</span> Learning objectives</a></li>
-  <li><a href="#focus-of-this-session" id="toc-focus-of-this-session" class="nav-link" data-scroll-target="#focus-of-this-session"><span class="header-section-number">2</span> Focus of this session</a></li>
-  <li><a href="#suggested-workflow" id="toc-suggested-workflow" class="nav-link" data-scroll-target="#suggested-workflow"><span class="header-section-number">3</span> Suggested workflow</a></li>
-  <li><a href="#recommended-quarto-structure" id="toc-recommended-quarto-structure" class="nav-link" data-scroll-target="#recommended-quarto-structure"><span class="header-section-number">4</span> Recommended Quarto structure</a></li>
-  <li><a href="#in-class-checklist" id="toc-in-class-checklist" class="nav-link" data-scroll-target="#in-class-checklist"><span class="header-section-number">5</span> In-class checklist</a></li>
-  <li><a href="#hands-on-tasks" id="toc-hands-on-tasks" class="nav-link" data-scroll-target="#hands-on-tasks"><span class="header-section-number">6</span> Hands-on tasks</a></li>
-  <li><a href="#wrap-up" id="toc-wrap-up" class="nav-link" data-scroll-target="#wrap-up"><span class="header-section-number">7</span> Wrap-up</a></li>
+  <li><a href="#maps-with-ggplot2" id="toc-maps-with-ggplot2" class="nav-link active" data-scroll-target="#maps-with-ggplot2"><span class="header-section-number">1</span> 1. Maps with ggplot2</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">1.1</span> Setup</a></li>
+  <li><a href="#maps-with-luxembourg-examples" id="toc-maps-with-luxembourg-examples" class="nav-link" data-scroll-target="#maps-with-luxembourg-examples"><span class="header-section-number">1.2</span> Maps with Luxembourg examples</a></li>
+  <li><a href="#load-rnpp-population-data" id="toc-load-rnpp-population-data" class="nav-link" data-scroll-target="#load-rnpp-population-data"><span class="header-section-number">1.3</span> Load RNPP population data</a></li>
+  <li><a href="#population-per-commune-choropleth" id="toc-population-per-commune-choropleth" class="nav-link" data-scroll-target="#population-per-commune-choropleth"><span class="header-section-number">1.4</span> Population per commune (choropleth)</a></li>
+  <li><a href="#map-exercise" id="toc-map-exercise" class="nav-link" data-scroll-target="#map-exercise"><span class="header-section-number">1.5</span> Map exercise</a></li>
+  <li><a href="#maps-by-sex-with-facet_wrap" id="toc-maps-by-sex-with-facet_wrap" class="nav-link" data-scroll-target="#maps-by-sex-with-facet_wrap"><span class="header-section-number">1.6</span> Maps by sex with <code>facet_wrap()</code></a></li>
+  <li><a href="#age-pyramids-alterspyramide" id="toc-age-pyramids-alterspyramide" class="nav-link" data-scroll-target="#age-pyramids-alterspyramide"><span class="header-section-number">1.7</span> Age pyramids (Alterspyramide)</a></li>
+  </ul></li>
+  <li><a href="#data-exploration" id="toc-data-exploration" class="nav-link" data-scroll-target="#data-exploration"><span class="header-section-number">2</span> 2. Data exploration</a>
+  <ul class="collapse">
+  <li><a href="#load-and-inspect-butterfly.rds" id="toc-load-and-inspect-butterfly.rds" class="nav-link" data-scroll-target="#load-and-inspect-butterfly.rds"><span class="header-section-number">2.1</span> Load and inspect <code>butterfly.rds</code></a></li>
+  <li><a href="#variant-statistics-by-age-gender-education-and-dialect-area" id="toc-variant-statistics-by-age-gender-education-and-dialect-area" class="nav-link" data-scroll-target="#variant-statistics-by-age-gender-education-and-dialect-area"><span class="header-section-number">2.2</span> Variant statistics by age, gender, education, and dialect area</a></li>
+  <li><a href="#map-variants-by-commune" id="toc-map-variants-by-commune" class="nav-link" data-scroll-target="#map-variants-by-commune"><span class="header-section-number">2.3</span> Map variants by commune</a></li>
+  </ul></li>
+  <li><a href="#work-with-own-data" id="toc-work-with-own-data" class="nav-link" data-scroll-target="#work-with-own-data"><span class="header-section-number">3</span> 3. Work with own data</a>
+  <ul class="collapse">
+  <li><a href="#suggested-workflow" id="toc-suggested-workflow" class="nav-link" data-scroll-target="#suggested-workflow"><span class="header-section-number">3.1</span> Suggested workflow</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -169,34 +217,892 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="learning-objectives" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1</span> Learning objectives</h2>
-<p>By the end of this session you will:</p>
+<section id="maps-with-ggplot2" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 1. Maps with ggplot2</h1>
+<section id="setup" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">1.1</span> Setup</h2>
+<p>Run this chunk once at the beginning. Data files in the <code>sessions/</code> folder: <code>communes_df.RDS</code>, <code>centroids_label.RDS</code>, <code>butterfly.rds</code>. Population counts come from the <a href="https://download.data.public.lu/resources/registre-national-des-personnes-physiques-rnpp-pyramide-dage-par-commune-population-age-pyramid-per-municipality/20260407-111759/31-03-2026-rnrpp-pyramide-age-commune.csv">RNPP age pyramid CSV</a> on data.public.lu.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.5.2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.5.2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.5.2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.5.2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="maps-with-luxembourg-examples" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="maps-with-luxembourg-examples"><span class="header-section-number">1.2</span> Maps with Luxembourg examples</h2>
+<p>For a lightweight first map, we use polygon data from <code>map_data("world")</code> and zoom into Luxembourg.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>world_map <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"world"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(world_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">fill =</span> <span class="st">"grey90"</span>, <span class="at">color =</span> <span class="st">"lightblue"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">4.5</span>, <span class="fl">7.0</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.4</span>)) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Luxembourg in regional context"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Longitude"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Latitude"</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/ggplot-map-lux-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>world_map <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"world"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>communes_df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"communes_df.RDS"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>centroids_label <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"centroids_label.RDS"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>lux_map <span class="ot">&lt;-</span> world_map <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"Luxembourg"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 1:</strong> regional background.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> world_map,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"grey92"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.2</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.7</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.4</span>)) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Step 1: Regional background"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Longitude"</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Latitude"</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/ggplot-map-lux-step-1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Step 2:</strong> add commune polygons.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p1 <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> communes_df,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#fdebd0"</span>, <span class="at">color =</span> <span class="st">"#d35400"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.8</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Step 2: + Commune polygons"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/ggplot-map-lux-step-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Step 3:</strong> add Luxembourg country outline.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p2 <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> lux_map,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Step 3: + Country outline"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>p3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/ggplot-map-lux-step-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Step 4:</strong> add centroid points for important places.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> p3 <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> centroids_label,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"navy"</span>, <span class="at">size =</span> <span class="fl">1.8</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Step 4: + Important place points"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>p4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/ggplot-map-lux-step-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Step 5:</strong> add city labels (final map).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> p4 <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> centroids_label,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">label =</span> label),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.8</span>, <span class="at">nudge_y =</span> <span class="fl">0.015</span>, <span class="at">color =</span> <span class="st">"navy"</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Step 5: Final map"</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Communes (polygons) + centroid city labels"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Longitude"</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Latitude"</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>p5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/ggplot-map-lux-step-5-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You can also combine the five map states into one overview grid:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(p1, p2, p3, p4, p5, <span class="at">ncol =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/ggplot-map-layers-grid-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="load-rnpp-population-data" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="load-rnpp-population-data"><span class="header-section-number">1.3</span> Load RNPP population data</h2>
+<p>The RNPP file has one row per commune and sex (<code>F</code> / <code>M</code>), with population counts in 5-year age columns (<code>AGE00_05</code>, <code>AGE05_10</code>, …). We load it once and derive commune totals for the maps below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pyramid_url <span class="ot">&lt;-</span> <span class="st">"https://download.data.public.lu/resources/registre-national-des-personnes-physiques-rnpp-pyramide-dage-par-commune-population-age-pyramid-per-municipality/20260407-111759/31-03-2026-rnrpp-pyramide-age-commune.csv"</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>age_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(pyramid_url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># one row per commune: sum all age columns (both sexes)</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>pop_by_commune <span class="ot">&lt;-</span> age_raw <span class="sc">|&gt;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"AGE"</span>), as.numeric)) <span class="sc">|&gt;</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_population =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"AGE"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> COMMUNE_NOM</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="population-per-commune-choropleth" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="population-per-commune-choropleth"><span class="header-section-number">1.4</span> Population per commune (choropleth)</h2>
+<p>This map visualizes total population (<code>total_population</code>) by commune.</p>
+<p>How it works:</p>
+<ol type="1">
+<li>Aggregate RNPP age columns to one total per commune (<code>pop_by_commune</code>).</li>
+<li>Join population values to commune polygons via commune name (<code>id</code> vs <code>COMMUNE_NOM</code>).</li>
+<li>Use <code>fill = total_population</code> to encode population with a color gradient.</li>
+<li>Optionally add commune labels at centroids for orientation.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>communes_df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"communes_df.RDS"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>centroids_label <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"centroids_label.RDS"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>communes_pop_map <span class="ot">&lt;-</span> communes_df <span class="sc">|&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(pop_by_commune, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span> <span class="ot">=</span> <span class="st">"COMMUNE_NOM"</span>))</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(communes_pop_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group, <span class="at">fill =</span> total_population)) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> centroids_label,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">label =</span> label),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.4</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"grey20"</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.7</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.2</span>)) <span class="sc">+</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>(<span class="at">big.mark =</span> <span class="st">" "</span>)) <span class="sc">+</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Luxembourg: population by commune"</span>,</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"RNPP, 31 March 2026 — sum of all age bands"</span>,</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Population"</span>,</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Longitude"</span>,</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Latitude"</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/ggplot-map-population-communes-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
 <ul>
-<li>Define a clear and feasible mini-question for your own project data.</li>
-<li>Import and inspect your own dataset in a reproducible way.</li>
-<li>Prepare a clean analysis table (variables, types, missing data, filters).</li>
-<li>Run and document one or two core analyses from your project.</li>
-<li>Create at least one interpretable visualization for your data.</li>
-<li>Structure your workflow in a reusable Quarto document.</li>
+<li>Brighter communes have higher population totals.</li>
+<li>Luxembourg City should stand out clearly as the most populous commune.</li>
+<li>A few communes were merged or renamed since the polygon file was built; unmatched polygons have no fill.</li>
 </ul>
 </section>
-<section id="focus-of-this-session" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="focus-of-this-session"><span class="header-section-number">2</span> Focus of this session</h2>
-<p>This session is a guided workshop. You work with your own data, and the goal is to leave with a reproducible analysis draft that you can continue after class.</p>
-</section>
-<section id="suggested-workflow" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="suggested-workflow"><span class="header-section-number">3</span> Suggested workflow</h2>
+<section id="map-exercise" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="map-exercise"><span class="header-section-number">1.5</span> Map exercise</h2>
+<section id="exercise-population-choropleth-with-joins-and-aggregation" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="exercise-population-choropleth-with-joins-and-aggregation"><span class="header-section-number">1.5.1</span> Exercise (population): choropleth with joins and aggregation</h3>
+<p><strong>Goal:</strong> practice map joins and pre-aggregation for cartographic input.</p>
+<p>Tasks:</p>
 <ol type="1">
-<li><strong>Research question</strong>
-<ul>
-<li>Write one focused question you can answer with the available data.</li>
-</ul></li>
-<li><strong>Data import and checks</strong>
-<ul>
-<li>Load your files (<code>readr</code>, <code>readxl</code>, <code>quanteda</code>, etc.).</li>
-<li>Confirm encoding, separators, and metadata.</li>
-</ul></li>
+<li>Join <code>communes_df</code> with <code>pop_by_commune</code> to map <code>total_population</code> by commune.</li>
+<li>Create the choropleth (<code>fill = total_population</code>) with commune labels.</li>
+<li>Build a 5-class quantile variable (<code>pop_quantile</code>) from <code>total_population</code>. Check the manual how to use <code>dplyr::ntile</code>.</li>
+<li>Plot a second choropleth using <code>fill = pop_quantile</code> (discrete classes).</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Possible solution (click to expand)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>communes_df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"communes_df.RDS"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>centroids_label <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"centroids_label.RDS"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># join map polygons with RNPP commune totals</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>communes_pop_map <span class="ot">&lt;-</span> communes_df <span class="sc">|&gt;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(pop_by_commune, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span> <span class="ot">=</span> <span class="st">"COMMUNE_NOM"</span>))</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># continuous choropleth</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(communes_pop_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group, <span class="at">fill =</span> total_population)) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> centroids_label,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">label =</span> label),</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.2</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.7</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.2</span>)) <span class="sc">+</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Population by commune"</span>, <span class="at">fill =</span> <span class="st">"Population"</span>) <span class="sc">+</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># aggregation into quantile groups</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>communes_pop_map <span class="ot">&lt;-</span> communes_pop_map <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop_quantile =</span> dplyr<span class="sc">::</span><span class="fu">ntile</span>(total_population, <span class="dv">5</span>))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># discrete choropleth (5 classes)</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(communes_pop_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group, <span class="at">fill =</span> <span class="fu">factor</span>(pop_quantile))) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.7</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.2</span>)) <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Population quantiles by commune"</span>, <span class="at">fill =</span> <span class="st">"Quantile"</span>) <span class="sc">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="maps-by-sex-with-facet_wrap" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="maps-by-sex-with-facet_wrap"><span class="header-section-number">1.6</span> Maps by sex with <code>facet_wrap()</code></h2>
+<p>The RNPP table has separate rows for <code>F</code> and <code>M</code>. After summing population per commune and sex, we can plot <strong>two choropleths side by side</strong> with <code>facet_wrap(~ SEXE)</code>.</p>
+<p>How it works:</p>
+<ol type="1">
+<li>Aggregate <code>total_population</code> by <code>COMMUNE_NOM</code> and <code>SEXE</code> (not merged across sexes).</li>
+<li>Join to <code>communes_df</code> — each commune polygon appears twice (once per sex).</li>
+<li>Add <code>facet_wrap(~ SEXE)</code> so ggplot draws one map panel per sex.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pop_by_commune_sex <span class="ot">&lt;-</span> age_raw <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"AGE"</span>), as.numeric)) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_population =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"AGE"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> <span class="fu">c</span>(COMMUNE_NOM, SEXE)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>communes_pop_sex <span class="ot">&lt;-</span> communes_df <span class="sc">|&gt;</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(pop_by_commune_sex, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span> <span class="ot">=</span> <span class="st">"COMMUNE_NOM"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in left_join(communes_df, pop_by_commune_sex, by = c(id = "COMMUNE_NOM")): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 1 of `x` matches multiple rows in `y`.
+ℹ Row 1 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(communes_pop_sex, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group, <span class="at">fill =</span> total_population)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.7</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.2</span>)) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> SEXE,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">SEXE =</span> <span class="fu">c</span>(<span class="at">F =</span> <span class="st">"Women"</span>, <span class="at">M =</span> <span class="st">"Men"</span>))</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>(<span class="at">big.mark =</span> <span class="st">" "</span>)) <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Population by commune and sex"</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"RNPP, 31 March 2026 — same fill scale in both panels"</span>,</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Population"</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/rnpp-map-facet-sex-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="age-pyramids-alterspyramide" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="age-pyramids-alterspyramide"><span class="header-section-number">1.7</span> Age pyramids (Alterspyramide)</h2>
+<p>Using the same <code>age_raw</code> table, reshape the wide age columns into long format. For a classic pyramid, plot men with <strong>negative</strong> counts (left) and women with <strong>positive</strong> counts (right).</p>
+<section id="one-commune" class="level3" data-number="1.7.1">
+<h3 data-number="1.7.1" class="anchored" data-anchor-id="one-commune"><span class="header-section-number">1.7.1</span> One commune</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>commune_pick <span class="ot">&lt;-</span> <span class="st">"Differdange"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>age_levels <span class="ot">&lt;-</span> age_raw <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"AGE"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove</span>(<span class="st">"^AGE"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace</span>(<span class="st">"_"</span>, <span class="st">"-"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  (\(x) <span class="fu">if_else</span>(x <span class="sc">==</span> <span class="st">"100-"</span>, <span class="st">"100+"</span>, x))()</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>age_pyramid <span class="ot">&lt;-</span> age_raw <span class="sc">|&gt;</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(COMMUNE_NOM <span class="sc">==</span> commune_pick) <span class="sc">|&gt;</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"AGE"</span>), <span class="at">names_to =</span> <span class="st">"age_band"</span>, <span class="at">values_to =</span> <span class="st">"count"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_band =</span> <span class="fu">str_remove</span>(age_band, <span class="st">"^AGE"</span>),</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_band =</span> <span class="fu">str_replace</span>(age_band, <span class="st">"_"</span>, <span class="st">"-"</span>),</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_band =</span> <span class="fu">if_else</span>(age_band <span class="sc">==</span> <span class="st">"100-"</span>, <span class="st">"100+"</span>, age_band),</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_band =</span> <span class="fu">factor</span>(age_band, <span class="at">levels =</span> age_levels),</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">count =</span> <span class="fu">if_else</span>(SEXE <span class="sc">==</span> <span class="st">"M"</span>, <span class="sc">-</span>count, count)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(age_pyramid, <span class="fu">aes</span>(<span class="at">x =</span> count, <span class="at">y =</span> age_band, <span class="at">fill =</span> SEXE)) <span class="sc">+</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="at">F =</span> <span class="st">"#c0392b"</span>, <span class="at">M =</span> <span class="st">"#2980b9"</span>),</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">F =</span> <span class="st">"Women"</span>, <span class="at">M =</span> <span class="st">"Men"</span>)</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> \(x) <span class="fu">format</span>(<span class="fu">abs</span>(x), <span class="at">big.mark =</span> <span class="st">" "</span>)) <span class="sc">+</span></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Age pyramid:"</span>, commune_pick),</span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"RNPP, 31 March 2026 — counts by 5-year age band"</span>,</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Population"</span>,</span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Age group"</span>,</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="cn">NULL</span></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/rnpp-age-pyramid-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Change <code>commune_pick</code> (e.g.&nbsp;to <code>"Luxembourg"</code> or <code>"Esch-sur-Alzette"</code>) to compare age structures.</p>
+</section>
+<section id="entire-country" class="level3" data-number="1.7.2">
+<h3 data-number="1.7.2" class="anchored" data-anchor-id="entire-country"><span class="header-section-number">1.7.2</span> Entire country</h3>
+<p>Aggregate <code>age_raw</code> across all communes, keeping all age columns and grouping by sex:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>age_total <span class="ot">&lt;-</span> age_raw <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"AGE"</span>), \(x) <span class="fu">sum</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> SEXE</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>age_levels <span class="ot">&lt;-</span> age_total <span class="sc">|&gt;</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"AGE"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_remove</span>(<span class="st">"^AGE"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace</span>(<span class="st">"_"</span>, <span class="st">"-"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  (\(x) <span class="fu">if_else</span>(x <span class="sc">==</span> <span class="st">"100-"</span>, <span class="st">"100+"</span>, x))()</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>age_pyramid <span class="ot">&lt;-</span> age_total <span class="sc">|&gt;</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"AGE"</span>), <span class="at">names_to =</span> <span class="st">"age_band"</span>, <span class="at">values_to =</span> <span class="st">"count"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_band =</span> <span class="fu">str_remove</span>(age_band, <span class="st">"^AGE"</span>),</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_band =</span> <span class="fu">str_replace</span>(age_band, <span class="st">"_"</span>, <span class="st">"-"</span>),</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_band =</span> <span class="fu">if_else</span>(age_band <span class="sc">==</span> <span class="st">"100-"</span>, <span class="st">"100+"</span>, age_band),</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_band =</span> <span class="fu">factor</span>(age_band, <span class="at">levels =</span> age_levels),</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">count =</span> <span class="fu">if_else</span>(SEXE <span class="sc">==</span> <span class="st">"M"</span>, <span class="sc">-</span>count, count)</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(age_pyramid, <span class="fu">aes</span>(<span class="at">x =</span> count, <span class="at">y =</span> age_band, <span class="at">fill =</span> SEXE)) <span class="sc">+</span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linewidth =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="at">F =</span> <span class="st">"#c0392b"</span>, <span class="at">M =</span> <span class="st">"#2980b9"</span>),</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">F =</span> <span class="st">"Women"</span>, <span class="at">M =</span> <span class="st">"Men"</span>)</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> \(x) <span class="fu">format</span>(<span class="fu">abs</span>(x), <span class="at">big.mark =</span> <span class="st">" "</span>)) <span class="sc">+</span></span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Age pyramid: Luxembourg"</span>),</span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"RNPP, 31 March 2026 — counts by 5-year age band"</span>,</span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Population"</span>,</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Age group"</span>,</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="cn">NULL</span></span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="data-exploration" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 2. Data exploration</h1>
+<p>This section uses the <strong>Schnessen</strong> butterfly dataset (<code>butterfly.rds</code>): crowd-sourced recordings of the word for “butterfly” across Luxembourg, with sociolinguistic metadata and commune information.</p>
+<section id="load-and-inspect-butterfly.rds" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="load-and-inspect-butterfly.rds"><span class="header-section-number">2.1</span> Load and inspect <code>butterfly.rds</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>butterfly <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"butterfly.rds"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(butterfly)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,333
+Columns: 42
+$ picture_name                  &lt;chr&gt; "2", "2", "2", "2", "2", "2", "2", "2", …
+$ recordingItemID               &lt;chr&gt; "46", "46", "46", "46", "46", "46", "46"…
+$ recordingURL                  &lt;chr&gt; "https://luxappsdata.uni.lu/schnessen/me…
+$ recordingID                   &lt;chr&gt; "204", "419", "518", "553", "605", "707"…
+$ surveyID1                     &lt;chr&gt; "9", "17", "18", "19", "20", "23", "24",…
+$ Ofspillen                     &lt;chr&gt; "https://luxappsdata.uni.lu/sndtmp/trim_…
+$ Päiperlek                     &lt;chr&gt; "1", "1", "1", "1", "1", "1", "1", "1", …
+$ Remark_Päiperlek              &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Variant_Päiperlek             &lt;chr&gt; "Päiperlek", "Päiperlek", "Päiperlek", "…
+$ Saz                           &lt;chr&gt; "e Päiperlek", "e Päiperlek", "e Päiperl…
+$ Saz_ASR                       &lt;chr&gt; "Päipolek.", "Päiperlek.", "Päiperlek.",…
+$ Alter                         &lt;ord&gt; 25 bis 34, 25 bis 34, 25 bis 34, 25 bis …
+$ Geschlecht                    &lt;fct&gt; Männlech, Weiblech, Weiblech, Männlech, …
+$ Ausbildung                    &lt;ord&gt; Fachhéichschoul/
+Universitéit, Fachhéich…
+$ `Kompetenz am Däitschen`      &lt;ord&gt; 7, 7, 7, 7, 7, 6, 7, 7, 7, 7, 7, 7, 7, 7…
+$ `Kompetenz am Franséischen`   &lt;ord&gt; 5, 6, 5, 5, 5, 4, 6, 7, 5, 7, 7, 5, 4, 7…
+$ Einfluesse                    &lt;chr&gt; "KENG weider Aflëss", "KENG weider Aflës…
+$ Mammesprooch                  &lt;chr&gt; "Jo", "Jo", "Jo", "Jo", "Jo", "Jo", "Jo"…
+$ Weitere_Muttersprachen        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, "NEEN", …
+$ Kompetenz_Luxemburgisch       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Andere_Muttersprachen         &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ area_lat                      &lt;chr&gt; "49.786660", "49.500881", "49.676958", "…
+$ area_long                     &lt;chr&gt; "6.442920", "5.986092", "6.123770", "6.2…
+$ Ortschaft                     &lt;chr&gt; "Osweiler", "Esch-sur-Alzette", "Steinse…
+$ submitted_at                  &lt;chr&gt; "2018-02-15 9:31:32", "2018-02-19 19:03:…
+$ Gemeng_nei                    &lt;chr&gt; "Rosport-Mompach", "Esch-sur-Alzette", "…
+$ latitude_Gemeng               &lt;chr&gt; "49.8051", "49.49583", "49.67694", "49.8…
+$ longitude_Gemeng              &lt;chr&gt; "6.503616", "5.98056", "6.12389", "6.267…
+$ Kanton                        &lt;chr&gt; "Echternach", "Esch-sur-Alzette", "Luxem…
+$ Dialektgebiet                 &lt;fct&gt; Osten, Süden, Zentrum, Osten, Zentrum, S…
+$ Gemeng                        &lt;fct&gt; Rosport-Mompach, Esch-sur-Alzette, Stein…
+$ Sproochekompetenz             &lt;fct&gt; 6, 6.5, 6, 6, 6, 5, 6.5, 7, 6, 7, 7, 6, …
+$ langEduIndex_raw              &lt;dbl&gt; 0.8666667, 0.9333333, 0.8666667, 0.86666…
+$ `Sprooch &amp; Educatioun-Index`  &lt;chr&gt; "1", "1", "1", "1", "1", "0.8", "1", "1"…
+$ `Sproochlech Aflëss`          &lt;fct&gt; keng
+Aflëss, keng
+Aflëss, keng
+Aflëss, a…
+$ Awunnerzuel                   &lt;int&gt; 3700, 35000, 5300, 1200, 8700, 9100, 152…
+$ Urbanisatioun                 &lt;fct&gt; 3
+kleng Dierfer, 2
+kleng Stied, 2
+kleng …
+$ Inhabitants_km2               &lt;dbl&gt; 277.52101, 2521.04530, 254.19532, 88.881…
+$ Immigratioun                  &lt;ord&gt; 15 bis 24 %, 45 bis 54 %, 35 bis 44 %, 3…
+$ `Indice socio-économique`     &lt;fct&gt; "(0.434,0.589]", "(0.744,0.9]", "(0.122,…
+$ Awunner_km2                   &lt;fct&gt; "(200,300]", "(600,Inf]", "(200,300]", N…
+$ `Indice socio-économique_raw` &lt;dbl&gt; 0.4525, 0.8898, 0.2429, 0.8207, 0.8558, …</code></pre>
+</div>
+</div>
+<p>Each row is one recording. Key variables for this analysis:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Variant_Päiperlek</code></td>
+<td>Coded variant of the target word</td>
+</tr>
+<tr class="even">
+<td><code>Alter</code></td>
+<td>Age group</td>
+</tr>
+<tr class="odd">
+<td><code>Geschlecht</code></td>
+<td>Gender</td>
+</tr>
+<tr class="even">
+<td><code>Ausbildung</code></td>
+<td>Education level</td>
+</tr>
+<tr class="odd">
+<td><code>Dialektgebiet</code></td>
+<td>Dialect area (north / east / south / west)</td>
+</tr>
+<tr class="even">
+<td><code>Gemeng</code></td>
+<td>Commune (factor, matches polygon <code>id</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>butterfly <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Variant_Päiperlek, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">share =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   Variant_Päiperlek         n   share
+   &lt;chr&gt;                 &lt;int&gt;   &lt;dbl&gt;
+ 1 Päiperlek              1779 0.763  
+ 2 FALSE                   185 0.0793 
+ 3 Pimpampel               155 0.0664 
+ 4 Schmetterling           113 0.0484 
+ 5 Miller-däppchen/moler    51 0.0219 
+ 6 Pippel                   23 0.00986
+ 7 Paiperlek                11 0.00471
+ 8 Päipeldéier               7 0.00300
+ 9 Pléiperplap               5 0.00214
+10 Schwalbenschwanz          4 0.00171</code></pre>
+</div>
+</div>
+<p><code>FALSE</code> means the target word was not produced (or could not be coded). For variant statistics we exclude these rows.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>butterfly_variants <span class="ot">&lt;-</span> butterfly <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Variant_Päiperlek <span class="sc">!=</span> <span class="st">"FALSE"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(butterfly_variants)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2148</code></pre>
+</div>
+</div>
+</section>
+<section id="variant-statistics-by-age-gender-education-and-dialect-area" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="variant-statistics-by-age-gender-education-and-dialect-area"><span class="header-section-number">2.2</span> Variant statistics by age, gender, education, and dialect area</h2>
+<p>Reshape the four sociolinguistic variables into long format, then compute counts and <strong>row-wise shares</strong> (distribution of variants within each age group, etc.).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>variant_by_social <span class="ot">&lt;-</span> butterfly_variants <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(Alter, Geschlecht, Ausbildung, Dialektgebiet),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    \(x) <span class="fu">as.character</span>(x)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(Alter, Geschlecht, Ausbildung, Dialektgebiet),</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"level"</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(variable, level, Variant_Päiperlek) <span class="sc">|&gt;</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable, level) <span class="sc">|&gt;</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">share =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(variable, level, <span class="fu">desc</span>(n))</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>variant_by_social</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 124 × 6
+# Groups:   variable, level [17]
+   variable level     Variant_Päiperlek         n   share .groups
+   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;                 &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+ 1 Alter    25 bis 34 Päiperlek               518 0.862   drop   
+ 2 Alter    25 bis 34 Pimpampel                34 0.0566  drop   
+ 3 Alter    25 bis 34 Schmetterling            31 0.0516  drop   
+ 4 Alter    25 bis 34 Miller-däppchen/moler     6 0.00998 drop   
+ 5 Alter    25 bis 34 Pippel                    5 0.00832 drop   
+ 6 Alter    25 bis 34 Paiperlek                 3 0.00499 drop   
+ 7 Alter    25 bis 34 Schwalbenschwanz          2 0.00333 drop   
+ 8 Alter    25 bis 34 Pléiperplap               1 0.00166 drop   
+ 9 Alter    25 bis 34 Päipeldéier               1 0.00166 drop   
+10 Alter    35 bis 44 Päiperlek               311 0.834   drop   
+# ℹ 114 more rows</code></pre>
+</div>
+</div>
+<p><strong>Age (<code>Alter</code>)</strong> — share of each variant by age band:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>variant_by_social <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Alter"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(level, Variant_Päiperlek, n, share)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Adding missing grouping variables: `variable`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 45 × 5
+# Groups:   variable, level [6]
+   variable level     Variant_Päiperlek         n   share
+   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;                 &lt;int&gt;   &lt;dbl&gt;
+ 1 Alter    25 bis 34 Päiperlek               518 0.862  
+ 2 Alter    25 bis 34 Pimpampel                34 0.0566 
+ 3 Alter    25 bis 34 Schmetterling            31 0.0516 
+ 4 Alter    25 bis 34 Miller-däppchen/moler     6 0.00998
+ 5 Alter    25 bis 34 Pippel                    5 0.00832
+ 6 Alter    25 bis 34 Paiperlek                 3 0.00499
+ 7 Alter    25 bis 34 Schwalbenschwanz          2 0.00333
+ 8 Alter    25 bis 34 Pléiperplap               1 0.00166
+ 9 Alter    25 bis 34 Päipeldéier               1 0.00166
+10 Alter    35 bis 44 Päiperlek               311 0.834  
+# ℹ 35 more rows</code></pre>
+</div>
+</div>
+<p><strong>Gender (<code>Geschlecht</code>):</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>variant_by_social <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Geschlecht"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(level, Variant_Päiperlek, n, share)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Adding missing grouping variables: `variable`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 5
+# Groups:   variable, level [2]
+   variable   level    Variant_Päiperlek         n    share
+   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;                 &lt;int&gt;    &lt;dbl&gt;
+ 1 Geschlecht Männlech Päiperlek               584 0.838   
+ 2 Geschlecht Männlech Pimpampel                45 0.0646  
+ 3 Geschlecht Männlech Schmetterling            33 0.0473  
+ 4 Geschlecht Männlech Miller-däppchen/moler    15 0.0215  
+ 5 Geschlecht Männlech Pippel                    8 0.0115  
+ 6 Geschlecht Männlech Paiperlek                 6 0.00861 
+ 7 Geschlecht Männlech Schwalbenschwanz          3 0.00430 
+ 8 Geschlecht Männlech Päipeldéier               2 0.00287 
+ 9 Geschlecht Männlech Pléiperplap               1 0.00143 
+10 Geschlecht Weiblech Päiperlek              1195 0.824   
+11 Geschlecht Weiblech Pimpampel               110 0.0758  
+12 Geschlecht Weiblech Schmetterling            80 0.0551  
+13 Geschlecht Weiblech Miller-däppchen/moler    36 0.0248  
+14 Geschlecht Weiblech Pippel                   15 0.0103  
+15 Geschlecht Weiblech Paiperlek                 5 0.00345 
+16 Geschlecht Weiblech Päipeldéier               5 0.00345 
+17 Geschlecht Weiblech Pléiperplap               4 0.00276 
+18 Geschlecht Weiblech Schwalbenschwanz          1 0.000689</code></pre>
+</div>
+</div>
+<p><strong>Education (<code>Ausbildung</code>):</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>variant_by_social <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Ausbildung"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(level, Variant_Päiperlek, n, share)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Adding missing grouping variables: `variable`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29 × 5
+# Groups:   variable, level [4]
+   variable   level                            Variant_Päiperlek       n   share
+   &lt;chr&gt;      &lt;chr&gt;                            &lt;chr&gt;               &lt;int&gt;   &lt;dbl&gt;
+ 1 Ausbildung "Fachhéichschoul/\nUniversitéit" Päiperlek             809 0.852  
+ 2 Ausbildung "Fachhéichschoul/\nUniversitéit" Pimpampel              58 0.0611 
+ 3 Ausbildung "Fachhéichschoul/\nUniversitéit" Schmetterling          40 0.0421 
+ 4 Ausbildung "Fachhéichschoul/\nUniversitéit" Miller-däppchen/mo…    19 0.0200 
+ 5 Ausbildung "Fachhéichschoul/\nUniversitéit" Pippel                 10 0.0105 
+ 6 Ausbildung "Fachhéichschoul/\nUniversitéit" Paiperlek               5 0.00527
+ 7 Ausbildung "Fachhéichschoul/\nUniversitéit" Pléiperplap             4 0.00421
+ 8 Ausbildung "Fachhéichschoul/\nUniversitéit" Päipeldéier             2 0.00211
+ 9 Ausbildung "Fachhéichschoul/\nUniversitéit" Schwalbenschwanz        2 0.00211
+10 Ausbildung "Lycée\nclassique"               Päiperlek             319 0.844  
+# ℹ 19 more rows</code></pre>
+</div>
+</div>
+<p><strong>Dialect area (<code>Dialektgebiet</code>):</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>variant_by_social <span class="sc">|&gt;</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"Dialektgebiet"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(level, Variant_Päiperlek, n, share)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Adding missing grouping variables: `variable`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32 × 5
+# Groups:   variable, level [5]
+   variable      level  Variant_Päiperlek         n   share
+   &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;                 &lt;int&gt;   &lt;dbl&gt;
+ 1 Dialektgebiet Norden Päiperlek               108 0.484  
+ 2 Dialektgebiet Norden Schmetterling            54 0.242  
+ 3 Dialektgebiet Norden Miller-däppchen/moler    31 0.139  
+ 4 Dialektgebiet Norden Pippel                   23 0.103  
+ 5 Dialektgebiet Norden Pimpampel                 6 0.0269 
+ 6 Dialektgebiet Norden Paiperlek                 1 0.00448
+ 7 Dialektgebiet Osten  Päiperlek               337 0.864  
+ 8 Dialektgebiet Osten  Pimpampel                21 0.0538 
+ 9 Dialektgebiet Osten  Miller-däppchen/moler    10 0.0256 
+10 Dialektgebiet Osten  Schmetterling             6 0.0154 
+# ℹ 22 more rows</code></pre>
+</div>
+</div>
+<p>Bar chart: top variants only (at least 20 tokens overall) to keep the plot readable.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>top_variants <span class="ot">&lt;-</span> butterfly_variants <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Variant_Päiperlek, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">20</span>) <span class="sc">|&gt;</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Variant_Päiperlek)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>butterfly_variants <span class="sc">|&gt;</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Variant_Päiperlek <span class="sc">%in%</span> top_variants) <span class="sc">|&gt;</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(Alter, Geschlecht, Ausbildung, Dialektgebiet),</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>    \(x) <span class="fu">as.character</span>(x)</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(Alter, Geschlecht, Ausbildung, Dialektgebiet),</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"level"</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(variable, level, Variant_Päiperlek) <span class="sc">|&gt;</span></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable, level) <span class="sc">|&gt;</span></span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">share =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> level, <span class="at">y =</span> share, <span class="at">fill =</span> Variant_Päiperlek)) <span class="sc">+</span></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"stack"</span>) <span class="sc">+</span></span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> variable, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Butterfly variants by sociolinguistic category"</span>,</span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Share within group"</span>,</span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Variant"</span></span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/butterfly-variant-barchart-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="map-variants-by-commune" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="map-variants-by-commune"><span class="header-section-number">2.3</span> Map variants by commune</h2>
+<p>Aggregate to commune level: number of recordings, share of the standard form <code>Päiperlek</code>, and the <strong>dominant</strong> variant (most frequent code in that commune).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>commune_variants <span class="ot">&lt;-</span> butterfly_variants <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Gemeng =</span> <span class="fu">as.character</span>(Gemeng)) <span class="sc">|&gt;</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    share_päiperlek <span class="ot">=</span> <span class="fu">mean</span>(Variant_Päiperlek <span class="sc">==</span> <span class="st">"Päiperlek"</span>),</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> Gemeng</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>    butterfly_variants <span class="sc">|&gt;</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">Gemeng =</span> <span class="fu">as.character</span>(Gemeng)) <span class="sc">|&gt;</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(Gemeng, Variant_Päiperlek) <span class="sc">|&gt;</span></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">slice_max</span>(n, <span class="at">n =</span> <span class="dv">1</span>, <span class="at">by =</span> Gemeng, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(Gemeng, <span class="at">dominant_variant =</span> Variant_Päiperlek),</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"Gemeng"</span></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>commune_variants</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 103 × 4
+   Gemeng               n share_päiperlek dominant_variant
+   &lt;chr&gt;            &lt;int&gt;           &lt;dbl&gt; &lt;chr&gt;           
+ 1 Rosport-Mompach     24           0.917 Päiperlek       
+ 2 Esch-sur-Alzette    85           0.835 Päiperlek       
+ 3 Steinsel            32           0.906 Päiperlek       
+ 4 Reisdorf            12           1     Päiperlek       
+ 5 Ettelbruck          47           0.957 Päiperlek       
+ 6 Kayl                28           0.821 Päiperlek       
+ 7 Hesperange          47           0.915 Päiperlek       
+ 8 Käerjeng            37           0.784 Päiperlek       
+ 9 Beckerich           18           0.944 Päiperlek       
+10 Bertrange           20           0.85  Päiperlek       
+# ℹ 93 more rows</code></pre>
+</div>
+</div>
+<p>Join to commune polygons and plot the dominant variant:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>communes_df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"communes_df.RDS"</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>communes_butterfly <span class="ot">&lt;-</span> communes_df <span class="sc">|&gt;</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(commune_variants, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"id"</span> <span class="ot">=</span> <span class="st">"Gemeng"</span>))</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(communes_butterfly, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group, <span class="at">fill =</span> dominant_variant)) <span class="sc">+</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.7</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.2</span>)) <span class="sc">+</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>, <span class="at">na.value =</span> <span class="st">"grey85"</span>) <span class="sc">+</span></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Dominant butterfly variant by commune"</span>,</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Schnessen / butterfly.rds — communes without recordings in grey"</span>,</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Dominant variant"</span></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/butterfly-map-dominant-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Continuous map: share of the variant <code>Päiperlek</code> per commune (among coded responses).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(communes_butterfly, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group, <span class="at">fill =</span> share_päiperlek)) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="fl">6.7</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">49.2</span>, <span class="fl">50.2</span>)) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">"mako"</span>, <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Share of variant “Päiperlek” by commune"</span>,</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Among coded Schnessen responses per commune"</span>,</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Share Päiperlek"</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="session-04_files/figure-html/butterfly-map-share-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="work-with-own-data" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 3. Work with own data</h1>
+<section id="suggested-workflow" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="suggested-workflow"><span class="header-section-number">3.1</span> Suggested workflow</h2>
+<ol type="1">
+<li><strong>Research question</strong></li>
+<li><strong>Data import and checks</strong></li>
 <li><strong>Data preparation</strong>
 <ul>
 <li>Keep relevant variables.</li>
@@ -211,52 +1117,11 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Build one figure that supports your question.</li>
 </ul></li>
-<li><strong>Documentation</strong>
-<ul>
-<li>Save everything in a Quarto file with short interpretation notes.</li>
-</ul></li>
+<li><strong>Documentation in Quarto</strong></li>
 </ol>
-</section>
-<section id="recommended-quarto-structure" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="recommended-quarto-structure"><span class="header-section-number">4</span> Recommended Quarto structure</h2>
-<p>Use this section layout in your own project document:</p>
-<ol type="1">
-<li><strong>Question and data</strong></li>
-<li><strong>Import</strong></li>
-<li><strong>Cleaning and preparation</strong></li>
-<li><strong>Analysis</strong></li>
-<li><strong>Visualization</strong></li>
-<li><strong>Interpretation and next steps</strong></li>
-</ol>
-</section>
-<section id="in-class-checklist" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="in-class-checklist"><span class="header-section-number">5</span> In-class checklist</h2>
-<ul>
-<li>Your data is loaded successfully.</li>
-<li>Variable names and types are understood.</li>
-<li>One clean analysis table is created.</li>
-<li>One plot is generated and interpreted.</li>
-<li>Your Quarto file runs from top to bottom without errors.</li>
-</ul>
-</section>
-<section id="hands-on-tasks" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="hands-on-tasks"><span class="header-section-number">6</span> Hands-on tasks</h2>
-<ol type="1">
-<li>Import your own data and print a compact overview (<code>glimpse()</code>, <code>summary()</code>).</li>
-<li>Create a cleaned table for one key variable or comparison.</li>
-<li>Compute one descriptive result (counts, proportions, means, or dispersion).</li>
-<li>Build one plot and add clear axis labels and title.</li>
-<li>Write 3-5 sentences interpreting your result.</li>
-</ol>
-</section>
-<section id="wrap-up" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="wrap-up"><span class="header-section-number">7</span> Wrap-up</h2>
-<ul>
-<li>Keep your session file as the starting point for your final project workflow.</li>
-<li>In the next session, we will use AI/Cursor to speed up coding, debugging, and documentation in a controlled way.</li>
-</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

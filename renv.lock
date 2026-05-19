@@ -121,88 +121,6 @@
       "Maintainer": "Martin Maechler <mmaechler+Matrix@gmail.com>",
       "Repository": "CRAN"
     },
-    "R.methodsS3": {
-      "Package": "R.methodsS3",
-      "Version": "1.8.2",
-      "Source": "Repository",
-      "Depends": [
-        "R (>= 2.13.0)"
-      ],
-      "Imports": [
-        "utils"
-      ],
-      "Suggests": [
-        "codetools"
-      ],
-      "Title": "S3 Methods Simplified",
-      "Authors@R": "c(person(\"Henrik\", \"Bengtsson\", role=c(\"aut\", \"cre\", \"cph\"), email = \"henrikb@braju.com\"))",
-      "Author": "Henrik Bengtsson [aut, cre, cph]",
-      "Maintainer": "Henrik Bengtsson <henrikb@braju.com>",
-      "Description": "Methods that simplify the setup of S3 generic functions and S3 methods.  Major effort has been made in making definition of methods as simple as possible with a minimum of maintenance for package developers.  For example, generic functions are created automatically, if missing, and naming conflict are automatically solved, if possible.  The method setMethodS3() is a good start for those who in the future may want to migrate to S4.  This is a cross-platform package implemented in pure R that generates standard S3 methods.",
-      "License": "LGPL (>= 2.1)",
-      "LazyLoad": "TRUE",
-      "URL": "https://github.com/HenrikBengtsson/R.methodsS3",
-      "BugReports": "https://github.com/HenrikBengtsson/R.methodsS3/issues",
-      "NeedsCompilation": "no",
-      "Repository": "CRAN"
-    },
-    "R.oo": {
-      "Package": "R.oo",
-      "Version": "1.27.1",
-      "Source": "Repository",
-      "Depends": [
-        "R (>= 2.13.0)",
-        "R.methodsS3 (>= 1.8.2)"
-      ],
-      "Imports": [
-        "methods",
-        "utils"
-      ],
-      "Suggests": [
-        "tools"
-      ],
-      "Title": "R Object-Oriented Programming with or without References",
-      "Authors@R": "c(person(\"Henrik\", \"Bengtsson\", role=c(\"aut\", \"cre\", \"cph\"), email = \"henrikb@braju.com\"))",
-      "Author": "Henrik Bengtsson [aut, cre, cph]",
-      "Maintainer": "Henrik Bengtsson <henrikb@braju.com>",
-      "Description": "Methods and classes for object-oriented programming in R with or without references.  Large effort has been made on making definition of methods as simple as possible with a minimum of maintenance for package developers.  The package has been developed since 2001 and is now considered very stable.  This is a cross-platform package implemented in pure R that defines standard S3 classes without any tricks.",
-      "License": "LGPL (>= 2.1)",
-      "LazyLoad": "TRUE",
-      "URL": "https://henrikbengtsson.github.io/R.oo/, https://github.com/HenrikBengtsson/R.oo",
-      "BugReports": "https://github.com/HenrikBengtsson/R.oo/issues",
-      "NeedsCompilation": "no",
-      "Repository": "CRAN"
-    },
-    "R.utils": {
-      "Package": "R.utils",
-      "Version": "2.13.0",
-      "Source": "Repository",
-      "Depends": [
-        "R (>= 2.14.0)",
-        "R.oo"
-      ],
-      "Imports": [
-        "methods",
-        "utils",
-        "tools",
-        "R.methodsS3"
-      ],
-      "Suggests": [
-        "datasets",
-        "digest (>= 0.6.10)"
-      ],
-      "Title": "Various Programming Utilities",
-      "Authors@R": "c(person(\"Henrik\", \"Bengtsson\", role=c(\"aut\", \"cre\", \"cph\"), email = \"henrikb@braju.com\"))",
-      "Author": "Henrik Bengtsson [aut, cre, cph]",
-      "Maintainer": "Henrik Bengtsson <henrikb@braju.com>",
-      "Description": "Utility functions useful when programming and developing R packages.",
-      "License": "LGPL (>= 2.1)",
-      "LazyLoad": "TRUE",
-      "URL": "https://henrikbengtsson.github.io/R.utils/, https://github.com/HenrikBengtsson/R.utils",
-      "BugReports": "https://github.com/HenrikBengtsson/R.utils/issues",
-      "NeedsCompilation": "no",
-      "Repository": "CRAN"
-    },
     "R6": {
       "Package": "R6",
       "Version": "2.6.1",
@@ -894,28 +812,6 @@
       "Maintainer": "Matthew Lincoln <matthew.d.lincoln@gmail.com>",
       "Repository": "CRAN"
     },
-    "collections": {
-      "Package": "collections",
-      "Version": "0.3.11",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "High Performance Container Data Types",
-      "Date": "2026-02-04",
-      "Authors@R": "c(person(given = \"Randy\", family = \"Lai\", role = c(\"aut\", \"cre\"), email = \"randy.cs.lai@gmail.com\"), person(given = \"Andrea\", family = \"Mazzoleni\", role = \"cph\", comment = \"tommy hash table library\"), person(given = \"Yann\", family = \"Collet\", role = \"cph\", comment = \"xxhash algorithm\"))",
-      "Description": "Provides high performance container data types such as queues, stacks, deques, dicts and ordered dicts. Benchmarks <https://randy3k.github.io/collections/articles/benchmark.html> have shown that these containers are asymptotically more efficient than those offered by other packages.",
-      "License": "MIT + file LICENSE",
-      "URL": "https://github.com/randy3k/collections/",
-      "Suggests": [
-        "testthat (>= 2.3.1)"
-      ],
-      "ByteCompile": "yes",
-      "Encoding": "UTF-8",
-      "NeedsCompilation": "yes",
-      "RoxygenNote": "7.1.0",
-      "Author": "Randy Lai [aut, cre], Andrea Mazzoleni [cph] (tommy hash table library), Yann Collet [cph] (xxhash algorithm)",
-      "Maintainer": "Randy Lai <randy.cs.lai@gmail.com>",
-      "Repository": "CRAN"
-    },
     "conflicted": {
       "Package": "conflicted",
       "Version": "1.2.0",
@@ -1290,125 +1186,6 @@
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
     },
-    "duckdb": {
-      "Package": "duckdb",
-      "Version": "1.4.4",
-      "Source": "Repository",
-      "Title": "DBI Package for the DuckDB Database Management System",
-      "Authors@R": "c( person(\"Hannes\", \"Mühleisen\", , \"hannes@cwi.nl\", role = \"aut\", comment = c(ORCID = \"0000-0001-8552-0029\")), person(\"Mark\", \"Raasveldt\", , \"mark.raasveldt@cwi.nl\", role = \"aut\", comment = c(ORCID = \"0000-0001-5005-6844\")), person(\"Kirill\", \"Müller\", , \"kirill@cynkra.com\", role = \"cre\", comment = c(ORCID = \"0000-0002-1416-3412\")), person(\"Stichting DuckDB Foundation\", role = \"cph\"), person(\"Apache Software Foundation\", role = \"cph\"), person(\"PostgreSQL Global Development Group\", role = \"cph\"), person(\"The Regents of the University of California\", role = \"cph\"), person(\"Cameron Desrochers\", role = \"cph\"), person(\"Victor Zverovich\", role = \"cph\"), person(\"RAD Game Tools\", role = \"cph\"), person(\"Valve Software\", role = \"cph\"), person(\"Rich Geldreich\", role = \"cph\"), person(\"Tenacious Software LLC\", role = \"cph\"), person(\"The RE2 Authors\", role = \"cph\"), person(\"Google Inc.\", role = \"cph\"), person(\"Facebook Inc.\", role = \"cph\"), person(\"Steven G. Johnson\", role = \"cph\"), person(\"Jiahao Chen\", role = \"cph\"), person(\"Tony Kelman\", role = \"cph\"), person(\"Jonas Fonseca\", role = \"cph\"), person(\"Lukas Fittl\", role = \"cph\"), person(\"Salvatore Sanfilippo\", role = \"cph\"), person(\"Art.sy, Inc.\", role = \"cph\"), person(\"Oran Agra\", role = \"cph\"), person(\"Redis Labs, Inc.\", role = \"cph\"), person(\"Melissa O'Neill\", role = \"cph\"), person(\"PCG Project contributors\", role = \"cph\") )",
-      "Description": "The DuckDB project is an embedded analytical data management system with support for the Structured Query Language (SQL). This package includes all of DuckDB and an R Database Interface (DBI) connector.",
-      "License": "MIT + file LICENSE",
-      "URL": "https://r.duckdb.org/, https://github.com/duckdb/duckdb-r",
-      "BugReports": "https://github.com/duckdb/duckdb-r/issues",
-      "Depends": [
-        "DBI",
-        "R (>= 4.1.0)"
-      ],
-      "Imports": [
-        "methods",
-        "utils"
-      ],
-      "Suggests": [
-        "adbcdrivermanager",
-        "arrow (>= 13.0.0)",
-        "bit64",
-        "callr",
-        "clock",
-        "DBItest",
-        "dbplyr",
-        "dplyr",
-        "rlang",
-        "testthat",
-        "tibble",
-        "vctrs",
-        "withr"
-      ],
-      "Config/build/compilation-database": "false",
-      "Config/build/never-clean": "true",
-      "Config/comment/compilation-database": "Generate manually with pkgload:::generate_db() for faster pkgload::load_all()",
-      "Config/gha/extra-packages": "arrow=?ignore-before-r=4.2.0 adbcdrivermanager=?ignore-before-r=4.2.0",
-      "Config/gha/filter": "os != \"windows-latest\" | r != \"4.1\"",
-      "Config/gha/filter-note": "Inexplicable build failures on Windows GHA with R 4.1, works locally",
-      "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.3.9000",
-      "SystemRequirements": "xz (for building from source)",
-      "Biarch": "true",
-      "NeedsCompilation": "yes",
-      "Author": "Hannes Mühleisen [aut] (ORCID: <https://orcid.org/0000-0001-8552-0029>), Mark Raasveldt [aut] (ORCID: <https://orcid.org/0000-0001-5005-6844>), Kirill Müller [cre] (ORCID: <https://orcid.org/0000-0002-1416-3412>), Stichting DuckDB Foundation [cph], Apache Software Foundation [cph], PostgreSQL Global Development Group [cph], The Regents of the University of California [cph], Cameron Desrochers [cph], Victor Zverovich [cph], RAD Game Tools [cph], Valve Software [cph], Rich Geldreich [cph], Tenacious Software LLC [cph], The RE2 Authors [cph], Google Inc. [cph], Facebook Inc. [cph], Steven G. Johnson [cph], Jiahao Chen [cph], Tony Kelman [cph], Jonas Fonseca [cph], Lukas Fittl [cph], Salvatore Sanfilippo [cph], Art.sy, Inc. [cph], Oran Agra [cph], Redis Labs, Inc. [cph], Melissa O'Neill [cph], PCG Project contributors [cph]",
-      "Maintainer": "Kirill Müller <kirill@cynkra.com>",
-      "Repository": "CRAN"
-    },
-    "duckplyr": {
-      "Package": "duckplyr",
-      "Version": "1.2.0",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "A 'DuckDB'-Backed Version of 'dplyr'",
-      "Authors@R": "c( person(\"Hannes\", \"Mühleisen\", role = \"aut\", comment = c(ORCID = \"0000-0001-8552-0029\")), person(\"Kirill\", \"Müller\", , \"kirill@cynkra.com\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-1416-3412\")), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"), comment = c(ROR = \"03wc8by49\")) )",
-      "Description": "A drop-in replacement for 'dplyr', powered by 'DuckDB' for performance.  Offers convenient utilities for working with in-memory and larger-than-memory data while retaining full 'dplyr' compatibility.",
-      "License": "MIT + file LICENSE",
-      "URL": "https://duckplyr.tidyverse.org, https://github.com/tidyverse/duckplyr",
-      "BugReports": "https://github.com/tidyverse/duckplyr/issues",
-      "Depends": [
-        "R (>= 4.0.0)",
-        "dplyr (>= 1.2.0)"
-      ],
-      "Imports": [
-        "cli",
-        "collections",
-        "DBI",
-        "duckdb (>= 1.4.4)",
-        "glue",
-        "jsonlite",
-        "lifecycle",
-        "magrittr",
-        "memoise",
-        "pillar (>= 1.10.2)",
-        "rlang (>= 1.0.6)",
-        "tibble",
-        "tidyselect",
-        "utils",
-        "vctrs (>= 0.6.3)"
-      ],
-      "Suggests": [
-        "arrow",
-        "brio",
-        "callr",
-        "conflicted",
-        "constructive (>= 1.0.0)",
-        "curl",
-        "dbplyr",
-        "hms",
-        "knitr",
-        "lobstr",
-        "lubridate",
-        "nycflights13",
-        "palmerpenguins",
-        "prettycode",
-        "purrr",
-        "readr",
-        "rmarkdown",
-        "testthat (>= 3.1.5)",
-        "usethis",
-        "withr"
-      ],
-      "Enhances": [
-        "qs2"
-      ],
-      "Config/Needs/check": "anthonynorth/roxyglobals",
-      "Config/Needs/development": "devtools, qs2, reprex, r-lib/roxygen2, roxyglobals, rstudioapi, tidyverse",
-      "Config/Needs/website": "dbplyr, rmarkdown, tidyverse/tidytemplate",
-      "Config/testthat/edition": "3",
-      "Config/testthat/parallel": "false",
-      "Config/testthat/start-first": "rel_api, tpch, as_duckplyr_df, dplyr-mutate, dplyr-filter, dplyr-count-tally",
-      "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.3.9000",
-      "VignetteBuilder": "knitr",
-      "NeedsCompilation": "no",
-      "Author": "Hannes Mühleisen [aut] (ORCID: <https://orcid.org/0000-0001-8552-0029>), Kirill Müller [aut, cre] (ORCID: <https://orcid.org/0000-0002-1416-3412>), Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
-      "Maintainer": "Kirill Müller <kirill@cynkra.com>",
-      "Repository": "CRAN"
-    },
     "evaluate": {
       "Package": "evaluate",
       "Version": "1.0.5",
@@ -1581,36 +1358,6 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut, cre], Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
-      "Repository": "CRAN"
-    },
-    "foreign": {
-      "Package": "foreign",
-      "Version": "0.8-90",
-      "Source": "Repository",
-      "Priority": "recommended",
-      "Date": "2025-03-31",
-      "Title": "Read Data Stored by 'Minitab', 'S', 'SAS', 'SPSS', 'Stata', 'Systat', 'Weka', 'dBase', ...",
-      "Depends": [
-        "R (>= 4.0.0)"
-      ],
-      "Imports": [
-        "methods",
-        "utils",
-        "stats"
-      ],
-      "Authors@R": "c( person(\"R Core Team\", email = \"R-core@R-project.org\", role = c(\"aut\", \"cph\", \"cre\"), comment = c(ROR = \"02zz1nj61\")), person(\"Roger\", \"Bivand\", role = c(\"ctb\", \"cph\")), person(c(\"Vincent\", \"J.\"), \"Carey\", role = c(\"ctb\", \"cph\")), person(\"Saikat\", \"DebRoy\", role = c(\"ctb\", \"cph\")), person(\"Stephen\", \"Eglen\", role = c(\"ctb\", \"cph\")), person(\"Rajarshi\", \"Guha\", role = c(\"ctb\", \"cph\")), person(\"Swetlana\", \"Herbrandt\", role = \"ctb\"), person(\"Nicholas\", \"Lewin-Koh\", role = c(\"ctb\", \"cph\")), person(\"Mark\", \"Myatt\", role = c(\"ctb\", \"cph\")), person(\"Michael\", \"Nelson\", role = \"ctb\"), person(\"Ben\", \"Pfaff\", role = \"ctb\"), person(\"Brian\", \"Quistorff\", role = \"ctb\"), person(\"Frank\", \"Warmerdam\", role = c(\"ctb\", \"cph\")), person(\"Stephen\", \"Weigand\", role = c(\"ctb\", \"cph\")), person(\"Free Software Foundation, Inc.\", role = \"cph\"))",
-      "Contact": "see 'MailingList'",
-      "Copyright": "see file COPYRIGHTS",
-      "Description": "Reading and writing data stored by some versions of 'Epi Info', 'Minitab', 'S', 'SAS', 'SPSS', 'Stata', 'Systat', 'Weka', and for reading and writing some 'dBase' files.",
-      "ByteCompile": "yes",
-      "Biarch": "yes",
-      "License": "GPL (>= 2)",
-      "BugReports": "https://bugs.r-project.org",
-      "MailingList": "R-help@r-project.org",
-      "URL": "https://svn.r-project.org/R-packages/trunk/foreign/",
-      "NeedsCompilation": "yes",
-      "Author": "R Core Team [aut, cph, cre] (02zz1nj61), Roger Bivand [ctb, cph], Vincent J. Carey [ctb, cph], Saikat DebRoy [ctb, cph], Stephen Eglen [ctb, cph], Rajarshi Guha [ctb, cph], Swetlana Herbrandt [ctb], Nicholas Lewin-Koh [ctb, cph], Mark Myatt [ctb, cph], Michael Nelson [ctb], Ben Pfaff [ctb], Brian Quistorff [ctb], Frank Warmerdam [ctb, cph], Stephen Weigand [ctb, cph], Free Software Foundation, Inc. [cph]",
-      "Maintainer": "R Core Team <R-core@R-project.org>",
       "Repository": "CRAN"
     },
     "fs": {
@@ -3609,67 +3356,6 @@
       "Maintainer": "Jennifer Bryan <jenny@posit.co>",
       "Repository": "CRAN"
     },
-    "rio": {
-      "Package": "rio",
-      "Version": "1.2.4",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "A Swiss-Army Knife for Data I/O",
-      "Authors@R": "c(person(\"Jason\", \"Becker\", role = \"aut\", email = \"jason@jbecker.co\"), person(\"Chung-hong\", \"Chan\", role = c(\"aut\", \"cre\"), email = \"chainsawtiney@gmail.com\", comment = c(ORCID = \"0000-0002-6232-7530\")), person(\"David\", \"Schoch\", email = \"david@schochastics.net\", role = c(\"aut\"), comment = c(ORCID = \"0000-0003-2952-4812\")), person(\"Geoffrey CH\", \"Chan\", role = \"ctb\", email = \"gefchchan@gmail.com\"), person(\"Thomas J.\", \"Leeper\", role = \"aut\",  email = \"thosjleeper@gmail.com\", comment = c(ORCID = \"0000-0003-4097-6326\")), person(\"Christopher\", \"Gandrud\", role = \"ctb\"), person(\"Andrew\", \"MacDonald\", role = \"ctb\"), person(\"Ista\", \"Zahn\", role = \"ctb\"), person(\"Stanislaus\", \"Stadlmann\", role = \"ctb\"), person(\"Ruaridh\", \"Williamson\", role = \"ctb\", email = \"ruaridh.williamson@gmail.com\"), person(\"Patrick\", \"Kennedy\", role = \"ctb\"), person(\"Ryan\", \"Price\", email = \"ryapric@gmail.com\", role = \"ctb\"), person(\"Trevor L\", \"Davis\", email = \"trevor.l.davis@gmail.com\", role = \"ctb\"), person(\"Nathan\", \"Day\", email = \"nathancday@gmail.com\", role = \"ctb\"), person(\"Bill\", \"Denney\", email=\"wdenney@humanpredictions.com\", role=\"ctb\", comment=c(ORCID=\"0000-0002-5759-428X\")), person(\"Alex\", \"Bokov\", email = \"alex.bokov@gmail.com\", role = \"ctb\", comment=c(ORCID=\"0000-0002-0511-9815\")), person(\"Hugo\", \"Gruson\", role = \"ctb\", comment = c(ORCID = \"0000-0002-4094-1476\")), person(\"Jacob\", \"Mears\", role = \"ctb\"))",
-      "Description": "Streamlined data import and export by making assumptions that the user is probably willing to make: 'import()' and 'export()' determine the data format from the file extension, reasonable defaults are used for data import and export, web-based import is natively supported (including from SSL/HTTPS), compressed files can be read directly, and fast import packages are used where appropriate. An additional convenience function, 'convert()', provides a simple method for converting between file types.",
-      "URL": "https://gesistsa.github.io/rio/, https://github.com/gesistsa/rio",
-      "BugReports": "https://github.com/gesistsa/rio/issues",
-      "Depends": [
-        "R (>= 4.0)"
-      ],
-      "Imports": [
-        "tools",
-        "stats",
-        "utils",
-        "foreign",
-        "haven (>= 1.1.2)",
-        "curl (>= 0.6)",
-        "data.table (>= 1.11.2)",
-        "readxl (>= 0.1.1)",
-        "tibble",
-        "writexl",
-        "lifecycle",
-        "R.utils",
-        "readr"
-      ],
-      "Suggests": [
-        "datasets",
-        "bit64",
-        "testthat",
-        "knitr",
-        "magrittr",
-        "clipr",
-        "fst",
-        "hexView",
-        "jsonlite",
-        "pzfx",
-        "readODS (>= 2.1.0)",
-        "rmarkdown",
-        "rmatio",
-        "xml2 (>= 1.2.0)",
-        "yaml",
-        "qs",
-        "arrow (>= 0.17.0)",
-        "stringi",
-        "withr",
-        "nanoparquet",
-        "qs2 (>= 0.1.5)"
-      ],
-      "License": "GPL-2",
-      "VignetteBuilder": "knitr",
-      "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.2",
-      "Config/Needs/website": "gesistsa/tsatemplate",
-      "NeedsCompilation": "no",
-      "Author": "Jason Becker [aut], Chung-hong Chan [aut, cre] (ORCID: <https://orcid.org/0000-0002-6232-7530>), David Schoch [aut] (ORCID: <https://orcid.org/0000-0003-2952-4812>), Geoffrey CH Chan [ctb], Thomas J. Leeper [aut] (ORCID: <https://orcid.org/0000-0003-4097-6326>), Christopher Gandrud [ctb], Andrew MacDonald [ctb], Ista Zahn [ctb], Stanislaus Stadlmann [ctb], Ruaridh Williamson [ctb], Patrick Kennedy [ctb], Ryan Price [ctb], Trevor L Davis [ctb], Nathan Day [ctb], Bill Denney [ctb] (ORCID: <https://orcid.org/0000-0002-5759-428X>), Alex Bokov [ctb] (ORCID: <https://orcid.org/0000-0002-0511-9815>), Hugo Gruson [ctb] (ORCID: <https://orcid.org/0000-0002-4094-1476>), Jacob Mears [ctb]",
-      "Maintainer": "Chung-hong Chan <chainsawtiney@gmail.com>",
-      "Repository": "CRAN"
-    },
     "rlang": {
       "Package": "rlang",
       "Version": "1.1.7",
@@ -4896,33 +4582,6 @@
       "NeedsCompilation": "no",
       "Author": "Jim Hester [aut], Lionel Henry [aut, cre], Kirill Müller [aut], Kevin Ushey [aut], Hadley Wickham [aut], Winston Chang [aut], Jennifer Bryan [ctb], Richard Cotton [ctb], Posit Software, PBC [cph, fnd]",
       "Maintainer": "Lionel Henry <lionel@posit.co>",
-      "Repository": "CRAN"
-    },
-    "writexl": {
-      "Package": "writexl",
-      "Version": "1.5.4",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Export Data Frames to Excel 'xlsx' Format",
-      "Authors@R": "c( person(\"Jeroen\", \"Ooms\", ,\"jeroenooms@gmail.com\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-4035-0289\")), person(\"John McNamara\", role = \"cph\", comment = \"Author of libxlsxwriter (see AUTHORS and COPYRIGHT files for details)\"))",
-      "Description": "Zero-dependency data frame to xlsx exporter based on 'libxlsxwriter' <https://libxlsxwriter.github.io>. Fast and no Java or Excel required.",
-      "License": "BSD_2_clause + file LICENSE",
-      "Encoding": "UTF-8",
-      "URL": "https://ropensci.r-universe.dev/writexl https://docs.ropensci.org/writexl/",
-      "BugReports": "https://github.com/ropensci/writexl/issues",
-      "RoxygenNote": "7.0.2",
-      "Suggests": [
-        "spelling",
-        "readxl",
-        "nycflights13",
-        "testthat",
-        "bit64"
-      ],
-      "Language": "en-US",
-      "SystemRequirements": "zlib",
-      "NeedsCompilation": "yes",
-      "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>), John McNamara [cph] (Author of libxlsxwriter (see AUTHORS and COPYRIGHT files for details))",
-      "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
       "Repository": "CRAN"
     },
     "xfun": {

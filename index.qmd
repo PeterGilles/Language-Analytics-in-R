@@ -41,7 +41,7 @@ Initial steps:
 2.  Data wrangling
     1.  tidyverse
 3.  Corpus analysis with tidytext and quanteda
-4.  Work with own data
+4.  ggplot2, Ai and Work with own data
 5.  Using AI (Cursor) as coding assistant
 
 ## Resources and recommended reading

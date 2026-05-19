@@ -11,28 +11,668 @@ format:
 editor: visual
 ---
 
-## Learning objectives
+# 1. Maps with ggplot2
 
-By the end of this session you will:
+## Setup
 
--   Define a clear and feasible mini-question for your own project data.
--   Import and inspect your own dataset in a reproducible way.
--   Prepare a clean analysis table (variables, types, missing data, filters).
--   Run and document one or two core analyses from your project.
--   Create at least one interpretable visualization for your data.
--   Structure your workflow in a reusable Quarto document.
+Run this chunk once at the beginning. Data files in the `sessions/` folder: `communes_df.RDS`, `centroids_label.RDS`, `butterfly.rds`. Population counts come from the [RNPP age pyramid CSV](https://download.data.public.lu/resources/registre-national-des-personnes-physiques-rnpp-pyramide-dage-par-commune-population-age-pyramid-per-municipality/20260407-111759/31-03-2026-rnrpp-pyramide-age-commune.csv) on data.public.lu.
 
-## Focus of this session
+```{r}
+#| message: false
 
-This session is a guided workshop. You work with your own data, and the goal is to leave with a reproducible analysis draft that you can continue after class.
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(readr)
+library(gridExtra)
+```
+
+## Maps with Luxembourg examples
+
+For a lightweight first map, we use polygon data from `map_data("world")` and zoom into Luxembourg.
+
+```{r}
+#| label: ggplot-map-lux
+#| fig-width: 11
+#| fig-height: 7
+#| out-width: "100%"
+
+world_map <- map_data("world")
+
+ggplot(world_map, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "grey90", color = "lightblue", linewidth = 0.4) +
+  coord_quickmap(xlim = c(4.5, 7.0), ylim = c(49.2, 50.4)) +
+  labs(
+    title = "Luxembourg in regional context",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| label: ggplot-map-lux-data
+
+world_map <- map_data("world")
+communes_df <- readRDS("communes_df.RDS")
+centroids_label <- readRDS("centroids_label.RDS")
+
+lux_map <- world_map |>
+  filter(region == "Luxembourg")
+```
+
+**Step 1:** regional background.
+
+```{r}
+#| label: ggplot-map-lux-step-1
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: "100%"
+
+p1 <- ggplot() +
+  geom_polygon(
+    data = world_map,
+    aes(x = long, y = lat, group = group),
+    fill = "grey92", color = "white", linewidth = 0.2
+  ) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.4)) +
+  labs(
+    title = "Step 1: Regional background",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_minimal()
+
+p1
+```
+
+**Step 2:** add commune polygons.
+
+```{r}
+#| label: ggplot-map-lux-step-2
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: "100%"
+
+p2 <- p1 +
+  geom_polygon(
+    data = communes_df,
+    aes(x = long, y = lat, group = group),
+    fill = "#fdebd0", color = "#d35400", linewidth = 0.15, alpha = 0.8
+  ) +
+  labs(title = "Step 2: + Commune polygons")
+
+p2
+```
+
+**Step 3:** add Luxembourg country outline.
+
+```{r}
+#| label: ggplot-map-lux-step-3
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: "100%"
+
+p3 <- p2 +
+  geom_polygon(
+    data = lux_map,
+    aes(x = long, y = lat, group = group),
+    fill = NA, color = "black", linewidth = 0.5
+  ) +
+  labs(title = "Step 3: + Country outline")
+
+p3
+```
+
+**Step 4:** add centroid points for important places.
+
+```{r}
+#| label: ggplot-map-lux-step-4
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: "100%"
+
+p4 <- p3 +
+  geom_point(
+    data = centroids_label,
+    aes(x = long, y = lat),
+    color = "navy", size = 1.8
+  ) +
+  labs(title = "Step 4: + Important place points")
+
+p4
+```
+
+**Step 5:** add city labels (final map).
+
+```{r}
+#| label: ggplot-map-lux-step-5
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: "100%"
+
+p5 <- p4 +
+  geom_text(
+    data = centroids_label,
+    aes(x = long, y = lat, label = label),
+    size = 2.8, nudge_y = 0.015, color = "navy"
+  ) +
+  labs(
+    title = "Step 5: Final map",
+    subtitle = "Communes (polygons) + centroid city labels",
+    x = "Longitude",
+    y = "Latitude"
+  )
+
+p5
+```
+
+You can also combine the five map states into one overview grid:
+
+```{r}
+#| label: ggplot-map-layers-grid
+#| fig-width: 13
+#| fig-height: 10
+#| out-width: "100%"
+
+gridExtra::grid.arrange(p1, p2, p3, p4, p5, ncol = 5)
+```
+
+## Load RNPP population data
+
+The RNPP file has one row per commune and sex (`F` / `M`), with population counts in 5-year age columns (`AGE00_05`, `AGE05_10`, …). We load it once and derive commune totals for the maps below.
+
+```{r}
+#| label: rnpp-load
+
+pyramid_url <- "https://download.data.public.lu/resources/registre-national-des-personnes-physiques-rnpp-pyramide-dage-par-commune-population-age-pyramid-per-municipality/20260407-111759/31-03-2026-rnrpp-pyramide-age-commune.csv"
+
+age_raw <- read_csv(pyramid_url, show_col_types = FALSE)
+
+# one row per commune: sum all age columns (both sexes)
+pop_by_commune <- age_raw |>
+  mutate(across(starts_with("AGE"), as.numeric)) |>
+  summarise(
+    total_population = sum(across(starts_with("AGE")), na.rm = TRUE),
+    .by = COMMUNE_NOM
+  )
+```
+
+## Population per commune (choropleth)
+
+This map visualizes total population (`total_population`) by commune.
+
+How it works:
+
+1.  Aggregate RNPP age columns to one total per commune (`pop_by_commune`).
+2.  Join population values to commune polygons via commune name (`id` vs `COMMUNE_NOM`).
+3.  Use `fill = total_population` to encode population with a color gradient.
+4.  Optionally add commune labels at centroids for orientation.
+
+```{r}
+#| label: ggplot-map-population-communes
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: "100%"
+
+communes_df <- readRDS("communes_df.RDS")
+centroids_label <- readRDS("centroids_label.RDS")
+
+communes_pop_map <- communes_df |>
+  left_join(pop_by_commune, by = c("id" = "COMMUNE_NOM"))
+
+ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = total_population)) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  geom_text(
+    data = centroids_label,
+    aes(x = long, y = lat, label = label),
+    inherit.aes = FALSE,
+    size = 2.4,
+    color = "grey20"
+  ) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  scale_fill_viridis_c(option = "plasma", labels = scales::label_number(big.mark = " ")) +
+  labs(
+    title = "Luxembourg: population by commune",
+    subtitle = "RNPP, 31 March 2026 — sum of all age bands",
+    fill = "Population",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_minimal()
+```
+
+-   Brighter communes have higher population totals.
+-   Luxembourg City should stand out clearly as the most populous commune.
+-   A few communes were merged or renamed since the polygon file was built; unmatched polygons have no fill.
+
+## Map exercise
+
+### Exercise (population): choropleth with joins and aggregation
+
+**Goal:** practice map joins and pre-aggregation for cartographic input.
+
+Tasks:
+
+1.  Join `communes_df` with `pop_by_commune` to map `total_population` by commune.
+2.  Create the choropleth (`fill = total_population`) with commune labels.
+3.  Build a 5-class quantile variable (`pop_quantile`) from `total_population`. Check the manual how to use `dplyr::ntile`.
+4.  Plot a second choropleth using `fill = pop_quantile` (discrete classes).
+
+::: {.callout-tip collapse="true"}
+## Possible solution (click to expand)
+
+```{r}
+communes_df <- readRDS("communes_df.RDS")
+centroids_label <- readRDS("centroids_label.RDS")
+
+# join map polygons with RNPP commune totals
+communes_pop_map <- communes_df |>
+  left_join(pop_by_commune, by = c("id" = "COMMUNE_NOM"))
+
+# continuous choropleth
+ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = total_population)) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  geom_text(
+    data = centroids_label,
+    aes(x = long, y = lat, label = label),
+    inherit.aes = FALSE,
+    size = 2.2
+  ) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  labs(title = "Population by commune", fill = "Population") +
+  theme_minimal()
+
+# aggregation into quantile groups
+communes_pop_map <- communes_pop_map |>
+  mutate(pop_quantile = dplyr::ntile(total_population, 5))
+
+# discrete choropleth (5 classes)
+ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = factor(pop_quantile))) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  labs(title = "Population quantiles by commune", fill = "Quantile") +
+  theme_minimal()
+```
+:::
+
+## Maps by sex with `facet_wrap()`
+
+The RNPP table has separate rows for `F` and `M`. After summing population per commune and sex, we can plot **two choropleths side by side** with `facet_wrap(~ SEXE)`.
+
+How it works:
+
+1.  Aggregate `total_population` by `COMMUNE_NOM` and `SEXE` (not merged across sexes).
+2.  Join to `communes_df` — each commune polygon appears twice (once per sex).
+3.  Add `facet_wrap(~ SEXE)` so ggplot draws one map panel per sex.
+
+```{r}
+#| label: rnpp-map-facet-sex
+#| fig-width: 14
+#| fig-height: 7
+#| out-width: "100%"
+
+pop_by_commune_sex <- age_raw |>
+  mutate(across(starts_with("AGE"), as.numeric)) |>
+  summarise(
+    total_population = sum(across(starts_with("AGE")), na.rm = TRUE),
+    .by = c(COMMUNE_NOM, SEXE)
+  )
+
+communes_pop_sex <- communes_df |>
+  left_join(pop_by_commune_sex, by = c("id" = "COMMUNE_NOM"))
+
+ggplot(communes_pop_sex, aes(x = long, y = lat, group = group, fill = total_population)) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  facet_wrap(
+    ~ SEXE,
+    labeller = labeller(SEXE = c(F = "Women", M = "Men"))
+  ) +
+  scale_fill_viridis_c(option = "plasma", labels = scales::label_number(big.mark = " ")) +
+  labs(
+    title = "Population by commune and sex",
+    subtitle = "RNPP, 31 March 2026 — same fill scale in both panels",
+    fill = "Population"
+  ) +
+  theme_minimal() +
+  theme(strip.text = element_text(face = "bold"))
+```
+
+## Age pyramids (Alterspyramide)
+
+Using the same `age_raw` table, reshape the wide age columns into long format. For a classic pyramid, plot men with **negative** counts (left) and women with **positive** counts (right).
+
+### One commune
+
+```{r}
+#| label: rnpp-age-pyramid
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: "100%"
+
+commune_pick <- "Differdange"
+
+age_levels <- age_raw |>
+  select(starts_with("AGE")) |>
+  names() |>
+  str_remove("^AGE") |>
+  str_replace("_", "-") |>
+  (\(x) if_else(x == "100-", "100+", x))()
+
+age_pyramid <- age_raw |>
+  filter(COMMUNE_NOM == commune_pick) |>
+  pivot_longer(starts_with("AGE"), names_to = "age_band", values_to = "count") |>
+  mutate(
+    age_band = str_remove(age_band, "^AGE"),
+    age_band = str_replace(age_band, "_", "-"),
+    age_band = if_else(age_band == "100-", "100+", age_band),
+    age_band = factor(age_band, levels = age_levels),
+    count = if_else(SEXE == "M", -count, count)
+  )
+
+ggplot(age_pyramid, aes(x = count, y = age_band, fill = SEXE)) +
+  geom_col(width = 0.85) +
+  geom_vline(xintercept = 0, linewidth = 0.3) +
+  scale_fill_manual(
+    values = c(F = "#c0392b", M = "#2980b9"),
+    labels = c(F = "Women", M = "Men")
+  ) +
+  scale_x_continuous(labels = \(x) format(abs(x), big.mark = " ")) +
+  labs(
+    title = paste("Age pyramid:", commune_pick),
+    subtitle = "RNPP, 31 March 2026 — counts by 5-year age band",
+    x = "Population",
+    y = "Age group",
+    fill = NULL
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+Change `commune_pick` (e.g. to `"Luxembourg"` or `"Esch-sur-Alzette"`) to compare age structures.
+
+### Entire country
+
+Aggregate `age_raw` across all communes, keeping all age columns and grouping by sex:
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: "100%"
+
+
+age_total <- age_raw |>
+  summarise(
+    across(starts_with("AGE"), \(x) sum(x, na.rm = TRUE)),
+    .by = SEXE
+  )
+
+age_levels <- age_total |>
+  select(starts_with("AGE")) |>
+  names() |>
+  str_remove("^AGE") |>
+  str_replace("_", "-") |>
+  (\(x) if_else(x == "100-", "100+", x))()
+
+age_pyramid <- age_total |>
+  pivot_longer(starts_with("AGE"), names_to = "age_band", values_to = "count") |>
+  mutate(
+    age_band = str_remove(age_band, "^AGE"),
+    age_band = str_replace(age_band, "_", "-"),
+    age_band = if_else(age_band == "100-", "100+", age_band),
+    age_band = factor(age_band, levels = age_levels),
+    count = if_else(SEXE == "M", -count, count)
+  )
+
+ggplot(age_pyramid, aes(x = count, y = age_band, fill = SEXE)) +
+  geom_col(width = 0.85) +
+  geom_vline(xintercept = 0, linewidth = 0.3) +
+  scale_fill_manual(
+    values = c(F = "#c0392b", M = "#2980b9"),
+    labels = c(F = "Women", M = "Men")
+  ) +
+  scale_x_continuous(labels = \(x) format(abs(x), big.mark = " ")) +
+  labs(
+    title = paste("Age pyramid: Luxembourg"),
+    subtitle = "RNPP, 31 March 2026 — counts by 5-year age band",
+    x = "Population",
+    y = "Age group",
+    fill = NULL
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+```
+
+# 2. Data exploration
+
+This section uses the **Schnessen** butterfly dataset (`butterfly.rds`): crowd-sourced recordings of the word for “butterfly” across Luxembourg, with sociolinguistic metadata and commune information.
+
+## Load and inspect `butterfly.rds`
+
+```{r}
+#| label: butterfly-load
+
+butterfly <- readRDS("butterfly.rds")
+
+glimpse(butterfly)
+```
+
+Each row is one recording. Key variables for this analysis:
+
+| Variable            | Meaning                                    |
+|---------------------|--------------------------------------------|
+| `Variant_Päiperlek` | Coded variant of the target word           |
+| `Alter`             | Age group                                  |
+| `Geschlecht`        | Gender                                     |
+| `Ausbildung`        | Education level                            |
+| `Dialektgebiet`     | Dialect area (north / east / south / west) |
+| `Gemeng`            | Commune (factor, matches polygon `id`)     |
+
+```{r}
+#| label: butterfly-variant-overview
+
+butterfly |>
+  count(Variant_Päiperlek, sort = TRUE) |>
+  mutate(share = n / sum(n))
+```
+
+`FALSE` means the target word was not produced (or could not be coded). For variant statistics we exclude these rows.
+
+```{r}
+#| label: butterfly-filter
+
+butterfly_variants <- butterfly |>
+  filter(Variant_Päiperlek != "FALSE")
+
+nrow(butterfly_variants)
+```
+
+## Variant statistics by age, gender, education, and dialect area
+
+Reshape the four sociolinguistic variables into long format, then compute counts and **row-wise shares** (distribution of variants within each age group, etc.).
+
+```{r}
+#| label: butterfly-variant-stats
+
+variant_by_social <- butterfly_variants |>
+  mutate(across(
+    c(Alter, Geschlecht, Ausbildung, Dialektgebiet),
+    \(x) as.character(x)
+  )) |>
+  pivot_longer(
+    c(Alter, Geschlecht, Ausbildung, Dialektgebiet),
+    names_to = "variable",
+    values_to = "level"
+  ) |>
+  count(variable, level, Variant_Päiperlek) |>
+  group_by(variable, level) |>
+  mutate(share = n / sum(n), .groups = "drop") |>
+  arrange(variable, level, desc(n))
+
+variant_by_social
+```
+
+**Age (`Alter`)** — share of each variant by age band:
+
+```{r}
+#| label: butterfly-stats-alter
+
+variant_by_social |>
+  filter(variable == "Alter") |>
+  select(level, Variant_Päiperlek, n, share)
+```
+
+**Gender (`Geschlecht`):**
+
+```{r}
+#| label: butterfly-stats-geschlecht
+
+variant_by_social |>
+  filter(variable == "Geschlecht") |>
+  select(level, Variant_Päiperlek, n, share)
+```
+
+**Education (`Ausbildung`):**
+
+```{r}
+#| label: butterfly-stats-ausbildung
+
+variant_by_social |>
+  filter(variable == "Ausbildung") |>
+  select(level, Variant_Päiperlek, n, share)
+```
+
+**Dialect area (`Dialektgebiet`):**
+
+```{r}
+#| label: butterfly-stats-dialektgebiet
+
+variant_by_social |>
+  filter(variable == "Dialektgebiet") |>
+  select(level, Variant_Päiperlek, n, share)
+```
+
+Bar chart: top variants only (at least 20 tokens overall) to keep the plot readable.
+
+```{r}
+#| label: butterfly-variant-barchart
+#| fig-width: 12
+#| fig-height: 8
+#| out-width: "100%"
+
+top_variants <- butterfly_variants |>
+  count(Variant_Päiperlek, sort = TRUE) |>
+  filter(n >= 20) |>
+  pull(Variant_Päiperlek)
+
+butterfly_variants |>
+  filter(Variant_Päiperlek %in% top_variants) |>
+  mutate(across(
+    c(Alter, Geschlecht, Ausbildung, Dialektgebiet),
+    \(x) as.character(x)
+  )) |>
+  pivot_longer(
+    c(Alter, Geschlecht, Ausbildung, Dialektgebiet),
+    names_to = "variable",
+    values_to = "level"
+  ) |>
+  count(variable, level, Variant_Päiperlek) |>
+  group_by(variable, level) |>
+  mutate(share = n / sum(n), .groups = "drop") |>
+  ggplot(aes(x = level, y = share, fill = Variant_Päiperlek)) +
+  geom_col(position = "stack") +
+  facet_wrap(~ variable, scales = "free_x") +
+  labs(
+    title = "Butterfly variants by sociolinguistic category",
+    x = NULL,
+    y = "Share within group",
+    fill = "Variant"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Map variants by commune
+
+Aggregate to commune level: number of recordings, share of the standard form `Päiperlek`, and the **dominant** variant (most frequent code in that commune).
+
+```{r}
+#| label: butterfly-commune-stats
+
+commune_variants <- butterfly_variants |>
+  mutate(Gemeng = as.character(Gemeng)) |>
+  summarise(
+    n = n(),
+    share_päiperlek = mean(Variant_Päiperlek == "Päiperlek"),
+    .by = Gemeng
+  ) |>
+  left_join(
+    butterfly_variants |>
+      mutate(Gemeng = as.character(Gemeng)) |>
+      count(Gemeng, Variant_Päiperlek) |>
+      slice_max(n, n = 1, by = Gemeng, with_ties = FALSE) |>
+      select(Gemeng, dominant_variant = Variant_Päiperlek),
+    by = "Gemeng"
+  )
+
+commune_variants
+```
+
+Join to commune polygons and plot the dominant variant:
+
+```{r}
+#| label: butterfly-map-dominant
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: "100%"
+
+communes_df <- readRDS("communes_df.RDS")
+
+communes_butterfly <- communes_df |>
+  left_join(commune_variants, by = c("id" = "Gemeng"))
+
+ggplot(communes_butterfly, aes(x = long, y = lat, group = group, fill = dominant_variant)) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  scale_fill_brewer(palette = "Set3", na.value = "grey85") +
+  labs(
+    title = "Dominant butterfly variant by commune",
+    subtitle = "Schnessen / butterfly.rds — communes without recordings in grey",
+    fill = "Dominant variant"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+Continuous map: share of the variant `Päiperlek` per commune (among coded responses).
+
+```{r}
+#| label: butterfly-map-share
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: "100%"
+
+ggplot(communes_butterfly, aes(x = long, y = lat, group = group, fill = share_päiperlek)) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  scale_fill_viridis_c(option = "mako", labels = scales::percent_format(), limits = c(0, 1)) +
+  labs(
+    title = "Share of variant “Päiperlek” by commune",
+    subtitle = "Among coded Schnessen responses per commune",
+    fill = "Share Päiperlek"
+  ) +
+  theme_minimal()
+```
+
+# 3. Work with own data
 
 ## Suggested workflow
 
 1.  **Research question**
-    -   Write one focused question you can answer with the available data.
 2.  **Data import and checks**
-    -   Load your files (`readr`, `readxl`, `quanteda`, etc.).
-    -   Confirm encoding, separators, and metadata.
 3.  **Data preparation**
     -   Keep relevant variables.
     -   Recode variable names and values if needed.
@@ -41,37 +681,4 @@ This session is a guided workshop. You work with your own data, and the goal is 
     -   Frequency tables, distributions, or group comparisons.
 5.  **Visualization**
     -   Build one figure that supports your question.
-6.  **Documentation**
-    -   Save everything in a Quarto file with short interpretation notes.
-
-## Recommended Quarto structure
-
-Use this section layout in your own project document:
-
-1.  **Question and data**
-2.  **Import**
-3.  **Cleaning and preparation**
-4.  **Analysis**
-5.  **Visualization**
-6.  **Interpretation and next steps**
-
-## In-class checklist
-
--   Your data is loaded successfully.
--   Variable names and types are understood.
--   One clean analysis table is created.
--   One plot is generated and interpreted.
--   Your Quarto file runs from top to bottom without errors.
-
-## Hands-on tasks
-
-1.  Import your own data and print a compact overview (`glimpse()`, `summary()`).
-2.  Create a cleaned table for one key variable or comparison.
-3.  Compute one descriptive result (counts, proportions, means, or dispersion).
-4.  Build one plot and add clear axis labels and title.
-5.  Write 3-5 sentences interpreting your result.
-
-## Wrap-up
-
--   Keep your session file as the starting point for your final project workflow.
--   In the next session, we will use AI/Cursor to speed up coding, debugging, and documentation in a controlled way.
+6.  **Documentation in Quarto**
