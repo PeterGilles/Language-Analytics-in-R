@@ -1,5 +1,5 @@
 ---
-title: "Session 4 — Work with own data"
+title: "Session 4"
 subtitle: "Language Analytics in R"
 author: "Peter Gilles"
 format:
