@@ -51,6 +51,8 @@ ggplot(world_map, aes(x = long, y = lat, group = group)) +
   theme_minimal()
 ```
 
+In addition, we need the polygon data for the communes and geolocalisation data for the main cities per commune.
+
 ```{r}
 #| label: ggplot-map-lux-data
 
@@ -60,6 +62,8 @@ centroids_label <- readRDS("centroids_label.RDS")
 
 lux_map <- world_map |>
   filter(region == "Luxembourg")
+
+lux_map
 ```
 
 **Step 1:** regional background.
@@ -87,7 +91,7 @@ p1 <- ggplot() +
 p1
 ```
 
-**Step 2:** add commune polygons.
+**Step 2:** add commune polygons. Note that we add now one ggplot object (p1, p2 ...) on top of each other.
 
 ```{r}
 #| label: ggplot-map-lux-step-2
@@ -188,7 +192,7 @@ The RNPP file has one row per commune and sex (`F` / `M`), with population count
 
 pyramid_url <- "https://download.data.public.lu/resources/registre-national-des-personnes-physiques-rnpp-pyramide-dage-par-commune-population-age-pyramid-per-municipality/20260407-111759/31-03-2026-rnrpp-pyramide-age-commune.csv"
 
-age_raw <- read_csv(pyramid_url, show_col_types = FALSE)
+age_raw <- read_csv(pyramid_url)
 
 # one row per commune: sum all age columns (both sexes)
 pop_by_commune <- age_raw |>
@@ -210,6 +214,8 @@ How it works:
 3.  Use `fill = total_population` to encode population with a color gradient.
 4.  Optionally add commune labels at centroids for orientation.
 
+**Join.** `left_join()` attaches `total_population` to every polygon row. The join uses two different column names: polygon `id` (commune name) matches RNPP `COMMUNE_NOM`. Rows without a match keep `NA` for `total_population` (grey on the map).
+
 ```{r}
 #| label: ggplot-map-population-communes
 #| fig-width: 14
@@ -221,6 +227,15 @@ centroids_label <- readRDS("centroids_label.RDS")
 
 communes_pop_map <- communes_df |>
   left_join(pop_by_commune, by = c("id" = "COMMUNE_NOM"))
+```
+
+**Plot.** In `aes()`, `group = group` is essential for polygons: each commune consists of many coordinate rows that must be drawn as one shape. `fill = total_population` maps population to colour. `geom_text()` uses a separate table (`centroids_label`); `inherit.aes = FALSE` prevents it from inheriting `fill` and `group` from the polygon layer. `coord_quickmap()` sets the map extent; `scale_fill_viridis_c()` applies a continuous colour scale with readable axis labels.
+
+```{r}
+#| label: ggplot-map-population-communes-plot
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: "100%"
 
 ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = total_population)) +
   geom_polygon(color = "white", linewidth = 0.15) +
@@ -340,6 +355,13 @@ ggplot(communes_pop_sex, aes(x = long, y = lat, group = group, fill = total_popu
   theme(strip.text = element_text(face = "bold"))
 ```
 
+-   **`facet_wrap(~ SEXE)`** splits the plot into one panel per sex. The formula `~ SEXE` means “create facets from the `SEXE` column”. Each panel reuses the same `geom_polygon()` call; ggplot filters the data automatically.
+-   **`labeller = labeller(...)`** renames facet strip labels (`F` → “Women”, `M` → “Men”) without changing the underlying data.
+-   **`scale_fill_viridis_c()`** defines one continuous colour scale for both panels, so darker/brighter communes are comparable across women and men.
+-   **`theme(strip.text = ...)`** formats the facet titles (the strips above each small map).
+
+Both panels share the same colour scale by default, which makes the two maps comparable.
+
 ## Age pyramids (Alterspyramide)
 
 Using the same `age_raw` table, reshape the wide age columns into long format. For a classic pyramid, plot men with **negative** counts (left) and women with **positive** counts (right).
@@ -347,10 +369,7 @@ Using the same `age_raw` table, reshape the wide age columns into long format. F
 ### One commune
 
 ```{r}
-#| label: rnpp-age-pyramid
-#| fig-width: 10
-#| fig-height: 8
-#| out-width: "100%"
+#| label: rnpp-age-pyramid-setup
 
 commune_pick <- "Differdange"
 
@@ -360,6 +379,15 @@ age_levels <- age_raw |>
   str_remove("^AGE") |>
   str_replace("_", "-") |>
   (\(x) if_else(x == "100-", "100+", x))()
+```
+
+**Reshape.** The RNPP table is **wide**: one column per age band. `pivot_longer()` stacks them into rows (`age_band`, `count`). We then clean band labels (`AGE20_25` → `20-25`) and fix the order with `factor(..., levels = age_levels)`. Multiplying men's counts by −1 places their bars on the **left** of the pyramid; women stay positive on the **right**.
+
+```{r}
+#| label: rnpp-age-pyramid-data
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: "100%"
 
 age_pyramid <- age_raw |>
   filter(COMMUNE_NOM == commune_pick) |>
@@ -371,6 +399,15 @@ age_pyramid <- age_raw |>
     age_band = factor(age_band, levels = age_levels),
     count = if_else(SEXE == "M", -count, count)
   )
+```
+
+**Plot.** `geom_col()` draws horizontal bars; `geom_vline(xintercept = 0)` marks the centre line between women and men. `scale_x_continuous(labels = ...)` uses `abs()` so axis labels show positive numbers even though men's values are negative.
+
+```{r}
+#| label: rnpp-age-pyramid-plot
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: "100%"
 
 ggplot(age_pyramid, aes(x = count, y = age_band, fill = SEXE)) +
   geom_col(width = 0.85) +
@@ -395,13 +432,19 @@ Change `commune_pick` (e.g. to `"Luxembourg"` or `"Esch-sur-Alzette"`) to compar
 
 ### Entire country
 
-Aggregate `age_raw` across all communes, keeping all age columns and grouping by sex:
+Aggregate `age_raw` across all communes, keeping all age columns and grouping by sex.
+
+**Summarise.** `summarise(across(...), .by = SEXE)` adds up every age column **across all communes**, but keeps women and men in separate rows. The result is still wide (one column per age band).
+
+**Age order.** The pipeline on `age_levels` extracts column names, removes the `AGE` prefix, and turns underscores into hyphens. The anonymous function `\(x) if_else(...)` is a short way to relabel the top band `100-` as `100+`.
+
+**Long format.** The same `pivot_longer()` + `mutate()` steps as above turn the national table into pyramid-ready data.
 
 ```{r}
+#| label: rnpp-age-pyramid-national
 #| fig-width: 10
 #| fig-height: 8
 #| out-width: "100%"
-
 
 age_total <- age_raw |>
   summarise(
@@ -493,6 +536,12 @@ nrow(butterfly_variants)
 ## Variant statistics by age, gender, education, and dialect area
 
 Reshape the four sociolinguistic variables into long format, then compute counts and **row-wise shares** (distribution of variants within each age group, etc.).
+
+**Convert to character.** `Alter`, `Geschlecht`, and the other columns are factors or ordered factors. `pivot_longer()` needs a common type in the `values` column, so we convert them to character first.
+
+**Long format.** `pivot_longer()` stacks the four columns into two new ones: `variable` (which social factor) and `level` (the actual category, e.g. “25 bis 34”).
+
+**Counts and shares.** `count()` tallies recordings per social group and variant. `group_by(variable, level)` + `mutate(share = n / sum(n))` computes the **proportion of each variant within** each age band (or gender, etc.) — the values in one row of the output sum to 1.
 
 ```{r}
 #| label: butterfly-variant-stats
