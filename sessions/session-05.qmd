@@ -1,5 +1,5 @@
 ---
-title: "Session 5 — Using AI (Cursor) as coding assistant"
+title: "Session 5"
 subtitle: "Language Analytics in R"
 author: "Peter Gilles"
 format:
@@ -11,23 +11,15 @@ format:
 editor: visual
 ---
 
-## Learning objectives
-
-By the end of this session you will:
-
--   Use Cursor as a coding assistant for R and Quarto tasks.
--   Write effective prompts for data wrangling, visualization, and debugging.
--   Validate AI-generated code before using it in your project.
--   Integrate AI support into a reproducible, transparent workflow.
--   Recognize limitations and risks (hallucinations, wrong assumptions, hidden errors).
+# 1. AI-assisted Coding with Cursor
 
 ## What Cursor can help with
 
--   Drafting code templates (imports, joins, pipelines, plots).
--   Explaining existing code and suggesting refactors.
--   Debugging error messages and proposing fixes.
--   Generating short documentation snippets and comments.
--   Helping structure Quarto reports.
+- Drafting code templates (imports, joins, pipelines, plots).
+- Explaining existing code and suggesting refactors.
+- Debugging error messages and proposing fixes.
+- Generating short documentation snippets and comments.
+- Helping structure Quarto reports.
 
 ## Prompt patterns for this course
 
@@ -53,17 +45,19 @@ Example prompt:
 5.  **Revise** prompt and code until result is correct.
 6.  **Document** what was generated and what you changed manually.
 
-## Common failure modes
+# 2. Work with your own data
 
--   Fabricated column names or package functions.
--   Incorrect assumptions about data types or missing values.
--   Code that runs but does not answer your question.
--   Overly complex solutions for simple tasks.
--   Missing citations or weak methodological transparency.
+## Suggested Quarto skeleton
 
-## Good practice and transparency
-
--   Keep AI support visible in your workflow notes.
--   Save intermediate steps and interpretation text in Quarto.
--   Prefer small, testable prompts over one large prompt.
--   Cross-check key results with simple summaries.
+```{r}
+#| eval: false
+#| label: quip-skeleton
+#
+# 1. Question and data
+# 2. Import
+# 3. Cleaning / preparation
+# 4. First analysis
+# 5. Visualization
+# 6. Interpretation and next steps
+# 7. AI usage notes (what you asked Cursor; what you changed manually)
+```

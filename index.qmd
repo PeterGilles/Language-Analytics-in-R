@@ -15,34 +15,40 @@ Seminar in the Doctoral School HSS at the University of Luxembourg \| Summer sem
 
 Initial steps:
 
--   install R
+- install R
 
--   install RStudio
+- install RStudio
 
--   install these packages in RStudio: tidyverse, languageR, tidytext, quanteda, quanteda.textmodels, quanteda.textplots, quanteda.textstats, quanteda.tidy, gutenbergr
+- install these packages in RStudio: tidyverse, languageR, tidytext, quanteda, quanteda.textmodels, quanteda.textplots, quanteda.textstats, quanteda.tidy, gutenbergr
 
 ## Syllabus
 
--   **1 April**
+- **1 April**
 
--   **15 April**
+- **15 April**
 
--   **6 May**
+- **6 May**
 
--   **20 May**
+- **20 May**
 
--   **27 May**
+- **27 May**
 
 1.  Introduction:
+
     1.  Examples from own research
     2.  First steps in Rstudio, packages and basic constructs (workflow, variables, scripting in Rmarkdown; writing good code)
     3.  Work with text data and corpora (data import etc.)
     4.  Hands-on exercises on toy data
+
 2.  Data wrangling
+
     1.  tidyverse
-3.  Corpus analysis with tidytext and quanteda
-4.  ggplot2, Ai and Work with own data
-5.  Using AI (Cursor) as coding assistant
+
+3.  Corpus analysis with tidytext and quanteda, ggplot2
+
+4.  ggplot2
+
+5.  Ai and Work with own data
 
 ## Resources and recommended reading
 

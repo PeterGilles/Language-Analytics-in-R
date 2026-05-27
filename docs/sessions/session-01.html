@@ -8,7 +8,7 @@
 
 <meta name="author" content="Peter Gilles">
 
-<title>Session 1 — Introduction: R workflow and first steps – Language Analytics in R</title>
+<title>Session 6 — AI-assisted coding (Cursor) + work on own data – Language Analytics in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -143,11 +143,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../sessions/session-04.html"> 
-<span class="menu-text">Session 4 (Viz/Stats)</span></a>
+<span class="menu-text">Session 4</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../sessions/session-05.html"> 
 <span class="menu-text">Session 5</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sessions/session-06.html"> 
+<span class="menu-text">Session 6</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -198,7 +202,88 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#why-quarto" id="toc-why-quarto" class="nav-link" data-scroll-target="#why-quarto"><span class="header-section-number">6.1</span> Why Quarto?</a></li>
   <li><a href="#running-code-in-a-.qmd-file" id="toc-running-code-in-a-.qmd-file" class="nav-link" data-scroll-target="#running-code-in-a-.qmd-file"><span class="header-section-number">6.2</span> Running code in a .qmd file</a></li>
   </ul></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"><span class="header-section-number">7</span> </a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"><span class="header-section-number">7</span> </a>
+  <ul class="collapse">
+  <li><a href="#learning-objectives-1" id="toc-learning-objectives-1" class="nav-link" data-scroll-target="#learning-objectives-1"><span class="header-section-number">7.1</span> Learning objectives</a></li>
+  </ul></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">8</span> Setup</a></li>
+  <li><a href="#part-1-working-with-csv-data" id="toc-part-1-working-with-csv-data" class="nav-link" data-scroll-target="#part-1-working-with-csv-data"><span class="header-section-number">9</span> Part 1 — Working with CSV data</a>
+  <ul class="collapse">
+  <li><a href="#read-and-inspect-csv" id="toc-read-and-inspect-csv" class="nav-link" data-scroll-target="#read-and-inspect-csv"><span class="header-section-number">9.1</span> Read and inspect CSV</a></li>
+  <li><a href="#basic-exploratory-statistics" id="toc-basic-exploratory-statistics" class="nav-link" data-scroll-target="#basic-exploratory-statistics"><span class="header-section-number">9.2</span> Basic exploratory statistics</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">9.3</span> Exercises</a></li>
+  </ul></li>
+  <li><a href="#part-2-working-with-text-data-from-project-gutenberg-using-tidytext" id="toc-part-2-working-with-text-data-from-project-gutenberg-using-tidytext" class="nav-link" data-scroll-target="#part-2-working-with-text-data-from-project-gutenberg-using-tidytext"><span class="header-section-number">10</span> Part 2 — Working with text data from <code>Project Gutenberg</code> using <code>tidytext</code></a>
+  <ul class="collapse">
+  <li><a href="#download-and-tokenize-gutenberg-texts" id="toc-download-and-tokenize-gutenberg-texts" class="nav-link" data-scroll-target="#download-and-tokenize-gutenberg-texts"><span class="header-section-number">10.1</span> Download and tokenize Gutenberg texts</a></li>
+  <li><a href="#explore-word-frequencies" id="toc-explore-word-frequencies" class="nav-link" data-scroll-target="#explore-word-frequencies"><span class="header-section-number">10.2</span> Explore word frequencies</a></li>
+  <li><a href="#compare-distinctive-words-with-tf-idf" id="toc-compare-distinctive-words-with-tf-idf" class="nav-link" data-scroll-target="#compare-distinctive-words-with-tf-idf"><span class="header-section-number">10.3</span> Compare distinctive words with tf-idf</a></li>
+  <li><a href="#analyze-word-pairs-with-bigrams-hermann-hesse" id="toc-analyze-word-pairs-with-bigrams-hermann-hesse" class="nav-link" data-scroll-target="#analyze-word-pairs-with-bigrams-hermann-hesse"><span class="header-section-number">10.4</span> Analyze word pairs with bigrams (Hermann Hesse)</a></li>
+  <li><a href="#exercises-gutenberg-tidytext" id="toc-exercises-gutenberg-tidytext" class="nav-link" data-scroll-target="#exercises-gutenberg-tidytext"><span class="header-section-number">10.5</span> Exercises (Gutenberg + tidytext)</a></li>
+  </ul></li>
+  <li><a href="#part-3-working-with-xml-data" id="toc-part-3-working-with-xml-data" class="nav-link" data-scroll-target="#part-3-working-with-xml-data"><span class="header-section-number">11</span> Part 3 — Working with XML data</a>
+  <ul class="collapse">
+  <li><a href="#read-xml-and-inspect-structure" id="toc-read-xml-and-inspect-structure" class="nav-link" data-scroll-target="#read-xml-and-inspect-structure"><span class="header-section-number">11.1</span> Read XML and inspect structure</a></li>
+  <li><a href="#build-a-tidy-tibble-from-xml" id="toc-build-a-tidy-tibble-from-xml" class="nav-link" data-scroll-target="#build-a-tidy-tibble-from-xml"><span class="header-section-number">11.2</span> Build a tidy tibble from XML</a></li>
+  <li><a href="#exercises-xml-lod" id="toc-exercises-xml-lod" class="nav-link" data-scroll-target="#exercises-xml-lod"><span class="header-section-number">11.3</span> Exercises (XML / LOD)</a></li>
+  </ul></li>
+  <li><a href="#solutions" id="toc-solutions" class="nav-link" data-scroll-target="#solutions"><span class="header-section-number">12</span> Solutions</a>
+  <ul class="collapse">
+  <li><a href="#learning-objectives-2" id="toc-learning-objectives-2" class="nav-link" data-scroll-target="#learning-objectives-2"><span class="header-section-number">12.1</span> Learning objectives</a></li>
+  </ul></li>
+  <li><a href="#setup-1" id="toc-setup-1" class="nav-link" data-scroll-target="#setup-1"><span class="header-section-number">13</span> Setup</a></li>
+  <li><a href="#introduction-to-quanteda" id="toc-introduction-to-quanteda" class="nav-link" data-scroll-target="#introduction-to-quanteda"><span class="header-section-number">14</span> Introduction to quanteda</a>
+  <ul class="collapse">
+  <li><a href="#build-a-corpus-from-built-in-quanteda-data" id="toc-build-a-corpus-from-built-in-quanteda-data" class="nav-link" data-scroll-target="#build-a-corpus-from-built-in-quanteda-data"><span class="header-section-number">14.1</span> 1) Build a corpus from built-in quanteda data</a></li>
+  <li><a href="#subset-by-document-variables" id="toc-subset-by-document-variables" class="nav-link" data-scroll-target="#subset-by-document-variables"><span class="header-section-number">14.2</span> 2) Subset by document variables</a></li>
+  <li><a href="#tokenize-and-preprocess" id="toc-tokenize-and-preprocess" class="nav-link" data-scroll-target="#tokenize-and-preprocess"><span class="header-section-number">14.3</span> 3) Tokenize and preprocess</a></li>
+  <li><a href="#keywords-in-context-kwic" id="toc-keywords-in-context-kwic" class="nav-link" data-scroll-target="#keywords-in-context-kwic"><span class="header-section-number">14.4</span> 4) Keywords in context (KWIC)</a></li>
+  <li><a href="#create-and-inspect-a-dfm" id="toc-create-and-inspect-a-dfm" class="nav-link" data-scroll-target="#create-and-inspect-a-dfm"><span class="header-section-number">14.5</span> 5) Create and inspect a dfm</a></li>
+  <li><a href="#group-by-docvars-party-and-compare" id="toc-group-by-docvars-party-and-compare" class="nav-link" data-scroll-target="#group-by-docvars-party-and-compare"><span class="header-section-number">14.6</span> 6) Group by docvars (Party) and compare</a></li>
+  <li><a href="#simple-dictionary-analysis" id="toc-simple-dictionary-analysis" class="nav-link" data-scroll-target="#simple-dictionary-analysis"><span class="header-section-number">14.7</span> 7) Simple dictionary analysis</a></li>
+  </ul></li>
+  <li><a href="#quanteda-with-gutenberg-data" id="toc-quanteda-with-gutenberg-data" class="nav-link" data-scroll-target="#quanteda-with-gutenberg-data"><span class="header-section-number">15</span> Quanteda with Gutenberg data</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-moby-dick-workflow" id="toc-exercise-1-moby-dick-workflow" class="nav-link" data-scroll-target="#exercise-1-moby-dick-workflow"><span class="header-section-number">15.1</span> Exercise 1: Moby-Dick workflow</a></li>
+  <li><a href="#exercise-2-lexical-dispersion-plot-with-textplot_xray" id="toc-exercise-2-lexical-dispersion-plot-with-textplot_xray" class="nav-link" data-scroll-target="#exercise-2-lexical-dispersion-plot-with-textplot_xray"><span class="header-section-number">15.2</span> Exercise 2: Lexical dispersion plot with <code>textplot_xray()</code></a></li>
+  </ul></li>
+  <li><a href="#introduction-to-ggplot2" id="toc-introduction-to-ggplot2" class="nav-link" data-scroll-target="#introduction-to-ggplot2"><span class="header-section-number">16</span> Introduction to ggplot2</a>
+  <ul class="collapse">
+  <li><a href="#generic-introduction" id="toc-generic-introduction" class="nav-link" data-scroll-target="#generic-introduction"><span class="header-section-number">16.1</span> Generic introduction</a></li>
+  <li><a href="#first-plots" id="toc-first-plots" class="nav-link" data-scroll-target="#first-plots"><span class="header-section-number">16.2</span> First plots</a></li>
+  <li><a href="#bar-charts" id="toc-bar-charts" class="nav-link" data-scroll-target="#bar-charts"><span class="header-section-number">16.3</span> Bar charts</a></li>
+  <li><a href="#boxplots-and-violin-plots-with-iris" id="toc-boxplots-and-violin-plots-with-iris" class="nav-link" data-scroll-target="#boxplots-and-violin-plots-with-iris"><span class="header-section-number">16.4</span> Boxplots and violin plots with <code>iris</code></a></li>
+  <li><a href="#scatter-plots" id="toc-scatter-plots" class="nav-link" data-scroll-target="#scatter-plots"><span class="header-section-number">16.5</span> Scatter plots</a></li>
+  <li><a href="#exercises-1" id="toc-exercises-1" class="nav-link" data-scroll-target="#exercises-1"><span class="header-section-number">16.6</span> Exercises</a></li>
+  </ul></li>
+  <li><a href="#maps-with-ggplot2" id="toc-maps-with-ggplot2" class="nav-link" data-scroll-target="#maps-with-ggplot2"><span class="header-section-number">17</span> 1. Maps with ggplot2</a>
+  <ul class="collapse">
+  <li><a href="#setup-2" id="toc-setup-2" class="nav-link" data-scroll-target="#setup-2"><span class="header-section-number">17.1</span> Setup</a></li>
+  <li><a href="#maps-with-luxembourg-examples" id="toc-maps-with-luxembourg-examples" class="nav-link" data-scroll-target="#maps-with-luxembourg-examples"><span class="header-section-number">17.2</span> Maps with Luxembourg examples</a></li>
+  <li><a href="#load-rnpp-population-data" id="toc-load-rnpp-population-data" class="nav-link" data-scroll-target="#load-rnpp-population-data"><span class="header-section-number">17.3</span> Load RNPP population data</a></li>
+  <li><a href="#population-per-commune-choropleth" id="toc-population-per-commune-choropleth" class="nav-link" data-scroll-target="#population-per-commune-choropleth"><span class="header-section-number">17.4</span> Population per commune (choropleth)</a></li>
+  <li><a href="#map-exercise" id="toc-map-exercise" class="nav-link" data-scroll-target="#map-exercise"><span class="header-section-number">17.5</span> Map exercise</a></li>
+  <li><a href="#maps-by-sex-with-facet_wrap" id="toc-maps-by-sex-with-facet_wrap" class="nav-link" data-scroll-target="#maps-by-sex-with-facet_wrap"><span class="header-section-number">17.6</span> Maps by sex with <code>facet_wrap()</code></a></li>
+  <li><a href="#age-pyramids" id="toc-age-pyramids" class="nav-link" data-scroll-target="#age-pyramids"><span class="header-section-number">17.7</span> Age pyramids</a></li>
+  </ul></li>
+  <li><a href="#data-exploration" id="toc-data-exploration" class="nav-link" data-scroll-target="#data-exploration"><span class="header-section-number">18</span> 2. Data exploration</a>
+  <ul class="collapse">
+  <li><a href="#load-and-inspect-butterfly.rds" id="toc-load-and-inspect-butterfly.rds" class="nav-link" data-scroll-target="#load-and-inspect-butterfly.rds"><span class="header-section-number">18.1</span> Load and inspect <code>butterfly.rds</code></a></li>
+  <li><a href="#variant-statistics-by-age-gender-education-and-dialect-area" id="toc-variant-statistics-by-age-gender-education-and-dialect-area" class="nav-link" data-scroll-target="#variant-statistics-by-age-gender-education-and-dialect-area"><span class="header-section-number">18.2</span> Variant statistics by age, gender, education, and dialect area</a></li>
+  <li><a href="#map-variants-by-commune" id="toc-map-variants-by-commune" class="nav-link" data-scroll-target="#map-variants-by-commune"><span class="header-section-number">18.3</span> Map variants by commune</a></li>
+  </ul></li>
+  <li><a href="#work-with-own-data" id="toc-work-with-own-data" class="nav-link" data-scroll-target="#work-with-own-data"><span class="header-section-number">19</span> 3. Work with own data</a>
+  <ul class="collapse">
+  <li><a href="#suggested-workflow" id="toc-suggested-workflow" class="nav-link" data-scroll-target="#suggested-workflow"><span class="header-section-number">19.1</span> Suggested workflow</a></li>
+  <li><a href="#learning-objectives-3" id="toc-learning-objectives-3" class="nav-link" data-scroll-target="#learning-objectives-3"><span class="header-section-number">19.2</span> Learning objectives</a></li>
+  <li><a href="#what-cursor-can-help-with" id="toc-what-cursor-can-help-with" class="nav-link" data-scroll-target="#what-cursor-can-help-with"><span class="header-section-number">19.3</span> What Cursor can help with</a></li>
+  <li><a href="#prompt-patterns-for-this-course" id="toc-prompt-patterns-for-this-course" class="nav-link" data-scroll-target="#prompt-patterns-for-this-course"><span class="header-section-number">19.4</span> Prompt patterns for this course</a></li>
+  <li><a href="#human-in-the-loop-workflow" id="toc-human-in-the-loop-workflow" class="nav-link" data-scroll-target="#human-in-the-loop-workflow"><span class="header-section-number">19.5</span> Human-in-the-loop workflow</a></li>
+  <li><a href="#common-failure-modes" id="toc-common-failure-modes" class="nav-link" data-scroll-target="#common-failure-modes"><span class="header-section-number">19.6</span> Common failure modes</a></li>
+  <li><a href="#good-practice-and-transparency" id="toc-good-practice-and-transparency" class="nav-link" data-scroll-target="#good-practice-and-transparency"><span class="header-section-number">19.7</span> Good practice and transparency</a></li>
+  <li><a href="#introduction-ai-assisted-coding-with-cursor" id="toc-introduction-ai-assisted-coding-with-cursor" class="nav-link" data-scroll-target="#introduction-ai-assisted-coding-with-cursor"><span class="header-section-number">19.8</span> 1. Introduction: AI-assisted coding with Cursor</a></li>
+  <li><a href="#work-with-your-own-data-guided-workshop" id="toc-work-with-your-own-data-guided-workshop" class="nav-link" data-scroll-target="#work-with-your-own-data-guided-workshop"><span class="header-section-number">19.9</span> 2. Work with your own data (guided workshop)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -207,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Session 1 — Introduction: R workflow and first steps</h1>
+<h1 class="title">Session 6 — AI-assisted coding (Cursor) + work on own data</h1>
 <p class="subtitle lead">Language Analytics in R</p>
 </div>
 
@@ -631,6 +716,2030 @@ $ pos  &lt;chr&gt; "det", "noun", "verb", "prep", "noun"</code></pre>
 <h1 data-number="7"><span class="header-section-number">7</span> </h1>
 
 
+<section id="learning-objectives-1" class="level2 scrollable" data-number="7.1">
+<h2 class="scrollable anchored" data-number="7.1" data-anchor-id="learning-objectives-1"><span class="header-section-number">7.1</span> Learning objectives</h2>
+<p>By the end of this session you will:</p>
+<ul>
+<li>Import tabular, textual, and XML language data into R.</li>
+<li>Use tidyverse workflows for exploratory statistics and visualization.</li>
+<li>Tokenize and analyze Gutenberg texts with <code>tidytext</code>.</li>
+<li>Extract structured information from LOD XML with <code>xml2</code>.</li>
+<li>Solve format-specific exercises for CSV, text, and XML data.</li>
+</ul>
+<p>This session covers three common data formats for language analytics:</p>
+<ol type="1">
+<li><strong>CSV</strong> (tabular data)</li>
+<li><strong>Text</strong> from Project Gutenberg (<code>tidytext</code> workflow)</li>
+<li><strong>XML</strong> from the LOD dictionary</li>
+</ol>
+<p>Each section ends with dedicated exercises. Explained solutions are provided in <code>sessions/session-02-solutions.qmd</code>.</p>
+</section>
+</section>
+<section id="setup" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Setup</h1>
+<p>First, load the data from the GitHub repository <a href="https://github.com/PeterGilles/Language-Analytics-in-R" class="uri">https://github.com/PeterGilles/Language-Analytics-in-R</a>. Use either the download function on GitHub or use <code>git clone</code> that will allow you to easily update the data with new versions.</p>
+<p>This block loads all packages used in this session and defines a helper function for robust file paths.</p>
+<pre class="{r}"><code>#| label: setup
+#| message: false
+
+library(tidyverse)
+library(tidytext)
+library(gutenbergr)
+library(xml2)
+
+resolve_path &lt;- function(filename) {
+  if (file.exists(filename)) {
+    filename
+  } else {
+    file.path("sessions", filename)
+  }
+}</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>library(...)</code> attaches the packages.</li>
+<li><code>resolve_path()</code> first checks local folder, then falls back to <code>sessions/</code>.</li>
+<li>This avoids path errors when students render from different working directories.</li>
+</ul>
+</section>
+<section id="part-1-working-with-csv-data" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Part 1 — Working with CSV data</h1>
+<section id="read-and-inspect-csv" class="level2 scrollable" data-number="9.1">
+<h2 class="scrollable anchored" data-number="9.1" data-anchor-id="read-and-inspect-csv"><span class="header-section-number">9.1</span> Read and inspect CSV</h2>
+<p>We start with demographic data by commune in <code>rnrpp-population-commune.csv</code>.</p>
+<p>This block reads the file into a tibble named <code>pop</code>.</p>
+<pre class="{r}"><code>#| label: csv-read
+#| message: false
+
+csv_path &lt;- resolve_path("rnrpp-population-commune.csv")
+pop &lt;- read_csv(
+  csv_path,
+  locale = locale(encoding = "ISO-8859-1"),
+  show_col_types = FALSE
+)
+
+pop</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>resolve_path()</code> finds the file.</li>
+<li><code>read_csv(..., locale = locale(encoding = \"ISO-8859-1\"))</code> imports text with the correct source encoding.</li>
+<li>Printing <code>pop</code> gives a quick first look at rows and columns.</li>
+</ul>
+<p>If your data is in Excel format (<code>.xlsx</code>) instead of CSV, use <code>read_excel()</code> from package <code>readxl</code>:</p>
+<pre class="{r}"><code>#| label: xlsx-read-example
+#| eval: false
+
+# install.packages("readxl")   # run once if needed
+
+xlsx_path &lt;- resolve_path("my-data.xlsx")
+
+excel_data &lt;- readxl::read_excel(
+  xlsx_path,
+  sheet = 1
+)
+
+excel_data</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>readxl::read_excel()</code> reads an Excel worksheet into a tibble.</li>
+<li><code>sheet = 1</code> selects the first sheet (you can also use a sheet name).</li>
+<li>The resulting object can be used exactly like <code>pop</code> in tidyverse workflows.</li>
+</ul>
+<p>This block performs structural inspection (shape and variable names).</p>
+<pre class="{r}"><code>#| label: csv-inspect
+
+glimpse(pop)
+nrow(pop)
+ncol(pop)
+names(pop)</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>glimpse()</code> shows column types and sample values.</li>
+<li><code>nrow()</code> and <code>ncol()</code> report dataset size.</li>
+<li><code>names()</code> lists column names for later use in <code>mutate()</code> and <code>summarise()</code>.</li>
+</ul>
+</section>
+<section id="basic-exploratory-statistics" class="level2 scrollable" data-number="9.2">
+<h2 class="scrollable anchored" data-number="9.2" data-anchor-id="basic-exploratory-statistics"><span class="header-section-number">9.2</span> Basic exploratory statistics</h2>
+<p>Create derived variables and inspect the largest communes.</p>
+<pre class="{r}"><code>#| label: csv-explore
+
+pop_totals &lt;- pop |&gt;
+  mutate(
+    total_population = FEMMES_MINEURES + HOMMES_MINEURS + FEMMES_MAJEURES + HOMMES_MAJEURS,
+    adult_share = (FEMMES_MAJEURES + HOMMES_MAJEURS) / total_population
+  )
+
+pop_totals |&gt;
+  arrange(desc(total_population)) |&gt;
+  select(COMMUNE_NOM, adult_share, total_population) |&gt;
+  slice_head(n = 10)</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>mutate()</code> adds two analysis variables: total size and adult proportion.</li>
+<li><code>arrange(desc(...))</code> ranks communes from largest to smallest.</li>
+<li><code>select()</code> keeps only the most relevant columns for interpretation.</li>
+</ul>
+<p>This block computes one-row summary statistics across all communes.</p>
+<pre class="{r}"><code>#| label: csv-summary
+
+pop_totals |&gt;
+  summarise(
+    mean_commune_population = mean(total_population),
+    median_commune_population = median(total_population),
+    min_commune_population = min(total_population),
+    max_commune_population = max(total_population)
+  )</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>summarise()</code> reduces many rows to one row.</li>
+<li>We compute central tendency (<code>mean</code>, <code>median</code>) and range (<code>min</code>, <code>max</code>).</li>
+<li>This gives a fast statistical profile before plotting.</li>
+</ul>
+<p>This block visualizes the top 20 communes with a horizontal bar chart.</p>
+<pre class="{r}"><code>#| label: csv-plot
+#| fig-width: 8
+#| fig-height: 5
+
+pop_totals |&gt;
+  arrange(desc(total_population)) |&gt;
+  slice_head(n = 20) |&gt;
+  mutate(COMMUNE_NOM = fct_reorder(COMMUNE_NOM, total_population)) |&gt;
+  ggplot(aes(x = total_population, y = COMMUNE_NOM)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    title = "Top 20 communes by population",
+    x = "Population",
+    y = NULL
+  )</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>slice_head(n = 20)</code> keeps only the top communes.</li>
+<li><code>fct_reorder()</code> orders labels by population so the chart is readable.</li>
+<li><code>geom_col()</code> displays already-aggregated values.</li>
+</ul>
+</section>
+<section id="exercises" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="exercises"><span class="header-section-number">9.3</span> Exercises</h2>
+<ol type="1">
+<li>Compute the total number of minors (<code>FEMMES_MINEURES + HOMMES_MINEURS</code>) per commune and list the top 15 communes.</li>
+<li>Remove the variable <code>COMMUNE_CODE</code> from the tibble and rename the French variable names to English.</li>
+<li>Filter <code>pop_totals</code> to keep only communes with an adult share below 80 %.</li>
+</ol>
+<pre class="{r}"><code>pop_totals |&gt;
+  select(COMMUNE_NOM, adult_share) |&gt;
+  filter(adult_share &lt; 0.8)</code></pre>
+<ol type="1">
+<li>Create a histogram of <code>total_population</code> and briefly describe its shape.</li>
+<li>Export the tibble <code>pop_totals</code> to a csv file using <code>write.csv</code>.</li>
+</ol>
+</section>
+</section>
+<section id="part-2-working-with-text-data-from-project-gutenberg-using-tidytext" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Part 2 — Working with text data from <code>Project Gutenberg</code> using <code>tidytext</code></h1>
+<p>We use <a href="https://www.tidytextmining.com/tidytext"><code>tidytext</code></a> ideas: convert text to <strong>one-token-per-row</strong>, remove stop words, and compare frequencies. Data comes from <code>Project Gutenberg</code> using the R package <code>gutenbergr</code> (documentation <a href="https://docs.ropensci.org/gutenbergr/index.html">here</a>) - make sure it is installed and loaded.</p>
+<section id="download-and-tokenize-gutenberg-texts" class="level2 scrollable" data-number="10.1">
+<h2 class="scrollable anchored" data-number="10.1" data-anchor-id="download-and-tokenize-gutenberg-texts"><span class="header-section-number">10.1</span> Download and tokenize Gutenberg texts</h2>
+<p>This block downloads two books from Project Gutenberg, including title metadata.</p>
+<pre class="{r}"><code>#| label: gutenberg-download
+
+gutenberg_books &lt;- gutenberg_download(
+  c(12, 1342), # Through the Looking-Glass, Pride and Prejudice
+  meta_fields = c("author", "title")
+)
+
+gutenberg_books</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>gutenberg_download()</code> retrieves cleaned text (header/footer removed).</li>
+<li>Each row is one line of text, with <code>gutenberg_id</code> , <code>author</code> and <code>title</code>.</li>
+<li>The table is now ready for tokenization.</li>
+</ul>
+<p>This block converts lines into words and removes stop words.</p>
+<p><code>stop_words</code> is a built-in lexicon from <code>tidytext</code> containing very frequent function words such as articles, pronouns, and prepositions (e.g.&nbsp;<code>the</code>, <code>and</code>, <code>of</code>, <code>to</code>). These words are often useful for grammar, but less useful when you want fast topic-oriented exploration of lexical content.</p>
+<p>Important caveat: stop-word removal is a modeling choice, not a universal rule. For stylistic analysis, authorship studies, or grammatical research, you may want to keep stop words.</p>
+<pre class="{r}"><code>#| label: gutenberg-tokenize
+
+tokens &lt;- gutenberg_books |&gt;
+  unnest_tokens(word, text) |&gt;
+  anti_join(stop_words, by = join_by(word))
+
+tokens</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>unnest_tokens(word, text)</code> turns each line into multiple word rows.</li>
+<li>Tokens are lowercase by default and punctuation is removed.</li>
+<li><code>anti_join(stop_words, by = join_by(word))</code> removes tokens that appear in the stop-word list.</li>
+<li>The result keeps mostly content words, so top-frequency tables are usually more interpretable.</li>
+</ul>
+</section>
+<section id="explore-word-frequencies" class="level2 scrollable" data-number="10.2">
+<h2 class="scrollable anchored" data-number="10.2" data-anchor-id="explore-word-frequencies"><span class="header-section-number">10.2</span> Explore word frequencies</h2>
+<p>This block counts how often each word appears in each title.</p>
+<pre class="{r}"><code>#| label: gutenberg-count
+
+top_words &lt;- tokens |&gt;
+  count(title, word, sort = TRUE)
+
+top_words |&gt;
+  group_by(title) |&gt;
+  slice_head(n = 15) |&gt;
+  ungroup()</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>count(title, word)</code> computes frequencies per book.</li>
+<li><code>sort = TRUE</code> returns highest counts first.</li>
+<li>Grouping + <code>slice_head()</code> keeps the top words for each book.</li>
+</ul>
+<p>This block visualizes top words by title in faceted panels.</p>
+<pre class="{r}"><code>#| label: gutenberg-plot
+#| fig-width: 9
+#| fig-height: 5
+
+top_words |&gt;
+  group_by(title) |&gt;
+  slice_head(n = 12) |&gt;
+  ungroup() |&gt;
+  mutate(word = fct_reorder(word, n)) |&gt;
+  ggplot(aes(x = n, y = word, fill = title)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(vars(title), scales = "free_y") +
+  labs(
+    title = "Most frequent non-stopwords per Gutenberg book",
+    x = "Count",
+    y = NULL
+  )</code></pre>
+<p>What happens:</p>
+<ul>
+<li>We plot only the top 12 words for readability.</li>
+<li><code>facet_wrap()</code> produces one panel per book.</li>
+<li>Students can compare lexical profiles side by side.</li>
+</ul>
+</section>
+<section id="compare-distinctive-words-with-tf-idf" class="level2 scrollable" data-number="10.3">
+<h2 class="scrollable anchored" data-number="10.3" data-anchor-id="compare-distinctive-words-with-tf-idf"><span class="header-section-number">10.3</span> Compare distinctive words with tf-idf</h2>
+<p><strong>TF–IDF</strong> (term frequency–inverse document frequency) scores how <em>characteristic</em> a word is for one text <em>relative to the whole set</em> you are comparing.</p>
+<ul>
+<li><strong>Term frequency (TF)</strong> — how often the word appears <strong>in that book</strong> (here reflected in the count column <code>n</code> after <code>count(title, word)</code>). A word that appears many times in <em>Alice</em> has high TF for <em>Alice</em>.</li>
+<li><strong>Inverse document frequency (IDF)</strong> — how <em>unusual</em> the word is <strong>across books</strong>. If a word appears in almost every title with similar counts, IDF is low (it is not distinguishing). If a word is concentrated in one book, IDF is higher for that contrast.</li>
+<li><strong>TF × IDF</strong> — the product (stored as <code>tf_idf</code> in <code>tidytext</code>) is high when the word is <strong>both</strong> frequent in that book <strong>and</strong> not equally typical everywhere else. That is why high <code>tf_idf</code> words are often proper names, place words, or topic-specific vocabulary, while raw “most frequent” lists are often dominated by shared literary English.</li>
+</ul>
+<pre class="{r}"><code>#| label: gutenberg-tfidf
+
+book_tfidf &lt;- tokens |&gt;
+  count(title, word, sort = TRUE) |&gt;
+  bind_tf_idf(word, title, n) |&gt;
+  arrange(desc(tf_idf))
+
+book_tfidf |&gt;
+  group_by(title) |&gt;
+  slice_head(n = 10) |&gt;
+  ungroup() |&gt;
+  select(title, word, n, tf_idf)</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>count(title, word)</code> builds a table of how many times each <code>word</code> appears in each <code>title</code> (document).</li>
+<li><code>bind_tf_idf(word, title, n)</code> adds three columns: <code>tf</code> (term frequency in that document), <code>idf</code> (inverse document frequency in the corpus), and <code>tf_idf</code> (their product).</li>
+<li>We sort by <code>tf_idf</code> and show the top terms per book so you can read off <strong>distinctive</strong> words, not just frequent ones.</li>
+<li>Interpretation: compare a high-<code>tf_idf</code> word’s role in the story (character, place, motif) with its <code>n</code> — a word can be distinctive with a moderate <code>n</code> if it barely appears in the other books.</li>
+</ul>
+</section>
+<section id="analyze-word-pairs-with-bigrams-hermann-hesse" class="level2 scrollable" data-number="10.4">
+<h2 class="scrollable anchored" data-number="10.4" data-anchor-id="analyze-word-pairs-with-bigrams-hermann-hesse"><span class="header-section-number">10.4</span> Analyze word pairs with bigrams (Hermann Hesse)</h2>
+<p>Following the tidytext n-grams workflow, we now move from single words to <strong>bigrams</strong> (two consecutive words).<br>
+Here we use three works by the German author <strong>Hermann Hesse</strong> from Project Gutenberg.</p>
+<pre class="{r}"><code>#| label: gutenberg-bigrams-hesse
+
+hesse_works &lt;- gutenberg_works(author == "Hesse, Hermann", languages = "de") |&gt;
+  arrange(gutenberg_id) |&gt;
+  slice_head(n = 3)
+
+hesse_books &lt;- gutenberg_download(
+  c(1998),
+  meta_fields = c("author", "title")
+  )
+
+hesse_bigrams &lt;- hesse_books |&gt;
+  unnest_tokens(bigram, text, token = "ngrams", n = 2) |&gt;
+  separate_wider_delim(
+    bigram,
+    delim = " ",
+    names = c("word1", "word2"),
+    too_few = "align_start"
+  ) |&gt;
+  filter(!is.na(word1), !is.na(word2)) |&gt;
+  anti_join(stop_words, by = join_by(word1 == word)) |&gt;
+  anti_join(stop_words, by = join_by(word2 == word))
+
+hesse_bigram_counts &lt;- hesse_bigrams |&gt;
+  count(title, word1, word2, sort = TRUE)
+
+hesse_bigram_counts |&gt;
+  mutate(bigram = str_c(word1, word2, sep = " ")) |&gt;
+  group_by(title) |&gt;
+  slice_head(n = 10) |&gt;
+  ungroup() |&gt;
+  select(title, bigram, n)</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>unnest_tokens(..., token = "ngrams", n = 2)</code> creates overlapping two-word sequences.</li>
+<li><code>separate_wider_delim()</code> splits each bigram into <code>word1</code> and <code>word2</code>.</li>
+<li>We remove stop words in both positions to focus on more informative pairs.</li>
+<li><code>count(title, word1, word2, sort = TRUE)</code> gives the most frequent word-pair patterns per text.</li>
+</ul>
+<section id="note-on-lexical-diversity" class="level3" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="note-on-lexical-diversity"><span class="header-section-number">10.4.1</span> Note on lexical diversity</h3>
+<p>In Exercise 5, lexical diversity is defined as:</p>
+<p><code>n_distinct(word) / n()</code></p>
+<ul>
+<li><code>n_distinct(word)</code> = number of unique word forms (the vocabulary size in your token table).</li>
+<li><code>n()</code> = total number of tokens (all running words).</li>
+<li>The ratio is often called <strong>type-token ratio (TTR)</strong>.</li>
+</ul>
+<p>Interpretation:</p>
+<ul>
+<li>Higher values mean a larger share of unique words (more varied vocabulary in that sample).</li>
+<li>Lower values mean more repetition of the same words.</li>
+<li>Important caveat: this measure is sensitive to text length (shorter texts often look more diverse), so compare texts of similar size or interpret with care.</li>
+</ul>
+</section>
+</section>
+<section id="exercises-gutenberg-tidytext" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="exercises-gutenberg-tidytext"><span class="header-section-number">10.5</span> Exercises (Gutenberg + tidytext)</h2>
+<ol type="1">
+<li>Download one random Gutenberg text (choose one ID yourself), tokenize it, and compute the top 20 non-stopwords.</li>
+<li>Download from the Gutenberg archive the first 3 works by Wells, H. G. (Herbert George), create a token table for this mini-corpus, then build a three-book dataset (<code>bind_rows()</code>) and compare top words across books.</li>
+<li>Compute tf-idf for the three-book dataset and interpret two high tf-idf words per book.</li>
+<li>Compute bigrams (<code>token = "ngrams", n = 2</code>) for one selected book and list the 20 most frequent bigrams after removing rows that contain stop words.</li>
+<li>For each of the three books, compute lexical diversity as <code>n_distinct(word) / n()</code> and compare the values.</li>
+</ol>
+</section>
+</section>
+<section id="part-3-working-with-xml-data" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Part 3 — Working with XML data</h1>
+<p>We are working here with the data of the entire Lëtzebuerger Online Dictionary (LOD). The XML file of the entire dictionary can be downloaded from the Luxembourg open data portal (<a href="https://data.public.lu/fr/datasets/letzebuerger-online-dictionnaire-lod-linguistesch-daten/#/resources/7aad8691-006f-43b0-8d65-e47e8d51696b">LOD resource</a>).</p>
+<p>Conceptually, the XML workflow has four steps:</p>
+<ol type="1">
+<li>Read the XML tree (<code>read_xml()</code>).</li>
+<li>Select <code>&lt;entry&gt;</code> nodes with XPath.</li>
+<li>Extract a few fields from each entry.</li>
+<li>Combine extracted rows into one tidy tibble.</li>
+</ol>
+<section id="read-xml-and-inspect-structure" class="level2 scrollable" data-number="11.1">
+<h2 class="scrollable anchored" data-number="11.1" data-anchor-id="read-xml-and-inspect-structure"><span class="header-section-number">11.1</span> Read XML and inspect structure</h2>
+<p>This block parses the XML file and checks basic structure.</p>
+<pre class="{r}"><code>#| label: lod-read
+#| message: false
+
+lod_xml_path &lt;- resolve_path("new_lod-art.xml")
+lod_xml &lt;- read_xml(lod_xml_path)
+
+xml_name(lod_xml)
+xml_find_all(lod_xml, "//entry") |&gt; 
+  length()</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>read_xml()</code> loads the XML tree into memory.</li>
+<li><code>xml_name()</code> identifies the root node (here: <code>lod</code>).</li>
+<li><code>xml_find_all(lod_xml, "//entry")</code> returns all dictionary entries anywhere in the tree.</li>
+<li><code>length()</code> gives the number of entries you could potentially process.</li>
+</ul>
+<p>XPath quick reminder:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 59%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>XPath</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>//entry</code></td>
+<td>all entries</td>
+</tr>
+<tr class="even">
+<td><code>.//lemma</code></td>
+<td>lemma under current entry</td>
+</tr>
+<tr class="odd">
+<td><code>.//ipa</code></td>
+<td>IPA node under current entry</td>
+</tr>
+<tr class="even">
+<td><code>.//targetLanguage[@lang='en']/translation</code></td>
+<td>English translations</td>
+</tr>
+</tbody>
+</table>
+<p>Two key XML functions used below:</p>
+<ul>
+<li><code>xml_find_first(node, "xpath")</code> returns the <strong>first matching XML node</strong> (not plain text).</li>
+<li><code>xml_text(node)</code> returns the <strong>text content inside that XML node</strong>.</li>
+</ul>
+<p>So this pattern:</p>
+<p><code>xml_find_first(entry_node, ".//lemma") |&gt; xml_text()</code></p>
+<p>means: first find the <code>&lt;lemma&gt;</code> node inside one entry, then extract only its text value.</p>
+</section>
+<section id="build-a-tidy-tibble-from-xml" class="level2 scrollable" data-number="11.2">
+<h2 class="scrollable anchored" data-number="11.2" data-anchor-id="build-a-tidy-tibble-from-xml"><span class="header-section-number">11.2</span> Build a tidy tibble from XML</h2>
+<p>This block converts XML nodes into a tidy one-row-per-entry table.</p>
+<pre class="{r}"><code>#| label: lod-extract
+
+# Full extraction over all entries is computationally heavy.
+# We keep classroom render fast by using a sample.
+entry_nodes &lt;- xml_find_all(lod_xml, "//entry")
+sample_n &lt;- 1000
+entry_idx &lt;- sample.int(length(entry_nodes), size = sample_n)
+entry_sample &lt;- entry_nodes[entry_idx]
+
+extract_entry &lt;- function(entry_node) {
+  # Pull all English translation strings for one entry.
+  en_translations &lt;- xml_find_all(
+    entry_node,
+    ".//meaning/targetLanguage[@lang='en']/translation"
+  ) |&gt;
+    xml_text()
+
+  # Return one-row tibble for this entry.
+  tibble(
+    lemma = xml_find_first(entry_node, ".//lemma") |&gt; xml_text(),
+    ipa = xml_find_first(entry_node, ".//ipa") |&gt; xml_text(),
+    n_en_translations = length(en_translations),
+    first_en_translation = en_translations |&gt; first(default = NA_character_)
+  )
+}
+
+# takes some time
+lod_entries &lt;- entry_sample |&gt;
+  map(extract_entry) |&gt;
+  list_rbind()
+
+lod_entries |&gt; slice_head(n = 20)</code></pre>
+<p>What happens:</p>
+<ul>
+<li><code>entry_nodes</code> is an XML node set with all <code>&lt;entry&gt;</code> elements.</li>
+<li>We randomly sample 1,000 entries so rendering stays fast.</li>
+<li><code>extract_entry()</code> runs on one XML node and returns one tibble row.</li>
+<li><code>xml_find_first()</code> gives an XML node object; <code>xml_text()</code> converts that node into a character string.</li>
+<li><code>map(extract_entry)</code> creates a list of small tibbles; <code>list_rbind()</code> stacks them into one dataset.</li>
+<li><code>first(..., default = NA_character_)</code> avoids an error when an entry has no English translation.</li>
+</ul>
+<p>This block lists the most common first English translations.</p>
+<pre class="{r}"><code>#| label: lod-top-en
+
+lod_entries |&gt;
+  filter(!is.na(first_en_translation)) |&gt;
+  count(first_en_translation, sort = TRUE) |&gt;
+  slice_head(n = 20)</code></pre>
+<p>What happens:</p>
+<ul>
+<li>Missing translations are filtered out.</li>
+<li>Frequencies are counted and ranked.</li>
+<li>This provides a quick lexical overview of common gloss labels in the sample.</li>
+</ul>
+</section>
+<section id="exercises-xml-lod" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="exercises-xml-lod"><span class="header-section-number">11.3</span> Exercises (XML / LOD)</h2>
+<ol type="1">
+<li>Extract a tibble with columns <code>lemma</code>, <code>ipa</code>, and <code>n_examples</code> (number of <code>&lt;example&gt;</code> nodes per entry).</li>
+<li>Create a table of the 25 most common first English translations and discuss why this summary may be linguistically limited.</li>
+<li>Sample 30 entries with at least one English translation and inspect whether <code>lemma</code> and <code>first_en_translation</code> appear semantically aligned.</li>
+<li>Create a summary table of average, median, and maximum <code>n_examples</code> across sampled entries.</li>
+<li>Build a filtered table of entries with both an IPA value and at least one English translation, and report the share of sampled entries that satisfy both conditions.</li>
+<li>Extract <code>partofspeech</code> for each sampled entry (together with <code>lemma</code>) and list the 20 most frequent part-of-speech labels.</li>
+</ol>
+</section>
+</section>
+<section id="solutions" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Solutions</h1>
+<p>Explained solutions for all exercise blocks are in <code>sessions/session-02-solutions.qmd</code>.</p>
+<section id="learning-objectives-2" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="learning-objectives-2"><span class="header-section-number">12.1</span> Learning objectives</h2>
+<p>By the end of this session you will:</p>
+<ul>
+<li>Understand core <strong>quanteda</strong> objects (<code>corpus</code>, <code>tokens</code>, <code>dfm</code>, <code>docvars</code>).</li>
+<li>Build and inspect corpora from both package data and Project Gutenberg data.</li>
+<li>Use <code>kwic()</code> for context-based exploration and <code>topfeatures()</code> for frequency analysis.</li>
+<li>Group documents via document variables and apply a simple dictionary analysis.</li>
+<li>Run an end-to-end mini analysis workflow with <strong>quanteda</strong>.</li>
+</ul>
+</section>
+</section>
+<section id="setup-1" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Setup</h1>
+<p>In this session we combine:</p>
+<ul>
+<li><strong>quanteda</strong> for corpus objects and matrix-based analysis,</li>
+<li><strong>quanteda.textstats/textplots</strong> for basic statistics and visual output,</li>
+<li><strong>gutenbergr</strong> to fetch open literary data.</li>
+</ul>
+<p>Run this chunk once at the beginning. If a package is missing, install it with <code>install.packages()</code>.</p>
+<pre class="{r}"><code>#| label: setup
+#| message: false
+
+library(quanteda)
+library(quanteda.textstats)
+library(quanteda.textplots)
+library(gutenbergr)
+library(dplyr)
+library(ggplot2)</code></pre>
+</section>
+<section id="introduction-to-quanteda" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Introduction to quanteda</h1>
+<p><strong>quanteda</strong> is a text analysis framework for R that is optimized for corpus workflows:</p>
+<ul>
+<li>keep original texts in a <code>corpus</code>,</li>
+<li>transform texts into <code>tokens</code>,</li>
+<li>represent token counts in a sparse matrix (<code>dfm</code>),</li>
+<li>combine textual data with metadata (<code>docvars</code>) for linguistic and social analysis.</li>
+</ul>
+<p>In short: quanteda is useful when you want transparent preprocessing, efficient counting, and reproducible corpus-based analysis.</p>
+<section id="build-a-corpus-from-built-in-quanteda-data" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="build-a-corpus-from-built-in-quanteda-data"><span class="header-section-number">14.1</span> 1) Build a corpus from built-in quanteda data</h2>
+<p><code>data_corpus_inaugural</code> is bundled with quanteda and contains U.S. inaugural speeches with document metadata (<code>docvars</code>) such as <code>Year</code>, <code>President</code>, and <code>Party</code>.</p>
+<p>In quanteda, <strong>docvars</strong> are document-level variables attached to each text (comparable to columns in a metadata table).<br>
+They are crucial because they let us:</p>
+<ul>
+<li>filter documents (<code>corpus_subset(corp, Year &gt;= 1993)</code>),</li>
+<li>compare groups (<code>dfm_group(..., groups = Party)</code>),</li>
+<li>model textual outcomes with external information.</li>
+</ul>
+<p>The goal of this first step is to inspect the corpus structure before any preprocessing:</p>
+<ul>
+<li>how many documents we have,</li>
+<li>how large they are,</li>
+<li>which metadata variables are available for grouping and filtering.</li>
+</ul>
+<pre class="{r}"><code>#| label: corpus-built-in
+#| message: false
+
+corp_inaug &lt;- data_corpus_inaugural
+summary(corp_inaug, n = 6)
+head(docvars(corp_inaug))</code></pre>
+<p>To get a direct glimpse of corpus content, inspect one or two documents as plain character text.<br>
+For fast corpus statistics, use:</p>
+<ul>
+<li><code>summary(corpus_obj)</code> for document-level overview,</li>
+<li><code>ndoc(corpus_obj)</code> for number of documents,</li>
+<li><code>ntoken(corpus_obj)</code> for total token count,</li>
+<li><code>nfeat(dfm_obj)</code> once a dfm exists (number of features/columns).</li>
+</ul>
+<pre class="{r}"><code>#| label: corpus-glimpse-and-stats
+
+# A readable text glimpse with explicit labels
+cat("First document name:", docnames(corp_inaug)[1], "\n")
+cat(as.character(corp_inaug)[1], "\n\n")
+
+cat("Second document name:", docnames(corp_inaug)[2], "\n")
+cat(as.character(corp_inaug)[2], "\n\n")
+
+# Core corpus statistics with labels
+cat("Number of documents (ndoc):", ndoc(corp_inaug), "\n")
+cat("Total number of tokens (ntoken):", ntoken(corp_inaug), "\n")</code></pre>
+<p>You can also build a corpus from your own text file.<br>
+The next chunk reads <code>Bibel.txt</code> from the same folder as this session file, creates a one-document corpus, and adds docvars manually.</p>
+<pre class="{r}"><code>#| label: own-file-corpus
+#| message: false
+
+bibel_path &lt;- file.path("Bibel.txt")
+
+bibel_text &lt;- readLines(bibel_path, encoding = "UTF-8", warn = FALSE) |&gt;
+  paste(collapse = "\n")
+
+corp_bibel &lt;- corpus(
+  x = bibel_text,
+  docnames = "Bibel"
+)
+corp_bibel
+
+# Example docvars: these can be changed/adapted
+docvars(corp_bibel, "language") &lt;- "lb"
+docvars(corp_bibel, "genre") &lt;- "religious_text"
+
+summary(corp_bibel)</code></pre>
+</section>
+<section id="subset-by-document-variables" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="subset-by-document-variables"><span class="header-section-number">14.2</span> 2) Subset by document variables</h2>
+<p>Now we narrow the corpus to recent speeches (<code>Year &gt;= 1993</code>). This mirrors a common workflow: define a specific analytical window before tokenization.</p>
+<pre class="{r}"><code>#| label: corpus-subset
+
+corp_recent &lt;- corpus_subset(corp_inaug, Year &gt;= 1993)
+summary(corp_recent)</code></pre>
+</section>
+<section id="tokenize-and-preprocess" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="tokenize-and-preprocess"><span class="header-section-number">14.3</span> 3) Tokenize and preprocess</h2>
+<p>This is the central preprocessing step:</p>
+<ul>
+<li><code>tokens()</code> splits text into tokens,</li>
+<li><code>remove_punct</code> and <code>remove_numbers</code> reduce noise,</li>
+<li><code>tokens_tolower()</code> normalizes case,</li>
+<li><code>tokens_remove(stopwords("en"))</code> removes frequent function words.</li>
+</ul>
+<p>We keep the original corpus unchanged and store transformed text in a new object (<code>toks_recent</code>).</p>
+<pre class="{r}"><code>#| label: tokens-preprocess
+
+toks_recent &lt;- tokens(
+  corp_recent,
+  remove_punct = TRUE,
+  remove_numbers = TRUE
+) |&gt;
+  tokens_tolower() |&gt;
+  tokens_remove(stopwords("en")) |&gt;
+  tokens_wordstem(
+  language = quanteda_options("language_stemmer"),
+  verbose = quanteda_options("verbose")
+)
+
+toks_recent</code></pre>
+</section>
+<section id="keywords-in-context-kwic" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="keywords-in-context-kwic"><span class="header-section-number">14.4</span> 4) Keywords in context (KWIC)</h2>
+<p><code>kwic()</code> lets us inspect how a term is used in context, not just how often it occurs. This is useful for linguistic interpretation because it prevents over-interpreting frequency counts alone.</p>
+<pre class="{r}"><code>#| label: kwic-example
+
+kwic(toks_recent, pattern = "freedom") |&gt;
+  head(12)</code></pre>
+<p>Further example with wildcard patterns (<code>valuetype = "glob"</code>):</p>
+<pre class="{r}"><code>#| label: kwic-wildcard
+
+kwic(toks_recent, pattern = "democra*", valuetype = "glob") |&gt;
+  head(12)</code></pre>
+</section>
+<section id="create-and-inspect-a-dfm" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="create-and-inspect-a-dfm"><span class="header-section-number">14.5</span> 5) Create and inspect a dfm</h2>
+<p>A <strong>document-feature matrix</strong> (<code>dfm</code>) is a sparse matrix with:</p>
+<ul>
+<li>rows = documents,</li>
+<li>columns = features (tokens),</li>
+<li>cells = feature counts.</li>
+</ul>
+<p>Why this matrix matters:</p>
+<ul>
+<li>it transforms text into a numeric format required for statistics and machine learning,</li>
+<li>it is sparse and memory-efficient (important for large corpora),</li>
+<li>it allows direct operations such as feature selection, weighting, grouping, and modeling.</li>
+</ul>
+<p>Typical use cases include keyness analysis, topic/style comparison, supervised classification, and dimensional reduction.</p>
+<pre class="{r}"><code>#| label: dfm-example
+
+# Build document-feature matrix from cleaned tokens
+dfm_recent &lt;- dfm(toks_recent)
+
+# Inspect matrix dimensions and sparsity
+dfm_recent
+
+# Show the 20 most frequent features across all documents
+topfeatures(dfm_recent, 20)</code></pre>
+<p>Using the dfm, we can also easily create word clouds.</p>
+<pre class="{r}"><code>textplot_wordcloud(dfm_recent, min_count = 20, random_order = FALSE,
+                   rotation = .25)</code></pre>
+</section>
+<section id="group-by-docvars-party-and-compare" class="level2" data-number="14.6">
+<h2 data-number="14.6" class="anchored" data-anchor-id="group-by-docvars-party-and-compare"><span class="header-section-number">14.6</span> 6) Group by docvars (Party) and compare</h2>
+<p>With <code>dfm_group()</code>, we aggregate all documents that share the same value of a document variable (<code>Party</code>). This moves from document-level comparison to group-level comparison.</p>
+<pre class="{r}"><code>#| label: dfm-group
+
+dfm_party &lt;- dfm_recent |&gt;
+  dfm_group(groups = Party)
+
+dfm_party
+topfeatures(dfm_party, 20)</code></pre>
+</section>
+<section id="simple-dictionary-analysis" class="level2" data-number="14.7">
+<h2 data-number="14.7" class="anchored" data-anchor-id="simple-dictionary-analysis"><span class="header-section-number">14.7</span> 7) Simple dictionary analysis</h2>
+<p>A dictionary maps many individual words to a smaller set of analytical categories.<br>
+Here we define three thematic categories and then count category matches per document.</p>
+<p>Pedagogically, this demonstrates how to move from raw lexical frequencies to theory-driven categories.</p>
+<pre class="{r}"><code>#| label: dictionary-analysis
+
+# Define a small dictionary with 3 thematic categories
+issue_dict &lt;- dictionary(
+  list(
+    economy = c("economy", "jobs", "work", "business", "growth"),
+    security = c("security", "terror", "terrorism", "war", "threat"),
+    democracy = c("democracy", "freedom", "rights", "constitution", "people")
+  )
+)
+
+# Map matching tokens to dictionary categories, then count by document
+dfm_dict &lt;- toks_recent |&gt;
+  tokens_lookup(dictionary = issue_dict) |&gt;
+  dfm()
+
+# Inspect category counts by document
+dfm_dict
+
+# Summarize most frequent dictionary categories in the corpus
+textstat_frequency(dfm_dict, n = 15)</code></pre>
+<p>Interpretation tip: a high value for a category means that words from this category appear frequently in a document.<br>
+Because categories have different dictionary sizes and texts have different lengths, compare results carefully (relative frequencies can be useful in advanced analysis).</p>
+</section>
+</section>
+<section id="quanteda-with-gutenberg-data" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Quanteda with Gutenberg data</h1>
+<p>We now repeat the workflow on an external corpus from Project Gutenberg, using German literary texts.</p>
+<p>For these Faust texts, a direct UTF-8 text import is more reliable than <code>gutenberg_download()</code> and avoids encoding artifacts that can split words into fragments.</p>
+<pre class="{r}"><code>#| label: gutenberg-data
+#| message: false
+
+load_faust_lines &lt;- function(gutenberg_id, title, author) {
+  url &lt;- sprintf(
+    "https://www.gutenberg.org/cache/epub/%s/pg%s.txt",
+    gutenberg_id, gutenberg_id
+  )
+  con &lt;- url(url)
+  on.exit(close(con), add = TRUE)
+
+  lines &lt;- readLines(con, warn = FALSE, encoding = "UTF-8")
+  lines &lt;- gutenbergr::gutenberg_strip(lines)
+
+  tibble(
+    gutenberg_id = gutenberg_id,
+    title = title,
+    author = author,
+    text = lines
+  )
+}
+
+books &lt;- bind_rows(
+  load_faust_lines(2229, "Faust: Der Tragödie erster Teil", "Johann Wolfgang von Goethe"),
+  load_faust_lines(2230, "Faust: Der Tragödie zweiter Teil", "Johann Wolfgang von Goethe")
+)
+
+books |&gt;
+  distinct(gutenberg_id, title, author)
+
+head(books)
+
+# Collapse line-level Gutenberg rows into one document per title
+faust_docs &lt;- books |&gt; 
+  summarise(text = paste(text, collapse = "\n"), .by = title)
+
+head(faust_docs)</code></pre>
+<pre class="{r}"><code>#| label: gutenberg-corpus
+
+corp_faust &lt;- corpus(faust_docs, text_field = "text")
+summary(corp_faust, n = 10)</code></pre>
+<p>Again, we tokenize, normalize, remove German stopwords, and build a <code>dfm</code>.</p>
+<pre class="{r}"><code>#| label: gutenberg-dfm
+
+# Tokenize and clean German texts
+toks_gut &lt;- corp_faust |&gt;
+  tokens(remove_punct = TRUE, remove_numbers = TRUE) |&gt;
+  tokens_tolower() |&gt;
+  tokens_remove(stopwords("de"))
+
+dfm_gut &lt;-  dfm(toks_gut)
+
+# Compact structural overview
+cat("Documents:", ndoc(dfm_gut), "\n")
+cat("Features:", nfeat(dfm_gut), "\n")
+
+# Most frequent features
+top_25_gut &lt;- topfeatures(dfm_gut, 25)
+top_25_gut</code></pre>
+<section id="exercise-1-moby-dick-workflow" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="exercise-1-moby-dick-workflow"><span class="header-section-number">15.1</span> Exercise 1: Moby-Dick workflow</h2>
+<p>In this exercise, you apply the full quanteda pipeline to one classic text.</p>
+<section id="task" class="level3" data-number="15.1.1">
+<h3 data-number="15.1.1" class="anchored" data-anchor-id="task"><span class="header-section-number">15.1.1</span> Task</h3>
+<ol type="1">
+<li>Load <em>Moby-Dick</em> from Gutenberg (<code>ID = 2701</code>).</li>
+<li>Build a quanteda corpus from the downloaded text.</li>
+<li>Tokenize the corpus (remove stopwords, punctuation and numbers, lowercase).</li>
+<li>Run some <code>kwic()</code> searches with a flexible <code>valuetype</code> argument (<code>"fixed"</code>, <code>"glob"</code>, <code>"regex"</code>), e.g.:
+<ul>
+<li>an exact search (<code>"whale"</code>),</li>
+<li>a wildcard search (<code>"whal*"</code>),</li>
+<li>a regex search (<code>"whal(e|es|ing)"</code>).</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Possible solution — Exercise 1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<pre class="{r}"><code>#| label: exercise-mobydick-data
+#| message: false
+
+# 1) Load Moby-Dick from Gutenberg
+moby_raw &lt;- gutenberg_download(2701, meta_fields = c("title", "author"))
+
+# Keep only key metadata rows for inspection
+moby_raw |&gt;
+  distinct(gutenberg_id, title, author)</code></pre>
+<pre class="{r}"><code>#| label: exercise-mobydick-corpus
+
+# 2) Build corpus
+corp_moby &lt;- corpus(moby_raw, text_field = "text")
+summary(corp_moby, n = 5)</code></pre>
+<pre class="{r}"><code>#| label: exercise-mobydick-tokens
+
+# 3) Tokenize and basic preprocessing
+toks_moby &lt;- tokens(
+  corp_moby,
+  remove_punct = TRUE,
+  remove_numbers = TRUE
+) |&gt;
+  tokens_tolower() |&gt;
+  tokens_remove(stopwords("en"))
+
+toks_moby</code></pre>
+<pre class="{r}"><code>#| label: exercise-mobydick-kwic-function
+
+# Exact search
+kwic(toks_moby, pattern = "whale", valuetype = "fixed", n = 8)
+
+# Wildcard search
+kwic(toks_moby, pattern = "whal*", valuetype = "glob", n = 8)
+
+# Regex search
+kwic(toks_moby, pattern = "whal(e|es|ing)", valuetype = "regex", n = 8)</code></pre>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-2-lexical-dispersion-plot-with-textplot_xray" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="exercise-2-lexical-dispersion-plot-with-textplot_xray"><span class="header-section-number">15.2</span> Exercise 2: Lexical dispersion plot with <code>textplot_xray()</code></h2>
+<p>In this exercise, you create a lexical dispersion plot for the <strong>Faust</strong> corpus (<em>Faust I</em> + <em>Faust II</em>) similar to the quanteda plotting example:</p>
+<ul>
+<li><a href="https://quanteda.io/articles/pkgdown/examples/plotting.html">quanteda textual data visualization example</a></li>
+</ul>
+<section id="task-1" class="level3" data-number="15.2.1">
+<h3 data-number="15.2.1" class="anchored" data-anchor-id="task-1"><span class="header-section-number">15.2.1</span> Task</h3>
+<ol type="1">
+<li>Open the help page for <code>textplot_xray()</code> and review:
+<ul>
+<li><p>required input object(s),</p></li>
+<li><p>how multiple <code>kwic()</code> objects are passed,</p></li>
+<li><p>main plotting options.</p></li>
+</ul></li>
+<li>Using your Faust Gutenberg data, first collapse line-level rows to one text per title, then create a dispersion plot for, e.g.&nbsp;(or other words):
+<ul>
+<li><code>"gretchen"</code></li>
+<li><code>"teufel"</code></li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Possible solution — Exercise 2 (click to expand)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<pre class="{r}"><code>#| label: exercise-faust-xray-solution
+
+corp_faust &lt;- corpus(faust_docs, text_field = "text")
+
+# Build tokens from the collapsed Faust corpus
+toks_faust &lt;- tokens(corp_faust, remove_punct = TRUE) |&gt;
+  tokens_tolower()
+
+# Create KWIC objects for both search terms
+kwic_1 &lt;- kwic(toks_faust, pattern = "heinrich")
+kwic_2 &lt;- kwic(toks_faust, pattern = "mephistopheles")
+
+# Plot lexical dispersion ("x-ray")
+textplot_xray(
+  kwic_1,
+  kwic_2
+)</code></pre>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="introduction-to-ggplot2" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> Introduction to ggplot2</h1>
+<section id="generic-introduction" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="generic-introduction"><span class="header-section-number">16.1</span> Generic introduction</h2>
+<p><code>ggplot2</code> is based on the <strong>grammar of graphics</strong>.<br>
+The core idea is that every plot is built from the same components:</p>
+<ul>
+<li><strong>data</strong> (the dataset),</li>
+<li><strong>aesthetics</strong> (<code>aes()</code>: which variable maps to x, y, color, etc.),</li>
+<li><strong>geometry</strong> (<code>geom_*()</code>: bars, points, lines, polygons),</li>
+<li><strong>optional layers</strong> (labels, scales, themes, facets).</li>
+</ul>
+<p>The canonical structure is:</p>
+<pre class="{r}"><code>#| eval: false
+
+ggplot(data = ..., aes(x = ..., y = ...)) + 
+  geom_...() +
+  labs(...) +
+  theme_minimal()</code></pre>
+<p>Note that the components in ggplot2 are connected with the + sign.</p>
+</section>
+<section id="first-plots" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="first-plots"><span class="header-section-number">16.2</span> First plots</h2>
+<p>The dataset <code>mpg</code> is included in ggplot2.<br>
+Each row is a car model observation, with variables such as:</p>
+<ul>
+<li><code>class</code>: vehicle type (SUV, compact, etc.),</li>
+<li><code>manufacturer</code>: car brand,</li>
+<li><code>displ</code>: engine displacement (liters),</li>
+<li><code>hwy</code>: highway fuel economy (miles per gallon).</li>
+</ul>
+<p>It is a good teaching dataset because it contains both categorical and numeric variables. When ggplot2 is loaded, the dataset is immediately available as <code>mpg</code>.</p>
+<pre class="{r}"><code>#| label: ggplot-easy-1
+
+ggplot(data = mpg, aes(x = class)) +
+  geom_bar()</code></pre>
+<pre class="{r}"><code>#| label: ggplot-easy-2
+
+ggplot(mpg, aes(x = class)) +
+  geom_bar(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Number of cars by class",
+    x = "Car class",
+    y = "Count"
+  ) +
+  theme_minimal()</code></pre>
+</section>
+<section id="bar-charts" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="bar-charts"><span class="header-section-number">16.3</span> Bar charts</h2>
+<p><code>geom_bar()</code> counts rows automatically.<br>
+<code>geom_col()</code> expects a pre-computed y-value.</p>
+<p>When to use which:</p>
+<ul>
+<li>Use <code>geom_bar()</code> if your question is “how many observations are in each category?”.</li>
+<li>Use <code>geom_col()</code> if you already calculated a statistic (mean, median, sum) per category.</li>
+</ul>
+<p>In the first example, ggplot2 performs the counting for us.</p>
+<pre class="{r}"><code>#| label: ggplot-barchart-count
+
+ggplot(mpg, aes(x = manufacturer)) +
+  geom_bar(fill = "darkorange") +
+  coord_flip() +
+  labs(
+    title = "Observations by manufacturer",
+    x = "Manufacturer",
+    y = "Count"
+  ) +
+  theme_minimal()</code></pre>
+<pre class="{r}"><code>#| label: ggplot-barchart-mean
+
+# First, compute mean highway fuel economy by car class
+mean_hwy_by_class &lt;- mpg |&gt;
+  summarise(mean_hwy = mean(hwy), .by = class)
+
+# Then plot those pre-computed values
+ggplot(mean_hwy_by_class, aes(x = class, y = mean_hwy)) +
+  geom_col(fill = "seagreen") +
+  coord_flip() +
+  labs(
+    title = "Mean highway MPG by class",
+    x = "Class",
+    y = "Mean highway MPG"
+  ) +
+  theme_minimal()
+
+</code></pre>
+</section>
+<section id="boxplots-and-violin-plots-with-iris" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="boxplots-and-violin-plots-with-iris"><span class="header-section-number">16.4</span> Boxplots and violin plots with <code>iris</code></h2>
+<p>The <code>iris</code> dataset is a classic built-in dataset with 150 flowers from 3 species:</p>
+<ul>
+<li><code>Sepal.Length</code>, <code>Sepal.Width</code>, <code>Petal.Length</code>, <code>Petal.Width</code> (numeric measurements),</li>
+<li><code>Species</code> (categorical label: setosa, versicolor, virginica).</li>
+</ul>
+<p>A <strong>boxplot</strong> summarizes distribution (median, quartiles, outliers).<br>
+A <strong>violin plot</strong> shows the full density shape of the distribution.</p>
+<pre class="{r}"><code>#| label: ggplot-boxplot-iris
+
+ggplot(iris) +
+  geom_jitter(aes(x = Species, y = Sepal.Length, colour = Species)) +
+  geom_boxplot(aes(x = Species, y = Sepal.Length, fill = Species), alpha = 0.4, notch = TRUE, outlier.colour = "red", outlier.shape = 2) +
+  labs(
+    title = "Sepal length by species (boxplot)",
+    x = "Species",
+    y = "Sepal length"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")</code></pre>
+<pre class="{r}"><code>#| label: ggplot-violin-iris
+
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_violin(alpha = 0.6, color = "grey20") +
+  geom_boxplot(width = 0.12, fill = "white", outlier.size = 0.8) +
+  labs(
+    title = "Sepal length by species (violin + boxplot)",
+    x = "Species",
+    y = "Sepal length"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")</code></pre>
+<p>Color options you can discuss with students:</p>
+<ul>
+<li>Set one fixed color: <code>fill = "steelblue"</code> in <code>geom_*()</code>.</li>
+<li>Map color/fill to a variable: <code>aes(fill = Species)</code>.</li>
+<li>Use manual palettes: <code>scale_fill_manual(values = c(...))</code>.</li>
+<li>Use ColorBrewer palettes: <code>scale_fill_brewer(palette = "Set2")</code>.</li>
+</ul>
+</section>
+<section id="scatter-plots" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="scatter-plots"><span class="header-section-number">16.5</span> Scatter plots</h2>
+<pre class="{r}"><code>#| label: ggplot-scatter-basic
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(alpha = 0.7) +
+  labs(
+    title = "Engine displacement and highway MPG",
+    x = "Engine displacement (liters)",
+    y = "Highway MPG"
+  ) +
+  theme_minimal()</code></pre>
+<pre class="{r}"><code>#| label: ggplot-scatter-colored
+
+# Linear model and correlation (r) for displ ~ hwy
+lm_mpg &lt;- lm(hwy ~ displ, data = mpg)
+summary(lm_mpg)
+
+r_displ_hwy &lt;- cor(mpg$displ, mpg$hwy, use = "complete.obs")
+cat("Pearson r (displ, hwy):", round(r_displ_hwy, 3), "\n")
+
+ggplot(mpg, aes(x = displ, y = hwy, color = class)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  labs(
+    title = "Displacement vs highway MPG by class",
+    x = "Engine displacement (liters)",
+    y = "Highway MPG",
+    color = "Class"
+  ) +
+  theme_minimal()</code></pre>
+</section>
+<section id="exercises-1" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="exercises-1"><span class="header-section-number">16.6</span> Exercises</h2>
+<section id="exercise-a-mpg-from-raw-data-to-summary-plots" class="level3" data-number="16.6.1">
+<h3 data-number="16.6.1" class="anchored" data-anchor-id="exercise-a-mpg-from-raw-data-to-summary-plots"><span class="header-section-number">16.6.1</span> Exercise A (<code>mpg</code>): from raw data to summary plots</h3>
+<p>Tasks:</p>
+<ol type="1">
+<li>Create a simple count plot of <code>class</code> with <code>geom_bar()</code>.</li>
+<li>Build a summary table with:
+<ul>
+<li><code>mean_hwy</code> (mean of <code>hwy</code>) by <code>class</code></li>
+<li><code>sum_cty</code> (sum of <code>cty</code>) by <code>class</code></li>
+</ul></li>
+<li>Plot both summaries with <code>geom_col()</code> (two separate plots)</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Possible solution — Exercise A (click to expand)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<pre class="{r}"><code># A1: direct count plot from raw rows
+ggplot(mpg, aes(x = class)) +
+  geom_bar(fill = "steelblue") +
+  coord_flip() +
+  theme_minimal()
+
+# A2: restructure data (mean and sum by class)
+mpg_summary &lt;- mpg |&gt;
+  summarise(
+    mean_hwy = mean(hwy, na.rm = TRUE),
+    sum_cty = sum(cty, na.rm = TRUE),
+    .by = class
+  )
+
+# A3a: plot mean_hwy
+plot1 &lt;- ggplot(mpg_summary, aes(x = class, y = mean_hwy)) +
+  geom_col(fill = "seagreen") +
+  coord_flip() +
+  labs(title = "Mean highway MPG by class", x = "Class", y = "Mean hwy") +
+  theme_minimal()
+
+# A3b: plot sum_cty
+plot2 &lt;- ggplot(mpg_summary, aes(x = class, y = sum_cty)) +
+  geom_col(fill = "darkorange") +
+  coord_flip() +
+  labs(title = "Sum of city MPG values by class", x = "Class", y = "Sum cty") +
+  theme_minimal()
+
+library(patchwork)
+sum_plot &lt;- plot1 + plot2
+sum_plot
+
+ggsave("plots.pdf")</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-b-iris-distribution-plots-and-grouping-summaries" class="level3" data-number="16.6.2">
+<h3 data-number="16.6.2" class="anchored" data-anchor-id="exercise-b-iris-distribution-plots-and-grouping-summaries"><span class="header-section-number">16.6.2</span> Exercise B (<code>iris</code>): distribution plots and grouping summaries</h3>
+<p><strong>Goal:</strong> compare distributions and aggregated means across species.</p>
+<p>Tasks:</p>
+<ol type="1">
+<li>Create a boxplot of <code>Sepal.Length</code> by <code>Species</code>.</li>
+<li>Create a violin plot of <code>Sepal.Length</code> by <code>Species</code> and overlay a narrow boxplot.</li>
+<li>Build a summary table with mean values of <code>Sepal.Length</code> and <code>Petal.Length</code> by species.</li>
+<li>Plot the mean <code>Sepal.Length</code> by species as <code>geom_col()</code>.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Possible solution — Exercise B (click to expand)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<pre class="{r}"><code># B1: boxplot
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_boxplot(alpha = 0.8) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# B2: violin + boxplot overlay
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_violin(alpha = 0.6, color = "grey20") +
+  geom_boxplot(width = 0.12, fill = "white", outlier.size = 0.8) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# B3: restructure with species-level means
+iris_summary &lt;- iris |&gt;
+  summarise(
+    mean_sepal = mean(Sepal.Length, na.rm = TRUE),
+    mean_petal = mean(Petal.Length, na.rm = TRUE),
+    .by = Species
+  )
+
+# B4: plot mean sepal length
+ggplot(iris_summary, aes(x = Species, y = mean_sepal, fill = Species)) +
+  geom_col() +
+  labs(title = "Mean Sepal Length by species", y = "Mean Sepal Length") +
+  theme_minimal() +
+  theme(legend.position = "none")</code></pre>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="maps-with-ggplot2" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> 1. Maps with ggplot2</h1>
+<section id="setup-2" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="setup-2"><span class="header-section-number">17.1</span> Setup</h2>
+<p>Run this chunk once at the beginning. Data files in the <code>sessions/</code> folder: <code>communes_df.RDS</code>, <code>centroids_label.RDS</code>, <code>butterfly.rds</code>. Population counts come from the <a href="https://download.data.public.lu/resources/registre-national-des-personnes-physiques-rnpp-pyramide-dage-par-commune-population-age-pyramid-per-municipality/20260407-111759/31-03-2026-rnrpp-pyramide-age-commune.csv">RNPP age pyramid CSV</a> on data.public.lu.</p>
+<pre class="{r}"><code>#| message: false
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(readr)
+library(gridExtra)</code></pre>
+</section>
+<section id="maps-with-luxembourg-examples" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="maps-with-luxembourg-examples"><span class="header-section-number">17.2</span> Maps with Luxembourg examples</h2>
+<p>For a lightweight first map, we use polygon data from <code>map_data("world")</code> and zoom into Luxembourg.</p>
+<pre class="{r}"><code>#| label: ggplot-map-lux
+#| fig-width: 11
+#| fig-height: 7
+#| out-width: "100%"
+
+world_map &lt;- map_data("world")
+
+ggplot(world_map, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "grey90", color = "purple", linewidth = 0.8) +
+  coord_quickmap(xlim = c(4.5, 7.0), ylim = c(49.2, 50.4)) +
+  labs(
+    title = "Luxembourg in regional context",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_minimal()</code></pre>
+<p>In addition, we need the polygon data for the communes and geolocalisation data for the main cities per commune.</p>
+<pre class="{r}"><code>#| label: ggplot-map-lux-data
+
+world_map &lt;- map_data("world")
+communes_df &lt;- readRDS("communes_df.RDS")
+centroids_label &lt;- readRDS("centroids_label.RDS")
+
+lux_map &lt;- world_map |&gt;
+  filter(region == "Luxembourg")
+
+lux_map</code></pre>
+<p><strong>Step 1:</strong> regional background.</p>
+<pre class="{r}"><code>#| label: ggplot-map-lux-step-1
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: "100%"
+
+p1 &lt;- ggplot() +
+  geom_polygon(
+    data = world_map,
+    aes(x = long, y = lat, group = group),
+    fill = "grey92", color = "white", linewidth = 0.2
+  ) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.4)) +
+  labs(
+    title = "Step 1: Regional background",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_minimal()
+
+p1</code></pre>
+<p><strong>Step 2:</strong> add commune polygons. Note that we add now one ggplot object (p1, p2 …) on top of each other.</p>
+<pre class="{r}"><code>#| label: ggplot-map-lux-step-2
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: "100%"
+
+p2 &lt;- p1 +
+  geom_polygon(
+    data = communes_df,
+    aes(x = long, y = lat, group = group),
+    fill = "#fdebd0", color = "#d35400", linewidth = 0.15, alpha = 0.8
+  ) +
+  labs(title = "Step 2: + Commune polygons")
+
+p2</code></pre>
+<p><strong>Step 3:</strong> add Luxembourg country outline.</p>
+<pre class="{r}"><code>#| label: ggplot-map-lux-step-3
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: "100%"
+
+p3 &lt;- p2 +
+  geom_polygon(
+    data = lux_map,
+    aes(x = long, y = lat, group = group),
+    fill = NA, color = "black", linewidth = 0.5
+  ) +
+  labs(title = "Step 3: + Country outline")
+
+p3</code></pre>
+<p><strong>Step 4:</strong> add centroid points for important places.</p>
+<pre class="{r}"><code>#| label: ggplot-map-lux-step-4
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: "100%"
+
+p4 &lt;- p3 +
+  geom_point(
+    data = centroids_label,
+    aes(x = long, y = lat),
+    color = "navy", size = .8
+  ) +
+  labs(title = "Step 4: + Important place points")
+
+p4</code></pre>
+<p><strong>Step 5:</strong> add city labels (final map).</p>
+<pre class="{r}"><code>#| label: ggplot-map-lux-step-5
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: "100%"
+
+p5 &lt;- p4 +
+  geom_text(
+    data = centroids_label,
+    aes(x = long, y = lat, label = label),
+    size = 1.8, nudge_y = 0.015, color = "navy"
+  ) +
+  labs(
+    title = "Step 5: Final map",
+    subtitle = "Communes (polygons) + centroid city labels",
+    x = "Longitude",
+    y = "Latitude"
+  )
+
+p5</code></pre>
+<p>You can also combine the five map states into one overview grid:</p>
+<pre class="{r}"><code>#| label: ggplot-map-layers-grid
+#| fig-width: 13
+#| fig-height: 10
+#| out-width: "100%"
+
+final_map &lt;- gridExtra::grid.arrange(p1, p2, p3, p4, p5, ncol = 2)
+final_map
+
+ggsave("map.png", plot = final_map, dpi = 600)</code></pre>
+</section>
+<section id="load-rnpp-population-data" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="load-rnpp-population-data"><span class="header-section-number">17.3</span> Load RNPP population data</h2>
+<p>The RNPP file has one row per commune and sex (<code>F</code> / <code>M</code>), with population counts in 5-year age columns (<code>AGE00_05</code>, <code>AGE05_10</code>, …). We load it once and derive commune totals for the maps below.</p>
+<pre class="{r}"><code>#| label: rnpp-load
+
+pyramid_url &lt;- "https://download.data.public.lu/resources/registre-national-des-personnes-physiques-rnpp-pyramide-dage-par-commune-population-age-pyramid-per-municipality/20260407-111759/31-03-2026-rnrpp-pyramide-age-commune.csv"
+
+age_raw &lt;- read_csv(pyramid_url)
+
+# one row per commune: sum all age columns (both sexes)
+pop_by_commune &lt;- age_raw |&gt;
+  mutate(across(starts_with("AGE"), as.numeric)) |&gt;
+  summarise(
+    total_population = sum(across(starts_with("AGE")), na.rm = TRUE),
+    .by = COMMUNE_NOM
+  )</code></pre>
+</section>
+<section id="population-per-commune-choropleth" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="population-per-commune-choropleth"><span class="header-section-number">17.4</span> Population per commune (choropleth)</h2>
+<p>This map visualizes total population (<code>total_population</code>) by commune.</p>
+<p>How it works:</p>
+<ol type="1">
+<li>Aggregate RNPP age columns to one total per commune (<code>pop_by_commune</code>).</li>
+<li>Join population values to commune polygons via commune name (<code>id</code> vs <code>COMMUNE_NOM</code>).</li>
+<li>Use <code>fill = total_population</code> to encode population with a color gradient.</li>
+<li>Optionally add commune labels at centroids for orientation.</li>
+</ol>
+<p><strong>Join.</strong> <code>left_join()</code> attaches <code>total_population</code> to every polygon row. The join uses two different column names: polygon <code>id</code> (commune name) matches RNPP <code>COMMUNE_NOM</code>. Rows without a match keep <code>NA</code> for <code>total_population</code> (grey on the map).</p>
+<pre class="{r}"><code>#| label: ggplot-map-population-communes
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: "100%"
+
+communes_df &lt;- readRDS("communes_df.RDS")
+centroids_label &lt;- readRDS("centroids_label.RDS")
+
+communes_pop_map &lt;- communes_df |&gt;
+  left_join(pop_by_commune, by = c("id" = "COMMUNE_NOM"))</code></pre>
+<p><strong>Plot.</strong> In <code>aes()</code>, <code>group = group</code> is essential for polygons: each commune consists of many coordinate rows that must be drawn as one shape. <code>fill = total_population</code> maps population to colour. <code>geom_text()</code> uses a separate table (<code>centroids_label</code>); <code>inherit.aes = FALSE</code> prevents it from inheriting <code>fill</code> and <code>group</code> from the polygon layer. <code>coord_quickmap()</code> sets the map extent; <code>scale_fill_viridis_c()</code> applies a continuous colour scale with readable axis labels.</p>
+<pre class="{r}"><code>#| label: ggplot-map-population-communes-plot
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: "100%"
+
+ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = log(total_population))) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  geom_text(
+    data = centroids_label,
+    aes(x = long, y = lat, label = label),
+    inherit.aes = FALSE,
+    size = 2.4,
+    color = "grey20"
+  ) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  scale_fill_viridis_c(option = "plasma", labels = scales::label_number(big.mark = " ")) +
+  labs(
+    title = "Luxembourg: population by commune",
+    subtitle = "RNPP, 31 March 2026 — sum of all age bands",
+    fill = "Population",
+    x = "Longitude",
+    y = "Latitude"
+  ) +
+  theme_void()</code></pre>
+<ul>
+<li>Brighter communes have higher population totals.</li>
+<li>Luxembourg City should stand out clearly as the most populous commune.</li>
+<li>A few communes were merged or renamed since the polygon file was built; unmatched polygons have no fill.</li>
+</ul>
+</section>
+<section id="map-exercise" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="map-exercise"><span class="header-section-number">17.5</span> Map exercise</h2>
+<section id="exercise-population-choropleth-with-joins-and-aggregation" class="level3" data-number="17.5.1">
+<h3 data-number="17.5.1" class="anchored" data-anchor-id="exercise-population-choropleth-with-joins-and-aggregation"><span class="header-section-number">17.5.1</span> Exercise (population): choropleth with joins and aggregation</h3>
+<p><strong>Goal:</strong> practice map joins and pre-aggregation for cartographic input.</p>
+<p>Tasks:</p>
+<ol type="1">
+<li>Join <code>communes_df</code> with <code>pop_by_commune</code> to map <code>total_population</code> by commune.</li>
+<li>Create the choropleth (<code>fill = total_population</code>) with commune labels.</li>
+<li>Build a 5-class quantile variable (<code>pop_quantile</code>) from <code>total_population</code>. Check the manual how to use <code>dplyr::ntile</code>.</li>
+<li>Plot a second choropleth using <code>fill = pop_quantile</code> (discrete classes).</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Possible solution (click to expand)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<pre class="{r}"><code>communes_df &lt;- readRDS("communes_df.RDS")
+centroids_label &lt;- readRDS("centroids_label.RDS")
+
+# join map polygons with RNPP commune totals
+communes_pop_map &lt;- communes_df |&gt;
+  left_join(pop_by_commune, by = c("id" = "COMMUNE_NOM"))
+
+# continuous choropleth
+ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = total_population)) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  geom_text(
+    data = centroids_label,
+    aes(x = long, y = lat, label = label),
+    inherit.aes = FALSE,
+    size = 2.2
+  ) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  labs(title = "Population by commune", fill = "Population") +
+  theme_minimal()
+
+# aggregation into quantile groups
+communes_pop_map &lt;- communes_pop_map |&gt;
+  mutate(pop_quantile = dplyr::ntile(total_population, 5)) |&gt;
+  na.omit()
+
+# discrete choropleth (5 classes)
+ggplot(communes_pop_map, aes(x = long, y = lat, group = group, fill = factor(pop_quantile))) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  labs(title = "Population quantiles by commune", fill = "Quantile") +
+  theme_minimal()</code></pre>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="maps-by-sex-with-facet_wrap" class="level2" data-number="17.6">
+<h2 data-number="17.6" class="anchored" data-anchor-id="maps-by-sex-with-facet_wrap"><span class="header-section-number">17.6</span> Maps by sex with <code>facet_wrap()</code></h2>
+<p>The RNPP table has separate rows for <code>F</code> and <code>M</code>. After summing population per commune and sex, we can plot <strong>two choropleths side by side</strong> with <code>facet_wrap(~ SEXE)</code>.</p>
+<p>How it works:</p>
+<ol type="1">
+<li>Aggregate <code>total_population</code> by <code>COMMUNE_NOM</code> and <code>SEXE</code> (not merged across sexes).</li>
+<li>Join to <code>communes_df</code> — each commune polygon appears twice (once per sex).</li>
+<li>Add <code>facet_wrap(~ SEXE)</code> so ggplot draws one map panel per sex.</li>
+</ol>
+<pre class="{r}"><code>#| label: rnpp-map-facet-sex
+#| fig-width: 14
+#| fig-height: 7
+#| out-width: "100%"
+
+pop_by_commune_sex &lt;- age_raw |&gt;
+  mutate(across(starts_with("AGE"), as.numeric)) |&gt;
+  summarise(
+    total_population = sum(across(starts_with("AGE")), na.rm = TRUE),
+    .by = c(COMMUNE_NOM, SEXE)
+  )
+
+communes_pop_sex &lt;- communes_df |&gt;
+  left_join(pop_by_commune_sex, by = c("id" = "COMMUNE_NOM")) |&gt;
+  na.omit()
+
+ggplot(communes_pop_sex, aes(x = long, y = lat, group = group, fill = ntile(total_population, 5))) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  facet_wrap(
+    ~ SEXE,
+    labeller = labeller(SEXE = c(F = "Women", M = "Men"))
+  ) +
+  scale_fill_viridis_c(option = "plasma", labels = scales::label_number(big.mark = " ")) +
+  labs(
+    title = "Population by commune and sex",
+    subtitle = "RNPP, 31 March 2026 — same fill scale in both panels",
+    fill = "Population"
+  ) +
+  theme_void() +
+  theme(strip.text = element_text(face = "bold"))</code></pre>
+<ul>
+<li><strong><code>facet_wrap(~ SEXE)</code></strong> splits the plot into one panel per sex. The formula <code>~ SEXE</code> means “create facets from the <code>SEXE</code> column”. Each panel reuses the same <code>geom_polygon()</code> call; ggplot filters the data automatically.</li>
+<li><strong><code>labeller = labeller(...)</code></strong> renames facet strip labels (<code>F</code> → “Women”, <code>M</code> → “Men”) without changing the underlying data.</li>
+<li><strong><code>scale_fill_viridis_c()</code></strong> defines one continuous colour scale for both panels, so darker/brighter communes are comparable across women and men.</li>
+<li><strong><code>theme(strip.text = ...)</code></strong> formats the facet titles (the strips above each small map).</li>
+</ul>
+<p>Both panels share the same colour scale by default, which makes the two maps comparable.</p>
+</section>
+<section id="age-pyramids" class="level2" data-number="17.7">
+<h2 data-number="17.7" class="anchored" data-anchor-id="age-pyramids"><span class="header-section-number">17.7</span> Age pyramids</h2>
+<p>Using the same <code>age_raw</code> table, reshape the wide age columns into long format. For a classic pyramid, plot men with <strong>negative</strong> counts (left) and women with <strong>positive</strong> counts (right).</p>
+<section id="one-commune" class="level3" data-number="17.7.1">
+<h3 data-number="17.7.1" class="anchored" data-anchor-id="one-commune"><span class="header-section-number">17.7.1</span> One commune</h3>
+<pre class="{r}"><code>#| label: rnpp-age-pyramid-setup
+
+commune_pick &lt;- "Differdange"
+
+age_levels &lt;- age_raw |&gt;
+  select(starts_with("AGE")) |&gt;
+  names() |&gt;
+  str_remove("^AGE") |&gt;
+  str_replace("_", "-") |&gt;
+  (\(x) if_else(x == "100-", "100+", x))()</code></pre>
+<p><strong>Reshape.</strong> The RNPP table is <strong>wide</strong>: one column per age band. <code>pivot_longer()</code> stacks them into rows (<code>age_band</code>, <code>count</code>). We then clean band labels (<code>AGE20_25</code> → <code>20-25</code>) and fix the order with <code>factor(..., levels = age_levels)</code>. Multiplying men’s counts by −1 places their bars on the <strong>left</strong> of the pyramid; women stay positive on the <strong>right</strong>.</p>
+<pre class="{r}"><code>#| label: rnpp-age-pyramid-data
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: "100%"
+
+age_pyramid &lt;- age_raw |&gt;
+  filter(COMMUNE_NOM == commune_pick) |&gt;
+  pivot_longer(starts_with("AGE"), names_to = "age_band", values_to = "count") |&gt;
+  mutate(
+    age_band = str_remove(age_band, "^AGE"),
+    age_band = str_replace(age_band, "_", "-"),
+    age_band = if_else(age_band == "100-", "100+", age_band),
+    age_band = factor(age_band, levels = age_levels),
+    count = if_else(SEXE == "M", -count, count)
+  )</code></pre>
+<p><strong>Plot.</strong> <code>geom_col()</code> draws horizontal bars; <code>geom_vline(xintercept = 0)</code> marks the centre line between women and men. <code>scale_x_continuous(labels = ...)</code> uses <code>abs()</code> so axis labels show positive numbers even though men’s values are negative.</p>
+<pre class="{r}"><code>#| label: rnpp-age-pyramid-plot
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: "100%"
+
+ggplot(age_pyramid, aes(x = count, y = age_band, fill = SEXE)) +
+  geom_col(width = 0.85) +
+  geom_vline(xintercept = 0, linewidth = 0.3) +
+  scale_fill_manual(
+    values = c(F = "#c0392b", M = "#2980b9"),
+    labels = c(F = "Women", M = "Men")
+  ) +
+  scale_x_continuous(labels = \(x) format(abs(x), big.mark = " ")) +
+  labs(
+    title = paste("Age pyramid:", commune_pick),
+    subtitle = "RNPP, 31 March 2026 — counts by 5-year age band",
+    x = "Population",
+    y = "Age group",
+    fill = NULL
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")</code></pre>
+<p>Change <code>commune_pick</code> (e.g.&nbsp;to <code>"Luxembourg"</code> or <code>"Esch-sur-Alzette"</code>) to compare age structures.</p>
+</section>
+<section id="entire-country" class="level3" data-number="17.7.2">
+<h3 data-number="17.7.2" class="anchored" data-anchor-id="entire-country"><span class="header-section-number">17.7.2</span> Entire country</h3>
+<p>Aggregate <code>age_raw</code> across all communes, keeping all age columns and grouping by sex.</p>
+<p><strong>Summarise.</strong> <code>summarise(across(...), .by = SEXE)</code> adds up every age column <strong>across all communes</strong>, but keeps women and men in separate rows. The result is still wide (one column per age band).</p>
+<p><strong>Age order.</strong> The pipeline on <code>age_levels</code> extracts column names, removes the <code>AGE</code> prefix, and turns underscores into hyphens. The anonymous function <code>\(x) if_else(...)</code> is a short way to relabel the top band <code>100-</code> as <code>100+</code>.</p>
+<p><strong>Long format.</strong> The same <code>pivot_longer()</code> + <code>mutate()</code> steps as above turn the national table into pyramid-ready data.</p>
+<pre class="{r}"><code>#| label: rnpp-age-pyramid-national
+#| fig-width: 10
+#| fig-height: 8
+#| out-width: "100%"
+
+age_total &lt;- age_raw |&gt;
+  summarise(
+    across(starts_with("AGE"), \(x) sum(x, na.rm = TRUE)),
+    .by = SEXE
+  )
+
+age_levels &lt;- age_total |&gt;
+  select(starts_with("AGE")) |&gt;
+  names() |&gt;
+  str_remove("^AGE") |&gt;
+  str_replace("_", "-") |&gt;
+  (\(x) if_else(x == "100-", "100+", x))()
+
+age_pyramid &lt;- age_total |&gt;
+  pivot_longer(starts_with("AGE"), names_to = "age_band", values_to = "count") |&gt;
+  mutate(
+    age_band = str_remove(age_band, "^AGE"),
+    age_band = str_replace(age_band, "_", "-"),
+    age_band = if_else(age_band == "100-", "100+", age_band),
+    age_band = factor(age_band, levels = age_levels),
+    count = if_else(SEXE == "M", -count, count)
+  )
+
+ggplot(age_pyramid, aes(x = count, y = age_band, fill = SEXE)) +
+  geom_col(width = 0.85) +
+  geom_vline(xintercept = 0, linewidth = 0.3) +
+  scale_fill_manual(
+    values = c(F = "#c0392b", M = "#2980b9"),
+    labels = c(F = "Women", M = "Men")
+  ) +
+  scale_x_continuous(labels = \(x) format(abs(x), big.mark = " ")) +
+  labs(
+    title = paste("Age pyramid: Luxembourg"),
+    subtitle = "RNPP, 31 March 2026 — counts by 5-year age band",
+    x = "Population",
+    y = "Age group",
+    fill = NULL
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+</code></pre>
+</section>
+</section>
+</section>
+<section id="data-exploration" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> 2. Data exploration</h1>
+<p>This section uses the <strong>Schnessen</strong> butterfly dataset (<code>butterfly.rds</code>): crowd-sourced recordings of the word for “butterfly” across Luxembourg, with sociolinguistic metadata and commune information.</p>
+<section id="load-and-inspect-butterfly.rds" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="load-and-inspect-butterfly.rds"><span class="header-section-number">18.1</span> Load and inspect <code>butterfly.rds</code></h2>
+<pre class="{r}"><code>#| label: butterfly-load
+
+butterfly &lt;- readRDS("butterfly.rds")
+
+glimpse(butterfly)</code></pre>
+<p>Each row is one recording. Key variables for this analysis:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Variant_Päiperlek</code></td>
+<td>Coded variant of the target word</td>
+</tr>
+<tr class="even">
+<td><code>Alter</code></td>
+<td>Age group</td>
+</tr>
+<tr class="odd">
+<td><code>Geschlecht</code></td>
+<td>Gender</td>
+</tr>
+<tr class="even">
+<td><code>Ausbildung</code></td>
+<td>Education level</td>
+</tr>
+<tr class="odd">
+<td><code>Dialektgebiet</code></td>
+<td>Dialect area (north / east / south / west)</td>
+</tr>
+<tr class="even">
+<td><code>Gemeng</code></td>
+<td>Commune (factor, matches polygon <code>id</code>)</td>
+</tr>
+</tbody>
+</table>
+<pre class="{r}"><code>#| label: butterfly-variant-overview
+
+butterfly |&gt;
+  count(Variant_Päiperlek, sort = TRUE) |&gt;
+  mutate(share = n / sum(n))</code></pre>
+<p><code>FALSE</code> means the target word was not produced (or could not be coded). For variant statistics we exclude these rows.</p>
+<pre class="{r}"><code>#| label: butterfly-filter
+
+butterfly_variants &lt;- butterfly |&gt;
+  filter(Variant_Päiperlek != "FALSE")
+
+nrow(butterfly_variants)</code></pre>
+</section>
+<section id="variant-statistics-by-age-gender-education-and-dialect-area" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="variant-statistics-by-age-gender-education-and-dialect-area"><span class="header-section-number">18.2</span> Variant statistics by age, gender, education, and dialect area</h2>
+<p>Reshape the four sociolinguistic variables into long format, then compute counts and <strong>row-wise shares</strong> (distribution of variants within each age group, etc.).</p>
+<p><strong>Convert to character.</strong> <code>Alter</code>, <code>Geschlecht</code>, and the other columns are factors or ordered factors. <code>pivot_longer()</code> needs a common type in the <code>values</code> column, so we convert them to character first.</p>
+<p><strong>Long format.</strong> <code>pivot_longer()</code> stacks the four columns into two new ones: <code>variable</code> (which social factor) and <code>level</code> (the actual category, e.g.&nbsp;“25 bis 34”).</p>
+<p><strong>Counts and shares.</strong> <code>count()</code> tallies recordings per social group and variant. <code>group_by(variable, level)</code> + <code>mutate(share = n / sum(n))</code> computes the <strong>proportion of each variant within</strong> each age band (or gender, etc.) — the values in one row of the output sum to 1.</p>
+<pre class="{r}"><code>#| label: butterfly-variant-stats
+
+variant_by_social &lt;- butterfly_variants |&gt;
+  mutate(across(
+    c(Alter, Geschlecht, Ausbildung, Dialektgebiet),
+    \(x) as.character(x)
+  )) |&gt;
+  pivot_longer(
+    c(Alter, Geschlecht, Ausbildung, Dialektgebiet),
+    names_to = "variable",
+    values_to = "level"
+  ) |&gt;
+  count(variable, level, Variant_Päiperlek) |&gt;
+  group_by(variable, level) |&gt;
+  mutate(share = n / sum(n), .groups = "drop") |&gt;
+  arrange(variable, level, desc(n))
+
+variant_by_social</code></pre>
+<p><strong>Age (<code>Alter</code>)</strong> — share of each variant by age band:</p>
+<pre class="{r}"><code>#| label: butterfly-stats-alter
+
+variant_by_social |&gt;
+  filter(variable == "Alter") |&gt;
+  select(level, Variant_Päiperlek, n, share)</code></pre>
+<p><strong>Gender (<code>Geschlecht</code>):</strong></p>
+<pre class="{r}"><code>#| label: butterfly-stats-geschlecht
+
+variant_by_social |&gt;
+  filter(variable == "Geschlecht") |&gt;
+  select(level, Variant_Päiperlek, n, share)</code></pre>
+<p><strong>Education (<code>Ausbildung</code>):</strong></p>
+<pre class="{r}"><code>#| label: butterfly-stats-ausbildung
+
+variant_by_social |&gt;
+  filter(variable == "Ausbildung") |&gt;
+  select(level, Variant_Päiperlek, n, share)</code></pre>
+<p><strong>Dialect area (<code>Dialektgebiet</code>):</strong></p>
+<pre class="{r}"><code>#| label: butterfly-stats-dialektgebiet
+
+variant_by_social |&gt;
+  filter(variable == "Dialektgebiet") |&gt;
+  select(level, Variant_Päiperlek, n, share)</code></pre>
+<p>Bar chart: top variants only (at least 20 tokens overall) to keep the plot readable.</p>
+<pre class="{r}"><code>#| label: butterfly-variant-barchart
+#| fig-width: 12
+#| fig-height: 8
+#| out-width: "100%"
+
+top_variants &lt;- butterfly_variants |&gt;
+  count(Variant_Päiperlek, sort = TRUE) |&gt;
+  filter(n &gt;= 20) |&gt;
+  pull(Variant_Päiperlek)
+
+butterfly_variants |&gt;
+  filter(Variant_Päiperlek %in% top_variants) |&gt;
+  mutate(across(
+    c(Alter, Geschlecht, Ausbildung, Dialektgebiet),
+    \(x) as.character(x)
+  )) |&gt;
+  pivot_longer(
+    c(Alter, Geschlecht, Ausbildung, Dialektgebiet),
+    names_to = "variable",
+    values_to = "level"
+  ) |&gt;
+  count(variable, level, Variant_Päiperlek) |&gt;
+  group_by(variable, level) |&gt;
+  mutate(share = n / sum(n), .groups = "drop") |&gt;
+  ggplot(aes(x = level, y = share, fill = Variant_Päiperlek)) +
+  geom_col(position = "stack") +
+  facet_wrap(~ variable, scales = "free_x") +
+  labs(
+    title = "Butterfly variants by sociolinguistic category",
+    x = NULL,
+    y = "Share within group",
+    fill = "Variant"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))</code></pre>
+</section>
+<section id="map-variants-by-commune" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="map-variants-by-commune"><span class="header-section-number">18.3</span> Map variants by commune</h2>
+<p>Aggregate to commune level: number of recordings, share of the standard form <code>Päiperlek</code>, and the <strong>dominant</strong> variant (most frequent code in that commune).</p>
+<pre class="{r}"><code>#| label: butterfly-commune-stats
+
+commune_variants &lt;- butterfly_variants |&gt;
+  mutate(Gemeng = as.character(Gemeng)) |&gt;
+  summarise(
+    n = n(),
+    share_päiperlek = mean(Variant_Päiperlek == "Päiperlek"),
+    .by = Gemeng
+  ) |&gt;
+  left_join(
+    butterfly_variants |&gt;
+      mutate(Gemeng = as.character(Gemeng)) |&gt;
+      count(Gemeng, Variant_Päiperlek) |&gt;
+      slice_max(n, n = 1, by = Gemeng, with_ties = FALSE) |&gt;
+      select(Gemeng, dominant_variant = Variant_Päiperlek),
+    by = "Gemeng"
+  )
+
+commune_variants</code></pre>
+<p>Join to commune polygons and plot the dominant variant:</p>
+<pre class="{r}"><code>#| label: butterfly-map-dominant
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: "100%"
+
+communes_df &lt;- readRDS("communes_df.RDS")
+
+communes_butterfly &lt;- communes_df |&gt;
+  left_join(commune_variants, by = c("id" = "Gemeng"))
+
+ggplot() +
+  geom_polygon(data = communes_butterfly, aes(x = long, y = lat, group = group, fill = dominant_variant), color = "white", linewidth = 0.15) +
+  geom_text(data = centroids_label,
+    aes(x = long, y = lat, label = label),
+    size = 2.8, nudge_y = 0.015, color = "navy"
+  ) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  scale_fill_brewer(palette = "Set3", na.value = "grey85") +
+  labs(
+    title = "Dominant butterfly variant by commune",
+    subtitle = "Schnessen / butterfly.rds — communes without recordings in grey",
+    fill = "Dominant variant"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")</code></pre>
+<p>Continuous map: share of the variant <code>Päiperlek</code> per commune (among coded responses).</p>
+<pre class="{r}"><code>#| label: butterfly-map-share
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: "100%"
+
+ggplot(communes_butterfly, aes(x = long, y = lat, group = group, fill = share_päiperlek)) +
+  geom_polygon(color = "white", linewidth = 0.15) +
+  coord_quickmap(xlim = c(5.5, 6.7), ylim = c(49.2, 50.2)) +
+  scale_fill_viridis_c(option = "mako", labels = scales::percent_format(), limits = c(0, 1)) +
+  labs(
+    title = "Share of variant “Päiperlek” by commune",
+    subtitle = "Among coded Schnessen responses per commune",
+    fill = "Share Päiperlek"
+  ) +
+  theme_minimal()</code></pre>
+</section>
+</section>
+<section id="work-with-own-data" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> 3. Work with own data</h1>
+<section id="suggested-workflow" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="suggested-workflow"><span class="header-section-number">19.1</span> Suggested workflow</h2>
+<ol type="1">
+<li><strong>Research question</strong></li>
+<li><strong>Data import and checks</strong></li>
+<li><strong>Data preparation</strong>
+<ul>
+<li>Keep relevant variables.</li>
+<li>Recode variable names and values if needed.</li>
+<li>Handle missing or noisy values.</li>
+</ul></li>
+<li><strong>First analysis</strong>
+<ul>
+<li>Frequency tables, distributions, or group comparisons.</li>
+</ul></li>
+<li><strong>Visualization</strong>
+<ul>
+<li>Build one figure that supports your question.</li>
+</ul></li>
+<li><strong>Documentation in Quarto</strong></li>
+</ol>
+</section>
+<section id="learning-objectives-3" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="learning-objectives-3"><span class="header-section-number">19.2</span> Learning objectives</h2>
+<p>By the end of this session you will:</p>
+<ul>
+<li>Use Cursor as a coding assistant for R and Quarto tasks.</li>
+<li>Write effective prompts for data wrangling, visualization, and debugging.</li>
+<li>Validate AI-generated code before using it in your project.</li>
+<li>Integrate AI support into a reproducible, transparent workflow.</li>
+<li>Recognize limitations and risks (hallucinations, wrong assumptions, hidden errors).</li>
+</ul>
+</section>
+<section id="what-cursor-can-help-with" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="what-cursor-can-help-with"><span class="header-section-number">19.3</span> What Cursor can help with</h2>
+<ul>
+<li>Drafting code templates (imports, joins, pipelines, plots).</li>
+<li>Explaining existing code and suggesting refactors.</li>
+<li>Debugging error messages and proposing fixes.</li>
+<li>Generating short documentation snippets and comments.</li>
+<li>Helping structure Quarto reports.</li>
+</ul>
+</section>
+<section id="prompt-patterns-for-this-course" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="prompt-patterns-for-this-course"><span class="header-section-number">19.4</span> Prompt patterns for this course</h2>
+<p>Use prompts that include:</p>
+<ol type="1">
+<li><strong>Context</strong>: what your data looks like and what packages you use.</li>
+<li><strong>Task</strong>: exact output you need (table, plot, function, interpretation).</li>
+<li><strong>Constraints</strong>: keep tidyverse style, avoid changing variable names, keep reproducibility.</li>
+<li><strong>Verification</strong>: ask for checks and edge cases.</li>
+</ol>
+<p>Example prompt:</p>
+<blockquote class="blockquote">
+<p>I have a tibble with variables <code>speaker</code>, <code>genre</code>, and <code>token_count</code>.<br>
+Write tidyverse code to compute median token count by genre and create a ggplot boxplot by genre.<br>
+Keep original variable names and add a short interpretation paragraph.</p>
+</blockquote>
+</section>
+<section id="human-in-the-loop-workflow" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="human-in-the-loop-workflow"><span class="header-section-number">19.5</span> Human-in-the-loop workflow</h2>
+<ol type="1">
+<li><strong>Ask</strong> Cursor for a first draft.</li>
+<li><strong>Review</strong> every line of generated code.</li>
+<li><strong>Run</strong> code chunk by chunk.</li>
+<li><strong>Check</strong> whether output matches the research question.</li>
+<li><strong>Revise</strong> prompt and code until result is correct.</li>
+<li><strong>Document</strong> what was generated and what you changed manually.</li>
+</ol>
+</section>
+<section id="common-failure-modes" class="level2" data-number="19.6">
+<h2 data-number="19.6" class="anchored" data-anchor-id="common-failure-modes"><span class="header-section-number">19.6</span> Common failure modes</h2>
+<ul>
+<li>Fabricated column names or package functions.</li>
+<li>Incorrect assumptions about data types or missing values.</li>
+<li>Code that runs but does not answer your question.</li>
+<li>Overly complex solutions for simple tasks.</li>
+<li>Missing citations or weak methodological transparency.</li>
+</ul>
+</section>
+<section id="good-practice-and-transparency" class="level2" data-number="19.7">
+<h2 data-number="19.7" class="anchored" data-anchor-id="good-practice-and-transparency"><span class="header-section-number">19.7</span> Good practice and transparency</h2>
+<ul>
+<li>Keep AI support visible in your workflow notes.</li>
+<li>Save intermediate steps and interpretation text in Quarto.</li>
+<li>Prefer small, testable prompts over one large prompt.</li>
+<li>Cross-check key results with simple summaries.</li>
+</ul>
+</section>
+<section id="introduction-ai-assisted-coding-with-cursor" class="level2" data-number="19.8">
+<h2 data-number="19.8" class="anchored" data-anchor-id="introduction-ai-assisted-coding-with-cursor"><span class="header-section-number">19.8</span> 1. Introduction: AI-assisted coding with Cursor</h2>
+<p>Cursor can speed up coding, but it is not “auto-correct”. The key is a <strong>human-in-the-loop workflow</strong>:</p>
+<section id="safety-rules-for-your-workflow" class="level3" data-number="19.8.1">
+<h3 data-number="19.8.1" class="anchored" data-anchor-id="safety-rules-for-your-workflow"><span class="header-section-number">19.8.1</span> Safety rules for your workflow</h3>
+<ul>
+<li><strong>Never paste</strong> personal data or sensitive identifiers into prompts.</li>
+<li>Prefer <strong>small prompts</strong> (“write the join + 1 check”) over “write the whole analysis”.</li>
+<li>If you accept AI code, add at least one <strong>verification step</strong> (e.g.&nbsp;<code>count()</code>, <code>distinct()</code>, <code>summary()</code>, spot-check).</li>
+</ul>
+</section>
+</section>
+<section id="work-with-your-own-data-guided-workshop" class="level2" data-number="19.9">
+<h2 data-number="19.9" class="anchored" data-anchor-id="work-with-your-own-data-guided-workshop"><span class="header-section-number">19.9</span> 2. Work with your own data (guided workshop)</h2>
+<p>Goal: build a reproducible “analysis skeleton” that runs from top to bottom.</p>
+<section id="suggested-structure-for-your-project-file" class="level3" data-number="19.9.1">
+<h3 data-number="19.9.1" class="anchored" data-anchor-id="suggested-structure-for-your-project-file"><span class="header-section-number">19.9.1</span> Suggested structure for your project file</h3>
+<p>Create (or extend) a Quarto document with these sections:</p>
+<ol type="1">
+<li><strong>Research question</strong></li>
+<li><strong>Data import</strong></li>
+<li><strong>Data checks</strong></li>
+<li><strong>Wrangling / derived variables</strong></li>
+<li><strong>One key table</strong></li>
+<li><strong>One key plot</strong></li>
+<li><strong>Short interpretation + next steps</strong></li>
+</ol>
+</section>
+<section id="setup-chunk-minimal" class="level3" data-number="19.9.2">
+<h3 data-number="19.9.2" class="anchored" data-anchor-id="setup-chunk-minimal"><span class="header-section-number">19.9.2</span> Setup chunk (minimal)</h3>
+<pre class="{r}"><code>#| label: setup
+#| message: false
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readr)</code></pre>
+</section>
+<section id="step-a-import-first-inspection" class="level3" data-number="19.9.3">
+<h3 data-number="19.9.3" class="anchored" data-anchor-id="step-a-import-first-inspection"><span class="header-section-number">19.9.3</span> Step A: import + first inspection</h3>
+<p>Replace the read function with whatever fits your format (CSV, Excel, RDS, etc.).</p>
+<pre class="{r}"><code>#| label: import
+#| eval: false
+
+# Example for CSV:
+# data &lt;- read_csv("path/to/your-file.csv", show_col_types = FALSE)
+
+glimpse(data)</code></pre>
+<p>Checklist:</p>
+<ul>
+<li>Do variable names match what you expect?</li>
+<li>Are key variables character/factor/numeric as intended?</li>
+<li>Are there obvious missing values?</li>
+</ul>
+</section>
+<section id="step-b-define-your-core-analysis-table" class="level3" data-number="19.9.4">
+<h3 data-number="19.9.4" class="anchored" data-anchor-id="step-b-define-your-core-analysis-table"><span class="header-section-number">19.9.4</span> Step B: define your core analysis table</h3>
+<p>Write one pipeline that creates the table you will base your analysis on.</p>
+<pre class="{r}"><code>#| label: analysis-table
+#| eval: false
+
+analysis_tbl &lt;- data |&gt;
+  # filter(...) |&gt;
+  # mutate(...) |&gt;
+  # select(...) |&gt;
+  identity()
+
+analysis_tbl</code></pre>
+</section>
+<section id="step-c-one-key-summary-one-key-plot" class="level3" data-number="19.9.5">
+<h3 data-number="19.9.5" class="anchored" data-anchor-id="step-c-one-key-summary-one-key-plot"><span class="header-section-number">19.9.5</span> Step C: one key summary + one key plot</h3>
+<p>Example patterns (adapt to your variables):</p>
+<pre class="{r}"><code>#| label: summary
+#| eval: false
+
+summary_tbl &lt;- analysis_tbl |&gt;
+  count(group_var) |&gt;
+  mutate(share = n / sum(n))
+
+summary_tbl</code></pre>
+<pre class="{r}"><code>#| label: plot
+#| fig-width: 10
+#| fig-height: 6
+#| eval: false
+
+ggplot(summary_tbl, aes(x = group_var, y = share)) +
+  geom_col() +
+  labs(x = NULL, y = "Share") +
+  theme_minimal()</code></pre>
+</section>
+<section id="step-d-use-cursor-to-iterate-fast-loop" class="level3" data-number="19.9.6">
+<h3 data-number="19.9.6" class="anchored" data-anchor-id="step-d-use-cursor-to-iterate-fast-loop"><span class="header-section-number">19.9.6</span> Step D: use Cursor to iterate (fast loop)</h3>
+<p>When you get stuck, paste:</p>
+<ul>
+<li>the <strong>error message</strong>,</li>
+<li>the <strong>smallest</strong> code chunk that reproduces it,</li>
+<li><code>glimpse()</code> of the relevant object (or <code>names()</code> + a few example values).</li>
+</ul>
+<p>Ask Cursor to:</p>
+<ul>
+<li>explain why the error happens,</li>
+<li>propose a fix,</li>
+<li>add one validation check so you can trust the result.</li>
+</ul>
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

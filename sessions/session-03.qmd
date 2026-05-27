@@ -15,19 +15,19 @@ editor: visual
 
 By the end of this session you will:
 
--   Understand core **quanteda** objects (`corpus`, `tokens`, `dfm`, `docvars`).
--   Build and inspect corpora from both package data and Project Gutenberg data.
--   Use `kwic()` for context-based exploration and `topfeatures()` for frequency analysis.
--   Group documents via document variables and apply a simple dictionary analysis.
--   Run an end-to-end mini analysis workflow with **quanteda**.
+- Understand core **quanteda** objects (`corpus`, `tokens`, `dfm`, `docvars`).
+- Build and inspect corpora from both package data and Project Gutenberg data.
+- Use `kwic()` for context-based exploration and `topfeatures()` for frequency analysis.
+- Group documents via document variables and apply a simple dictionary analysis.
+- Run an end-to-end mini analysis workflow with **quanteda**.
 
 # Setup
 
 In this session we combine:
 
--   **quanteda** for corpus objects and matrix-based analysis,
--   **quanteda.textstats/textplots** for basic statistics and visual output,
--   **gutenbergr** to fetch open literary data.
+- **quanteda** for corpus objects and matrix-based analysis,
+- **quanteda.textstats/textplots** for basic statistics and visual output,
+- **gutenbergr** to fetch open literary data.
 
 Run this chunk once at the beginning. If a package is missing, install it with `install.packages()`.
 
@@ -47,10 +47,10 @@ library(ggplot2)
 
 **quanteda** is a text analysis framework for R that is optimized for corpus workflows:
 
--   keep original texts in a `corpus`,
--   transform texts into `tokens`,
--   represent token counts in a sparse matrix (`dfm`),
--   combine textual data with metadata (`docvars`) for linguistic and social analysis.
+- keep original texts in a `corpus`,
+- transform texts into `tokens`,
+- represent token counts in a sparse matrix (`dfm`),
+- combine textual data with metadata (`docvars`) for linguistic and social analysis.
 
 In short: quanteda is useful when you want transparent preprocessing, efficient counting, and reproducible corpus-based analysis.
 
@@ -61,15 +61,15 @@ In short: quanteda is useful when you want transparent preprocessing, efficient 
 In quanteda, **docvars** are document-level variables attached to each text (comparable to columns in a metadata table).\
 They are crucial because they let us:
 
--   filter documents (`corpus_subset(corp, Year >= 1993)`),
--   compare groups (`dfm_group(..., groups = Party)`),
--   model textual outcomes with external information.
+- filter documents (`corpus_subset(corp, Year >= 1993)`),
+- compare groups (`dfm_group(..., groups = Party)`),
+- model textual outcomes with external information.
 
 The goal of this first step is to inspect the corpus structure before any preprocessing:
 
--   how many documents we have,
--   how large they are,
--   which metadata variables are available for grouping and filtering.
+- how many documents we have,
+- how large they are,
+- which metadata variables are available for grouping and filtering.
 
 ```{r}
 #| label: corpus-built-in
@@ -83,10 +83,10 @@ head(docvars(corp_inaug))
 To get a direct glimpse of corpus content, inspect one or two documents as plain character text.\
 For fast corpus statistics, use:
 
--   `summary(corpus_obj)` for document-level overview,
--   `ndoc(corpus_obj)` for number of documents,
--   `ntoken(corpus_obj)` for total token count,
--   `nfeat(dfm_obj)` once a dfm exists (number of features/columns).
+- `summary(corpus_obj)` for document-level overview,
+- `ndoc(corpus_obj)` for number of documents,
+- `ntoken(corpus_obj)` for total token count,
+- `nfeat(dfm_obj)` once a dfm exists (number of features/columns).
 
 ```{r}
 #| label: corpus-glimpse-and-stats
@@ -143,10 +143,10 @@ summary(corp_recent)
 
 This is the central preprocessing step:
 
--   `tokens()` splits text into tokens,
--   `remove_punct` and `remove_numbers` reduce noise,
--   `tokens_tolower()` normalizes case,
--   `tokens_remove(stopwords("en"))` removes frequent function words.
+- `tokens()` splits text into tokens,
+- `remove_punct` and `remove_numbers` reduce noise,
+- `tokens_tolower()` normalizes case,
+- `tokens_remove(stopwords("en"))` removes frequent function words.
 
 We keep the original corpus unchanged and store transformed text in a new object (`toks_recent`).
 
@@ -192,15 +192,15 @@ kwic(toks_recent, pattern = "democra*", valuetype = "glob") |>
 
 A **document-feature matrix** (`dfm`) is a sparse matrix with:
 
--   rows = documents,
--   columns = features (tokens),
--   cells = feature counts.
+- rows = documents,
+- columns = features (tokens),
+- cells = feature counts.
 
 Why this matrix matters:
 
--   it transforms text into a numeric format required for statistics and machine learning,
--   it is sparse and memory-efficient (important for large corpora),
--   it allows direct operations such as feature selection, weighting, grouping, and modeling.
+- it transforms text into a numeric format required for statistics and machine learning,
+- it is sparse and memory-efficient (important for large corpora),
+- it allows direct operations such as feature selection, weighting, grouping, and modeling.
 
 Typical use cases include keyness analysis, topic/style comparison, supervised classification, and dimensional reduction.
 
@@ -357,9 +357,9 @@ In this exercise, you apply the full quanteda pipeline to one classic text.
 2.  Build a quanteda corpus from the downloaded text.
 3.  Tokenize the corpus (remove stopwords, punctuation and numbers, lowercase).
 4.  Run some `kwic()` searches with a flexible `valuetype` argument (`"fixed"`, `"glob"`, `"regex"`), e.g.:
-    -   an exact search (`"whale"`),
-    -   a wildcard search (`"whal*"`),
-    -   a regex search (`"whal(e|es|ing)"`).
+    - an exact search (`"whale"`),
+    - a wildcard search (`"whal*"`),
+    - a regex search (`"whal(e|es|ing)"`).
 
 ::: {.callout-tip collapse="true"}
 ## Possible solution — Exercise 1
@@ -417,19 +417,19 @@ kwic(toks_moby, pattern = "whal(e|es|ing)", valuetype = "regex", n = 8)
 
 In this exercise, you create a lexical dispersion plot for the **Faust** corpus (*Faust I* + *Faust II*) similar to the quanteda plotting example:
 
--   [quanteda textual data visualization example](https://quanteda.io/articles/pkgdown/examples/plotting.html)
+- [quanteda textual data visualization example](https://quanteda.io/articles/pkgdown/examples/plotting.html)
 
 ### Task
 
 1.  Open the help page for `textplot_xray()` and review:
-    -   required input object(s),
+    - required input object(s),
 
-    -   how multiple `kwic()` objects are passed,
+    - how multiple `kwic()` objects are passed,
 
-    -   main plotting options.
+    - main plotting options.
 2.  Using your Faust Gutenberg data, first collapse line-level rows to one text per title, then create a dispersion plot for, e.g. (or other words):
-    -   `"gretchen"`
-    -   `"teufel"`
+    - `"gretchen"`
+    - `"teufel"`
 
 ::: {.callout-tip collapse="true"}
 ## Possible solution — Exercise 2 (click to expand)
@@ -462,10 +462,10 @@ textplot_xray(
 `ggplot2` is based on the **grammar of graphics**.\
 The core idea is that every plot is built from the same components:
 
--   **data** (the dataset),
--   **aesthetics** (`aes()`: which variable maps to x, y, color, etc.),
--   **geometry** (`geom_*()`: bars, points, lines, polygons),
--   **optional layers** (labels, scales, themes, facets).
+- **data** (the dataset),
+- **aesthetics** (`aes()`: which variable maps to x, y, color, etc.),
+- **geometry** (`geom_*()`: bars, points, lines, polygons),
+- **optional layers** (labels, scales, themes, facets).
 
 The canonical structure is:
 
@@ -485,10 +485,10 @@ Note that the components in ggplot2 are connected with the + sign.
 The dataset `mpg` is included in ggplot2.\
 Each row is a car model observation, with variables such as:
 
--   `class`: vehicle type (SUV, compact, etc.),
--   `manufacturer`: car brand,
--   `displ`: engine displacement (liters),
--   `hwy`: highway fuel economy (miles per gallon).
+- `class`: vehicle type (SUV, compact, etc.),
+- `manufacturer`: car brand,
+- `displ`: engine displacement (liters),
+- `hwy`: highway fuel economy (miles per gallon).
 
 It is a good teaching dataset because it contains both categorical and numeric variables. When ggplot2 is loaded, the dataset is immediately available as `mpg`.
 
@@ -520,8 +520,8 @@ ggplot(mpg, aes(x = class)) +
 
 When to use which:
 
--   Use `geom_bar()` if your question is "how many observations are in each category?".
--   Use `geom_col()` if you already calculated a statistic (mean, median, sum) per category.
+- Use `geom_bar()` if your question is "how many observations are in each category?".
+- Use `geom_col()` if you already calculated a statistic (mean, median, sum) per category.
 
 In the first example, ggplot2 performs the counting for us.
 
@@ -564,8 +564,8 @@ ggplot(mean_hwy_by_class, aes(x = class, y = mean_hwy)) +
 
 The `iris` dataset is a classic built-in dataset with 150 flowers from 3 species:
 
--   `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` (numeric measurements),
--   `Species` (categorical label: setosa, versicolor, virginica).
+- `Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width` (numeric measurements),
+- `Species` (categorical label: setosa, versicolor, virginica).
 
 A **boxplot** summarizes distribution (median, quartiles, outliers).\
 A **violin plot** shows the full density shape of the distribution.
@@ -602,10 +602,10 @@ ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
 
 Color options you can discuss with students:
 
--   Set one fixed color: `fill = "steelblue"` in `geom_*()`.
--   Map color/fill to a variable: `aes(fill = Species)`.
--   Use manual palettes: `scale_fill_manual(values = c(...))`.
--   Use ColorBrewer palettes: `scale_fill_brewer(palette = "Set2")`.
+- Set one fixed color: `fill = "steelblue"` in `geom_*()`.
+- Map color/fill to a variable: `aes(fill = Species)`.
+- Use manual palettes: `scale_fill_manual(values = c(...))`.
+- Use ColorBrewer palettes: `scale_fill_brewer(palette = "Set2")`.
 
 ## Scatter plots
 
@@ -652,8 +652,8 @@ Tasks:
 
 1.  Create a simple count plot of `class` with `geom_bar()`.
 2.  Build a summary table with:
-    -   `mean_hwy` (mean of `hwy`) by `class`
-    -   `sum_cty` (sum of `cty`) by `class`
+    - `mean_hwy` (mean of `hwy`) by `class`
+    - `sum_cty` (sum of `cty`) by `class`
 3.  Plot both summaries with `geom_col()` (two separate plots)
 
 ::: {.callout-tip collapse="true"}

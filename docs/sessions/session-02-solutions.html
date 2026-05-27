@@ -143,11 +143,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../sessions/session-04.html"> 
-<span class="menu-text">Session 4 (Viz/Stats)</span></a>
+<span class="menu-text">Session 4</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../sessions/session-05.html"> 
 <span class="menu-text">Session 5</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sessions/session-06.html"> 
+<span class="menu-text">Session 6</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -465,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>extra_book <span class="ot">&lt;-</span> <span class="fu">gutenberg_download</span>(random_choice<span class="sc">$</span>gutenberg_id, <span class="at">meta_fields =</span> <span class="st">"title"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Using mirror https://aleph.pglaf.org.</code></pre>
+<pre><code>Using mirror https://gutenberg.pglaf.org.</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>extra_top_words <span class="ot">&lt;-</span> extra_book <span class="sc">|&gt;</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span></span>
@@ -575,7 +579,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    &lt;chr&gt;            &lt;chr&gt;        &lt;int&gt;   &lt;dbl&gt;
  1 The Time Machine traveller       57 0.00556
  2 The Time Machine morlocks        48 0.00468
- 3 The Time Machine weena           46 0.00448
+ 3 The Time Machine weena           46 0.00449
  4 The Time Machine machine         88 0.00317
  5 The Time Machine sphinx          24 0.00234
  6 The Time Machine psychologist    23 0.00224
@@ -656,7 +660,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 3 × 4
   title                       total_tokens unique_tokens lexical_diversity
   &lt;chr&gt;                              &lt;int&gt;         &lt;int&gt;             &lt;dbl&gt;
-1 The Time Machine                   11268          4172             0.370
+1 The Time Machine                   11267          4171             0.370
 2 The island of Doctor Moreau        15629          4897             0.313
 3 The War of the Worlds              22868          6352             0.278</code></pre>
 </div>

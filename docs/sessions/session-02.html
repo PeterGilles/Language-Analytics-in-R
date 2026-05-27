@@ -143,11 +143,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../sessions/session-04.html"> 
-<span class="menu-text">Session 4 (Viz/Stats)</span></a>
+<span class="menu-text">Session 4</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../sessions/session-05.html"> 
 <span class="menu-text">Session 5</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../sessions/session-06.html"> 
+<span class="menu-text">Session 6</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -511,7 +515,7 @@ $ HOMMES_MAJEURS  &lt;dbl&gt; 1234, 575, 1177, 927, 3798, 4573, 1286, 1587, 1450
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">meta_fields =</span> <span class="fu">c</span>(<span class="st">"author"</span>, <span class="st">"title"</span>)</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Using mirror https://aleph.pglaf.org.</code></pre>
+<pre><code>Using mirror https://gutenberg.pglaf.org.</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>gutenberg_books</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -547,7 +551,7 @@ $ HOMMES_MAJEURS  &lt;dbl&gt; 1234, 575, 1177, 927, 3798, 4573, 1286, 1587, 1450
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>tokens</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 49,702 × 4
+<pre><code># A tibble: 49,697 × 4
    gutenberg_id author         title                     word        
           &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;                     &lt;chr&gt;       
  1           12 Carroll, Lewis Through the Looking-Glass illustration
@@ -560,7 +564,7 @@ $ HOMMES_MAJEURS  &lt;dbl&gt; 1234, 575, 1177, 927, 3798, 4573, 1286, 1587, 1450
  8           12 Carroll, Lewis Through the Looking-Glass fulcrum     
  9           12 Carroll, Lewis Through the Looking-Glass edition     
 10           12 Carroll, Lewis Through the Looking-Glass 1.7         
-# ℹ 49,692 more rows</code></pre>
+# ℹ 49,687 more rows</code></pre>
 </div>
 </div>
 <p>What happens:</p>
@@ -670,14 +674,14 @@ $ HOMMES_MAJEURS  &lt;dbl&gt; 1234, 575, 1177, 927, 3798, 4573, 1286, 1587, 1450
 10 Pride and Prejudice       catherine   116 0.00203
 11 Through the Looking-Glass alice       447 0.0310 
 12 Through the Looking-Glass queen       183 0.0127 
-13 Through the Looking-Glass it’s         92 0.00637
+13 Through the Looking-Glass it’s         92 0.00638
 14 Through the Looking-Glass knight       59 0.00409
 15 Through the Looking-Glass dumpty       55 0.00381
 16 Through the Looking-Glass humpty       55 0.00381
 17 Through the Looking-Glass that’s       45 0.00312
 18 Through the Looking-Glass didn’t       37 0.00256
-19 Through the Looking-Glass couldn’t     36 0.00249
-20 Through the Looking-Glass i’ll         36 0.00249</code></pre>
+19 Through the Looking-Glass couldn’t     36 0.00250
+20 Through the Looking-Glass i’ll         36 0.00250</code></pre>
 </div>
 </div>
 <p>What happens:</p>
@@ -884,28 +888,28 @@ Here we use three works by the German author <strong>Hermann Hesse</strong> from
 <span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a>lod_entries <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 20 × 4
-   lemma                    ipa           n_en_translations first_en_translation
-   &lt;chr&gt;                    &lt;chr&gt;                     &lt;int&gt; &lt;chr&gt;               
- 1 qualifizéieren           kɑlifitsˈɜɪə…                 1 to qualify (for)    
- 2 embêtéiert               ɑ̃ːmbɛːtˈɜɪɐt                  2 to be embarrassed   
- 3 Späicherliicht           ʃpæːɪɕɐlˈiːɕt                 1 skylight            
- 4 Hongkong                 &lt;NA&gt;                          1 Hong Kong           
- 5 Choreographie            koʀeoɡʀɑfˈiː                  0 &lt;NA&gt;                
- 6 Bléckkontakt             &lt;NA&gt;                          2 eye contact         
- 7 léierräich               lˈɜɪɐʀæːɪɕ                    0 &lt;NA&gt;                
- 8 Meitnerium               mɑɪtnˈeːʀium                  1 meitnerium          
- 9 Col                      kol                           2 collar              
-10 Stéifschwëster           ʃtˈɜɪfʃwəstɐ                  1 stepsister          
-11 Urecht                   ˈuʀæɕt                        1 right               
-12 Häerz-Kreeslaf-Krankheet hɛːɐ̯tskʀˈeːs…                 1 cardiovascular dise…
-13 Nohëllef                 nˈoːhələf                     2 coaching            
-14 Feldhärin                fˈælthɛːʀin                   2 general             
-15 Är                       ɛːɐ̯                           8 your                
-16 Versement                vˈɛʀsəmɑ̃ː                     2 deposit             
-17 Ochs                     oks                           2 ox                  
-18 genau                    ɡenˈɑʊ                        0 &lt;NA&gt;                
-19 erofkucken               əʀˈoːfkukən                   1 to look down        
-20 gewinnen                 ɡəvˈinən                      3 to get used to      </code></pre>
+   lemma              ipa                 n_en_translations first_en_translation
+   &lt;chr&gt;              &lt;chr&gt;                           &lt;int&gt; &lt;chr&gt;               
+ 1 ofwiesslungsräich  &lt;NA&gt;                                2 varied              
+ 2 wéineg             vˈɜɪnəɕ                            11 little              
+ 3 Joint              dʒɔɪnt                              1 joint               
+ 4 Spriechstonn       ʃpʀˈiəɕʃton                         2 opening hours       
+ 5 Sproochegesetz     ʃpʀˈoːχəɡəzæts                      1 language law        
+ 6 Fusiounsgesetz     fuzi̯ˈəʊnsɡəzæts                     0 &lt;NA&gt;                
+ 7 Haaptpräis         hˈaːptpʀæːɪs                        1 first prize         
+ 8 Dilettant          dilætˈɑnt                           1 dilettante          
+ 9 Hännes             hˈænəs                              1 fool                
+10 enger              ˈæŋɐ                                3 one                 
+11 Welsdref           vˈælsdʀəf                           1 Welsdorf            
+12 St. George's       &lt;NA&gt;                                1 St George's         
+13 Heizung            hˈɑɪtsuŋ                            1 (central) heating   
+14 Dommheetsfeeler    &lt;NA&gt;                                0 &lt;NA&gt;                
+15 Verveine           &lt;NA&gt;                                0 &lt;NA&gt;                
+16 Epicier            epˈisi̯eː                            1 grocer              
+17 fléck              &lt;NA&gt;                                0 &lt;NA&gt;                
+18 formal             fɔʀmˈaːl                            2 formal              
+19 Ierbessenzielerei  iːɐ̯bəsəntsiələʀˈɑɪ                  2 nit-picking         
+20 Assemblée générale ɑsɑ̃ːmblˈeːʒeːneːʀˈ…                 1 general meeting     </code></pre>
 </div>
 </div>
 <p>What happens:</p>
@@ -925,28 +929,28 @@ Here we use three works by the German author <strong>Hermann Hesse</strong> from
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 20 × 2
-   first_en_translation           n
-   &lt;chr&gt;                      &lt;int&gt;
- 1 ball                           2
- 2 general                        2
- 3 paediatrician                  2
- 4 professional                   2
- 5 pure                           2
- 6 researcher                     2
- 7 to assist                      2
- 8 to change                      2
- 9 to smoke                       2
-10 to squeeze together            2
-11 to tear off                    2
-12 to tie up                      2
-13 (Sicilian) Mafia               1
-14 (air) turbulence               1
-15 (bubonic) plague               1
-16 (lasting) for hours            1
-17 (local) planning authority     1
-18 (protective) vaccination       1
-19 (railway) station              1
-20 (yellow) ochre                 1</code></pre>
+   first_en_translation       n
+   &lt;chr&gt;                  &lt;int&gt;
+ 1 Afghan                     2
+ 2 Namibian                   2
+ 3 Neimillen                  2
+ 4 Qatari                     2
+ 5 overalls                   2
+ 6 separatist                 2
+ 7 that                       2
+ 8 tiny                       2
+ 9 to approve                 2
+10 to repeat                  2
+11 to spill                   2
+12 to watch                   2
+13 (American) Indian          1
+14 (blood) transfusion        1
+15 (central) heating          1
+16 (common) sense             1
+17 (daily) calendar sheet     1
+18 (female) trainer           1
+19 (racing) cyclist           1
+20 (roller) shutter           1</code></pre>
 </div>
 </div>
 <p>What happens:</p>
